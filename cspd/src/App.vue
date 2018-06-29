@@ -11,9 +11,10 @@ export default {
 }
 </script>
 
-<style>
-
+<style lang="less">
+  @import './style/common';
   .enter-dom{
-    height: 100%;}
+    height: 100%;
+  }
 
 </style>

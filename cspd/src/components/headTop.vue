@@ -2,7 +2,7 @@
   <div class="header_container">
 
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/manage' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item :to="{ path: '/manage' }">{{navTitle}}</el-breadcrumb-item>
       <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
 
@@ -17,12 +17,6 @@
         <el-dropdown-item>退出系统</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
-
-
-
-
-
-
 <!--
     <el-breadcrumb separator="/">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
@@ -55,41 +49,21 @@
 */
 
   export default {
-    /*data(){
+    data(){
       return {
-        baseImgPath,
+        navTitle:''
       }
     },
     created(){
-      if (!this.adminInfo.id) {
-        this.getAdminData()
+        this.navTitle = this.$store.state.navTitle
+    },
+    watch: {
+      navTitle () {
+        return this.$store.state.navTitle
       }
     },
-    computed: {
-      ...mapState(['adminInfo']),
-    },
     methods: {
-      ...mapActions(['getAdminData']),
-      async handleCommand(command) {
-        if (command == 'home') {
-          this.$router.push('/manage');
-        }else if(command == 'singout'){
-          const res = await signout()
-          if (res.status == 1) {
-            this.$message({
-              type: 'success',
-              message: '退出成功'
-            });
-            this.$router.push('/');
-          }else{
-            this.$message({
-              type: 'error',
-              message: res.message
-            });
-          }
-        }
-      },
-    }*/
+    }
   }
 </script>
 

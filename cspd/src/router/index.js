@@ -9,6 +9,7 @@ import "@/asset/style/mixin.less"
 
 
 const login = () => import('@/pages/login.vue')//登录
+const doctor_index = () => import('@/pages/doctor_index.vue')//首页
 const manage = () => import('@/pages/manage.vue')//管理页面
 const personal = () => import('@/pages/personal.vue')//医生的个人中心
 const msg = () => import('@/pages/msg.vue')//消息列表
@@ -31,6 +32,12 @@ export default new Router({
       name: '',
       component: manage,
       children:[
+        {
+          path: '/doctor_index',
+          name: '',
+          component: doctor_index,//首页
+          meta: [],
+        },
         {
           path: '',
           component: personal,
@@ -58,5 +65,6 @@ export default new Router({
         },
       ]
     },
+
   ]
 })

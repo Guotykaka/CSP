@@ -5,16 +5,17 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 const state = {
-  count:0
-}
-
+  count:0,
+  navTitle:'首页',//导航栏文字
+};
 
 
 const getters={
   getcount:function (state) {
     return state.count
-  }
-}
+  },
+  navTitle:state=> state.navTitle
+};
 const mutations = {
   add(state){
     state.count++;
@@ -25,15 +26,12 @@ const mutations = {
     state.count--;
 
   }
-}
+};
 
 const actions={
-
  /* increment:function (context) {
     context.commit('add')
   }*/
-
-
     actionA({ dispatch, commit }) {
       return commit('add');
     },
