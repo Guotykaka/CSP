@@ -4,16 +4,18 @@
       <el-col :span="4"  style="min-height: 100%; background-color: #324057;">
         <el-menu :default-active="defaultActive" style="min-height: 100%;" theme="dark" router>
           <el-submenu index="1">
-            <template slot="title"><i class="el-icon-document"></i>个人中心</template>
-            <el-menu-item index="manage">个人账户</el-menu-item>
-            <el-menu-item index="msg">消息列表</el-menu-item>
+            <template slot="title"><i class="el-icon-document"></i>系统管理</template>
+            <el-menu-item index="notice">公告管理</el-menu-item>
+            <el-menu-item index="msg_queue">消息队列</el-menu-item>
+            <el-menu-item index="dept">部门管理</el-menu-item>
+            <el-menu-item index="user">用户管理</el-menu-item>
           </el-submenu>
           <el-submenu index="2">
-            <template slot="title"><i class="el-icon-plus"></i>服务管理</template>
-            <el-menu-item index="tel_consult">电话咨询</el-menu-item>
-            <el-menu-item index="imgText_consult">图文咨询</el-menu-item>
-            <el-menu-item index="indetification">认证详情</el-menu-item>
-            <el-menu-item index="server_setting">服务设置</el-menu-item>
+            <template slot="title"><i class="el-icon-plus"></i>机构业务</template>
+            <el-menu-item index="institution">机构列表</el-menu-item>
+            <el-menu-item index="medicine_group">医学分组</el-menu-item>
+            <el-menu-item index="report_label">报告标签</el-menu-item>
+            <el-menu-item index="medical_quota">医学指标</el-menu-item>
           </el-submenu>
 
         </el-menu>
@@ -37,45 +39,7 @@
     export default {
       data:function () {
         return{
-          nav:[
-            {
-              itemText:"个人中心",
-              childLists:[
-                {
-                  text:"个人账户",
-                  url:"/manage",
-                  icon:''
-                },{
-                  text:"消息列表",
-                  url:"/manage/msg",
-                  icon:''
-                },
-              ]
-            },{
-              itemText:"服务管理",
-              childLists:[
-                {
-                  text:"电话咨询",
-                  url:"/manage/tel_consult",
-                  icon:''
-                },{
-                  text:"图文咨询",
-                  url:"/manage/imgText_consult",
-                  icon:''
-                },{
-                  text:"认证详情",
-                  url:"/manage/indetification",
-                  icon:''
-                },{
-                  text:"服务设置",
-                  url:"/manage/server_setting",
-                  icon:''
-                },
-              ]
-            },
-
-
-          ]
+        
         }
       },
       computed: {
@@ -131,4 +95,8 @@
   .el-container:nth-child(7) .el-aside {
     line-height: 320px;
   }
+
+  .el-menu--dark {
+    background-color: #324157
+}
 </style>
