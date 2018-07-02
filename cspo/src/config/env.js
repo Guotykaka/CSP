@@ -11,7 +11,7 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = 'http://172.0.0.42:8115/cspd';
+  baseUrl = 'http://172.0.0.42:8116/cspo';
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';

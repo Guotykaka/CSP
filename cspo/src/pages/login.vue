@@ -36,7 +36,7 @@
             password:"",
             captcha:""//验证码
           },
-          imgUrl:"http://172.0.0.42:8115/cspd/captcha.jpg?"+Math.random()
+          imgUrl:"http://172.0.0.42:8116/cspo/captcha.jpg?"+Math.random()
         }
       },
 
@@ -45,7 +45,7 @@
         doLogin:function () {
           login(this.loginParams).then((res) => {
             console.log(res);
-            this.$router.push("manage")
+            //this.$router.push("manage")
 
 
             return Promise.resolve(res.data)
@@ -56,7 +56,7 @@
 
         //刷新验证码
         refreshImg:function () {
-          this.imgUrl="http://172.0.0.42:8115/cspd/captcha.jpg?"+Math.random()
+          this.imgUrl="http://172.0.0.42:8116/cspo/captcha.jpg?"+Math.random()
         }
       }
 
