@@ -36,3 +36,15 @@ export function queryInsServiceDoctorByUserId(data) {
 }
 
 
+//获取用户管理数据
+export function getUserlistData(data) {
+  console.log("getUserlistData");
+  var data = data || {};
+  // const url =baseUrl + '/sys/user/list';
+  // const url =baseUrl + '/sys/workbench/listOrderRefund';
+  const url ='http://localhost:8080/api/list';
+  return axios.post(url, {
+    params: data
+  })
+}
+

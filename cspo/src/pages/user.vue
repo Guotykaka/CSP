@@ -238,6 +238,7 @@
 
 
 <script>
+import {getUserlistData} from "@/api/getData.js"
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -245,7 +246,21 @@ export default {
   },
   data() {
     return {
+      
       selectTable: {},
+      params:{ 
+        // _search: false,
+        // nd: 1530263589411,
+        // limit: 10,
+        // page: 1,
+        // sidx:"" ,
+        // // order: asc,
+        // _: 1530263589255
+
+        limit:	5,
+        page:	1,  
+        refundStatus:	0,  
+        },
       radio: '1',
       currentPage1: 5,
       currentPage2: 5,
@@ -364,7 +379,14 @@ export default {
           })
         })
     }
+  },
+  created:function(){
+
+ 
+  console.log("created!");
+  getUserlistData(this.params)
   }
+
 }
 </script>
 
