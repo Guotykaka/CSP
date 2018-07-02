@@ -1,80 +1,82 @@
 <template>
-  <div class="page-wrapper">
-    <header-top></header-top>
-    <div class="page-container">
-      <!-- 查看 -->
-                      <el-dialog title="查看" :visible.sync="dialogTableVisible">
-                        <el-table :data="gridData">
-                          <el-table-column property="date" label="日期" width="150"></el-table-column>
-                          <el-table-column property="name" label="姓名" width="200"></el-table-column>
-                          <el-table-column property="address" label="地址"></el-table-column>
-                        </el-table>
-                        <div slot="footer" class="dialog-footer">
-                          <el-button @click="dialogTableVisible = false">取 消</el-button>
-                          <el-button type="primary" @click="dialogTableVisible = false">确 定</el-button>
-                        </div>
-                      </el-dialog>
+  <div class="tel-consult">
+    <!--<header-top></header-top>-->
+    ddd
+<!--    <div class="page-wrapper">
+      <div class="page-container">
+        &lt;!&ndash; 查看 &ndash;&gt;
+        <el-dialog title="查看" :visible.sync="dialogTableVisible">
+          <el-table :data="gridData">
+            <el-table-column property="date" label="日期" width="150"></el-table-column>
+            <el-table-column property="name" label="姓名" width="200"></el-table-column>
+            <el-table-column property="address" label="地址"></el-table-column>
+          </el-table>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogTableVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogTableVisible = false">确 定</el-button>
+          </div>
+        </el-dialog>
 
-      <!-- 修改 -->
-                      <el-dialog title="修改" :visible.sync="dialogFormVisible">
-                        <el-form :model="form">
-                          <el-form-item label="用户名" :label-width="formLabelWidth">
-                            <el-input v-model="form.name" auto-complete="off"></el-input>
-                          </el-form-item>
-                          <el-form-item label="邮箱" :label-width="formLabelWidth">
-                            <el-input v-model="form.name" auto-complete="off"></el-input>
-                          </el-form-item>
-                          <el-form-item label="手机号" :label-width="formLabelWidth">
-                            <el-input v-model="form.name" auto-complete="off"></el-input>
-                          </el-form-item>
-                          <el-form-item label="所属部门" :label-width="formLabelWidth">
-                            <el-input v-model="form.name" auto-complete="off"></el-input>
-                          </el-form-item>
-                          <el-col :span="12">
-                              <el-input v-model="askSearch.input" placeholder="请输入"></el-input>
-                          </el-col>
-                          <el-form-item label="活动区域" :label-width="formLabelWidth">
-                            <el-select v-model="form.region" placeholder="请选择活动区域">
-                              <el-option label="区域一" value="shanghai"></el-option>
-                              <el-option label="区域二" value="beijing"></el-option>
-                            </el-select>
-                          </el-form-item>
-                        </el-form>
-                        <div slot="footer" class="dialog-footer">
-                          <el-button @click="dialogFormVisible = false">取 消</el-button>
-                          <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-                        </div>
-                      </el-dialog>
-                  
+        &lt;!&ndash; 修改 &ndash;&gt;
+        <el-dialog title="修改" :visible.sync="dialogFormVisible">
+          <el-form :model="form">
+            <el-form-item label="用户名" :label-width="formLabelWidth">
+              <el-input v-model="form.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱" :label-width="formLabelWidth">
+              <el-input v-model="form.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号" :label-width="formLabelWidth">
+              <el-input v-model="form.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="所属部门" :label-width="formLabelWidth">
+              <el-input v-model="form.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-col :span="12">
+              <el-input v-model="askSearch.input" placeholder="请输入"></el-input>
+            </el-col>
+            <el-form-item label="活动区域" :label-width="formLabelWidth">
+              <el-select v-model="form.region" placeholder="请选择活动区域">
+                <el-option label="区域一" value="shanghai"></el-option>
+                <el-option label="区域二" value="beijing"></el-option>
+              </el-select>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click="dialogFormVisible = false">取 消</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
+          </div>
+        </el-dialog>
+
         <el-header height="30">
           <el-row style="margin-top: 20px;">
             <el-col :span="24" :offset="0">
-               <el-form  :inline="true" :model="formInline" class="" style="height:30px;">
-                  <el-form-item>
-                    <el-input size="small"  placeholder="用户名"></el-input>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button size="small" icon="el-icon-search">查询</el-button>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button size="small" type="primary">查看</el-button>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button size="small" type="primary" icon="el-icon-plus">新增</el-button>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button size="small" type="primary" icon="el-icon-edit-outline">修改</el-button>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button size="small" type="primary" icon="el-icon-delete">删除</el-button>
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button size="small" type="primary" icon="el-icon-refresh">重置密码</el-button>
-                  </el-form-item>
+              <el-form  :inline="true" :model="formInline" class="" style="height:30px;">
+                <el-form-item>
+                  <el-input size="small"  placeholder="用户名"></el-input>
+                </el-form-item>
+                <el-form-item>
+                  <el-button size="small" icon="el-icon-search">查询</el-button>
+                </el-form-item>
+                <el-form-item>
+                  <el-button size="small" type="primary">查看</el-button>
+                </el-form-item>
+                <el-form-item>
+                  <el-button size="small" type="primary" icon="el-icon-plus">新增</el-button>
+                </el-form-item>
+                <el-form-item>
+                  <el-button size="small" type="primary" icon="el-icon-edit-outline">修改</el-button>
+                </el-form-item>
+                <el-form-item>
+                  <el-button size="small" type="primary" icon="el-icon-delete">删除</el-button>
+                </el-form-item>
+                <el-form-item>
+                  <el-button size="small" type="primary" icon="el-icon-refresh">重置密码</el-button>
+                </el-form-item>
               </el-form>
             </el-col>
           </el-row>
-        
+
         </el-header>
         <el-main>
           <template>
@@ -86,9 +88,9 @@
               <el-table-column align="center" prop="phone" label="手机号"></el-table-column>
               <el-table-column align="center" prop="state" label="状态">
                 <template slot-scope="scope">
-                    <div slot="reference" class="name-wrapper">
-                      <el-tag size="medium" type="success">{{ scope.row.state }}</el-tag>
-                    </div>
+                  <div slot="reference" class="name-wrapper">
+                    <el-tag size="medium" type="success">{{ scope.row.state }}</el-tag>
+                  </div>
                 </template>
               </el-table-column>
               <el-table-column align="center" prop="creatTime" label="创建时间"></el-table-column>
@@ -106,22 +108,22 @@
           <el-row style="margin-top: 20%;">
             <el-col :span="24" :offset="6">
               <template>
-                  <el-pagination
-                    @size-change="handleSizeChange"
-                    @current-change="handleCurrentChange"
-                    :current-page="currentPage4"
-                    :page-sizes="[100, 200, 300, 400]"
-                    :page-size="100"
-                    layout="total, sizes, prev, pager, next, jumper"
-                    :total="400">
-                  </el-pagination>
+                <el-pagination
+                  @size-change="handleSizeChange"
+                  @current-change="handleCurrentChange"
+                  :current-page="currentPage4"
+                  :page-sizes="[100, 200, 300, 400]"
+                  :page-size="100"
+                  layout="total, sizes, prev, pager, next, jumper"
+                  :total="400">
+                </el-pagination>
               </template>
             </el-col>
           </el-row>
         </el-footer>
-    </div>
+      </div>
+    </div>-->
   </div>
-  
 </template>
 
 
@@ -230,7 +232,7 @@
       }
     },
   }
- 
+
 </script>
 
 <style scoped>

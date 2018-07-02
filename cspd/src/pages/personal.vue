@@ -1,6 +1,6 @@
 <template>
   <div>
-    <head-top></head-top>
+    <!--<head-top></head-top>-->
     <section class="page-wrapper">
       <el-card class="box-card">
         <el-row :gutter="24">
@@ -49,7 +49,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import '../asset/style/mixin';
+  /*@import '../asset/style/mixin';*/
   .el-row {
     margin-bottom: 20px;
     &:last-child {
@@ -59,19 +59,6 @@
   .el-col {
     border-radius: 4px;
   }
-/*  .bg-purple-dark {
-    background: #99a9bf;
-  }*/
-  /*.bg-purple {
-    background: #d3dce6;
-  }*/
-  /*.bg-purple-light {
-    background: #e5e9f2;
-  }*/
-/*  .grid-content {
-    border-radius: 4px;
-    min-height: 36px;
-  }*/
   .row-bg {
     padding: 10px 0;
     background-color: #f9fafc;

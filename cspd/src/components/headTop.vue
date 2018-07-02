@@ -1,41 +1,18 @@
 <template>
   <div class="header_container">
-
     <el-breadcrumb separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/manage' }">{{navTitle}}</el-breadcrumb-item>
+      <!--<el-breadcrumb-item :to="{ path: '/manage' }">{{navTitle}}</el-breadcrumb-item>-->
       <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
     </el-breadcrumb>
-
-    <el-dropdown>
+<!--    <el-dropdown menu-align='start'>
+      <img class="avator"/>
       <span class="el-dropdown-link">
-        <img class="avator"/>
-        huihui<i class="el-icon-arrow-down el-icon--right"></i>
+        huihui<i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>基础信息</el-dropdown-item>
         <el-dropdown-item>修改密码</el-dropdown-item>
         <el-dropdown-item>退出系统</el-dropdown-item>
-      </el-dropdown-menu>
-    </el-dropdown>
-<!--
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item>首页</el-breadcrumb-item>
-
-      <el-breadcrumb-item v-for="(item, index) in $route.meta" key="index">{{item}}</el-breadcrumb-item>
-
-    </el-breadcrumb>
-    <el-dropdown>
-
-      <img :src="baseImgPath + adminInfo.avatar" class="avator">
-
-      <img class="avator">
-      <el-dropdown-menu>
-        <el-dropdown-item>首页</el-dropdown-item>
-        <el-dropdown-item>退出</el-dropdown-item>
-
-        <el-dropdown-item command="home">首页</el-dropdown-item>
-        <el-dropdown-item command="singout">退出</el-dropdown-item>
-
       </el-dropdown-menu>
     </el-dropdown>-->
   </div>
