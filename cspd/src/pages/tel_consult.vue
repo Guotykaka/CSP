@@ -1,240 +1,226 @@
 <template>
   <div class="tel-consult">
     <!--<header-top></header-top>-->
-    ddd
-<!--    <div class="page-wrapper">
-      <div class="page-container">
-        &lt;!&ndash; 查看 &ndash;&gt;
-        <el-dialog title="查看" :visible.sync="dialogTableVisible">
-          <el-table :data="gridData">
-            <el-table-column property="date" label="日期" width="150"></el-table-column>
-            <el-table-column property="name" label="姓名" width="200"></el-table-column>
-            <el-table-column property="address" label="地址"></el-table-column>
-          </el-table>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogTableVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogTableVisible = false">确 定</el-button>
-          </div>
-        </el-dialog>
-
-        &lt;!&ndash; 修改 &ndash;&gt;
-        <el-dialog title="修改" :visible.sync="dialogFormVisible">
-          <el-form :model="form">
-            <el-form-item label="用户名" :label-width="formLabelWidth">
-              <el-input v-model="form.name" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="邮箱" :label-width="formLabelWidth">
-              <el-input v-model="form.name" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="手机号" :label-width="formLabelWidth">
-              <el-input v-model="form.name" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="所属部门" :label-width="formLabelWidth">
-              <el-input v-model="form.name" auto-complete="off"></el-input>
-            </el-form-item>
-            <el-col :span="12">
-              <el-input v-model="askSearch.input" placeholder="请输入"></el-input>
-            </el-col>
-            <el-form-item label="活动区域" :label-width="formLabelWidth">
-              <el-select v-model="form.region" placeholder="请选择活动区域">
-                <el-option label="区域一" value="shanghai"></el-option>
-                <el-option label="区域二" value="beijing"></el-option>
-              </el-select>
-            </el-form-item>
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogFormVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogFormVisible = false">确 定</el-button>
-          </div>
-        </el-dialog>
-
-        <el-header height="30">
-          <el-row style="margin-top: 20px;">
-            <el-col :span="24" :offset="0">
-              <el-form  :inline="true" :model="formInline" class="" style="height:30px;">
-                <el-form-item>
-                  <el-input size="small"  placeholder="用户名"></el-input>
-                </el-form-item>
-                <el-form-item>
-                  <el-button size="small" icon="el-icon-search">查询</el-button>
-                </el-form-item>
-                <el-form-item>
-                  <el-button size="small" type="primary">查看</el-button>
-                </el-form-item>
-                <el-form-item>
-                  <el-button size="small" type="primary" icon="el-icon-plus">新增</el-button>
-                </el-form-item>
-                <el-form-item>
-                  <el-button size="small" type="primary" icon="el-icon-edit-outline">修改</el-button>
-                </el-form-item>
-                <el-form-item>
-                  <el-button size="small" type="primary" icon="el-icon-delete">删除</el-button>
-                </el-form-item>
-                <el-form-item>
-                  <el-button size="small" type="primary" icon="el-icon-refresh">重置密码</el-button>
-                </el-form-item>
-              </el-form>
-            </el-col>
-          </el-row>
-
-        </el-header>
-        <el-main>
-          <template>
-            <el-table :data="tableData" border style="width: 100%" id="app">
-              <el-table-column align="center" prop="Id" label="Id" width="50"></el-table-column>
-              <el-table-column align="center" prop="name" label="用户名" width="100"></el-table-column>
-              <el-table-column align="center" prop="address" label="所属部门"></el-table-column>
-              <el-table-column align="center" prop="mail" label="邮箱"></el-table-column>
-              <el-table-column align="center" prop="phone" label="手机号"></el-table-column>
-              <el-table-column align="center" prop="state" label="状态">
-                <template slot-scope="scope">
-                  <div slot="reference" class="name-wrapper">
-                    <el-tag size="medium" type="success">{{ scope.row.state }}</el-tag>
-                  </div>
-                </template>
-              </el-table-column>
-              <el-table-column align="center" prop="creatTime" label="创建时间"></el-table-column>
-              <el-table-column align="center" label="操作" width="218">
-                <template slot-scope="scope">
-                  <el-button size="mini" type="info" @click="dialogTableVisible = true">查看</el-button>
-                  <el-button size="mini" type="primary" @click="dialogFormVisible = true">修改</el-button>
-                  <el-button size="mini" type="danger" @click="deleteMessage()">删除</el-button>
-                </template>
-              </el-table-column>
-            </el-table>
+      <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="客户名称">
+          <el-input v-model="formInline.username" placeholder="请输入客户名称"></el-input>
+        </el-form-item>
+        <el-form-item label="客户手机号">
+          <el-input type="number" v-model="formInline.usermobile" placeholder="请输入客户手机号"></el-input>
+        </el-form-item>
+        <el-form-item label="订单号">
+          <el-input type="number" v-model="formInline.userfile" placeholder="请输入订单号"></el-input>
+        </el-form-item>
+        <div class="block" style="display:inline-block;margin-right:20px;">
+          <span class="demonstration">选择时间</span>
+          <el-date-picker
+            v-model="formInline.selDate"
+            type="datetimerange"
+            :picker-options="pickerOptions2"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            align="right">
+          </el-date-picker>
+        </div>
+        <el-form-item>
+          <el-button type="primary" @click="onSubmit" icon="el-icon-search">查询</el-button>
+          <el-button type="primary" @click="onSubmit" icon="el-icon-refresh">重置</el-button>
+        </el-form-item>
+      </el-form>
+      <el-menu
+        :default-active="activeIndex2"
+        class="el-menu-demo"
+        mode="horizontal"
+        @select="handleSelect"
+        background-color="#fff"
+        text-color="#333"
+        active-text-color="#409eff">
+        <el-menu-item index="1">处理中心</el-menu-item>
+        <el-menu-item index="2">客户忙待联系</el-menu-item>
+        <el-menu-item index="3">已完成</el-menu-item>
+        <el-menu-item index="4">已失效（退款）</el-menu-item>
+      </el-menu>
+      <el-table
+        :data="data"
+        border
+        empty-text="暂无数据"
+        :row-style="rowStyle"
+        style="width: 100%;margin-top:20px;color:#000;">
+        <el-table-column
+          type="index"
+          label="序号">
+        </el-table-column>
+        <el-table-column
+          prop="mobile"
+          label="手机号">
+        </el-table-column>
+        <el-table-column
+          prop="orderCode"
+          label="订单号">
+        </el-table-column>
+        <el-table-column
+          prop="itemName"
+          label="服务名称">
+        </el-table-column>
+        <el-table-column
+          prop="orderTime"
+          label="订单日期">
+        </el-table-column>
+        <el-table-column
+          prop="totalPrice"
+          label="支付价格">
+        </el-table-column>
+        <el-table-column
+          label="短信通知">
+          <template slot-scope="scope">
+            <el-button
+              @click.native.prevent="deleteRow(scope.$index, tableData)"
+              type="text"
+              size="medium"style="color:red;">
+              发送短信
+            </el-button>
           </template>
-        </el-main>
-        <el-footer  height="30px">
-          <el-row style="margin-top: 20%;">
-            <el-col :span="24" :offset="6">
-              <template>
-                <el-pagination
-                  @size-change="handleSizeChange"
-                  @current-change="handleCurrentChange"
-                  :current-page="currentPage4"
-                  :page-sizes="[100, 200, 300, 400]"
-                  :page-size="100"
-                  layout="total, sizes, prev, pager, next, jumper"
-                  :total="400">
-                </el-pagination>
-              </template>
-            </el-col>
-          </el-row>
-        </el-footer>
-      </div>
-    </div>-->
+        </el-table-column>
+        <el-table-column
+          prop="serviceEndTime"
+          label="服务时间">
+        </el-table-column>
+        <el-table-column
+          prop="remark"
+          label="备注">
+        </el-table-column>
+        <el-table-column
+          label="操作">
+          <template slot-scope="scope">
+            <el-button
+              @click.native.prevent="deleteRow(scope.$index, tableData)"
+              type="text"
+            style="font-size:16px;">
+             <i class="el-icon-tickets"></i>
+            </el-button>
+            <el-button
+              @click.native.prevent="deleteRow(scope.$index, tableData)"
+              type="text"
+            style="font-size:16px;">
+             <i class="el-icon-phone-outline"></i>
+            </el-button>
+            <el-button
+              @click.native.prevent="deleteRow(scope.$index, tableData)"
+              type="text"
+            style="font-size:16px;">
+             <i class="el-icon-document"></i>
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
   </div>
 </template>
 
 
 <script>
   import headerTop from "@/components/headTop.vue"
+
   export default {
     components: {
       headerTop,
     },
-     data() {
+    data() {
       return {
-          currentPage1: 5,
-          currentPage2: 5,
-          currentPage3: 5,
-          currentPage4: 4,
-          dialogFormVisible: false,
-        tableData: [{
-          Id:1,
-          creatTime: '2016-05-02',
-          name: 'admin',
-          address: '好卓公司',
-          phone: '13764009077',
-          state: '正常',
-          mail:'2508938@qq.com',
-        }, {
-          Id:2,
-          creatTime: '2016-05-04',
-          name: 'test',
-          address: '技术部',
-          phone: '13764009077',
-          state: '正常',
-          mail:'2508938@qq.com',
-        }, {
-          Id:3,
-          creatTime: '2016-05-01',
-          name: 'test2',
-          address: '运营部',
-          phone: '13764009077',
-          state: '正常',
-          mail:'2508938@qq.com',
-        }, {
-          Id:4,
-          creatTime: '2016-05-03',
-          name: 'doctor',
-          address: '健管部',
-          phone: '13764009077',
-          state: '正常',
-          mail:'2508938@qq.com',
-        }],
-          gridData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }],
-        dialogTableVisible: false,
-        dialogFormVisible: false,
-        form: {
-          name: '',
-          region: '',
-          date1: '',
-          date2: '',
-          delivery: false,
-          type: [],
-          resource: '',
-          desc: ''
+        formInline: {
+          username: '',
+          usermobile: '',
+          userfile: '',
+          selDate: ''
         },
-        formLabelWidth: '120px'
+        pickerOptions2: {
+          shortcuts: [{
+            text: '最近一周',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近一个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+              picker.$emit('pick', [start, end]);
+            }
+          }, {
+            text: '最近三个月',
+            onClick(picker) {
+              const end = new Date();
+              const start = new Date();
+              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+              picker.$emit('pick', [start, end]);
+            }
+          }]
+        },
+        data: [{
+          checkUnitCode:"bjbr002",
+          cspCustomId:"12ade660-1c73-4efb-898d-a06b11e189f1",
+          cspOrderId:"2c8080aa64591d2101645a69d16001ad",
+          customerAge:null,
+          customerDesc:null,
+          customerImgs:null,
+          customerMobile:"17740877123",
+          customerName:null,
+          customerSex:null,
+          imageSrc:"http://zhangshangtijian.b0.upaiyun.com/default/DefaultUserHeader/6.jpg",
+          instruction:null,
+          itemId:"8ab2b2f56381c35a016381c35a400000",
+          itemName:"电话报告解读",
+          mobile:"17740877123",
+          orderCode:"20180702175401616782_01",
+          orderServiceStatus:0,
+          orderTime:"2018-07-02 17:54:01",
+          realName:"zuolih",
+          refundReason:null,
+          remark:null,
+          replyStatus:1,
+          serviceBeginTime:null,
+          serviceEndTime:null,
+          smsCount:null,
+          smsNumTimes:0,
+          totalPrice:"0.10",
+          tradeDetailId:"2c8080aa64591d2101645a69d15f01ab",
+          workNo:"143608900486239"
+        }],
+        activeIndex2:'1'
       }
     },
-     methods: {
-      handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
+    created() {
+
+    },
+    methods: {
+      onSubmit() {
+        console.log('submit!');
       },
-      handleCurrentChange(val) {
-        console.log(`当前页: ${val}`);
+      /*选择状态*/
+      handleSelect(key, keyPath) {
+        console.log(key, keyPath);
       },
-       deleteMessage() {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning',
-          center: true
-        }).then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          });
-        }).catch(() => {
-          this.$message({
-            type: 'warning ',
-            message: '已取消删除'
-          });
-        });
+      /*设置单元格样式*/
+      rowStyle({row,column,rowIndex}){
+        console.log(row)
+        console.log(column)
+        if (column === 0) {
+          return 'color:green'
+        } else {
+          return ''
+        }
       }
     },
   }
 
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
+  .tel-consult {
+    line-height: 32px;
+  }
 </style>

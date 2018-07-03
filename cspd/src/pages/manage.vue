@@ -42,9 +42,9 @@
             router>
             <el-menu-item index="manage">系统公告</el-menu-item>
             <el-menu-item index="call_doctor">联系医助</el-menu-item>
-            <el-menu-item index="3"><a href="https://www.ele.me" target="_blank">消息</a></el-menu-item>
+            <el-menu-item index="msg">消息</el-menu-item>
             <el-submenu index="2">
-              <template slot="title">huihui</template>
+              <template slot="title"><img src="http://zhangshangtijian.b0.upaiyun.com/http:/zhangshangtijian.b0.upaiyun.com/XblEMw5Z9eTUlRykheECyQfsJkXviObW.png" style="padding-right:10px;width:20px;height:20px;-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;" alt="">huihui</template>
               <el-menu-item index="2-1">基础信息</el-menu-item>
               <el-menu-item index="2-2">修改密码</el-menu-item>
               <el-menu-item index="2-3">退出系统</el-menu-item>
@@ -111,7 +111,7 @@
   .el-main {
     background-color: #FFf;
     color: #333;
-    text-align: center;
+    /*text-align: center;*/
     line-height: 160px;
     height:100%;
     padding-top:0;
