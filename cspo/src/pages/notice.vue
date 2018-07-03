@@ -81,28 +81,28 @@
           <el-form :model="selectTable">
             <el-form-item label="用户名:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="selectTable.name" auto-complete="off" el readonly></el-input>
+                <el-input v-model="selectTable.username" auto-complete="off" el readonly></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="邮箱:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="selectTable.mail" auto-complete="off" el readonly></el-input>
+                <el-input v-model="selectTable.email" auto-complete="off" el readonly></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="手机号:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="selectTable.phone" auto-complete="off" el readonly></el-input>
+                <el-input v-model="selectTable.mobile" auto-complete="off" el readonly></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="所属部门:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="selectTable.address" auto-complete="off" el readonly></el-input>
+                <el-input v-model="selectTable.deptName" auto-complete="off" el readonly></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="角色:" :label-width="formLabelWidth">
               <template>
-                <el-checkbox-group v-model="checkList">
-                  <el-checkbox label="医生角色" onclick="return false" checked="true"></el-checkbox>
+                <el-checkbox-group v-model="selectTable.checkList">
+                  <el-checkbox label="医生角色" onclick="return false"></el-checkbox>
                   <el-checkbox label="运营人员" onclick="return false"></el-checkbox>
                   <el-checkbox label="健管师" onclick="return false"></el-checkbox>
                   <el-checkbox label="医生主任" onclick="return false"></el-checkbox>
@@ -119,9 +119,9 @@
               </template>
             </el-form-item>
             <el-form-item label="状态:" :label-width="formLabelWidth">
-              <template>
-                <el-radio v-model="radio" label="1">禁用</el-radio>
-                <el-radio v-model="radio" label="2">正常</el-radio>
+              <template  slot-scope="scope">
+                <el-radio v-model="selectTable.userType" label="0" onclick="return false">禁用</el-radio>
+                <el-radio v-model="selectTable.userType" label="1" onclick="return false">正常</el-radio>
               </template>
             </el-form-item>
           </el-form>
@@ -196,20 +196,20 @@
         <!-- 列表 -->
         <template>
           <el-table :data="tableData" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="Id" label="Id" width="50"></el-table-column>
-            <el-table-column align="center" prop="name" label="用户名" width="100"></el-table-column>
-            <el-table-column align="center" prop="address" label="所属部门"></el-table-column>
-            <el-table-column align="center" prop="mail" label="邮箱"></el-table-column>
-            <el-table-column align="center" prop="phone" label="手机号"></el-table-column>
+            <el-table-column align="center" prop="userId" label="Id" width="50"></el-table-column>
+            <el-table-column align="center" prop="username" label="用户名" width="100"></el-table-column>
+            <el-table-column align="center" prop="deptName" label="所属部门"></el-table-column>
+            <el-table-column align="center" prop="email" label="邮箱"></el-table-column>
+            <el-table-column align="center" prop="mobile" label="手机号"></el-table-column>
             <el-table-column align="center" label="状态">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.state === 1">正常</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.state === 2">禁用</el-tag>
+                  <el-tag size="medium" type="success" v-if="scope.row.status === 1">正常</el-tag>
+                  <el-tag size="medium" type="danger" v-if="scope.row.status === 2">禁用</el-tag>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="creatTime" label="创建时间"></el-table-column>
+            <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
             <el-table-column align="center" label="操作" width="350">
               <template slot-scope="scope">
                 <el-button size="mini" type="info" @click="handleEdit(scope.$index, scope.row)">查看</el-button>
@@ -273,60 +273,6 @@ export default {
       checkList: ['选中且禁用', '复选框 A'],
       formInline:{},
 
-      // 模拟后台数据
-      // tableData: [
-      //   {
-      //     Id: 1,
-      //     creatTime: '2016-05-02',
-      //     name: 'admin',
-      //     address: '好卓公司',
-      //     phone: '13764009077',
-      //     state: 1,
-      //     mail: '2508938@qq.com',
-      //     // 原数据
-      //     createTime: '2016-11-11 11:11:11',
-      //     deptId: 1,
-      //     deptName: '好卓公司',
-      //     email: '250893328@qq.com',
-      //     mobile: '13764009077',
-      //     password:
-      //       '969d28606deb2d5b498f19b1f142ae7534a3998d30ee4eddd2227c1970892498',
-      //     roleIdList: null,
-      //     salt: 'CbLYM3dU4zAdxBaGnWfW',
-      //     status: 1,
-      //     userId: 1,
-      //     userType: 0,
-      //     username: 'admin',
-      //   },
-      //   {
-      //     Id: 2,
-      //     creatTime: '2016-05-04',
-      //     name: 'test',
-      //     address: '技术部',
-      //     phone: '13764009077',
-      //     state: 2,
-      //     mail: '2508938@qq.com'
-      //   },
-      //   {
-      //     Id: 3,
-      //     creatTime: '2016-05-01',
-      //     name: 'test2',
-      //     address: '运营部',
-      //     phone: '13764009077',
-      //     state: 1,
-      //     mail: '2508938@qq.com'
-      //   },
-      //   {
-      //     Id: 4,
-      //     creatTime: '2016-05-03',
-      //     name: 'doctor',
-      //     address: '健管部',
-      //     phone: '13764009077',
-      //     state: 2,
-      //     mail: '2508938@qq.com'
-      //   }
-      // ],
-
       form: {
         name: '111',
         region: '111',
@@ -348,12 +294,16 @@ export default {
       console.log(`当前页: ${val}`)
     },
 
-    // 编辑
+    // 查看
     handleEdit(index, row) {
       this.selectTable = row
       // this.address.address = row.address;
       this.dialogFormVisible = true
-      console.log(this.selectTable)
+      console.log(this.selectTable,"查看列表")
+      console.log(typeof(this.selectTable))
+      console.log(row.roleIdList,"roleIdList")
+      console.log(typeof(row.roleIdList))
+      console.log(row.roleIdList.StuId,"StuId")
       // this.selectedCategory = row.category.split('/');
       // if (!this.categoryOptions.length) {
       //     this.getCategory();
@@ -381,31 +331,45 @@ export default {
           })
         })
     },
-    getUserlistData2(){
-      const restaurants = getUserlistData(this.params);
-                this.tableData = [];
-                restaurants.forEach(item => {
-                    const tableData = {};
-                    tableData.username = item.username;
-                    tableData.email = item.email;
-                    tableData.deptName = item.deptName;
-                    tableData.deptId = item.deptId;
-                    tableData.mobile = item.mobile;
-                    tableData.userId = item.userId;
-                    tableData.status = item.status;
-                    tableData.roleIdList = item.roleIdList;
-                    tableData.createTime = item.createTime;
-                    this.tableData.push(tableData);
-                });
-                console.log("getUserlistData2")
-    }
+    
+    postData () {
+      const url ='http://localhost:8080/api/ratings'
+      this.$http({
+        method: 'post',
+        url: url,
+        data: {
+          name: 'xiaoming',
+          info: '12'
+      }
+   })},
+  get3() {
+  this.$http.post('http://localhost:8080/api/listData').then((response) => {
+   this.tableData = [];
+    response.data.data.forEach(item => {
+        const tableData = {};
+        tableData.username = item.username;
+        tableData.email = item.email;
+        tableData.deptName = item.deptName;
+        tableData.deptId = item.deptId;
+        tableData.mobile = item.mobile;
+        tableData.userId = item.userId;
+        tableData.status = item.status;
+        tableData.roleIdList = item.roleIdList;
+        tableData.createTime = item.createTime;
+        this.tableData.push(tableData);
+    });
+  console.log(this.tableData,"列表数据");
+  return response.data.data;
+  })
+  },
+
   },
   created:function(){
 
  
-  console.log("created!");
   // getUserlistData(this.params);
-   this.getUserlistData2()
+   this.get3();
+   
   }
 
 }

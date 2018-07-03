@@ -15,7 +15,7 @@ var appData = require('../db.json')//加载本地数据文件
 var seller = appData.seller//获取对应的本地数据
 var page = appData.page//获取对应的本地数据
 var goods = appData.goods
-var ratings = appData.ratings
+var ratings = appData
 
 
 const HOST = process.env.HOST
@@ -55,6 +55,12 @@ before(app) {
     res.json({
       errno: 0,
       data: page.list
+    });
+  }),
+  app.post('/api/listData', function (req, res) { // 注意这里改为post就可以了
+    res.json({
+      errno: 0,
+      data: ratings
     });
   })
 },
