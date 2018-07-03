@@ -10,12 +10,19 @@ import "@/asset/style/mixin.less"
 
 const login = () => import('@/pages/login.vue')//登录
 const manage = () => import('@/pages/manage.vue')//管理页面
-const personal = () => import('@/pages/personal.vue')//医生的个人中心
-const msg = () => import('@/pages/msg.vue')//消息列表
-const tel_consult = () => import('@/pages/tel_consult.vue')//电话咨询
-const imgText_consult = () => import('@/pages/imgText_consult.vue')//图为咨询
-const indetification = () => import('@/pages/identification.vue')//认证详情
-const server_setting = () => import('@/pages/server_setting.vue')//服务设置
+const notice = () => import('@/pages/notice.vue')//公告管理
+const msg_queue = () => import('@/pages/msg_queue.vue')//消息队列
+const dept = () => import('@/pages/dept.vue')//部门管理
+const user = () => import('@/pages/user.vue')//用户管理
+const institution = () => import('@/pages/institution.vue')//机构列表
+const medicine_group = () => import('@/pages/medicine_group.vue')//医学分组
+const report_label = () => import('@/pages/report_label.vue')//报告标签
+const medical_quota = () => import('@/pages/medical_quota.vue')//医学指标
+
+//医生管理
+const doctorList = () => import('@/pages/doctorList.vue')//医生列表
+const indentList = () => import('@/pages/identificationList.vue')//认证列表
+
 
 Vue.use(Router)
 
@@ -32,29 +39,45 @@ export default new Router({
       component: manage,
       children:[
         {
-          path: '',
-          component: personal,
-          meta: ["个人中心","个人账户"],//个人账户
+          path: '/notice',
+          component: notice,
+          meta: ["系统管理","公告管理"],//公告管理
         },{
-          path: '/msg',
-          component: msg,
-          meta: ["个人中心","消息列表"],//消息列表
+          path: '/msg_queue',
+          component: msg_queue,
+          meta: ["系统管理","消息队列"],//消息队列
         },{
-          path: '/tel_consult',
-          component: tel_consult,
-          meta: ["服务管理","电话咨询"],//电话咨询
+          path: '/dept',
+          component: dept,
+          meta: ["系统管理","部门管理"],//部门管理
         },{
-          path: '/imgText_consult',
-          component: imgText_consult,
-          meta: ["服务管理","图文咨询"],//图文咨询
+          path: '/user',
+          component: user,
+          meta: ["系统管理","用户管理"],//用户管理
         },{
-          path: '/indetification',
-          component: indetification,//认证详情
-          meta: ["服务管理","认证详情"],
+          path: '/institution',
+          component: institution,
+          meta: ["机构业务","机构列表"],//机构列表
         },{
-          path: '/server_setting',
-          component: server_setting,//服务设置
-          meta: ["服务管理","服务设置"],
+          path: '/medicine_group',
+          component: medicine_group,
+          meta: ["机构业务","医学分组"],//医学分组
+        },{
+          path: '/report_label',
+          component: report_label,//报告标签
+          meta: ["机构业务","报告标签"],
+        },{
+          path: '/medical_quota',
+          component: medical_quota,//医学指标
+          meta: ["机构业务","医学指标"],
+        },{
+          path: '/medical_quota',
+          component: medical_quota,//医学指标
+          meta: ["机构业务","医学指标"],
+        },{
+          path: '/doctorList',
+          component: doctorList,//医生管理 医生列表
+          meta: ["医生管理","医生列表"],
         },
       ]
     },

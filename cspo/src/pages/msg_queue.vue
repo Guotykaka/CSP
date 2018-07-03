@@ -2,7 +2,7 @@
   <div class="page-wrapper">
     <header-top></header-top>
     <div class="page-container">
-      <h3>图文咨询</h3>
+      <h3>消息队列</h3>
     </div>
   </div>
 </template>
@@ -13,9 +13,6 @@
     components: {
       headerTop,
     },
-    created(){
-      this.$store.state.navTitle ='个人中心'
-    }
   }
 </script>
 

@@ -1,8 +1,8 @@
 <template>
-  <div class="page-wrapper">
+  <div class="doctor_index">
     <header-top></header-top>
     <div class="page-container">
-      <h3>图文咨询</h3>
+      <h3>医生首页</h3>
     </div>
   </div>
 </template>
@@ -10,12 +10,14 @@
 <script>
   import headerTop from "@/components/headTop.vue"
   export default {
+    name:'doctor_index',
+
+  created(){
+    this.$store.state.navTitle ='首页'
+  },
     components: {
       headerTop,
     },
-    created(){
-      this.$store.state.navTitle ='个人中心'
-    }
   }
 </script>
 

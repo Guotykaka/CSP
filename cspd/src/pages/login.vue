@@ -24,7 +24,7 @@
 
 <script>
   //引入login的方法
-  import {login} from "@/api/getData.js";
+  import {login} from "../api/getData.js";
 
   export default {
       data:function () {
@@ -36,22 +36,23 @@
             password:"",
             captcha:""//验证码
           },
-          imgUrl:"http://172.0.0.42:8115/cspd/captcha.jpg?"+Math.random()
+          // imgUrl:"http://172.0.0.42:8115/cspd/captcha.jpg?"+Math.random()
+          imgUrl:''
         }
       },
 
 
       methods:{
         doLogin:function () {
-          login(this.loginParams).then((res) => {
+
+          this.$router.push("manage")
+/*          login(this.loginParams).then((res) => {
             console.log(res);
             this.$router.push("manage")
-
-
             return Promise.resolve(res.data)
           }).catch(function (error) {
             console.log(error)
-          })
+          })*/
         },
 
         //刷新验证码

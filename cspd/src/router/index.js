@@ -9,12 +9,13 @@ import "@/asset/style/mixin.less"
 
 
 const login = () => import('@/pages/login.vue')//登录
+const doctor_index = () => import('@/pages/doctor_index.vue')//首页
 const manage = () => import('@/pages/manage.vue')//管理页面
 const personal = () => import('@/pages/personal.vue')//医生的个人中心
 const msg = () => import('@/pages/msg.vue')//消息列表
 const tel_consult = () => import('@/pages/tel_consult.vue')//电话咨询
 const imgText_consult = () => import('@/pages/imgText_consult.vue')//图为咨询
-const indetification = () => import('@/pages/identification.vue')//认证详情
+const indetification = () => import('@/pages/identificationList.vue')//认证详情
 const server_setting = () => import('@/pages/server_setting.vue')//服务设置
 
 Vue.use(Router)
@@ -31,6 +32,12 @@ export default new Router({
       name: '',
       component: manage,
       children:[
+        {
+          path: '/doctor_index',
+          name: '',
+          component: doctor_index,//首页
+          meta: [],
+        },
         {
           path: '',
           component: personal,
@@ -58,5 +65,6 @@ export default new Router({
         },
       ]
     },
+
   ]
 })

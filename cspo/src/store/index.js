@@ -1,51 +1,42 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-//import {getAdminInfo} from '@/api/getData'
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const state = {
-  count:0
+  use_name:"huihui",
+  use_avatar:""
 }
-
 
 
 const getters={
-  getcount:function (state) {
-    return state.count
+  getUseName:function (state) {
+    return state.use_name
+  },
+  getUseAvatar:function (state) {
+    return state.use_avatar
   }
 }
+
+
 const mutations = {
-  add(state){
-    state.count++;
+
+  setUseName:function (state, newName) {
+    state.use_name = newName
   },
 
-  minus:function (state) {
-
-    state.count--;
-
+  setUseAvatar:function (state,newAvatar) {
+    state.use_avatar=newAvatar
   }
-}
-
-const actions={
-
- /* increment:function (context) {
-    context.commit('add')
-  }*/
-
-
-    actionA({ dispatch, commit }) {
-      return commit('add');
-    },
-
 
 
 }
+
 
 
 export default new Vuex.Store({
   state,
   mutations,
-  getters,
-  actions
+  getters
+
 })

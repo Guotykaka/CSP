@@ -9,6 +9,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
+//首先
+
+var appData = require('../db.json')//加载本地数据文件
+var seller = appData.seller//获取对应的本地数据
+var page = appData.page//获取对应的本地数据
+var goods = appData.goods
+var ratings = appData.ratings
+
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -22,6 +30,35 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
+    //然后找到devServer,在里面添加
+before(app) {
+  app.get('/api/page', (req, res) => {
+    res.json({
+      errno: 0,
+      // data: seller
+      data: page
+    })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+  }),
+  app.get('/api/list', (req, res) => {
+    res.json({
+      errno: 0,
+      data: page.list
+    })
+  }),
+  app.get('/api/ratings', (req, res) => {
+    res.json({
+      errno: 0,
+      data: ratings
+    })
+  }),
+  app.post('/api/list', function (req, res) { // 注意这里改为post就可以了
+    res.json({
+      errno: 0,
+      data: page.list
+    });
+  })
+},
+
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [
