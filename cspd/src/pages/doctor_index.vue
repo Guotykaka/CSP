@@ -1,6 +1,6 @@
 <template>
-  <div class="doctor_index">
-    <header-top></header-top>
+  <div class="doctor-index">
+    <!--<header-top></header-top>-->
     <div class="page-container">
       <h3>医生首页</h3>
     </div>

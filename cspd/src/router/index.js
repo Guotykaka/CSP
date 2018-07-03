@@ -17,6 +17,7 @@ const tel_consult = () => import('@/pages/tel_consult.vue')//电话咨询
 const imgText_consult = () => import('@/pages/imgText_consult.vue')//图为咨询
 const indetification = () => import('@/pages/identificationList.vue')//认证详情
 const server_setting = () => import('@/pages/server_setting.vue')//服务设置
+const call_doctor = () => import('@/pages/callDoctor.vue')//服务设置
 
 Vue.use(Router)
 
@@ -36,7 +37,7 @@ export default new Router({
           path: '/doctor_index',
           name: '',
           component: doctor_index,//首页
-          meta: [],
+          meta: ["首页"],
         },
         {
           path: '',
@@ -63,8 +64,12 @@ export default new Router({
           component: server_setting,//服务设置
           meta: ["服务管理","服务设置"],
         },
+        {
+          path: '/call_doctor',
+          component: call_doctor,//服务设置
+          meta: ["服务管理","联系医助"],
+        },
       ]
-    },
-
+    }
   ]
 })
