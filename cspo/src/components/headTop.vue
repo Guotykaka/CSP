@@ -14,7 +14,7 @@
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item>基础信息</el-dropdown-item>
         <el-dropdown-item>修改密码</el-dropdown-item>
-        <el-dropdown-item>退出系统</el-dropdown-item>
+        <el-dropdown-item :command="logout">退出系统</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
   </div>
@@ -27,6 +27,26 @@
         'getUseName',
         'getUseAvatar'
       ])
+    },
+
+    methods:{
+      logout:function () {
+
+        alert(555)
+
+
+          this.$alert('这是一段内容', '标题名称', {
+            confirmButtonText: '确定',
+            callback: action => {
+              this.$message({
+                type: 'info',
+                message: `action: ${ action }`
+              });
+            }
+          });
+
+
+      }
     }
 
   }
