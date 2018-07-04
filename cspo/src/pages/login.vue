@@ -47,6 +47,11 @@
           var params=this.loginParams;
           login(params).then(res => {
 
+
+
+            this.$router.push("notice")
+
+
           }).catch(err => {
 
           })

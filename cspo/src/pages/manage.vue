@@ -1,8 +1,12 @@
 <template>
   <div class="manage_page fillcontain">
-    <el-row style="height: 100%;">
+
+
+    <div style="height: 100%;display: flex">
+
+
       <!--左nav-->
-      <el-col :span="4" style="min-height: 100%; background-color:#222d32; min-width: 250px">
+      <div style="min-height: 100%; background-color:#222d32;width: 250px">
         <h2 class="logo-t-text">掌上体检云服务平台</h2>
 
         <!--医生管理-->
@@ -29,14 +33,18 @@
           </el-submenu>
 
         </el-menu>
-      </el-col>
+      </div>
 
       <!--右container-->
-      <el-col :span="20" style="height: 100%;overflow: auto;">
+      <div style="height: 100%;overflow: auto;flex: 1">
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
-      </el-col>
+      </div>
+
+    </div>
+    <el-row>
+
     </el-row>
   </div>
 </template>
