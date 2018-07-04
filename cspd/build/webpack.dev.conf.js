@@ -10,6 +10,28 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
+var appData = require('../data.json');//加载本地数据文件
+var seller = appData.seller//获取对应的本地数据
+var countUserNewsList = appData.countUserNewsList; //获取对应的本地数据
+var userInfo = appData.userInfo;
+var getSysNoticeInfo = appData.getSysNoticeInfo;
+var getDoctorAccountInfo = appData.getDoctorAccountInfo;
+var listAccountRecord = appData.listAccountRecord;
+var getOrderInfo = appData.getOrderInfo;
+var queryPhoneConsultationOrder = appData.queryPhoneConsultationOrder;
+var getSMSTemplate = appData.getSMSTemplate;
+var getOrderNumber = appData.getOrderNumber;
+var list = appData.list;
+var queryInsConsultChatList = appData.queryInsConsultChatList;
+var countUnReadMsgByOrderStatus = appData.countUnReadMsgByOrderStatus;
+var queryTradeDetail = appData.queryTradeDetail;
+var queryDoctorApplyInfo = appData.queryDoctorApplyInfo;
+var queryInsServiceDoctorByUserId = appData.queryInsServiceDoctorByUserId;
+
+
+
+
+
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
 
@@ -22,6 +44,36 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 
   // these devServer options should be customized in /config/index.js
   devServer: {
+    before(app) {
+      app.get('/api/seller', (req, res) => {
+        res.json({
+          errno: 0,
+          data: seller
+        })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+      });
+      app.post('/api/seller', function(req, res){
+        res.json({
+          errno: 0,
+          data: seller
+        })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+      });
+      app.post('/api/getOrderNumber', function(req, res){
+        res.json(getOrderNumber)//获取图文咨询顶部数据
+      });
+      app.post('/api/list', function(req, res){
+        res.json(list)//获取图文咨询订单列表
+      });
+      app.post('/api/queryInsConsultChatList', function(req, res){
+        res.json(queryInsConsultChatList)//相应订单的聊天详情
+      });
+      app.post('/api/countUnReadMsgByOrderStatus', function(req, res){
+        res.json(countUnReadMsgByOrderStatus)//检查信息阅读状态
+      });
+      app.post('/api/queryTradeDetail', function(req, res){
+        res.json(queryTradeDetail)//相应订单详情
+      })
+
+    },
     clientLogLevel: 'warning',
     historyApiFallback: {
       rewrites: [

@@ -9,6 +9,7 @@
 let baseUrl = '';
 let routerMode = 'hash';
 let baseImgPath;
+let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
   baseUrl = 'http://172.0.0.42:8115/cspd';
@@ -21,5 +22,6 @@ if (process.env.NODE_ENV == 'development') {
 export {
   baseUrl,
   routerMode,
-  baseImgPath
+  baseImgPath,
+  localUrl
 }
