@@ -42,53 +42,39 @@
     <!--信息头部-->
     <div class="msg_main">
       <div class="msgLeft">
-        <el-tabs v-model="activeName" @tab-click="handleClick" class="msgleft-head" value="jkjkjlj">
-          <el-tab-pane label="用户管理" name="first"></el-tab-pane>
-          <el-tab-pane label="配置管理" name="second"></el-tab-pane>
-          <el-tab-pane label="角色管理" name="third"></el-tab-pane>
-          <el-tab-pane label="定时任务补偿" name="fourth"></el-tab-pane>
-        </el-tabs>
-        <div class="layui-tab-content"
-             style="height: calc(100% - 42px); overflow: hidden;padding-bottom:50px;padding-left:0; position: relative;">
-          <ul style="overflow: auto;height:100%;margin-right:-30px;" v-if="orderList&&orderList.list">
-            <li class="layui-tab-item layui-show label-main" v-for="(item,index) in orderList.list"
-                v-if="orderList.list.length!==0" :key="index" @click="_getChatDetail(item,index)"
-                :class="{selTrueStyle:selCurrent==index}">
-              <div class="nav-main-top">
-                <div class="main-left fl">
-                            <span style="position:relative;">{{item.customerName}}<b
-                              v-if="item.unReadCount&&item.unReadCount!=0"
-                              class="red-circle"></b></span>
-                </div>
-                <div class="main-right fr">
-                  <a href="javascript:;" @click.stop="detailShow(item)">详情</a>
-                  <span class="servicing" v-show="item.orderServiceStatus==0">待服务</span>
-                  <!--                  <span class="servicing" style="background-color:#e5e5e5;"
-                                          v-show="item.orderServiceStatus==1">客户忙待联系</span>-->
-                  <span class="servicing" style="background-color:#f86b4f;"
-                        v-show="item.orderServiceStatus==2">服务中</span>
-                  <span class="servicing" style="background-color:#999;"
-                        v-show="item.orderServiceStatus==3">已完成</span>
-                  <span class="servicing" style="background-color:#999;"
-                        v-show="item.orderServiceStatus==4">已失效</span>
-                </div>
-              </div>
-              <div class="nav-main-bottom">
-                <span class="fl">{{item.orderTime}}</span>
-                <p class="fr" style="margin-right:32px;"
-                   v-show="item.orderServiceStatus==2||item.orderServiceStatus==0">剩余
-                  <span v-if="item.remainHours!=='0'">{{item.remainHours}}小时</span>
-                  <span v-else>{{item.remainMinuts}}分钟</span>
-                </p>
-              </div>
-            </li>
-          </ul>
-          <div v-if="!orderList||orderList.list<=0"
-               style="font-size: 6px; position: absolute; bottom: 0px;width:100%;background-color:#fff;margin:0 auto;text-align:center;">
-            暂无数据
+        <div class="msgLeftBox">
+          <el-tabs v-model="activeName" @tab-click="handleClick" stretch class="msgleft-head">
+            <el-tab-pane label="待服务" name="first">
+              <tableMain @_getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
+            </el-tab-pane>
+            <el-tab-pane label="服务中" name="second">
+              <tableMain :orderList="orderList"></tableMain>
+            </el-tab-pane>
+            <el-tab-pane label="已完成" name="third">
+              <tableMain :orderList="orderList"></tableMain>
+            </el-tab-pane>
+            <el-tab-pane label="已失效" name="fourth">
+              <tableMain :orderList="orderList"></tableMain>
+            </el-tab-pane>
+          </el-tabs>
+          <div class="pageDetail">
+            <el-pagination
+              v-show="orderList&&orderList.list"
+              @size-change="handleSizeChange"
+              @current-change="handleCurrentChange"
+              :current-page="currentPage4"
+              :page-sizes="[10, 20, 30, 40]"
+              :page-size="10"
+              :pager-count="5"
+              :small="true"
+              layout="total, prev, pager, next"
+              :total="400">
+            </el-pagination>
+            <div v-if="!orderList||orderList.list<=0"
+                 style="font-size: 6px; position: absolute; bottom: 0px;width:100%;background-color:#fff;margin:0 auto;text-align:center;">
+              暂无数据
+            </div>
           </div>
-          <div v-show="orderList&&orderList.list" id="selPage"
-               style="font-size: 6px; position: absolute; bottom: 0px;width:100%;background-color:#fff;margin:0 auto;text-align:center;overflow: hidden"></div>
         </div>
       </div>
       <div class="msgRight" style="flex:1;padding-bottom: 180px;position: relative;overflow: hidden;">
@@ -110,7 +96,7 @@
               </div>
               <div class="user-detail-main">
                 <span>{{chatCircleMsg.customerDesc}}</span>
-                <div style="display: block;margin-top:10px;">
+                <div style="display: block;">
                   <ul @click="showTitleImgs(chatCircleMsg.tradeDetailId)" :id="'img'+chatCircleMsg.tradeDetailId">
                     <li>
                       <!--<img  :src="item.sendMsg" alt="" class="img-msg" style="margin-top:10px;">-->
@@ -216,14 +202,20 @@
 
 <script>
   import headerTop from "@/components/headTop.vue"
+  import tableMain from "@/pages/imgText_consult/tablemain.vue"
+  import {localUrl} from "@/config/env.js"
+  import {api} from '@/api/api';
+  import {storeManager} from '@/api/util.js';
 
   export default {
     components: {
       headerTop,
+      tableMain
     },
     data() {
       return {
-        activeName: 'second',
+        activeName: 'first',
+        currentPage4: 1,
         showText: false,
         uptext: [
           {msg: '你好'},
@@ -265,76 +257,81 @@
       }
     },
     created() {
-      this.$store.state.navTitle = '个人中心'
       this.searchParams.providerServiceUserId = localStorage.getItem("insDoctorId");
       this.receiverId = localStorage.getItem("userId");
       this.avatar = localStorage.getItem("avatar");
       this._getOrderNumber();
       this._getOrderList();
     },
-    mounted: function () {
-      $(function () {
-        new AjaxUpload('#uploadLogo', {
-          action: baseURL + "ins/insConsultChat/upload",
-          name: 'file',
-          autoSubmit: true,
-          responseType: "json",
-          onSubmit: function (file, extension) {
-            // if(vm.config.type == null){
-            //     alert("云存储配置未配置");
-            //     return false;
-            // }
-            if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))) {
-              alert('只支持jpg、png、gif格式的图片！');
-              return false;
-            }
-          },
-          onComplete: function (file, r) {
-            if (r.code === 1) {
-              vm.chatImg = r.data.src;
-              vm.showLogo = true;
-              vm.msgType = 2;
-              // alert(r.url);
-              // vm.reload();
+    /*    mounted: function () {
+          $(function () {
+            new AjaxUpload('#uploadLogo', {
+              action: baseURL + "ins/insConsultChat/upload",
+              name: 'file',
+              autoSubmit: true,
+              responseType: "json",
+              onSubmit: function (file, extension) {
+                // if(vm.config.type == null){
+                //     alert("云存储配置未配置");
+                //     return false;
+                // }
+                if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))) {
+                  alert('只支持jpg、png、gif格式的图片！');
+                  return false;
+                }
+              },
+              onComplete: function (file, r) {
+                if (r.code === 1) {
+                  vm.chatImg = r.data.src;
+                  vm.showLogo = true;
+                  vm.msgType = 2;
+                  // alert(r.url);
+                  // vm.reload();
 
-            } else {
-              alert(r.msg);
-            }
-          }
-        });
-      });
-      layui.use(['element', 'layedit'], function () {
-        var element = layui.element,
-          layedit = layui.layedit; //导航的hover效果、二级菜单等功能，需要依赖element模块
-        element.on('tab(demo)', function (data) {
-          vm.selCurrent = null;
-          console.log(data.index);
-          if (data.index == 0) {
-            vm.searchParams.orderServiceStatus = data.index
-          } else {
-            vm.searchParams.orderServiceStatus = data.index + 1;
-          }
-          vm._getOrderList();
+                } else {
+                  alert(r.msg);
+                }
+              }
+            });
+          });
+          layui.use(['element', 'layedit'], function () {
+            var element = layui.element,
+              layedit = layui.layedit; //导航的hover效果、二级菜单等功能，需要依赖element模块
+            element.on('tab(demo)', function (data) {
+              vm.selCurrent = null;
+              console.log(data.index);
+              if (data.index == 0) {
+                vm.searchParams.orderServiceStatus = data.index
+              } else {
+                vm.searchParams.orderServiceStatus = data.index + 1;
+              }
+              vm._getOrderList();
 
-        });
-        layedit.set({
-          uploadImage: {
-            url: '',//接口url,
-            type: ''//默认post
-          }
-        });
-        layedit.build('demo', {
-          height: 180,
-          tool: [
-            'link',
-            'unlink',
-            'face',
-            'image'
-          ]
-        });
-      });
-    },
+            });
+            layedit.set({
+              uploadImage: {
+                url: '',//接口url,
+                type: ''//默认post
+              }
+            });
+            layedit.build('demo', {
+              height: 180,
+              tool: [
+                'link',
+                'unlink',
+                'face',
+                'image'
+              ]
+            });
+          });
+        },*/
     methods: {
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+      },
       handleClick(tab, event) {
         console.log(tab, event);
       },
@@ -416,29 +413,29 @@
             alert('不能发送空白消息')
           } else if (that.docubleClik) {
             that.docubleClik = false;
-            $.ajax({
-              type: "POST",
-              url: baseURL + "ins/insConsultChat/sendToCustomer",
-              data: JSON.stringify(params),
-              contentType: "application/json",
-              success: function (res) {
-                if (res.code === 1) {
-                  // vm.orderList = res.data;
-                  // vm._initPage(res.data.totalCount);
-                  vm.showMsg = '';
-                  vm.chatImg = null;
-                  vm.showLogo = false;
-                  that.docubleClik = true;
-                  console.log(res.data);
-                  vm.queryInsConsultChatList();
-                  vm._getOrderNumber()
-                  // $('chating-list').scrollTo(0,9999)
-                } else {
-                  that.docubleClik = true;
-                  alert(res.msg)
-                }
-              }
-            });
+            /*            $.ajax({
+                          type: "POST",
+                          url: baseURL + "ins/insConsultChat/sendToCustomer",
+                          data: JSON.stringify(params),
+                          contentType: "application/json",
+                          success: function (res) {
+                            if (res.code === 1) {
+                              // vm.orderList = res.data;
+                              // vm._initPage(res.data.totalCount);
+                              vm.showMsg = '';
+                              vm.chatImg = null;
+                              vm.showLogo = false;
+                              that.docubleClik = true;
+                              console.log(res.data);
+                              vm.queryInsConsultChatList();
+                              vm._getOrderNumber()
+                              // $('chating-list').scrollTo(0,9999)
+                            } else {
+                              that.docubleClik = true;
+                              alert(res.msg)
+                            }
+                          }
+                        });*/
           }
         } else if (this.searchParams.orderServiceStatus !== 3 && this.searchParams.orderServiceStatus !== 4) {
           alert('请选择聊天对象');
@@ -449,11 +446,9 @@
           alert('咨询状态已失效,不能发送消息');
         }
       },
-
-      // POST /ins/imgtextconsultion/updateToInRead
       //获取相应订单的聊天详情
-      _getChatDetail: function (item, index) {
-        this.selCurrent = index;
+      _getChatDetail: function (item,index) {
+        console.log(item)
         this.chatCircle = true;
         this.chatCircleMsg = item;
         this.chatCircleMsgShow = true;
@@ -466,79 +461,70 @@
         this.queryInsConsultChatList();
         //将该客户发给当前医生的未读消息全部更新为已读
         if (item.unReadCount !== '0') {
-          $.ajax({
-            type: "POST",
-            url: baseURL + "ins/imgtextconsultion/updateToInRead",
-            data: params,
-            dataType: "json",
-            success: function (res) {
-              if (res.code === 1) {
-                vm._getMsgCount();
-              } else {
-                alert(res.msg);
-              }
-            }
-          });
+          /*          $.ajax({
+                      type: "POST",
+                      url: baseURL + "ins/imgtextconsultion/updateToInRead",
+                      data: params,
+                      dataType: "json",
+                      success: function (res) {
+                        if (res.code === 1) {
+                          vm._getMsgCount();
+                        } else {
+                          alert(res.msg);
+                        }
+                      }
+                    });*/
         }
         //查看客户评价服务状态cspOrderId
         var par = {
           "cspOrderId": item.cspOrderId
         }
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/insConsultChat/queryOrderComment",
-          data: JSON.stringify(par),
-          dataType: "json",
-          contentType: "application/json",
-          success: function (res) {
-            if (res.code === 1) {
-              vm.commonStatus = res.data;
-            } else {
-              alert(res.msg);
-            }
-          }
-        });
+        /*        $.ajax({
+                  type: "POST",
+                  url: baseURL + "ins/insConsultChat/queryOrderComment",
+                  data: JSON.stringify(par),
+                  dataType: "json",
+                  contentType: "application/json",
+                  success: function (res) {
+                    if (res.code === 1) {
+                      vm.commonStatus = res.data;
+                    } else {
+                      alert(res.msg);
+                    }
+                  }
+                });*/
       },
-      //
       //聊天记录分页查询GET /ins/insConsultChat/queryInsConsultChatList
-      queryInsConsultChatList: function () {
-        var params = {
+      queryInsConsultChatList() {
+        let that = this;
+        let params = {
           "cspOrderId": this.cspOrderId,
           "limit": 1000,
           "page": 1,
           "senderId": this.receiverId,
           "receiverId": this.cspCustomId
         };
-        var that = this;
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/insConsultChat/queryInsConsultChatList",
-          data: JSON.stringify(params),
-          dataType: "json",
-          contentType: "application/json",
-          success: function (res) {
-            if (res.code === 1) {
-              that.chatList = res.data.list;
-            } else {
-              alert(res.msg);
-            }
+        let url = localUrl + 'queryInsConsultChatList';
+        api.queryInsConsultChatList(url, params).then((res) => {
+          let data = res.data;
+          if (data.code === 1) {
+            that.chatList = data.data.list;
+          } else {
+            alert(data.msg);
           }
         });
       },
       //获取顶部统计数量
       _getOrderNumber: function () {
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/imgtextconsultion/getOrderNumber",
-          data: this.searchParams.providerServiceUserId,
-          contentType: "application/json",
-          dataType: "json",
-          success: function (res) {
-            if (res.code === 1) {
-              vm.orderNumber = res.data;
-            } else {
-              alert(res.msg);
-            }
+        let params = this.searchParams.providerServiceUserId,
+          that = this,
+          url = localUrl + 'getOrderNumber';
+        api.getOrderNumber(url, params).then((res) => {
+          let data = res.data;
+          if (data.code === 1) {
+            that.orderNumber = data.data;
+          } else {
+            alert(data.msg);
           }
         });
         this._getMsgCount();
@@ -553,33 +539,23 @@
           "orderServiceStatus": 2,
           "receiverId": this.receiverId
         };
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/imgtextconsultion/countUnReadMsgByOrderStatus",
-          data: JSON.stringify(paramsZ),
-          dataType: "json",
-          contentType: "application/json",
-          success: function (res) {
-            if (res.code === 1) {
-              vm.orderServiceStatusZ = res.data;
-            } else {
-              alert(res.msg);
-            }
+
+        let that = this,
+          url = localUrl + 'countUnReadMsgByOrderStatus';
+        api.countUnReadMsgByOrderStatus(url, paramsZ).then((res) => {
+          let data = res.data;
+          if (data.code === 1) {
+            that.orderServiceStatusZ = data.data;
+          } else {
+            alert(data.msg);
           }
         });
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/imgtextconsultion/countUnReadMsgByOrderStatus",
-          data: JSON.stringify(paramsT),
-          dataType: "json",
-          contentType: "application/json",
-          success: function (res) {
-            if (res.code === 1) {
-              vm.orderServiceStatusT = res.data;
-              console.log(res.data);
-            } else {
-              alert(res.msg);
-            }
+        api.countUnReadMsgByOrderStatus(url, paramsT).then((res) => {
+          let data = res.data;
+          if (data.code === 1) {
+            that.orderServiceStatusT = data.data;
+          } else {
+            alert(data.msg);
           }
         });
       },
@@ -593,32 +569,49 @@
           "pageSize": this.searchParams.pageSize
         };
         this.chatCircleMsgShow = false;
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/imgtextconsultion/list",
-          data: JSON.stringify(params),
-          contentType: "application/json",
-          dataType: "json",
-          success: function (res) {
-            if (res.code === 1) {
-              vm.orderList = res.data;
-              var totalcount = null;
-              if (res.data && res.data.totalCount) {
-                totalcount = res.data.totalCount;
-              } else {
-                totalcount = 1;
-              }
-              vm._initPage(totalcount);
-              console.log(res.data);
+        let url = localUrl + 'list',
+          that = this;
+        api.list(url, params).then((res) => {
+          let data = res.data;
+          if (data.code === 1) {
+            that.orderList = data.data;
+            var totalcount = null;
+            if (data.data && data.data.totalCount) {
+              totalcount = data.data.totalCount;
             } else {
-              alert(res.msg)
+              totalcount = 1;
             }
+            // vm._initPage(totalcount);
+          } else {
+            alert(data.msg)
           }
-        });
+        })
+        // $.ajax({
+        //   type: "POST",
+        //   url: baseURL + "ins/imgtextconsultion/list",
+        //   data: JSON.stringify(params),
+        //   contentType: "application/json",
+        //   dataType: "json",
+        //   success: function (res) {
+        //     if (res.code === 1) {
+        //       vm.orderList = res.data;
+        //       var totalcount = null;
+        //       if (res.data && res.data.totalCount) {
+        //         totalcount = res.data.totalCount;
+        //       } else {
+        //         totalcount = 1;
+        //       }
+        //       vm._initPage(totalcount);
+        //       console.log(res.data);
+        //     } else {
+        //       alert(res.msg)
+        //     }
+        //   }
+        // });
       },
       //分页
       _initPage: function (val) {
-        layui.use('laypage', function () {
+/*        layui.use('laypage', function () {
           var laypage = layui.laypage;
           //完整功能
           laypage.render({
@@ -638,7 +631,7 @@
               }
             }
           });
-        });
+        });*/
       },
       //信息展示
       detailShow: function (val) {
@@ -646,22 +639,22 @@
         this.tradeDetailId = val.tradeDetailId;
         if (this.maskShow) {
           var params = {"tradeDetailId": val.tradeDetailId};
-          $.ajax({
-            type: "POST",
-            url: baseURL + "ins/imgtextconsultion/queryTradeDetail",
-            data: val.tradeDetailId,
-            contentType: "application/json",
-            dataType: "json",
-            success: function (res) {
-              if (res.code === 1) {
-                vm.detailText = res.data;
-                vm.updataeTradeDetail = res.data.remark;
-                console.log(res.data)
-              } else {
-                alert(res.msg)
-              }
-            }
-          });
+          // $.ajax({
+          //   type: "POST",
+          //   url: baseURL + "ins/imgtextconsultion/queryTradeDetail",
+          //   data: val.tradeDetailId,
+          //   contentType: "application/json",
+          //   dataType: "json",
+          //   success: function (res) {
+          //     if (res.code === 1) {
+          //       vm.detailText = res.data;
+          //       vm.updataeTradeDetail = res.data.remark;
+          //       console.log(res.data)
+          //     } else {
+          //       alert(res.msg)
+          //     }
+          //   }
+          // });
         }
       },
       //关闭详情弹框
@@ -676,21 +669,21 @@
           "tradeDetailId": this.tradeDetailId,
           "remark": this.updataeTradeDetail
         };
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/imgtextconsultion/updateTradeDetail",
-          data: JSON.stringify(params),
-          contentType: "application/json",
-          dataType: "json",
-          success: function (res) {
-            if (res.code === 1) {
-              vm.detailText = res.data;
-              console.log(res.data)
-            } else {
-              alert(res.msg)
-            }
-          }
-        });
+        // $.ajax({
+        //   type: "POST",
+        //   url: baseURL + "ins/imgtextconsultion/updateTradeDetail",
+        //   data: JSON.stringify(params),
+        //   contentType: "application/json",
+        //   dataType: "json",
+        //   success: function (res) {
+        //     if (res.code === 1) {
+        //       vm.detailText = res.data;
+        //       console.log(res.data)
+        //     } else {
+        //       alert(res.msg)
+        //     }
+        //   }
+        // });
       },
       delLogo: function () {
         vm.chatLogo = null;
@@ -712,19 +705,19 @@
             return;
           }
           else {
-            $.ajax({
-              type: "POST",
-              url: baseURL + "ins/insConsultChat/sendToCustomer",
-              data: JSON.stringify(params),
-              contentType: "application/json",
-              success: function (res) {
-                if (res.code === 1) {
-                  vm.queryInsConsultChatList();
-                } else {
-                  alert(res.msg)
-                }
-              }
-            });
+            // $.ajax({
+            //   type: "POST",
+            //   url: baseURL + "ins/insConsultChat/sendToCustomer",
+            //   data: JSON.stringify(params),
+            //   contentType: "application/json",
+            //   success: function (res) {
+            //     if (res.code === 1) {
+            //       vm.queryInsConsultChatList();
+            //     } else {
+            //       alert(res.msg)
+            //     }
+            //   }
+            // });
           }
         } else {
           alert('请选择聊天对象')
@@ -739,12 +732,6 @@
             imgSrc[i] = storeManager.uncompile(v)
           });
         }
-
-        // if(val.msgType===2){
-        //   imgSrc = storeManager.uncompile(val.sendMsg)
-        // }else{
-        //   imgSrc = val.sendMsg
-        // }
         return imgSrc;
       },
       //图片预览
@@ -799,11 +786,42 @@
     border-radius: 5px;
     border: 1px solid #e5e5e5;
     position: relative;
-    height: 100%;
+    height: calc(100% - 2px);
     overflow: hidden;
     .msg_main {
       display: flex;
       height: calc(100% - 37px);
+    }
+    .msgLeft {
+      background-color: #eee;
+      border-right: 1px solid #e5e5e5;
+      height: 100%;
+      line-height: 32px;
+      .msgLeftBox{
+        min-width:390px;
+        padding-bottom:50px;
+        position: relative;
+      }
+      .pageDetail {
+        text-align: center;
+        position:absolute;
+        bottom:5px;
+        left:0;
+        right:0;
+      }
+      .table-content {
+        height: calc(100% - 42px);
+        overflow: hidden;
+        padding-bottom: 50px;
+        padding-left: 0;
+        position: relative;
+      }
+      .tcontent-ul {
+        overflow: auto;
+        height: 100%;
+        padding: 0 10px;
+        margin-right: -30px;
+      }
     }
   }
 
@@ -826,14 +844,6 @@
       display: flex;
       justify-content: space-between;
     }
-  }
-
-  .msgLeft {
-    background-color: #eee;
-    border-right: 1px solid #e5e5e5;
-    height: 100%;
-    line-height: 48px;
-    padding: 0 20px;
   }
 
   .msgleft-head .layui-tab-title ul {
@@ -904,27 +914,36 @@
     margin-top: 10px;
   }
 
-  .msgRight .msgRight-header {
-    padding: 0 20px;
-    line-height: 40px;
-    border-bottom: 1px solid #fff;
-    display: block;
-    overflow: hidden;
-    background-color: #e5e5e5;
+  .msgRight{
+    line-height:32px;
+    .msgRight-header {
+      padding: 0 20px;
+      line-height: 40px;
+      border-bottom: 1px solid #fff;
+      display: block;
+      overflow: hidden;
+      background-color: #e5e5e5;
+    }
+    .chat-main {
+      /*height: 586px;*/
+      height: 100%;
+      padding: 10px;
+      overflow: auto;
+      background-color: #e5e5e5;
+      .chating-list {
+        margin-top: 20px;
+        overflow: hidden;
+      }
+      .chating-list ul {
+        overflow: hidden;
+      }
+    }
   }
 
   .chat-box {
     /*height: 576px;*/
     height: 100%;
     overflow: hidden;
-  }
-
-  .msgRight .chat-main {
-    /*height: 586px;*/
-    height: 100%;
-    padding: 10px;
-    overflow: auto;
-    background-color: #e5e5e5;
   }
 
   .user-detail {
@@ -943,14 +962,6 @@
     }
   }
 
-  .chat-main .chating-list {
-    margin-top: 20px;
-    overflow: hidden;
-  }
-
-  .chat-main .chating-list ul {
-    overflow: hidden;
-  }
 
   .img-msg {
     width: 78px;

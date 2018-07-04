@@ -6,8 +6,18 @@
 </template>
 
 <script>
+  import {api} from '@/api/api';
 export default {
-  name: 'App'
+  name: 'App',
+  created(){
+    let url = "http://localhost:8080/api/seller";
+    let params= {
+      name:'hkk'
+    }
+    api.server(url,params).then((res)=>{
+      console.log(res)
+    })
+  }
 }
 </script>
 

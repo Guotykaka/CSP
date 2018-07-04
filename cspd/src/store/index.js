@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
+//引入axios
+
 const state = {
   count:0,
   navTitle:'首页',//导航栏文字
