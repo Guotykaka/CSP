@@ -14,8 +14,8 @@ const portfinder = require('portfinder')
 var appData = require('../db.json')//加载本地数据文件
 var seller = appData.seller//获取对应的本地数据
 var page = appData.page//获取对应的本地数据
-var goods = appData.goods
-var ratings = appData
+var notice = appData.notice
+var user = appData.user
 
 
 const HOST = process.env.HOST
@@ -51,16 +51,16 @@ before(app) {
       data: ratings
     })
   }),
-  app.post('/api/list', function (req, res) { // 注意这里改为post就可以了
+  app.post('/api/noticeList', function (req, res) { // 注意这里改为post就可以了
     res.json({
       errno: 0,
-      data: page.list
+      data: notice
     });
   }),
-  app.post('/api/listData', function (req, res) { // 注意这里改为post就可以了
+  app.post('/api/userList', function (req, res) { // 注意这里改为post就可以了
     res.json({
       errno: 0,
-      data: ratings
+      data: user
     });
   })
 },
