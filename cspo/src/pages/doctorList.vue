@@ -397,9 +397,6 @@
           <el-button size="small" type="primary" @click="closeDialog('benefitData')">取消</el-button>
         </div>
       </el-dialog>
-
-
-
     </div>
   </div>
 
@@ -647,10 +644,7 @@ export default {
     //删除分成
 
     _deleteBenefit(item, index){
-
-
       console.log(item)
-
     }
 
   },
@@ -660,7 +654,6 @@ export default {
   },
 
   computed:{
-
     ...mapGetters(['getDoctorRolesList','getInstitutionArr'])
   }
 
@@ -675,16 +668,11 @@ export default {
 
   .title-note{line-height: 40px;}
   .btn-row{text-align:center;padding-top: 20px;}
-
   .service-label-box{padding-top: 12px;line-height: 18px;}
   .service-label{padding: 0 5px 0 3px}
   .service-label input[type='checkbox']{margin:3px 3px 0 0;display:inline-block;vertical-align: top;}
-
-
   .input-benefit{display: inline-block;width: 100px}
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button{-webkit-appearance: none;}
   input[type="number"]{-moz-appearance: textfield;}
-
-
 </style>

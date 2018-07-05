@@ -4,10 +4,6 @@ import "@/asset/style/common.less"
 import "@/asset/style/mixin.less"
 
 
-
-
-
-
 const login = () => import('@/pages/login.vue')//登录
 const manage = () => import('@/pages/manage.vue')//管理页面
 const notice = () => import('@/pages/notice.vue')//公告管理
@@ -78,6 +74,10 @@ export default new Router({
           path: '/doctorList',
           component: doctorList,//医生管理 医生列表
           meta: ["医生管理","医生列表"],
+        },{
+          path: '/indentList',
+          component: indentList,//医生管理 认证列表
+          meta: ["医生管理","认证列表"],
         },
       ]
     },
