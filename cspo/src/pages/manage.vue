@@ -14,8 +14,8 @@
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-document nav-t-icon"></i>系统管理</template>
             <el-menu-item index="notice">公告管理</el-menu-item>
-            <el-menu-item index="msg_queue">消息队列</el-menu-item>
-            <el-menu-item index="dept">部门管理</el-menu-item>
+            <el-menu-item index="role">角色管理</el-menu-item>
+            <!-- <el-menu-item index="dept">部门管理</el-menu-item> -->
             <el-menu-item index="user">用户管理</el-menu-item>
           </el-submenu>
           <el-submenu index="2">

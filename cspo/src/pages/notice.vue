@@ -3,268 +3,183 @@
     <header-top></header-top>
     <div class="page-container">
       <el-header height="30">
-        <!-- <el-row style="margin-top: 20px;">
-          <el-col :span="24" :offset="0"> -->
-        <el-form :inline="true" :model="formInline" class="" style="height:30px;">
-          <el-form-item>
+        <!--操作行-->
+        <el-row :gutter="20">
+          <el-col :span="6">
             <el-input v-model="formInline.valueBT" placeholder="公告标题"></el-input>
-          </el-form-item>
-          <el-form-item>
+          </el-col>
+          <el-col :span="6">
             <el-select v-model="formInline.valueLX" clearable placeholder="请选择公告类型">
               <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
-              </el-option>
+            </el-option>
             </el-select>
-          </el-form-item>
-          <el-form-item>
+          </el-col>
+          <el-col :span="6">
             <el-select v-model="formInline.valueZT" clearable placeholder="请选择公告状态">
               <el-option v-for="item in formInline.optionsZT" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
-          </el-form-item>
-          </el-form-item>
-          <el-form-item>
+          </el-col>
+
+          <el-col :span="6">
             <el-input v-model="formInline.valueCJR" placeholder="创建人"></el-input>
-          </el-form-item>
-          <el-form-item>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20">
+          <el-col :span="6">
             <el-date-picker v-model="formInline.valueKS" align="right" type="date" placeholder="创建开始时间" :picker-options="formInline.pickerOptions">
             </el-date-picker>
-          </el-form-item>
-          <el-form-item>
+          </el-col>
+
+          <el-col :span="6">
             <el-date-picker v-model="formInline.valueJS" align="right" type="date" placeholder="创建结束时间" :picker-options="formInline.pickerOptions">
             </el-date-picker>
-          </el-form-item>
-          <el-form-item>
-            <el-button size="small" type="primary">搜索</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button size="small" type="primary" @click="handleReset()">重置</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button size="small" type="primary" @click="handleAdd()">新增</el-button>
-          </el-form-item>
-        </el-form>
-        <!-- </el-col>
-        </el-row> -->
+          </el-col>
+
+          <el-col :span="6">
+            <el-button type="primary">搜索</el-button>
+            <el-button type="primary" @click="handleReset()">重置</el-button>
+          </el-col>
+
+        </el-row>
+
+        <!--新增按钮-->
+        <el-row class="m_b_15">
+          <el-button type="primary" @click="handleAdd()">新增</el-button>
+        </el-row>
 
       </el-header>
       <el-main>
         <!-- 修改 -->
         <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
           <el-form :model="editTable">
-            <el-form-item label="用户名:" :label-width="formLabelWidth">
+            <el-form-item label="公告标题:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.username" auto-complete="off" el></el-input>
-                </el-badge>
+                <el-input v-model="editTable.noticeTitle" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
-            <el-form-item label="密码:" :label-width="formLabelWidth">
+            <el-form-item label="公告类型:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.password" auto-complete="off" placeholder="密码" el></el-input>
-                </el-badge>
+                <el-select v-model="editTable.dictName" clearable placeholder="请选择公告状态">
+                  <el-option label="产品推广" value="1"></el-option>
+                  <el-option label="版本升级" value="2"></el-option>
+                </el-select>
               </el-col>
             </el-form-item>
-            <el-form-item label="邮箱:" :label-width="formLabelWidth">
+            <el-form-item label="公告内容:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.email" auto-complete="off" el></el-input>
-                </el-badge>
+                <el-input type="textarea" :rows="4" v-model="editTable.noticeContent" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
-            <el-form-item label="手机号:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.mobile" auto-complete="off" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="所属部门:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.deptName" auto-complete="off" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="角色:" :label-width="formLabelWidth">
-              <template>
-                <el-checkbox-group v-model="editTable.checkList">
-                  <el-checkbox label="医生角色"></el-checkbox>
-                  <el-checkbox label="运营人员"></el-checkbox>
-                  <el-checkbox label="健管师"></el-checkbox>
-                  <el-checkbox label="医生主任"></el-checkbox>
-                  <br>
-
-                  <el-checkbox label="产品"></el-checkbox>
-                  <el-checkbox label="邵勇-角色"></el-checkbox>
-                  <el-checkbox label="sai医生角色"></el-checkbox>
-                  <el-checkbox label="媒体号"></el-checkbox>
-                  <br>
-                  <el-checkbox label="内容编辑"></el-checkbox>
-                  <el-checkbox label="市场部"></el-checkbox>
-                </el-checkbox-group>
-              </template>
-            </el-form-item>
-            <el-form-item label="状态:" :label-width="formLabelWidth">
+            <el-form-item label="接收端:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-radio v-model="editTable.userType" label="0">禁用</el-radio>
-                <el-radio v-model="editTable.userType" label="1">正常</el-radio>
+                <el-checkbox-group v-model="editTable.noticeOsName">
+                  <el-checkbox label="运营端"></el-checkbox>
+                  <el-checkbox label="医生端"></el-checkbox>
+                  <el-checkbox label="企业端"></el-checkbox>
+                </el-checkbox-group>
               </template>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="_doCancel()">取 消</el-button>
-            <el-button type="primary" @click="_doHandleEdit()">确 定</el-button>
+            <el-button type="warning" @click="_doCancel()">取消</el-button>
+            <el-button type="primary" @click="_doHandleEdit()">保存</el-button>
           </div>
         </el-dialog>
 
-        <!-- 查看 -->
-        <el-dialog title="查看" :visible.sync="dialogCheckVisible" width=40%>
+        <!-- 详情 -->
+        <el-dialog title="详情" :visible.sync="dialogCheckVisible" width=40%>
           <el-form :model="selectTable">
-            <el-form-item label="用户名:" :label-width="formLabelWidth">
+            <el-form-item label="公告标题:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="selectTable.username" auto-complete="off" el readonly></el-input>
+                <el-input v-model="selectTable.noticeTitle" auto-complete="off" el readonly></el-input>
               </el-col>
             </el-form-item>
-            <el-form-item label="邮箱:" :label-width="formLabelWidth">
+            <el-form-item label="公告类型:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="selectTable.email" auto-complete="off" el readonly></el-input>
+                <el-input v-model="selectTable.dictName" auto-complete="off" el readonly></el-input>
               </el-col>
             </el-form-item>
-            <el-form-item label="手机号:" :label-width="formLabelWidth">
+            <el-form-item label="公告内容:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="selectTable.mobile" auto-complete="off" el readonly></el-input>
+                <el-input type="textarea" :rows="4" v-model="selectTable.noticeContent" auto-complete="off" el readonly></el-input>
               </el-col>
             </el-form-item>
-            <el-form-item label="所属部门:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-input v-model="selectTable.deptName" auto-complete="off" el readonly></el-input>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="角色:" :label-width="formLabelWidth">
-              <template>
-                <el-checkbox-group v-model="selectTable.checkList">
-                  <el-checkbox label="医生角色" onclick="return false"></el-checkbox>
-                  <el-checkbox label="运营人员" onclick="return false"></el-checkbox>
-                  <el-checkbox label="健管师" onclick="return false"></el-checkbox>
-                  <el-checkbox label="医生主任" onclick="return false"></el-checkbox>
-                  <br>
-
-                  <el-checkbox label="产品" onclick="return false"></el-checkbox>
-                  <el-checkbox label="邵勇-角色" onclick="return false"></el-checkbox>
-                  <el-checkbox label="sai医生角色" onclick="return false"></el-checkbox>
-                  <el-checkbox label="媒体号" onclick="return false"></el-checkbox>
-                  <br>
-                  <el-checkbox label="内容编辑" onclick="return false"></el-checkbox>
-                  <el-checkbox label="市场部" onclick="return false"></el-checkbox>
-                </el-checkbox-group>
-              </template>
-            </el-form-item>
-            <el-form-item label="状态:" :label-width="formLabelWidth">
+            <el-form-item label="接收端:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-radio v-model="selectTable.userType" label="0" onclick="return false">禁用</el-radio>
-                <el-radio v-model="selectTable.userType" label="1" onclick="return false">正常</el-radio>
+                <el-checkbox-group v-model="selectTable.noticeOsName">
+                  <el-checkbox label="运营端" onclick="return false"></el-checkbox>
+                  <el-checkbox label="医生端" onclick="return false"></el-checkbox>
+                  <el-checkbox label="企业端" onclick="return false"></el-checkbox>
+                </el-checkbox-group>
               </template>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogCheckVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogCheckVisible = false">确 定</el-button>
+            <el-button type="warning" @click="dialogCheckVisible = false">返回</el-button>
           </div>
         </el-dialog>
         <!-- 新增 -->
         <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
-          <el-form :model="addTable">
-            <el-form-item label="用户名:" :label-width="formLabelWidth">
+           <el-form :model="addTable">
+            <el-form-item label="公告标题:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="addTable.username" auto-complete="off" el></el-input>
-                </el-badge>
+                <el-input v-model="addTable.noticeTitle" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
-            <el-form-item label="密码:" :label-width="formLabelWidth">
+            <el-form-item label="公告类型:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="addTable.password" auto-complete="off" placeholder="密码" el></el-input>
-                </el-badge>
+                <el-select v-model="addTable.dictName" clearable placeholder="请选择公告状态">
+                  <el-option label="产品推广" value="1"></el-option>
+                  <el-option label="版本升级" value="2"></el-option>
+                </el-select>
               </el-col>
             </el-form-item>
-            <el-form-item label="邮箱:" :label-width="formLabelWidth">
+            <el-form-item label="公告内容:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="addTable.email" auto-complete="off" el></el-input>
-                </el-badge>
+                <el-input type="textarea" :rows="4" v-model="addTable.noticeContent" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
-            <el-form-item label="手机号:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="addTable.mobile" auto-complete="off" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="所属部门:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="addTable.deptName" auto-complete="off" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="角色:" :label-width="formLabelWidth">
-              <template>
-                <el-checkbox-group v-model="addTable.checkList">
-                  <el-checkbox label="医生角色"></el-checkbox>
-                  <el-checkbox label="运营人员"></el-checkbox>
-                  <el-checkbox label="健管师"></el-checkbox>
-                  <el-checkbox label="医生主任"></el-checkbox>
-                  <br>
-
-                  <el-checkbox label="产品"></el-checkbox>
-                  <el-checkbox label="邵勇-角色"></el-checkbox>
-                  <el-checkbox label="sai医生角色"></el-checkbox>
-                  <el-checkbox label="媒体号"></el-checkbox>
-                  <br>
-                  <el-checkbox label="内容编辑"></el-checkbox>
-                  <el-checkbox label="市场部"></el-checkbox>
-                </el-checkbox-group>
-              </template>
-            </el-form-item>
-            <el-form-item label="状态:" :label-width="formLabelWidth">
+            <el-form-item label="接收端:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-radio v-model="addTable.userType" label="0">禁用</el-radio>
-                <el-radio v-model="addTable.userType" label="1">正常</el-radio>
+                <el-checkbox-group v-model="addTable.noticeOsName">
+                  <el-checkbox label="运营端"></el-checkbox>
+                  <el-checkbox label="医生端"></el-checkbox>
+                  <el-checkbox label="企业端"></el-checkbox>
+                </el-checkbox-group>
               </template>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
-            <el-button @click="_doAddCancel()">取 消</el-button>
-            <el-button type="primary" @click="_doAdd()">确 定</el-button>
+            <el-button type="warning" @click="_doAddCancel()">取消</el-button>
+            <el-button type="primary" @click="_doAdd()">保存</el-button>
           </div>
         </el-dialog>
         <!-- 列表 -->
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="noticeTitle" label="公告标题" width="250"></el-table-column>
-            <el-table-column align="center" prop="noticeType" label="类型" width="250"></el-table-column>
-             <el-table-column align="center" label="状态"  width="100">
+            <el-table-column align="center" prop="noticeTitle" label="公告标题"></el-table-column>
+            <el-table-column align="center" prop="noticeType" label="类型" width="350"></el-table-column>
+            <el-table-column align="center" label="状态" width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.noticeStatus === '1'">待发布</el-tag>
-                  <el-tag size="medium" type="info" v-if="scope.row.noticeStatus === '2'">已发布</el-tag>
+                  <el-tag size="medium" type="info" v-if="scope.row.noticeStatus === '1'">待发布</el-tag>
+                  <el-tag size="medium" type="success" v-if="scope.row.noticeStatus === '2'">已发布</el-tag>
                   <el-tag size="medium" type="warning" v-if="scope.row.noticeStatus === '3'">已撤销</el-tag>
                 </div>
               </template>
             </el-table-column>
             <el-table-column align="center" prop="userName" label="创建人"></el-table-column>
             <el-table-column align="center" prop="noticeOsName" label="接收端"></el-table-column>
-           
+
             <el-table-column align="center" prop="createTime" label="最后更新时间"></el-table-column>
-            <el-table-column align="center" label="操作" width="350">
+            <el-table-column label="操作" width="290">
               <template slot-scope="scope">
-                <el-button size="mini" type="primary"  v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-                <el-button plain size="mini" type="warning" v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="deleteCode(scope.$index, scope.row)">重置密码/发布</el-button>
-                <el-button size="mini" type="danger" v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
-                <el-button size="mini" type="info" @click="handleCheck(scope.$index, scope.row)">查看/详情</el-button>
+                <el-button size="mini" type="primary" v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                <el-button size="mini" type="success" v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="ReleaseMessage(scope.$index, scope.row)">发布</el-button>
+                <el-button size="mini" type="danger" v-if="scope.row.noticeStatus === '1'" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
+                <el-button size="mini" type="info" v-if="scope.row.noticeStatus === '2'" @click="RevokeMessage(scope.$index, scope.row)">撤销</el-button>
+                <el-button size="mini" type="warning" @click="handleCheck(scope.$index, scope.row)">详情</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -324,33 +239,37 @@ export default {
           disabledDate(time) {
             // return time.getTime() < Date.now();
           },
-          shortcuts: [{
-            text: '今天',
-            onClick(picker) {
-              picker.$emit('pick', new Date());
+          shortcuts: [
+            {
+              text: '今天',
+              onClick(picker) {
+                picker.$emit('pick', new Date())
+              }
+            },
+            {
+              text: '昨天',
+              onClick(picker) {
+                const date = new Date()
+                date.setTime(date.getTime() - 3600 * 1000 * 24)
+                picker.$emit('pick', date)
+              }
+            },
+            {
+              text: '一周前',
+              onClick(picker) {
+                const date = new Date()
+                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+                picker.$emit('pick', date)
+              }
             }
-          }, {
-            text: '昨天',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24);
-              picker.$emit('pick', date);
-            }
-          }, {
-            text: '一周前',
-            onClick(picker) {
-              const date = new Date();
-              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', date);
-            }
-          }]
+          ]
         },
         valueBT: '',
         valueCJR: '',
         valueLX: '',
         valueZT: '',
         valueKS: '',
-        valueJS: '',
+        valueJS: ''
       },
       currentPage: 1, //分页初始页码
       pagesize: 5, //分页初始显示条数
@@ -359,19 +278,19 @@ export default {
       editTable: {}, //修改单个数据
       editTableRoot: {},
       addTable: {
-        //新增单个数据
-        userId: null,
-        username: '',
-        password: '',
-        salt: '',
-        email: '',
-        mobile: '',
-        status: 1,
-        checkList: [],
-        createTime: '2016-11-11 11:11:11',
-        deptId: 1,
-        deptName: '',
-        userType: ''
+        "noticeOs": "",
+        "releaseTime": null,
+        "sysNoticeId": "",
+        "noticeType": "新增",
+        "userName": "新增",
+        "noticeTitle": "",
+        "noticeOsName": [],
+        "noticeContent": "",
+        "createTime": "",
+        "noticeStatus": "1",
+        "createUser": "新增",
+        "dictName": "",
+        "lastUpdateTime": ""
       }, //新增单个数据
       dialogCheckVisible: false, //查看
       dialogEditVisible: false, //修改
@@ -381,15 +300,15 @@ export default {
     }
   },
   methods: {
-
-    handleReset() {//重置按钮
-        this.formInline.valueCJR = ''
-        this.formInline.valueBT = ''
-        this.formInline.valueLX = ''
-        this.formInline.valueZT = ''
-        this.formInline.valueKS = ''
-        this.formInline.valueJS = ''
-        return false
+    handleReset() {
+      //重置按钮
+      this.formInline.valueCJR = ''
+      this.formInline.valueBT = ''
+      this.formInline.valueLX = ''
+      this.formInline.valueZT = ''
+      this.formInline.valueKS = ''
+      this.formInline.valueJS = ''
+      return false
     },
     handleSizeChange: function(size) {
       this.pagesize = size
@@ -407,40 +326,40 @@ export default {
     // 确定新增
     _doAdd() {
       this.tableData.push(this.addTable)
-      this.addTable = {
-        userId: null,
-        username: '',
-        password: '',
-        salt: '',
-        email: '',
-        mobile: '',
-        status: 1,
-        checkList: [],
-        createTime: '2016-11-11 11:11:11',
-        deptId: 1,
-        deptName: '',
-        userType: ''
-      }
       this.dialogAddVisible = false
-      // console.log(this.addTable.username)
-      // console.log(this.index)
+      this.addTable = {
+        "noticeOs": "",
+        "releaseTime": null,
+        "sysNoticeId": "",
+        "noticeType": "新增",
+        "userName": "新增",
+        "noticeTitle": "",
+        "noticeOsName": [],
+        "noticeContent": "",
+        "createTime": "新增",
+        "noticeStatus": "1",
+        "createUser": "",
+        "dictName": "",
+        "lastUpdateTime": ""
+      }
     },
     //取消新增
     _doAddCancel() {
       this.addTable = {
         //重置新增数据为空
-        userId: null,
-        username: '',
-        password: '',
-        salt: '',
-        email: '',
-        mobile: '',
-        status: 1,
-        checkList: [],
-        createTime: '2016-11-11 11:11:11',
-        deptId: 1,
-        deptName: '',
-        userType: ''
+        "noticeOs": "",
+        "releaseTime": null,
+        "sysNoticeId": "",
+        "noticeType": "新增",
+        "userName": "新增",
+        "noticeTitle": "",
+        "noticeOsName": [],
+        "noticeContent": "",
+        "createTime": "新增",
+        "noticeStatus": "1",
+        "createUser": "",
+        "dictName": "",
+        "lastUpdateTime": ""
       }
       this.dialogAddVisible = false
     },
@@ -459,11 +378,19 @@ export default {
     //确定修改
     _doHandleEdit() {
       this.dialogEditVisible = false
+       this.$message({
+            type: 'success',
+            message: '修改成功!'
+          })
     },
     //取消修改
     _doCancel() {
       this.tableData.splice(this.inde, 1, this.editTableRoot) //删除修改的数据并替换为原始数据
       this.dialogEditVisible = false
+      this.$message({
+            type: 'warning',
+            message: '取消修改'
+          })
     },
     // 删除提示
     deleteMessage(index, row) {
@@ -490,9 +417,9 @@ export default {
           })
         })
     },
-    // 重置密码提示
-    deleteCode(index, row) {
-      this.$confirm('此操作将重置密码, 是否继续?', '提示', {
+    // 发布
+    ReleaseMessage(index, row) {
+      this.$confirm('此操作将发布此公告, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -501,22 +428,45 @@ export default {
         .then(() => {
           this.$message({
             type: 'success',
-            message: '重置密码成功!'
+            message: '发布公告成功!'
           })
-          // console.log(this.tableData[index].username)
           this.tableData[
             index + (this.currentPage - 1) * this.pagesize
-          ].password = null //给密码赋值为空
+          ].noticeStatus = "2" //更改发布状态
         })
         .catch(() => {
           this.$message({
             type: 'warning ',
-            message: '已取消重置密码'
+            message: '已取消发布公告'
+          })
+        })
+    },
+    // 撤销发布
+    RevokeMessage(index, row) {
+      this.$confirm('此操作将撤销发布, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      })
+        .then(() => {
+          this.$message({
+            type: 'success',
+            message: '撤销发布成功!'
+          })
+          this.tableData[
+            index + (this.currentPage - 1) * this.pagesize
+          ].noticeStatus = "3" //更改发布状态
+        })
+        .catch(() => {
+          this.$message({
+            type: 'warning ',
+            message: '已取消撤销发布'
           })
         })
     },
     //获取用户列表
-    getUserList() {
+    getNoticeList() {
       this.$http.post('http://localhost:8080/api/noticeList').then(response => {
         this.tableData = []
         this.tableData = this.tableData.concat(response.data.data)
@@ -540,13 +490,23 @@ export default {
     }
   },
   created: function() {
-    this.getUserList()
+    this.getNoticeList()
   }
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .dot {
   width: 100%;
+}
+.el-select {
+  display: block;
+}
+// .el-date-picker{display: block}
+.el-date-editor {
+  width: 100%;
+}
+.el-input {
+  margin-bottom: 15px;
 }
 </style>

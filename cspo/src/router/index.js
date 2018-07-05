@@ -11,8 +11,8 @@ import "@/asset/style/mixin.less"
 const login = () => import('@/pages/login.vue')//登录
 const manage = () => import('@/pages/manage.vue')//管理页面
 const notice = () => import('@/pages/notice.vue')//公告管理
-const msg_queue = () => import('@/pages/msg_queue.vue')//消息队列
-const dept = () => import('@/pages/dept.vue')//部门管理
+const role = () => import('@/pages/role.vue')//角色管理
+// const dept = () => import('@/pages/dept.vue')//部门管理
 const user = () => import('@/pages/user.vue')//用户管理
 const institution = () => import('@/pages/institution.vue')//机构列表
 const medicine_group = () => import('@/pages/medicine_group.vue')//医学分组
@@ -43,14 +43,16 @@ export default new Router({
           component: notice,
           meta: ["系统管理","公告管理"],//公告管理
         },{
-          path: '/msg_queue',
-          component: msg_queue,
-          meta: ["系统管理","消息队列"],//消息队列
-        },{
-          path: '/dept',
-          component: dept,
-          meta: ["系统管理","部门管理"],//部门管理
-        },{
+          path: '/role',
+          component: role,
+          meta: ["系统管理","角色管理"],//角色管理
+        },
+        // {
+        //   path: '/dept',
+        //   component: dept,
+        //   meta: ["系统管理","部门管理"],//部门管理
+        // },
+        {
           path: '/user',
           component: user,
           meta: ["系统管理","用户管理"],//用户管理

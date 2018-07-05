@@ -12,10 +12,12 @@ const portfinder = require('portfinder')
 //首先
 
 var appData = require('../db.json')//加载本地数据文件
-var seller = appData.seller//获取对应的本地数据
+var role = appData.role//获取角色的本地数据
 var page = appData.page//获取对应的本地数据
-var notice = appData.notice
-var user = appData.user
+var notice = appData.notice//获取公告的本地数据
+var user = appData.user//获取用户的本地数据
+var medicineGroup = appData.medicineGroup//获取医学分组的本地数据
+var report_label = appData.report_label//获取报告标签的本地数据
 
 
 const HOST = process.env.HOST
@@ -61,6 +63,24 @@ before(app) {
     res.json({
       errno: 0,
       data: user
+    });
+  }),
+  app.post('/api/roleList', function (req, res) { // 注意这里改为post就可以了
+    res.json({
+      errno: 0,
+      data: role
+    });
+  }),
+  app.post('/api/medicineGroupList', function (req, res) { // 注意这里改为post就可以了
+    res.json({
+      errno: 0,
+      data: medicineGroup
+    });
+  }),
+  app.post('/api/report_label', function (req, res) { // 注意这里改为post就可以了
+    res.json({
+      errno: 0,
+      data: report_label
     });
   })
 },

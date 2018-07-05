@@ -3,22 +3,17 @@
     <header-top></header-top>
     <div class="page-container">
       <el-header height="30">
-        <!-- <el-row style="margin-top: 20px;">
-          <el-col :span="24" :offset="0"> -->
-        <el-form :inline="true" :model="formInline" class="" style="height:30px;">
-          <el-form-item>
-            <el-input placeholder="用户名"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button size="small" icon="el-icon-search">查询</el-button>
-          </el-form-item>
-          <el-form-item>
-            <el-button size="small" type="primary" icon="el-icon-plus" @click="handleAdd()">新增</el-button>
-          </el-form-item>
-        </el-form>
-        <!-- </el-col>
-        </el-row> -->
-
+        
+      <el-row :gutter="20" class="m_b_15">
+        <el-col :span="6">
+          <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
+        </el-col>
+       
+        <el-col :span="6">
+          <el-button type="primary">查询</el-button>
+          <el-button type="primary" @click="handleAdd()">新增</el-button>
+        </el-col>
+      </el-row>
       </el-header>
       <el-main>
         <!-- 修改 -->
@@ -267,7 +262,7 @@ export default {
   },
   data() {
     return {
-      formInline:{},
+      formInline:{valueSS:''},
       currentPage: 1, //分页初始页码
       pagesize: 5, //分页初始显示条数
       tableData: [], //列表数据
@@ -445,7 +440,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .dot {
   width: 100%;
 }
