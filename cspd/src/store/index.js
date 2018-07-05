@@ -9,6 +9,7 @@ Vue.use(Vuex)
 const state = {
   count:0,
   navTitle:'首页',//导航栏文字
+  detailShow:{},//系统公告详情
 };
 
 
@@ -16,7 +17,8 @@ const getters={
   getcount:function (state) {
     return state.count
   },
-  navTitle:state=> state.navTitle
+  navTitle:state=> state.navTitle,
+  detailShow:state=> state.detailShow,//系统公告详情
 };
 const mutations = {
   add(state){

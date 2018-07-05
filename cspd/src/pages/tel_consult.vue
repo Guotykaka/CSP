@@ -197,13 +197,14 @@
       },
       /*设置单元格样式*/
       rowStyle({row, column, rowIndex}) {
-        console.log(row)
-        console.log(column)
         if (column === 0) {
           return 'color:green'
         } else {
           return ''
         }
+      },
+      deleteRow(index, rows) {
+        rows.splice(index, 1);
       }
     },
   }

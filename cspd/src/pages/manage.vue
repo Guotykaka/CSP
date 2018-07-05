@@ -12,17 +12,9 @@
               active-text-color="#3c8dbc"
               router>
               <el-menu-item index="doctor_index"><i class="el-icon-menu"></i>云服务平台医生端</el-menu-item>
-              <el-submenu index="22">
-                <template slot="title"><i class="icon-icon03 iconfont"></i>个人中心</template>
-                <el-menu-item index="manage"><i class="iconfont icon-zhanghu"></i>个人账户</el-menu-item>
-                <el-menu-item index="msg"><i class="iconfont icon-xiaoxiliebiao"></i>消息列表</el-menu-item>
-              </el-submenu>
-              <el-submenu index="32">
-                <template slot="title"><i class="iconfont icon-fuwuguanli"></i>服务管理</template>
-                <el-menu-item index="tel_consult"><i class="iconfont icon-dianhuazixun"></i>电话咨询</el-menu-item>
-                <el-menu-item index="imgText_consult"><i class="iconfont icon-tuwenzixun"></i>图文咨询</el-menu-item>
-                <el-menu-item index="indetification"><i class="iconfont icon-renzheng"></i>认证详情</el-menu-item>
-                <el-menu-item index="server_setting"><i class="iconfont icon-shezhi"></i>服务设置</el-menu-item>
+              <el-submenu :index="item.name" v-for="(item,index) in navMenu" :key="index">
+                <template slot="title"><i :class="item.icon"></i>{{item.name}}</template>
+                <el-menu-item :index="itemChild.url" v-for="(itemChild,indexChild) in item.list" :key="indexChild"><i :class="itemChild.icon"></i>{{itemChild.name}}</el-menu-item>
               </el-submenu>
             </el-menu>
           </el-col>
@@ -40,7 +32,7 @@
             style="float:right"
             active-text-color="#ffd04b"
             router>
-            <el-menu-item index="manage">系统公告</el-menu-item>
+            <el-menu-item index="announcement">系统公告</el-menu-item>
             <el-menu-item index="call_doctor">联系医助</el-menu-item>
             <el-menu-item index="msg">消息</el-menu-item>
             <el-submenu index="2" class="nav-child-title">
@@ -61,24 +53,22 @@
           </el-breadcrumb>
         </div>
         <el-main>
-
           <keep-alive>
-
             <router-view></router-view>
           </keep-alive>
         </el-main>
       </el-container>
     </el-container>
-
-
   </div>
 </template>
 
 <script>
+  import {localUrl} from "@/config/env.js"
+  import {api} from '@/api/api';
   export default {
     data() {
       return {
-
+        navMenu:[],
         activeIndex2: '1'
       }
     },
@@ -87,10 +77,22 @@
         return this.$route.path.replace('/', '');
       }
     },
+    created(){
+      let url = localUrl+'nav',
+          params = '';
+      api.nav(url,params).then((res)=>{
+        console.log(res)
+        let data = res.data;
+        if(data.code===0){
+          this.navMenu = data.menuList;
+        }
+      })
+    },
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
-      }
+      },
+
     }
   }
 

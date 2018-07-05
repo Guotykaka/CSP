@@ -12,6 +12,7 @@ const portfinder = require('portfinder')
 
 var appData = require('../data.json');//加载本地数据文件
 var seller = appData.seller//获取对应的本地数据
+var nav = appData.nav//获取导航目录
 var countUserNewsList = appData.countUserNewsList; //获取对应的本地数据
 var userInfo = appData.userInfo;
 var getSysNoticeInfo = appData.getSysNoticeInfo;
@@ -27,6 +28,8 @@ var countUnReadMsgByOrderStatus = appData.countUnReadMsgByOrderStatus;
 var queryTradeDetail = appData.queryTradeDetail;
 var queryDoctorApplyInfo = appData.queryDoctorApplyInfo;
 var queryInsServiceDoctorByUserId = appData.queryInsServiceDoctorByUserId;
+var noticeTitleQuery = appData.noticeTitleQuery;
+var getDictionaryByKey = appData.getDictionaryByKey;
 
 
 
@@ -45,11 +48,17 @@ const devWebpackConfig = merge(baseWebpackConfig, {
   // these devServer options should be customized in /config/index.js
   devServer: {
     before(app) {
-      app.get('/api/seller', (req, res) => {
-        res.json({
-          errno: 0,
-          data: seller
-        })//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+      app.get('/api/nav', (req, res) => {
+        res.json(nav)//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+      });
+      app.get('/api/countUserNewsList', (req, res) => {
+        res.json(countUserNewsList)//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+      });
+      app.get('/api/getSysNoticeInfo', (req, res) => {
+        res.json(getSysNoticeInfo)//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
+      });
+      app.post('/api/getDictionaryByKey', (req, res) => {
+        res.json(getDictionaryByKey)//接口返回json数据，上面配置的数据seller就赋值给data请求后调用
       });
       app.post('/api/seller', function(req, res){
         res.json({
@@ -71,6 +80,9 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       });
       app.post('/api/queryTradeDetail', function(req, res){
         res.json(queryTradeDetail)//相应订单详情
+      })
+      app.get('/api/noticeTitleQuery', function(req, res){
+        res.json(noticeTitleQuery)//公告列表
       })
 
     },

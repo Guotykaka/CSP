@@ -45,7 +45,7 @@
       methods:{
         doLogin:function () {
 
-          this.$router.push("manage")
+          this.$router.push("doctor_index")
 /*          login(this.loginParams).then((res) => {
             console.log(res);
             this.$router.push("manage")

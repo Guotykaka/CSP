@@ -1,11 +1,10 @@
 <template>
   <div class="imgText_consult imgtext-main" v-cloak>
-    <!--<header-top></header-top>-->
     <div class="detail-mask" @click.stop="detailClose" v-if="maskShow">
       <div class="mask-circle" @click.stop>
         <div class="mask-header">
           <span class="fl">详细</span>
-          <span class="fr" @click.stop="detailClose">X</span>
+          <span class="fr closeIcon" @click.stop="detailClose">X</span>
         </div>
         <ul class="mask-main">
           <li><span class="fle1">客户手机号</span><span class="fle2">{{detailText.mobile||"暂无数据"}}</span></li>
@@ -14,7 +13,7 @@
           <li><span class="fle1">订单日期</span><span class="fle2">{{detailText.orderTime||"暂无数据"}}</span></li>
           <li><span class="fle1">订单金额</span><span class="fle2">￥{{detailText.totalPrice||"暂无数据"}}</span></li>
           <!--<li><span class="fle1">首次咨询时间</span><span class="fle2">{{detailText.serviceBeginTime||"暂无数据"}}</span></li>-->
-          <li style="height:100px;"><span class="fle1">备注</span>
+          <li style="height:120px;"><span class="fle1">备注</span>
             <div class="fle2">
             <textarea class="flinput" type="text" v-model="updataeTradeDetail"
                       placeholder="输入备注信息，可以帮助您快速回顾历史服务内容"></textarea>
@@ -45,16 +44,17 @@
         <div class="msgLeftBox">
           <el-tabs v-model="activeName" @tab-click="handleClick" stretch class="msgleft-head">
             <el-tab-pane label="待服务" name="first">
-              <tableMain @_getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
+              <tableMain @detailShow="detailShow" @_getChatDetail="_getChatDetail" :orderList="orderList"
+                         :Current="selCurrent"></tableMain>
             </el-tab-pane>
             <el-tab-pane label="服务中" name="second">
-              <tableMain :orderList="orderList"></tableMain>
+              <tableMain @detailShow="detailShow" @_getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
             </el-tab-pane>
             <el-tab-pane label="已完成" name="third">
-              <tableMain :orderList="orderList"></tableMain>
+              <tableMain @detailShow="detailShow" @_getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
             </el-tab-pane>
             <el-tab-pane label="已失效" name="fourth">
-              <tableMain :orderList="orderList"></tableMain>
+              <tableMain @detailShow="detailShow" @_getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
             </el-tab-pane>
           </el-tabs>
           <div class="pageDetail">
@@ -68,7 +68,7 @@
               :pager-count="5"
               :small="true"
               layout="total, prev, pager, next"
-              :total="400">
+              :total="totalcount">
             </el-pagination>
             <div v-if="!orderList||orderList.list<=0"
                  style="font-size: 6px; position: absolute; bottom: 0px;width:100%;background-color:#fff;margin:0 auto;text-align:center;">
@@ -159,8 +159,6 @@
           </div>
         </div>
         <div class="chat-input">
-          <!--<textarea id="demo" style="display: none;" v-model="sigg">-->
-          <!--</textarea>-->
           <div class="input-header">
             <!--<span class="text-left fl" @click="_showText">常用语</span>-->
             <!--<span type="file" class="text-left fl">添加图片</span>-->
@@ -216,7 +214,19 @@
       return {
         activeName: 'first',
         currentPage4: 1,
+        totalcount: null,
         showText: false,
+        dialogImageUrl: '',
+        dialogVisible: false,
+        fileList: [{
+          name: 'food.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+        }, {
+          name: 'food2.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+        }],
+
+
         uptext: [
           {msg: '你好'},
           {msg: '我现在忙,等下和你联系'},
@@ -227,11 +237,11 @@
         orderList: {},//用户列表
         updataeTradeDetail: "",//订单详情备注
         detailText: {},//用户订单详情展示
+        maskShow: false,
         tradeDetailId: "",//
         imglist: [],//添加图片按钮
         chatImg: null,//聊天图片
         showLogo: false,//
-        maskShow: false,
         searchParams: {
           currentPage: 1,//页码
           pageSize: 10,//
@@ -332,46 +342,35 @@
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
       },
-      handleClick(tab, event) {
-        console.log(tab, event);
+      handleClick(tab) {
+        this.selCurrent = null;
+        if (tab.index == 0) {
+          this.searchParams.orderServiceStatus = tab.index
+        } else {
+          this.searchParams.orderServiceStatus = tab.index + 1;
+        }
+        this._getOrderList();
       },
+
       change: function (e) {
         var src, url = window.URL || window.webkitURL || window.mozURL,
-          files = e.target.files;
+          files = e.target.files,
         btnImage = files[0];
         if (!btnImage) {
-          util.showFade('请选择您要上传的图片！');
+          alert('请选择您要上传的图片！');
           return;
         }
         var size = btnImage.size / 1024,
           ext = {},
           extName = btnImage.name.split('.').pop();
         if (ext[extName]) {
-          util.showFade('请选择您要上传的图片！');
+          alert('请选择您要上传的图片！');
           return;
         }
         if (size > 800) {
           alert('请上传800kb以内图片');
           return;
         }
-        var filePath = upYunConstData.ComboConfig.ComboBaseUrl + '/' + randomString(32) + '.' + extName,
-          instance = new Sand({
-            bucket: upYunConstData.ComboConfig.bucket,
-            expiration: parseInt((new Date().getTime() + 3600000) / 1000),
-            form_api_secret: upYunConstData.ComboConfig.form_api_secret
-          })
-        instance.upload(filePath, '#file');
-        // for (let i = 0, len = files.length; i < len; ++i) {
-        //     let file = files[i];
-        //     console.log(file)
-        //     if (url) {
-        //         src = url.createObjectURL(file)
-        //     } else {
-        //         src = e.target.result
-        //     }
-        //     this.src = src;
-        //     this.imglist.push(src)
-        // }
       },
       //常用语显示列表
       _showText: function () {
@@ -447,7 +446,7 @@
         }
       },
       //获取相应订单的聊天详情
-      _getChatDetail: function (item,index) {
+      _getChatDetail: function (item, index) {
         console.log(item)
         this.chatCircle = true;
         this.chatCircleMsg = item;
@@ -560,7 +559,7 @@
         });
       },
       //图文咨询订单分页查询
-      _getOrderList: function () {
+      _getOrderList() {
         var params = {
           "providerServiceUserId": this.searchParams.providerServiceUserId,
           "providerServiceUserType": this.searchParams.providerServiceUserType,
@@ -575,9 +574,8 @@
           let data = res.data;
           if (data.code === 1) {
             that.orderList = data.data;
-            var totalcount = null;
             if (data.data && data.data.totalCount) {
-              totalcount = data.data.totalCount;
+              that.totalcount = data.data.totalCount;
             } else {
               totalcount = 1;
             }
@@ -586,75 +584,47 @@
             alert(data.msg)
           }
         })
-        // $.ajax({
-        //   type: "POST",
-        //   url: baseURL + "ins/imgtextconsultion/list",
-        //   data: JSON.stringify(params),
-        //   contentType: "application/json",
-        //   dataType: "json",
-        //   success: function (res) {
-        //     if (res.code === 1) {
-        //       vm.orderList = res.data;
-        //       var totalcount = null;
-        //       if (res.data && res.data.totalCount) {
-        //         totalcount = res.data.totalCount;
-        //       } else {
-        //         totalcount = 1;
-        //       }
-        //       vm._initPage(totalcount);
-        //       console.log(res.data);
-        //     } else {
-        //       alert(res.msg)
-        //     }
-        //   }
-        // });
       },
       //分页
       _initPage: function (val) {
-/*        layui.use('laypage', function () {
-          var laypage = layui.laypage;
-          //完整功能
-          laypage.render({
-            elem: 'selPage'
-            , limit: vm.searchParams.pageSize
-            , count: val//总页数 //数据总数，从服务端得到
-            , groups: 1
-            , layout: ['prev', 'page', 'next', 'limit']
-            , limits: [10, 20, 30, 40, 50]
-            , curr: vm.searchParams.currentPage
-            , jump: function (obj, first) {
-              vm.searchParams.currentPage = obj.curr;
-              vm.searchParams.pageSize = obj.limit;
-              //首次不执行
-              if (!first) {
-                vm._getOrderList();
-              }
-            }
-          });
-        });*/
+        /*        layui.use('laypage', function () {
+                  var laypage = layui.laypage;
+                  //完整功能
+                  laypage.render({
+                    elem: 'selPage'
+                    , limit: vm.searchParams.pageSize
+                    , count: val//总页数 //数据总数，从服务端得到
+                    , groups: 1
+                    , layout: ['prev', 'page', 'next', 'limit']
+                    , limits: [10, 20, 30, 40, 50]
+                    , curr: vm.searchParams.currentPage
+                    , jump: function (obj, first) {
+                      vm.searchParams.currentPage = obj.curr;
+                      vm.searchParams.pageSize = obj.limit;
+                      //首次不执行
+                      if (!first) {
+                        vm._getOrderList();
+                      }
+                    }
+                  });
+                });*/
       },
       //信息展示
       detailShow: function (val) {
         this.maskShow = !this.maskShow;
         this.tradeDetailId = val.tradeDetailId;
         if (this.maskShow) {
-          var params = {"tradeDetailId": val.tradeDetailId};
-          // $.ajax({
-          //   type: "POST",
-          //   url: baseURL + "ins/imgtextconsultion/queryTradeDetail",
-          //   data: val.tradeDetailId,
-          //   contentType: "application/json",
-          //   dataType: "json",
-          //   success: function (res) {
-          //     if (res.code === 1) {
-          //       vm.detailText = res.data;
-          //       vm.updataeTradeDetail = res.data.remark;
-          //       console.log(res.data)
-          //     } else {
-          //       alert(res.msg)
-          //     }
-          //   }
-          // });
+          let params = {"tradeDetailId": val.tradeDetailId}
+            , url = localUrl + 'queryTradeDetail';
+          api.queryTradeDetail(url, params).then((res) => {
+            let data = res.data;
+            if (data.code === 1) {
+              this.detailText = data.data;
+              this.updataeTradeDetail = data.data.remark;
+            } else {
+              alert(data.msg)
+            }
+          })
         }
       },
       //关闭详情弹框
@@ -797,17 +767,17 @@
       border-right: 1px solid #e5e5e5;
       height: 100%;
       line-height: 32px;
-      .msgLeftBox{
-        min-width:390px;
-        padding-bottom:50px;
+      .msgLeftBox {
+        min-width: 390px;
+        padding-bottom: 50px;
         position: relative;
       }
       .pageDetail {
         text-align: center;
-        position:absolute;
-        bottom:5px;
-        left:0;
-        right:0;
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        right: 0;
       }
       .table-content {
         height: calc(100% - 42px);
@@ -914,8 +884,8 @@
     margin-top: 10px;
   }
 
-  .msgRight{
-    line-height:32px;
+  .msgRight {
+    line-height: 32px;
     .msgRight-header {
       padding: 0 20px;
       line-height: 40px;
@@ -961,7 +931,6 @@
       }
     }
   }
-
 
   .img-msg {
     width: 78px;
@@ -1133,8 +1102,8 @@
 
   /*详情框*/
   .detail-mask {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     top: 0;
@@ -1153,6 +1122,9 @@
       left: 50%;
       margin-left: -285px;
       margin-top: -265px;
+    }
+    .closeIcon {
+      cursor: pointer;
     }
   }
 
@@ -1187,6 +1159,7 @@
     height: 100px;
     width: 300px;
     border-radius: 5px;
+    border: 1px solid #999;
     resize: none;
     padding: 5px;
     line-height: 20px;
@@ -1200,6 +1173,7 @@
     border: none;
     height: 38px;
     line-height: 38px;
+    cursor: pointer;
   }
 
   .addImgBox {
