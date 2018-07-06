@@ -44,7 +44,6 @@
               <template slot-scope="scope">
                 <el-button
                   @click.native.prevent="_checkDetail(scope.$index, msgLists)"
-                  @detailShow="detailShow"
                   type="text"
                   size="small">
                   查看详情
@@ -64,59 +63,6 @@
             :total="totalcount">
           </el-pagination>
         </div>
-        <!--     <div class="layui-card" v-show="!detailInfo.isShowDetail">
-               <div class="layui-card-body">
-                 <div class="layui-row">
-                   <div class="layui-col-lg3 layui-col-md4 layui-col-sm4 form-group">
-                     <div class="group-content">
-                       <span class="group-note">公告标题</span>
-                       <input type="text" placeholder="标题" class="form-control" v-model="searchParams.noticeTitleQuery">
-                     </div>
-                   </div>
-                   <div class="layui-col-lg3 layui-col-md4 layui-col-sm4 form-group">
-                     <div class="group-content">
-                       <span class="group-note">公告类型</span>
-                       <select class="form-control" v-model="searchParams.selectedNoticeTypeQuery">
-                         <option value="-1">请选择</option>
-                         <option v-for="item in noticeLists" :value="item.code">{{item.dictName}}</option>
-                       </select>
-                     </div>
-                   </div>
-                   <div class="layui-col-lg3 layui-col-md4 layui-col-sm4 form-group">
-                     <a class="btn btn-success" @click="doSearch">搜索</a>
-                   </div>
-                 </div>
-                 <div class="layui-tab layui-tab-brief">
-                   <ul class="layui-tab-title">
-                     <li class="layui-this">系统公告</li>
-                   </ul>
-                   <div class="table-wrapper">
-                     <table class="layui-table">
-                       <thead>
-                       <tr>
-                         <td>序号</td>
-                         <td>标题</td>
-                         <td>类型</td>
-                         <td>发布时间</td>
-                         <td>操作</td>
-                       </tr>
-                       </thead>
-                       <tbody v-show="msgLists.length > 0">
-                       <tr v-for="(item,index) in msgLists">
-                         <td>{{index+1}}</td>
-                         <td>{{item.noticeTitle}}</td>
-                         <td>{{item.dictName}}</td>
-                         <td>{{item.lastUpdateTime}}</td>
-                         <td><a class="blue-text" @click="_checkDetail(item)">查看详情</a></td>
-                       </tr>
-                       </tbody>
-                     </table>
-                     <div id="selPage" class="text-center" style="text-align: right;"></div>
-                     <p v-show="msgLists.length <= 0" class="text-center" style="color: red;padding: 20px 10px;">暂无数据</p>
-                   </div>
-                 </div>
-               </div>
-             </div>-->
       </div>
     </div>
   </div>
@@ -148,13 +94,6 @@
 
         msgLists: [],
         noticeLists: [],
-        detailInfo: {
-          isShowDetail: false,
-          info: {
-            noticeTitle: "",
-            noticeContent: ""
-          }
-        }
       }
     },
     created() {
@@ -226,18 +165,8 @@
       //点击查看详情
       _checkDetail: function (index, rows) {
         let item = rows[index];
-        this.$store.getters.detailShow= item;
-        this.detailShow=item;
-        console.log(item)
-        this.detailInfo.isShowDetail = true;
-        this.detailInfo.info.noticeTitle = item.noticeTitle;
-        this.detailInfo.info.noticeContent = item.noticeContent;
+        this.$store.dispatch("detailShow",item);
         this.$router.push('annoDetail');
-      },
-
-      //返回
-      back: function () {
-        this.detailInfo.isShowDetail = false;
       }
     },
   }

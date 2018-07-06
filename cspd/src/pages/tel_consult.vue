@@ -195,6 +195,12 @@
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
+      handleSizeChange(val) {
+        console.log(`每页 ${val} 条`);
+      },
+      handleCurrentChange(val) {
+        console.log(`当前页: ${val}`);
+      },
       /*设置单元格样式*/
       rowStyle({row, column, rowIndex}) {
         if (column === 0) {

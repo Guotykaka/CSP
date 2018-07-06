@@ -19,7 +19,7 @@
       </div>
 
       <h3 class="welcome-text">欢迎您使用《掌上体检服务管理平台》</h3>
-      <div class="links-box">
+      <div class="links-box" v-if="msgLists">
         <a class="link-item" v-for="(item,index) in msgLists" :key="index" @click="_checkDetail(item)">
           <span class="text">{{item.newsTitle}}</span>
           <span class="dot">{{item.unReadCount}}</span>
@@ -33,13 +33,13 @@
   import headerTop from "@/components/headTop.vue"
   import {storeManager} from '@/api/util.js';
   import {localUrl} from "@/config/env.js"
+  import {mapState} from "vuex"
   import {api} from '@/api/api';
 
   export default {
     name: 'doctor_index',
     data() {
       return {
-        msgLists: [],
         sumCount: 0,
         announceText: "掌上体检平台公告"
       }
@@ -56,15 +56,17 @@
         let url = localUrl + 'countUserNewsList',
           that = this,
           params = uid;
-        api.countUserNewsList(url, params).then((res) => {
+ /*       api.countUserNewsList(url, params).then((res) => {
           let data = res.data;
           if (data.code === 1) {
             data.data.forEach(function (item) {
               that.sumCount += parseInt(item.unReadCount)
             });
             that.msgLists = data.data;
+          }else{
+            alert(data.msg)
           }
-        })
+        })*/
       },
 
       //请求公告列表
@@ -128,11 +130,11 @@
     components: {
       headerTop,
     },
-    watch: {
-      sumCount: function (newVal) {
-        parent.vm.unMesCount = newVal;
-      }
-    }
+    computed: {
+      ...mapState({
+        msgLists: state => state.msgList.data
+      })
+    },
   }
 </script>
 

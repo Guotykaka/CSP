@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios' // 所有数据api的域名地址'
+// import * as urls from '@/config/env.js'
+
 let qs = require('qs')
 function apipost(url,params){
   return axios({

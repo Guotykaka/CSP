@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import {api} from '@/api/api';
 //import {getAdminInfo} from '@/api/getData'
 
 Vue.use(Vuex)
@@ -7,41 +8,53 @@ Vue.use(Vuex)
 //引入axios
 
 const state = {
-  count:0,
+  isLoading:false,//缓冲
   navTitle:'首页',//导航栏文字
-  detailShow:{},//系统公告详情
+  detailShow:null,//系统公告详情
+  msgList:{data:null},//消息列表数据
 };
 
 
 const getters={
-  getcount:function (state) {
-    return state.count
-  },
+  isLoading:state => state.isLoading,//缓冲
   navTitle:state=> state.navTitle,
   detailShow:state=> state.detailShow,//系统公告详情
+  msgList:state=> state.msgList,//系统公告详情
 };
 const mutations = {
-  add(state){
-    state.count++;
+  /*缓冲*/
+  updateLoadingState(state,flag){
+    state.isLoading=flag
   },
-
-  minus:function (state) {
-
-    state.count--;
-
+//  系统公告详情
+  getDetail(state,value){
+    state.detailShow = value;
+  },
+//  消息列表数据
+  getMsgList(state,url,params){
+    api.countUserNewsList(url,params).then((res)=>{
+      let data = res.data;
+      state.msgList = data;
+    }).catch((res)=>{
+      alert(res.data)
+    })
   }
+
 };
 
 const actions={
- /* increment:function (context) {
-    context.commit('add')
-  }*/
-    actionA({ dispatch, commit }) {
-      return commit('add');
-    },
-
-
-
+  /*缓冲*/
+  onLoading(context,flag){
+    context.commit("updateLoadingState",flag);
+  },
+/*  系统公告详情*/
+  detailShow(context,flag){
+    context.commit('getDetail',flag);
+  },
+  /*消息列表数据*/
+  msgList(context,url,params){
+    context.commit('getMsgList',url,params )
+  }
 }
 
 

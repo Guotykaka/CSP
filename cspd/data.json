@@ -179,13 +179,13 @@
         "newsType": "5"
       },
       {
-        "unReadCount": "3",
+        "unReadCount": "9",
         "newsTitle": "新图文报告解读订单",
         "typeName": "订单通知",
         "newsType": "6"
       },
       {
-        "unReadCount": "0",
+        "unReadCount": "2",
         "newsTitle": "账单消息",
         "typeName": "账单变化",
         "newsType": "7"
@@ -1084,6 +1084,64 @@
         "createUserId": "1",
         "lastUpdateTime": "2018-04-19 14:32:52",
         "lastUpdateUser": "1"
+      }
+    ]
+  },
+  "queryInsLeaveWordList": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+      "list": [
+        {
+          "insLeaveWordId": "2c8080aa6459b55e01645f02d14304bd",
+          "leaveWordTitle": "今天啥情况啊",
+          "leaveWordContent": "今天啥情况啊",
+          "createUserName": "huihui",
+          "createTime": "2018-07-03 15:19:37",
+          "updateTime": "2018-07-03 15:20:11",
+          "leaveWordStatus": 2,
+          "mobile": "15026502683",
+          "email": null,
+          "roleName": null,
+          "deptName": null,
+          "createUserId": "267"
+        },
+        {
+          "insLeaveWordId": "2c8080aa6459b55e01645ec7422e04bb",
+          "leaveWordTitle": "我的第一次留言",
+          "leaveWordContent": "我的第一次留言你会关注吗",
+          "createUserName": "huihui",
+          "createTime": "2018-07-03 14:14:34",
+          "updateTime": "2018-07-06 11:25:16",
+          "leaveWordStatus": 3,
+          "mobile": "15026502683",
+          "email": null,
+          "roleName": null,
+          "deptName": null,
+          "createUserId": "267"
+        }
+      ],
+      "page": {
+        "pageSize": 10,
+        "totalCount": 2,
+        "currentPage": 1,
+        "pageCount": 1
+      }
+    }
+  },
+  "queryInsLeaveWordAnswerList": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": [
+      {
+        "insLeaveWordAnswerId": "2c8080aa6459b55e01645f03551904be",
+        "insLeaveWordId": "2c8080aa6459b55e01645f02d14304bd",
+        "parentId": "2c8080aa6459b55e01645f02d14304bd",
+        "answerContent": "operativetest回复你了",
+        "answerUserId": 317,
+        "answerUserName": "operativetest",
+        "createTime": "2018-07-03 15:20:11",
+        "updateTime": null
       }
     ]
   }

@@ -11,10 +11,12 @@
               text-color="#bfbfac"
               active-text-color="#3c8dbc"
               router>
-              <el-menu-item index="doctor_index"><i class="el-icon-menu"></i>云服务平台医生端</el-menu-item>
+              <el-menu-item index="doctor_index" class="homeTitle"><i class="el-icon-menu"></i>云服务平台医生端</el-menu-item>
               <el-submenu :index="item.name" v-for="(item,index) in navMenu" :key="index">
                 <template slot="title"><i :class="item.icon"></i>{{item.name}}</template>
-                <el-menu-item :index="itemChild.url" v-for="(itemChild,indexChild) in item.list" :key="indexChild"><i :class="itemChild.icon"></i>{{itemChild.name}}</el-menu-item>
+                <el-menu-item :index="itemChild.url" v-for="(itemChild,indexChild) in item.list" :key="indexChild"><i
+                  :class="itemChild.icon"></i>{{itemChild.name}}
+                </el-menu-item>
               </el-submenu>
             </el-menu>
           </el-col>
@@ -34,7 +36,10 @@
             router>
             <el-menu-item index="announcement">系统公告</el-menu-item>
             <el-menu-item index="call_doctor">联系医助</el-menu-item>
-            <el-menu-item index="msg">消息</el-menu-item>
+            <el-menu-item index="msg">
+                  消息
+                <el-badge class="mark iconStyle" :value="allcount" />
+            </el-menu-item>
             <el-submenu index="2" class="nav-child-title">
               <template slot="title"><img
                 src="http://zhangshangtijian.b0.upaiyun.com/http:/zhangshangtijian.b0.upaiyun.com/XblEMw5Z9eTUlRykheECyQfsJkXviObW.png"
@@ -54,7 +59,9 @@
         </div>
         <el-main>
           <keep-alive>
-            <router-view></router-view>
+            <router-view>
+              <loading v-if="loading"></loading>
+            </router-view>
           </keep-alive>
         </el-main>
       </el-container>
@@ -64,41 +71,66 @@
 
 <script>
   import {localUrl} from "@/config/env.js"
+  import {storeManager} from '@/api/util.js';
+  import {mapState} from 'vuex';
   import {api} from '@/api/api';
+  import loading from '@/components/loading/loading'
+
   export default {
     data() {
       return {
-        navMenu:[],
+        navMenu: [],
         activeIndex2: '1'
       }
     },
-    computed: {
-      defaultActive: function () {
-        return this.$route.path.replace('/', '');
-      }
+    components: {
+      loading
     },
-    created(){
-      let url = localUrl+'nav',
-          params = '';
-      api.nav(url,params).then((res)=>{
+    created() {
+      let url = localUrl + 'nav',
+        params = '';
+      api.nav(url, params).then((res) => {
         console.log(res)
         let data = res.data;
-        if(data.code===0){
+        if (data.code === 0) {
           this.navMenu = data.menuList;
         }
-      })
+      });
+      this.getMsgList();
     },
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
-
-    }
+      getMsgList() {
+        let url = localUrl + 'countUserNewsList',
+          uid = storeManager.getUserId(),
+          params = uid;
+        this.$store.dispatch('msgList', url, params)
+      }
+    },
+    computed: {
+      defaultActive: function () {
+        return this.$route.path.replace('/', '');
+      },
+      allcount() {
+        let count = 0;
+        if (this.msgList && this.msgList.data) {
+          this.msgList.data.forEach((item) => {
+            count += parseInt(item.unReadCount)
+          });
+        }
+        return count;
+      },
+      ...mapState({
+        loading: state => state.isLoading,
+        msgList: state => state.msgList
+      }),
+    },
   }
 
 </script>
-
-<style scoped lang="less">
+<style lang="less">
   /*容器样式start*/
   .el-header, .el-footer {
     background-color: #3c8dbc;
@@ -146,21 +178,35 @@
     align-items: center;
     padding: 0 20px;
   }
-
   /*面包屑end*/
-
+</style>
+<style scoped lang="less">
   /*我的样式*/
   .manage_page {
     height: 100%;
+    .homeTitle{
+      background-color:#2D93CA!important;
+      color:#fff!important;
+      height:59px;
+      font-size:18px;
+    }
     .nav-title li {
       border-bottom: none !important;
     }
     .el-submenu__title {
       border-bottom: none !important;
     }
-    .iconfont{
-      font-size:18px;
-      margin-right:5px;
+    .iconfont {
+      font-size: 18px;
+      margin-right: 5px;
     }
+    /*小圆标*/
+    .iconStyle {
+      position: absolute;
+      top: -13px;
+      right: -8px;
+      z-index: 100;
+    }
+
   }
 </style>
