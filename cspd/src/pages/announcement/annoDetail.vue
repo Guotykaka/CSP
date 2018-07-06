@@ -1,40 +1,87 @@
 <template>
     <div class="annoDetail">
-      <div v-show="detailInfo.isShowDetail" class="layui-card">
-        <div class="layui-card-body">
-          <h3 class="info-title">{{detailInfo.info.noticeTitle}}</h3>
-          <p class="info-content">{{detailInfo.info.noticeContent}}</p>
-          <div style="text-align: right;padding-right: 15px;">
-            <a class="btn btn-primary" @click="back">返回</a>
+      <el-card class="box-card" v-if="detailShow">
+        <div slot="header" class="clearfix">
+          <span>{{detailShow.noticeTitle}}</span>
+        </div>
+        <div class="text item creatBody">
+          <span class="creatMain">{{detailShow.noticeContent}}</span>
+
+          <div class="creatTime">
+            <p>{{detailShow.dictName}}</p>
+            <p>{{detailShow.createTime}}</p>
           </div>
         </div>
-      </div>
+        <el-button style=" padding: 5px" type="primary" @click="back">返回</el-button>
+
+      </el-card>
     </div>
 </template>
 
 <script>
+  import {mapState} from 'vuex';
     export default {
         name: "annoDetail",
       data() {
         return {
-          detailInfo: {
-            isShowDetail: false,
-            info: {
-              noticeTitle: "",
-              noticeContent: ""
-            }
-          }
+          // detailInfo: {}
         }
       },
-      props:['detailShow'],
       created(){
-        this.detailInfo.isShowDetail = true;
-        this.detailInfo.info.noticeTitle = this.detailShow.noticeTitle;
-        this.detailInfo.info.noticeContent = this.detailShow.noticeContent;
+          if(!this.detailShow){
+            this.$router.go(-1);
+          }
+      },
+      methods: {
+        back() {
+          this.$router.go(-1);
+        }
+      },
+      computed:{
+        ...mapState({
+          detailShow: state => state.detailShow
+        }),
       }
     }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+  /*卡片样式*/
+  .text {
+    font-size: 14px;
+  }
 
+  .item {
+    margin-bottom: 18px;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+  .clearfix:after {
+    clear: both
+  }
+
+  .box-card {
+    width: 100%;
+    text-align:center;
+  }
+.annoDetail{
+  line-height: 32px;
+  .creatBody{
+    overflow:hidden;
+  }
+  .creatMain{
+    display:block;
+    float:left;
+    text-align:left;
+    text-indent: 2em;
+    width:100%;
+  }
+  .creatTime{
+    float:right;
+  }
+}
 </style>

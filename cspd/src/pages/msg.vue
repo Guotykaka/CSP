@@ -2,25 +2,28 @@
   <div class="msg">
     <div class="page-wrapper">
       <el-table
-        :data="tableData"
+        :data="msgList.data"
         border
+        :header-row-class-name="headerStyle"
+        :cell-style="rowStyle"
+        highlight-current-row
         empty-text="暂无数据"
-        style="width: 100%;border:1px solid #999;">
+        style="width: 100%;border:1px solid #e5e5e5;">
         <el-table-column
           type="index"
           label="序号"
-          width="180">
+          width="60">
         </el-table-column>
         <el-table-column
-          prop="date"
+          prop="newsTitle"
           label="标题">
         </el-table-column>
         <el-table-column
-          prop="name"
+          prop="unReadCount"
           label="未读消息">
         </el-table-column>
         <el-table-column
-          prop="address"
+          prop="typeName"
           label="类型">
         </el-table-column>
         <el-table-column
@@ -30,7 +33,7 @@
             <el-button
               @click.native.prevent="deleteRow(scope.$index, tableData)"
               type="text"
-              size="small">
+              size="medium">
               查看详情
             </el-button>
           </template>
@@ -43,54 +46,59 @@
 
 <script>
   import headerTop from "@/components/headTop.vue"
-    export default {
-      components: {
-        headerTop,
-      },
-      data() {
-        return {
-          tableData: [{
-            date: '2016-05-02',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1518 弄'
-          }, {
-            date: '2016-05-04',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1517 弄'
-          }, {
-            date: '2016-05-01',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1519 弄'
-          }, {
-            date: '2016-05-03',
-            name: '王小虎',
-            address: '上海市普陀区金沙江路 1516 弄'
-          }],
-          blue:{'color':'#c4e'}
+  import {mapState} from 'vuex';
+
+  export default {
+    components: {
+      headerTop,
+    },
+    data() {
+      return {}
+    },
+    methods: {
+      rowStyle(row, rowIndex) {
+        let obj = {
+          padding:0,
+          color:'#444'
         }
+        return obj;
       },
-      methods: {
-        deleteRow(index, rows) {
-          console.log(index);
-          console.log(rows);
-          console.log(rows[index])
-          if(index===0){
-            this.$router.push('./tel_consult')//电话报告解读
-          }else if(index===1){
-            this.$router.push('./imgText_consult')//图文咨询
-          }else if(index===2){
-            this.$router.push('./manage')
-          }
+      headerStyle(row, rowIndex) {
+        return 'tablStyle';
+      },
+      deleteRow(index, rows) {
+        console.log(index);
+        console.log(rows);
+        console.log(rows[index])
+        if (index === 0) {
+          this.$router.push('./tel_consult')//电话报告解读
+        } else if (index === 1) {
+          this.$router.push('./imgText_consult')//图文咨询
+        } else if (index === 2) {
+          this.$router.push('./manage')
         }
-      },
-    }
+      }
+    },
+    computed: {
+      ...mapState({
+        msgList: state => state.msgList
+      })
+    },
+  }
 </script>
 
 <style scoped lang="less">
-.msg{
-  line-height:32px;
-  .page-wrapper{
-    background-color:#e5e5e5;
+  .msg {
+    line-height: 32px;
+    .page-wrapper {
+      background-color: #e5e5e5;
+    }
   }
-}
+</style>
+<style lang="less">
+  .el-table {
+    .tablStyle {
+      background-color:blue!important;
+    }
+  }
 </style>

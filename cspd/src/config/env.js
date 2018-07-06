@@ -25,3 +25,11 @@ export {
   baseImgPath,
   localUrl
 }
+export const API_NAV = localUrl+'nav';
+
+export const API_COUNT_USER_NEWS_LIST = localUrl+'countUserNewsList';
+
+
+
+
+
