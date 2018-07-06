@@ -121,7 +121,6 @@
 
 
 <script>
-import { getUserlistData } from '@/api/getData.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -151,7 +150,7 @@ export default {
       dialogEditVisible: false, //编辑
       dialogAddVisible: false, //新增
       dialogOrderVisible: false, //顺序
-      inde: null, //index flag
+      inde: null, // 取消修改时的index flag
       formLabelWidth: '120px'
     }
   },

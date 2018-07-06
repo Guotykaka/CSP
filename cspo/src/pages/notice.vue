@@ -3,15 +3,36 @@
     <header-top></header-top>
     <div class="page-container">
       <el-header height="30">
-        <!--操作行-->
+        <!-- 操作行-->
+        <!-- <el-form :model="formInline" ref="formInline" label-width="80px" :inline="true">
+            <el-form-item label="公告标题">
+              <el-input v-model="formInline.valueBT" placeholder="公告标题" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="公告类型">
+              <el-select v-model="formInline.valueLX" clearable placeholder="请选择公告类型">
+                <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="公告状态">
+              <el-select v-model="formInline.valueZT" clearable placeholder="请选择公告状态">
+                <el-option v-for="item in formInline.optionsZT" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item label="创建人">
+              <el-input v-model="formInline.valueCJR" placeholder="创建人" clearable></el-input>
+            </el-form-item>
+        </el-form> -->
+
         <el-row :gutter="20">
           <el-col :span="6">
-            <el-input v-model="formInline.valueBT" placeholder="公告标题"></el-input>
+            <el-input v-model="formInline.valueBT" placeholder="公告标题" clearable></el-input>
           </el-col>
           <el-col :span="6">
             <el-select v-model="formInline.valueLX" clearable placeholder="请选择公告类型">
               <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
-            </el-option>
+              </el-option>
             </el-select>
           </el-col>
           <el-col :span="6">
@@ -22,7 +43,7 @@
           </el-col>
 
           <el-col :span="6">
-            <el-input v-model="formInline.valueCJR" placeholder="创建人"></el-input>
+            <el-input v-model="formInline.valueCJR" placeholder="创建人" clearable></el-input>
           </el-col>
         </el-row>
         <el-row :gutter="20">
@@ -121,7 +142,7 @@
         </el-dialog>
         <!-- 新增 -->
         <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
-           <el-form :model="addTable">
+          <el-form :model="addTable">
             <el-form-item label="公告标题:" :label-width="formLabelWidth">
               <el-col :span="16">
                 <el-input v-model="addTable.noticeTitle" auto-complete="off" el></el-input>
@@ -189,7 +210,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="6">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </template>
           </el-col>
@@ -272,25 +293,25 @@ export default {
         valueJS: ''
       },
       currentPage: 1, //分页初始页码
-      pagesize: 5, //分页初始显示条数
+      pagesize: 30, //分页初始显示条数
       tableData: [], //列表数据
       selectTable: {}, //查看单个数据
       editTable: {}, //修改单个数据
       editTableRoot: {},
       addTable: {
-        "noticeOs": "",
-        "releaseTime": null,
-        "sysNoticeId": "",
-        "noticeType": "新增",
-        "userName": "新增",
-        "noticeTitle": "",
-        "noticeOsName": [],
-        "noticeContent": "",
-        "createTime": "",
-        "noticeStatus": "1",
-        "createUser": "新增",
-        "dictName": "",
-        "lastUpdateTime": ""
+        noticeOs: '',
+        releaseTime: null,
+        sysNoticeId: '',
+        noticeType: '新增',
+        userName: '新增',
+        noticeTitle: '',
+        noticeOsName: [],
+        noticeContent: '',
+        createTime: '',
+        noticeStatus: '1',
+        createUser: '新增',
+        dictName: '',
+        lastUpdateTime: ''
       }, //新增单个数据
       dialogCheckVisible: false, //查看
       dialogEditVisible: false, //修改
@@ -328,38 +349,38 @@ export default {
       this.tableData.push(this.addTable)
       this.dialogAddVisible = false
       this.addTable = {
-        "noticeOs": "",
-        "releaseTime": null,
-        "sysNoticeId": "",
-        "noticeType": "新增",
-        "userName": "新增",
-        "noticeTitle": "",
-        "noticeOsName": [],
-        "noticeContent": "",
-        "createTime": "新增",
-        "noticeStatus": "1",
-        "createUser": "",
-        "dictName": "",
-        "lastUpdateTime": ""
+        noticeOs: '',
+        releaseTime: null,
+        sysNoticeId: '',
+        noticeType: '新增',
+        userName: '新增',
+        noticeTitle: '',
+        noticeOsName: [],
+        noticeContent: '',
+        createTime: '新增',
+        noticeStatus: '1',
+        createUser: '',
+        dictName: '',
+        lastUpdateTime: ''
       }
     },
     //取消新增
     _doAddCancel() {
       this.addTable = {
         //重置新增数据为空
-        "noticeOs": "",
-        "releaseTime": null,
-        "sysNoticeId": "",
-        "noticeType": "新增",
-        "userName": "新增",
-        "noticeTitle": "",
-        "noticeOsName": [],
-        "noticeContent": "",
-        "createTime": "新增",
-        "noticeStatus": "1",
-        "createUser": "",
-        "dictName": "",
-        "lastUpdateTime": ""
+        noticeOs: '',
+        releaseTime: null,
+        sysNoticeId: '',
+        noticeType: '新增',
+        userName: '新增',
+        noticeTitle: '',
+        noticeOsName: [],
+        noticeContent: '',
+        createTime: '新增',
+        noticeStatus: '1',
+        createUser: '',
+        dictName: '',
+        lastUpdateTime: ''
       }
       this.dialogAddVisible = false
     },
@@ -378,19 +399,19 @@ export default {
     //确定修改
     _doHandleEdit() {
       this.dialogEditVisible = false
-       this.$message({
-            type: 'success',
-            message: '修改成功!'
-          })
+      this.$message({
+        type: 'success',
+        message: '修改成功!'
+      })
     },
     //取消修改
     _doCancel() {
       this.tableData.splice(this.inde, 1, this.editTableRoot) //删除修改的数据并替换为原始数据
       this.dialogEditVisible = false
       this.$message({
-            type: 'warning',
-            message: '取消修改'
-          })
+        type: 'warning',
+        message: '取消修改'
+      })
     },
     // 删除提示
     deleteMessage(index, row) {
@@ -432,7 +453,8 @@ export default {
           })
           this.tableData[
             index + (this.currentPage - 1) * this.pagesize
-          ].noticeStatus = "2" //更改发布状态
+          ].noticeStatus =
+            '2' //更改发布状态
         })
         .catch(() => {
           this.$message({
@@ -456,7 +478,8 @@ export default {
           })
           this.tableData[
             index + (this.currentPage - 1) * this.pagesize
-          ].noticeStatus = "3" //更改发布状态
+          ].noticeStatus =
+            '3' //更改发布状态
         })
         .catch(() => {
           this.$message({
@@ -502,7 +525,6 @@ export default {
 .el-select {
   display: block;
 }
-// .el-date-picker{display: block}
 .el-date-editor {
   width: 100%;
 }
