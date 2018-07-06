@@ -19,14 +19,20 @@ const medical_quota = () => import('@/pages/medical_quota.vue')//医学指标
 const doctorList = () => import('@/pages/doctorList.vue')//医生列表
 const indentList = () => import('@/pages/identificationList.vue')//认证列表
 
+//订单管理
+const refundsList = () => import('@/pages/refundsList.vue')//退款列表
+const orderList = () => import('@/pages/orderList.vue')//订单列表
+
+
 
 Vue.use(Router)
 
 export default new Router({
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
+      alias: '/',
       component: login,
     },
     {
@@ -80,6 +86,14 @@ export default new Router({
           path: '/indentList',
           component: indentList,//医生管理 认证列表
           meta: ["医生管理","认证列表"],
+        },{
+          path: '/refundsList',
+          component: refundsList,//订单管理 退款列表
+          meta: ["订单管理","退款列表"],
+        },{
+          path: '/orderList',
+          component: orderList,//订单管理 订单列表
+          meta: ["订单管理","订单列表"],
         },
       ]
     },

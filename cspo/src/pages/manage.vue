@@ -31,6 +31,11 @@
             <el-menu-item index="doctorList">医生列表</el-menu-item>
             <el-menu-item index="indentList">认证列表</el-menu-item>
           </el-submenu>
+          <el-submenu index="4">
+            <template slot="title"><i class="el-icon-plus nav-t-icon"></i>订单管理</template>
+            <el-menu-item index="orderList">订单列表</el-menu-item>
+            <el-menu-item index="refundsList">退款列表</el-menu-item>
+          </el-submenu>
 
         </el-menu>
       </div>

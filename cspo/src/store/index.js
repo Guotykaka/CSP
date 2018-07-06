@@ -7,10 +7,6 @@ const state = {
   use_name:"huihui",
   use_avatar:"",
 
-
-
-
-
   //医生角色列表
   doctorRolesList:[
     {roleId:4,roleCode:"123",roleName:"医生角色",remark:"医生角色账号设置",deptId:11,deptName:null,menuIdList:null,deptIdList:null,createTime:"2018-06-22 11:41:55",roleType:"0"},
@@ -25,17 +21,9 @@ const state = {
     {institutionId:"2c8080aa63de10dc0163de10dc250000",institutionCode:"55555",institutionName:"上海宝杉科技",institutionAddr:"上海",institutionGradeId:"1",institutionLavelId:"2",institutionExtensionUrl:null,qrCodeUrl:null,extensionLogoUrl:null,extensionImageUrl:null,whetherAppShow:0,whetherOpenMsm:0,whetherHasPdfReport:0,medicalExamReportLogo:null,bannerLogo:null,bannerExtensionUrl:null,institutionDesc:null,whetherDelete:0,createTime:"2018-06-08 14:23:56",lastUpdateTime:null,createUser:"1",updateUser:null,registeredReservationAddr:null,gradeName:null,lavelName:null},
     {institutionId:"2c8080aa63de6dd90163de6dd92b0000",institutionCode:"hzsj002",institutionName:"上海天意达公司",institutionAddr:"上海",institutionGradeId:"1",institutionLavelId:"4",institutionExtensionUrl:null,qrCodeUrl:null,extensionLogoUrl:null,extensionImageUrl:null,whetherAppShow:1,whetherOpenMsm:0,whetherHasPdfReport:0,medicalExamReportLogo:null,bannerLogo:null,bannerExtensionUrl:null,institutionDesc:null,whetherDelete:0,createTime:"2018-06-08 16:05:31",lastUpdateTime:"2018-06-08 17:32:22",createUser:"1",updateUser:"1",registeredReservationAddr:null,gradeName:null,lavelName:null},
     {institutionId:"2c8080aa63de6dd90163de9081540002",institutionCode:"666",institutionName:"666",institutionAddr:"666",institutionGradeId:"1",institutionLavelId:"2",institutionExtensionUrl:null,qrCodeUrl:null,extensionLogoUrl:null,extensionImageUrl:null,whetherAppShow:0,whetherOpenMsm:0,whetherHasPdfReport:0,medicalExamReportLogo:null,bannerLogo:null,bannerExtensionUrl:null,institutionDesc:null,whetherDelete:0,createTime:"2018-06-08 16:43:22",lastUpdateTime:null,createUser:"1",updateUser:null,registeredReservationAddr:null,gradeName:null,lavelName:null},
+    {bannerExtensionUrl: null,bannerLogo: null, createTime: "2018-07-05 16:15:15", createUser: "1", extensionImageUrl:null,extensionLogoUrl: null, gradeName: null, institutionAddr: "上海市静安区", institutionCode: "hzhz001", institutionDesc: null, institutionExtensionUrl: null, institutionGradeId: "1", institutionId: "2c9081626469807001646982779c0001", institutionLavelId: "6", institutionName: "上海公立医院", lastUpdateTime: null, lavelName: null, medicalExamReportLogo: null, qrCodeUrl: null, registeredReservationAddr: null, updateUser: null, whetherAppShow: 1, whetherDelete: 0, whetherHasPdfReport: 0, whetherOpenMsm: 0}
+
   ],
-
-
-
-
-
-
-
-
-
-
 }
 
 

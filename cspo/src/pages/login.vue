@@ -43,19 +43,12 @@
 
       methods:{
         doLogin:function () {
-
           var params=this.loginParams;
           login(params).then(res => {
-
-
-
             this.$router.push("notice")
-
-
           }).catch(err => {
 
           })
-
         },
 
         //刷新验证码
