@@ -30,6 +30,7 @@ var queryDoctorApplyInfo = appData.queryDoctorApplyInfo;
 var queryInsServiceDoctorByUserId = appData.queryInsServiceDoctorByUserId;
 var noticeTitleQuery = appData.noticeTitleQuery;
 var getDictionaryByKey = appData.getDictionaryByKey;
+var sendSMS = appData.sendSMS;
 
 
 
@@ -80,7 +81,25 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       });
       app.post('/api/queryTradeDetail', function(req, res){
         res.json(queryTradeDetail)//相应订单详情
-      })
+      });
+      app.post('/api/getDoctorAccountInfo', function(req, res){
+        res.json(getDoctorAccountInfo)
+      });
+      app.post('/api/listAccountRecord', function(req, res){
+        res.json(listAccountRecord)
+      });
+      app.post('/api/getOrderInfo', function(req, res){
+        res.json(getOrderInfo)
+      });
+      app.post('/api/queryPhoneConsultationOrder', function(req, res){
+        res.json(queryPhoneConsultationOrder)
+      });
+      app.post('/api/getSMSTemplate', function(req, res){
+        res.json(getSMSTemplate)
+      });
+      app.post('/api/sendSMS', function(req, res){
+        res.json(sendSMS)
+      });
       app.get('/api/noticeTitleQuery', function(req, res){
         res.json(noticeTitleQuery)//公告列表
       })

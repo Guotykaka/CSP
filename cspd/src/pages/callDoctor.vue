@@ -391,7 +391,7 @@
     span {
       float: left;
       padding: 0 10px;
-      border-bottom: 2px solid #009688;
+      border-bottom: 2px solid #2186f6;
     }
     span:nth-of-type(1) {
       font-size: 20px;

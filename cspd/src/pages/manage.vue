@@ -24,6 +24,10 @@
       </el-aside>
       <el-container>
         <el-header class="nav-title">
+          <!--<el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>-->
+          <el-breadcrumb separator-class="el-icon-arrow-right" style="float:left;height:100%;line-height:60px;color:#fff;">
+            <el-breadcrumb-item class="breadcrumbStyle" v-for="(item, index) in $route.meta" :key="index" style="color: #ffffff;">{{item}}</el-breadcrumb-item>
+          </el-breadcrumb>
           <el-menu
             :default-active="defaultActive"
             class="el-menu-demo"
@@ -52,11 +56,11 @@
             </el-submenu>
           </el-menu>
         </el-header>
-        <div class="header_container">
+<!--        <div class="header_container">
           <el-breadcrumb separator-class="el-icon-arrow-right">
             <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
           </el-breadcrumb>
-        </div>
+        </div>-->
         <el-main>
           <keep-alive>
             <router-view>
@@ -152,7 +156,7 @@
     /*text-align: center;*/
     line-height: 160px;
     height: 100%;
-    padding-top: 0;
+    /*padding-top: 0;*/
   }
 
   body > .el-container {
@@ -178,6 +182,14 @@
     align-items: center;
     padding: 0 20px;
   }
+  .breadcrumbStyle>span{
+    color:#fff!important;
+  }
+  .manage_page{
+    .el-submenu__title {
+      border-bottom: none !important;
+    }
+  }
   /*面包屑end*/
 </style>
 <style scoped lang="less">
@@ -193,9 +205,7 @@
     .nav-title li {
       border-bottom: none !important;
     }
-    .el-submenu__title {
-      border-bottom: none !important;
-    }
+
     .iconfont {
       font-size: 18px;
       margin-right: 5px;
