@@ -9,10 +9,10 @@
             <el-input v-model="formInline.valueBT" placeholder="机构编号" clearable></el-input>
           </el-col>
           <el-col :span="5">
-            <el-input v-model="formInline.valueBT" placeholder="机构名称" clearable></el-input>
+            <el-input v-model="formInline.valueLX" placeholder="机构名称" clearable></el-input>
           </el-col>
           <el-col :span="5">
-            <el-select v-model="formInline.valueLX" clearable placeholder="APP是否显示">
+            <el-select v-model="formInline.valueCJR" clearable placeholder="APP是否显示">
               <el-option label="是" value="1"></el-option>
               <el-option label="否" value="2"></el-option>
             </el-select>
@@ -25,7 +25,7 @@
           </el-col>
         </el-row>
         <el-row class="m_b_15">
-          <el-button type="primary">清空</el-button>
+          <el-button type="primary" @click="handleReset()">清空</el-button>
           <el-button type="primary">搜索</el-button>
           <el-button type="primary" @click="handleAdd()">新增</el-button>
         </el-row>
@@ -33,68 +33,139 @@
       <el-main>
         <!-- 修改 -->
         <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
-          <el-form :model="editTable">
-            <el-form-item label="用户名:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.username" auto-complete="off" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="密码:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.password" auto-complete="off" placeholder="密码" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="邮箱:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.email" auto-complete="off" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="手机号:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.mobile" auto-complete="off" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="所属部门:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-badge is-dot class="dot">
-                  <el-input v-model="editTable.deptName" auto-complete="off" el></el-input>
-                </el-badge>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="角色:" :label-width="formLabelWidth">
-              <template>
-                <el-checkbox-group v-model="editTable.checkList">
-                  <el-checkbox label="医生角色"></el-checkbox>
-                  <el-checkbox label="运营人员"></el-checkbox>
-                  <el-checkbox label="健管师"></el-checkbox>
-                  <el-checkbox label="医生主任"></el-checkbox>
-                  <br>
+          <template :model="editTable">
+            <el-tabs @tab-click="handleClick">
+                <!-- 修改==基本信息 -->
+              <el-tab-pane label="基本信息">
+                <el-form :model="editTable" label-width="80">
+                  <el-form-item label="机构编号:" :label-width="formLabelWidth">
+                    <el-col :span="16">
+                      <el-input v-model="editTable.institutionCode" auto-complete="off" placeholder="请输入机构编号" el></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="机构名称:" :label-width="formLabelWidth">
+                    <el-col :span="16">
+                      <el-input v-model="editTable.institutionName" auto-complete="off" placeholder="请输入机构名称" el></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="机构地址:" :label-width="formLabelWidth">
+                    <el-col :span="16">
+                      <el-input v-model="editTable.institutionAddr" auto-complete="off" placeholder="请输入机构名称" el></el-input>
+                    </el-col>
+                  </el-form-item>
+                </el-form>
+                <el-form :inline="true" :model="editTable">
+                  <el-form-item label="机构类型:" label-width="120px">
+                    <el-select v-model="editTable.gradeName" placeholder="">
+                      <el-option label="公立" value="公立"></el-option>
+                      <el-option label="民营" value="民营"></el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item>
+                    <el-select v-model="editTable.lavelName" placeholder="">
+                      <el-option label="三甲医院" value="三甲医院"></el-option>
+                      <el-option label="二甲医院" value="二甲医院"></el-option>
+                      <el-option label="三级医院" value="三级医院"></el-option>
+                      <el-option label="二级医院" value="二级医院"></el-option>
+                      <el-option label="一级医院" value="一级医院"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </el-form>
 
-                  <el-checkbox label="产品"></el-checkbox>
-                  <el-checkbox label="邵勇-角色"></el-checkbox>
-                  <el-checkbox label="sai医生角色"></el-checkbox>
-                  <el-checkbox label="媒体号"></el-checkbox>
-                  <br>
-                  <el-checkbox label="内容编辑"></el-checkbox>
-                  <el-checkbox label="市场部"></el-checkbox>
-                </el-checkbox-group>
-              </template>
-            </el-form-item>
-            <el-form-item label="状态:" :label-width="formLabelWidth">
-              <template slot-scope="scope">
-                <el-radio v-model="editTable.userType" label="0">禁用</el-radio>
-                <el-radio v-model="editTable.userType" label="1">正常</el-radio>
-              </template>
-            </el-form-item>
-          </el-form>
+              </el-tab-pane>
+                <!-- 修改==配置管理 -->
+              <el-tab-pane label="配置管理">
+                <el-form :model="editTable" label-width="300px">
+                  <el-form-item label="地推链接:" :label-width="formLabelWidth150">
+                    <el-col :span="16">
+                      <el-input v-model="editTable.institutionExtensionUrl" auto-complete="off" placeholder="请输入地推链接" el></el-input>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="微信机构二维码链接:" :label-width="formLabelWidth150">
+                    <el-col :span="10">
+                      <el-button type="primary" size="medium" @click="">生成二维码链接</el-button>
+                    </el-col>
+                  </el-form-item>
+                  <el-form-item label="医院地推LOGO:" :label-width="formLabelWidth150">
+                      <el-upload
+                        class="avatar-uploader"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
+                      </el-upload>
+                  </el-form-item>
+                  <el-form-item label="医院地推宣传图:" :label-width="formLabelWidth150">
+                      <el-upload
+                        class="avatar-uploader clear:after"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
+                      </el-upload>
+                  </el-form-item>
+                </el-form>
+              </el-tab-pane>
+              <!-- 修改==角色管理 -->
+              <el-tab-pane label="角色管理">
+                 <el-form :model="editTable" label-width="300px">
+                   <el-form-item label="APP是否展示:" :label-width="formLabelWidth150">
+                  <template slot-scope="scope">
+                        <el-radio v-model="editTable.whetherAppShow" :label= 1 >是</el-radio>
+                        <el-radio v-model="editTable.whetherAppShow" :label= 0 >否</el-radio>
+                      </template>
+                  </el-form-item>
+                  <el-form-item label="是否开通短信服务:" :label-width="formLabelWidth150">
+                      <template slot-scope="scope">
+                        <el-radio v-model="editTable.whetherOpenMsm" :label = 1>是</el-radio>
+                        <el-radio v-model="editTable.whetherOpenMsm" :label = 0>否</el-radio>
+                      </template>
+                  </el-form-item>
+                  <el-form-item label="是否有PDF报告:" :label-width="formLabelWidth150">
+                      <template slot-scope="scope">
+                        <el-radio v-model="editTable.whetherHasPdfReport" :label = 1>是</el-radio>
+                        <el-radio v-model="editTable.whetherHasPdfReport" :label = 0>否</el-radio>
+                      </template>
+                  </el-form-item>
+                  <el-form-item label="体检报告LOGO:" :label-width="formLabelWidth150">
+                      <el-upload
+                        class="avatar-uploader"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
+                      </el-upload>
+                  </el-form-item>
+                  <el-form-item label="医院Banner:" :label-width="formLabelWidth150">
+                      <el-upload
+                        class="avatar-uploader clear:after"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
+                      </el-upload>
+                  </el-form-item>
+                  <el-form-item label="医院Banner推广链接:" :label-width="formLabelWidth150">
+                    <el-col :span="16">
+                      <el-input v-model="editTable.extensionLogoUrl" auto-complete="off" placeholder="医院Banner推广链接" el></el-input>
+                    </el-col>
+                  </el-form-item>
+                </el-form>
+              </el-tab-pane>
+            </el-tabs>
+          </template>
           <div slot="footer" class="dialog-footer">
             <el-button @click="_doCancel()">取 消</el-button>
             <el-button type="primary" @click="_doHandleEdit()">确 定</el-button>
@@ -218,17 +289,17 @@
                 <el-form :inline="true" :model="addTable">
                   <el-form-item label="机构类型:" label-width="120px">
                     <el-select v-model="addTable.gradeName" placeholder="">
-                      <el-option label="公立" value="1"></el-option>
-                      <el-option label="民营" value="2"></el-option>
+                      <el-option label="公立" value="公立"></el-option>
+                      <el-option label="民营" value="民营"></el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item>
                     <el-select v-model="addTable.lavelName" placeholder="">
-                      <el-option label="三甲医院" value="1"></el-option>
-                      <el-option label="二甲医院" value="2"></el-option>
-                      <el-option label="三级医院" value="3"></el-option>
-                      <el-option label="二级医院" value="4"></el-option>
-                      <el-option label="一级医院" value="5"></el-option>
+                      <el-option label="三甲医院" value="三甲医院"></el-option>
+                      <el-option label="二甲医院" value="二甲医院"></el-option>
+                      <el-option label="三级医院" value="三级医院"></el-option>
+                      <el-option label="二级医院" value="二级医院"></el-option>
+                      <el-option label="一级医院" value="一级医院"></el-option>
                     </el-select>
                   </el-form-item>
                 </el-form>
@@ -256,9 +327,45 @@
                         :before-upload="beforeAvatarUpload">
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                       </el-upload>
                   </el-form-item>
-                  <el-form-item label="医院地推LOGO:" :label-width="formLabelWidth150">
+                  <el-form-item label="医院地推宣传图:" :label-width="formLabelWidth150">
+                      <el-upload
+                        class="avatar-uploader clear:after"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
+                      </el-upload>
+                  </el-form-item>
+                </el-form>
+              </el-tab-pane>
+              <!-- 新增==角色管理 -->
+              <el-tab-pane label="角色管理">
+                 <el-form :model="addTable" label-width="300px">
+                   <el-form-item label="APP是否展示:" :label-width="formLabelWidth150">
+                  <template slot-scope="scope">
+                        <el-radio v-model="addTable.whetherAppShow" :label= 1 >是</el-radio>
+                        <el-radio v-model="addTable.whetherAppShow" :label= 0 >否</el-radio>
+                      </template>
+                  </el-form-item>
+                  <el-form-item label="是否开通短信服务:" :label-width="formLabelWidth150">
+                      <template slot-scope="scope">
+                        <el-radio v-model="addTable.whetherOpenMsm" :label = 1>是</el-radio>
+                        <el-radio v-model="addTable.whetherOpenMsm" :label = 0>否</el-radio>
+                      </template>
+                  </el-form-item>
+                  <el-form-item label="是否有PDF报告:" :label-width="formLabelWidth150">
+                      <template slot-scope="scope">
+                        <el-radio v-model="addTable.whetherHasPdfReport" :label = 1>是</el-radio>
+                        <el-radio v-model="addTable.whetherHasPdfReport" :label = 0>否</el-radio>
+                      </template>
+                  </el-form-item>
+                  <el-form-item label="体检报告LOGO:" :label-width="formLabelWidth150">
                       <el-upload
                         class="avatar-uploader"
                         action="https://jsonplaceholder.typicode.com/posts/"
@@ -267,13 +374,28 @@
                         :before-upload="beforeAvatarUpload">
                         <img v-if="imageUrl" :src="imageUrl" class="avatar">
                         <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                       </el-upload>
+                  </el-form-item>
+                  <el-form-item label="医院Banner:" :label-width="formLabelWidth150">
+                      <el-upload
+                        class="avatar-uploader clear:after"
+                        action="https://jsonplaceholder.typicode.com/posts/"
+                        :show-file-list="false"
+                        :on-success="handleAvatarSuccess"
+                        :before-upload="beforeAvatarUpload">
+                        <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                        <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
+                      </el-upload>
+                  </el-form-item>
+                  <el-form-item label="医院Banner推广链接:" :label-width="formLabelWidth150">
+                    <el-col :span="16">
+                      <el-input v-model="addTable.extensionLogoUrl" auto-complete="off" placeholder="医院Banner推广链接" el></el-input>
+                    </el-col>
                   </el-form-item>
                 </el-form>
               </el-tab-pane>
-              <!-- 新增==角色管理 -->
-              <el-tab-pane label="角色管理">{{addTable.lavelName}}</el-tab-pane>
-              <el-tab-pane label="addTable">{{addTable}}</el-tab-pane>
             </el-tabs>
           </template>
 
@@ -340,7 +462,7 @@ export default {
   data() {
     return {
       imageUrl: '',
-      formInline: { valueSS: '' },
+      formInline: { valueCJR: '',valueBT: '',valueLX: '',valueZT: '' },//搜索时的数据
       currentPage: 1, //分页初始页码
       pagesize: 30, //分页初始显示条数
       tableData: [], //列表数据
@@ -350,9 +472,9 @@ export default {
       addTable: {
         //新增单个数据
         institutionId: '2c8080aa6464825a016464825a000000',
-        institutionCode: 'bjbr002',
-        institutionName: '安鑫',
-        institutionAddr: '234243',
+        institutionCode: '',
+        institutionName: '',
+        institutionAddr: '',
         institutionGradeId: '1',
         institutionLavelId: '3',
         institutionExtensionUrl: null,
@@ -384,6 +506,16 @@ export default {
     }
   },
   methods: {
+    handleReset() {
+      //清空按钮
+      this.formInline.valueCJR = ''
+      this.formInline.valueBT = ''
+      this.formInline.valueLX = ''
+      this.formInline.valueZT = ''
+      this.formInline.valueKS = ''
+      this.formInline.valueJS = ''
+      return false
+    },
     //上传
     handleAvatarSuccess(res, file) {
         this.imageUrl = URL.createObjectURL(file.raw);
@@ -424,9 +556,9 @@ export default {
       this.tableData.push(this.addTable)
       this.addTable = {
         institutionId: '2c8080aa6464825a016464825a000000',
-        institutionCode: 'bjbr002',
-        institutionName: '安鑫',
-        institutionAddr: '234243',
+        institutionCode: '',
+        institutionName: '',
+        institutionAddr: '',
         institutionGradeId: '1',
         institutionLavelId: '3',
         institutionExtensionUrl: null,
@@ -458,9 +590,9 @@ export default {
       this.addTable = {
         //重置新增数据为空
         institutionId: '2c8080aa6464825a016464825a000000',
-        institutionCode: 'bjbr002',
-        institutionName: '安鑫',
-        institutionAddr: '234243',
+        institutionCode: '',
+        institutionName: '',
+        institutionAddr: '',
         institutionGradeId: '1',
         institutionLavelId: '3',
         institutionExtensionUrl: null,
@@ -645,5 +777,14 @@ export default {
   height: 200px;
   box-sizing: content-box;
   vertical-align: top;
+}
+.el-upload__tip{
+    width: calc(100% - 150px);
+    float: right;
+    font-size: 12px;
+    line-height: 20px;
+    display: inline-block;
+    margin-top: 20px;
+    margin-right: 10px;
 }
 </style>
