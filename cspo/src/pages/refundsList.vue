@@ -4,7 +4,7 @@
     <div class="page-container">
 
       <!--退款列表-->
-      <div class="refuse-lists-container">
+      <div class="refuse-lists-container" >
         <el-form :inline="true" :model="searchParams" class="demo-form-inline">
           <el-form-item label="姓名">
             <el-input v-model="searchParams.customerName" placeholder="姓名"></el-input>
@@ -54,10 +54,10 @@
         <!--tab nav-->
         <el-tabs v-model="tabIndex">
           <el-tab-pane label="全部" name="null"></el-tab-pane>
-          <el-tab-pane label="待认证" name="1"></el-tab-pane>
-          <el-tab-pane label="已认证" name="2"></el-tab-pane>
-          <el-tab-pane label="取消认证" name="3"></el-tab-pane>
-          <el-tab-pane label="拒绝认证" name="4"></el-tab-pane>
+          <el-tab-pane label="待处理" name="1"></el-tab-pane>
+          <el-tab-pane label="退款中" name="2"></el-tab-pane>
+          <el-tab-pane label="退款成功" name="3"></el-tab-pane>
+          <el-tab-pane label="退款失败" name="4"></el-tab-pane>
         </el-tabs>
 
 
@@ -67,7 +67,7 @@
           :data="refuseList"
           border
           style="width: 100%">
-          <el-table-column prop="" label="序号"  width="100"></el-table-column>
+          <el-table-column prop="" label="序号"  width="60" type="index"></el-table-column>
           <el-table-column prop="tradeCode" label="订单编号"></el-table-column>
           <el-table-column prop="refundCode" label="退款编号"></el-table-column>
           <el-table-column prop="userName" label="客户姓名"></el-table-column>
@@ -90,7 +90,7 @@
           <el-table-column label="操作">
             <template slot-scope="scope">
               <el-button v-if="scope.row.refundStatus==0" size="mini" type="primary" @click="agreeApply(scope.row,scope.$index )">审核</el-button>
-              <el-button v-if="scope.row.authenticationStatus==1 || scope.row.authenticationStatus==2 || scope.row.authenticationStatus==3" size="mini" type="primary" @click="agreeApply(scope.row,scope.$index )">审核</el-button>
+              <el-button v-if="scope.row.refundStatus==1 || scope.row.refundStatus==2 || scope.row.refundStatus==3" size="mini" type="primary" @click="agreeApply(scope.row,scope.$index )">查看</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -130,6 +130,11 @@ import { mapGetters } from "vuex";
 export default {
   data() {
     return {
+
+      showStatus:1,//1为列表  2为详情
+
+
+
       tabIndex:'null',//状态index
 
       rangeTime:"",//时间range

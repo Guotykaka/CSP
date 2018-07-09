@@ -10,7 +10,7 @@
         <h2 class="logo-t-text">掌上体检云服务平台</h2>
 
         <!--医生管理-->
-        <el-menu style="min-height: 100%;" background-color="#324157" text-color="#b8c7ce" router>
+        <el-menu background-color="#324157" text-color="#b8c7ce" router>
           <el-submenu index="1">
             <template slot="title"><i class="el-icon-document nav-t-icon"></i>系统管理</template>
             <el-menu-item index="notice">公告管理</el-menu-item>
