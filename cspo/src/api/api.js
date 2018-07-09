@@ -12,3 +12,9 @@ export function login(data) {
 export function getDoctorList(data) {
   return post(baseUrl+'/sys/doctor/doctorList',data);
 }
+
+
+
+
+
+
