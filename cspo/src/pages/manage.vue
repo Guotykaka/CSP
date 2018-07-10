@@ -37,6 +37,11 @@
             <el-menu-item index="refundsList">退款列表</el-menu-item>
           </el-submenu>
 
+          <el-submenu index="5">
+            <template slot="title"><i class="el-icon-plus nav-t-icon"></i>财务管理</template>
+            <el-menu-item index="withdrawList">提现列表</el-menu-item>
+          </el-submenu>
+
         </el-menu>
       </div>
 

@@ -48,6 +48,8 @@
 
           <el-form-item>
             <el-button type="primary" @click="_doSearch">查询</el-button>
+            <el-button type="primary" @click="_doSearch">清空</el-button>
+            <el-button type="primary" @click="_doSearch">导出Excel</el-button>
           </el-form-item>
         </el-form>
         <!--tab nav-->
@@ -239,27 +241,13 @@
         <div class="btn-row" style="text-align: center">
           <el-button size="small" type="primary" @click="_doBack">返回</el-button>
         </div>
-
-
       </div>
 
 
-
-
       <!--体检报告详情 dialog-->
-
-
       <el-dialog title="体检报告" :visible.sync="isShowReport" width="90%" custom-class="self-dialog">
         <report :reportData="reportData"></report>
       </el-dialog>
-
-
-
-
-
-
-
-
 
 
     </div>
@@ -2765,8 +2753,6 @@ export default {
           }
         ]
       },
-
-
 
       isShowReport:false,//是否显示体检报告
 

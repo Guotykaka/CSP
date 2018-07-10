@@ -394,9 +394,9 @@
 
 import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
+
 //引入getDoctorList的方法
 import { getDoctorList } from "@/api/api.js";
-
 
 export default {
   data(){

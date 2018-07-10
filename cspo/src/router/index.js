@@ -23,6 +23,9 @@ const indentList = () => import('@/pages/identificationList.vue')//认证列表
 const refundsList = () => import('@/pages/refundsList.vue')//退款列表
 const orderList = () => import('@/pages/orderList.vue')//订单列表
 
+//财务管理
+const withdrawList = () => import('@/pages/withdrawList.vue')//提现列表
+
 
 
 Vue.use(Router)
@@ -94,6 +97,10 @@ export default new Router({
           path: '/orderList',
           component: orderList,//订单管理 订单列表
           meta: ["订单管理","订单列表"],
+        },{
+          path: '/withdrawList',
+          component: withdrawList,//财务管理 提现列表
+          meta: ["财务管理","提现列表"],
         },
       ]
     },
