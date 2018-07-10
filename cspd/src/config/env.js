@@ -28,7 +28,14 @@ export {
 export const API_NAV = localUrl+'nav';
 
 export const API_COUNT_USER_NEWS_LIST = localUrl+'countUserNewsList';
-
+/*个人账户*/
+export const API_GET_DOCTOR_ACCOUNT_INFO = localUrl+'getDoctorAccountInfo';//提现
+export const API_LIST_ACCOUNT_RECORD = localUrl+'listAccountRecord';//提现记录
+export const API_GET_ORDER_INFO = localUrl+'getOrderInfo';//订单记录
+/*电话咨询*/
+export const API_QUERY_PHONE_CONSULTATION = localUrl+'queryPhoneConsultationOrder';//电话咨询列表数据
+export const API_GET_SMSTEMPLATE = localUrl+'getSMSTemplate';//
+export const API_SEND_SMS = localUrl+'sendSMS';//发送短信
 
 
 

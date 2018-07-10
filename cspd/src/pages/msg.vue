@@ -67,9 +67,6 @@
         return 'tablStyle';
       },
       deleteRow(index, rows) {
-        console.log(index);
-        console.log(rows);
-        console.log(rows[index])
         if (index === 0) {
           this.$router.push('./tel_consult')//电话报告解读
         } else if (index === 1) {
@@ -92,13 +89,15 @@
     line-height: 32px;
     .page-wrapper {
       background-color: #e5e5e5;
+      padding:0;
     }
   }
 </style>
 <style lang="less">
   .el-table {
     .tablStyle {
-      background-color:blue!important;
+      background-color:#e5e5e5!important;
+      color:#333;
     }
   }
 </style>

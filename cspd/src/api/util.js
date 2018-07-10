@@ -98,7 +98,11 @@ export const storeManager = {
     pwd += $chars.charAt(Math.floor(Math.random() * maxPos));
   }
   return pwd;
-}
+},
+  mbTest(){
+    var test = /^(13|14|15|18|17)[0-9]{9}$/;
+    return test
+  }
 }
 
 
