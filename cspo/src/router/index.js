@@ -6,6 +6,9 @@ import "@/asset/style/mixin.less"
 
 const login = () => import('@/pages/login.vue')//登录
 const manage = () => import('@/pages/manage.vue')//管理页面
+const main = () => import('@/pages/main.vue')//控制台
+const announcement = () => import('@/pages/announcement.vue')//系统公告
+const msgList = () => import('@/pages/msgList.vue')//消息列表
 const notice = () => import('@/pages/notice.vue')//公告管理
 const role = () => import('@/pages/role.vue')//角色管理
 // const dept = () => import('@/pages/dept.vue')//部门管理
@@ -26,7 +29,11 @@ const indentList = () => import('@/pages/identificationList.vue')//认证列表
 const refundsList = () => import('@/pages/refundsList.vue')//退款列表
 const orderList = () => import('@/pages/orderList.vue')//订单列表
 
+//财务管理
+const withdrawList = () => import('@/pages/withdrawList.vue')//提现列表
 
+//用户设置
+const goMyself = () => import('@/pages/goMyself.vue')//个人中心
 
 Vue.use(Router)
 
@@ -42,15 +49,28 @@ export default new Router({
       path: '/manage',
       name: '',
       component: manage,
-      children:[
+      children: [
         {
+          path: '/main',
+          component: main,
+          meta: ["控制台"],//控制台
+        },{
+          path: '/announcement',
+          component: announcement,
+          meta: ["系统公告"],//announcement
+        },{
+          path: '/msgList',
+          component: msgList,
+          meta: ["消息列表"],//消息列表
+        },{
           path: '/notice',
           component: notice,
-          meta: ["系统管理","公告管理"],//公告管理
-        },{
+          meta: ["系统管理", "公告管理"],//公告管理
+        },
+        {
           path: '/role',
           component: role,
-          meta: ["系统管理","角色管理"],//角色管理
+          meta: ["系统管理", "角色管理"],//角色管理
         },
         // {
         //   path: '/dept',
@@ -60,47 +80,71 @@ export default new Router({
         {
           path: '/user',
           component: user,
-          meta: ["系统管理","用户管理"],//用户管理
-        },{
+          meta: ["系统管理", "用户管理"],//用户管理
+        },
+        {
           path: '/institution',
           component: institution,
-          meta: ["机构业务","机构列表"],//机构列表
-        },{
+          meta: ["机构业务", "机构列表"],//机构列表
+        },
+        {
           path: '/medicine_group',
           component: medicine_group,
-          meta: ["机构业务","医学分组"],//医学分组
-        },{
+          meta: ["机构业务", "医学分组"],//医学分组
+        },
+        {
           path: '/report_label',
           component: report_label,//报告标签
-          meta: ["机构业务","报告标签"],
-        },{
+          meta: ["机构业务", "报告标签"],
+        },
+        {
           path: '/medical_quota',
           component: medical_quota,//医学指标
-          meta: ["机构业务","医学指标"],
-        },{
+          meta: ["机构业务", "医学指标"],
+        },
+        {
           path: '/medical_quota',
           component: medical_quota,//医学指标
+<<<<<<< HEAD
           meta: ["机构业务","医学指标"],
         },{
           path: '/service_info',
           component: service_info,//商品管理 服务管理
           meta: ["商品管理","服务管理"],
         },{
+=======
+          meta: ["机构业务", "医学指标"],
+        },
+        {
+>>>>>>> 1cdf7a72822f7e7b2c5165af0398591dece88910
           path: '/doctorList',
           component: doctorList,//医生管理 医生列表
-          meta: ["医生管理","医生列表"],
-        },{
+          meta: ["医生管理", "医生列表"],
+        },
+        {
           path: '/indentList',
           component: indentList,//医生管理 认证列表
-          meta: ["医生管理","认证列表"],
-        },{
+          meta: ["医生管理", "认证列表"],
+        },
+        {
           path: '/refundsList',
           component: refundsList,//订单管理 退款列表
-          meta: ["订单管理","退款列表"],
-        },{
+          meta: ["订单管理", "退款列表"],
+        },
+        {
           path: '/orderList',
           component: orderList,//订单管理 订单列表
-          meta: ["订单管理","订单列表"],
+          meta: ["订单管理", "订单列表"],
+        },
+        {
+          path: '/withdrawList',
+          component: withdrawList,//财务管理 提现列表
+          meta: ["财务管理", "提现列表"],
+        },
+        {
+          path: '/goMyself',
+          component: goMyself,//财务管理 提现列表
+          meta: ["个人中心"],
         },
       ]
     },

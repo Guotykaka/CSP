@@ -218,13 +218,6 @@
         showText: false,
         dialogImageUrl: '',
         dialogVisible: false,
-        fileList: [{
-          name: 'food.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }, {
-          name: 'food2.jpeg',
-          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-        }],
 
 
         uptext: [
@@ -584,30 +577,6 @@
             alert(data.msg)
           }
         })
-      },
-      //分页
-      _initPage: function (val) {
-        /*        layui.use('laypage', function () {
-                  var laypage = layui.laypage;
-                  //完整功能
-                  laypage.render({
-                    elem: 'selPage'
-                    , limit: vm.searchParams.pageSize
-                    , count: val//总页数 //数据总数，从服务端得到
-                    , groups: 1
-                    , layout: ['prev', 'page', 'next', 'limit']
-                    , limits: [10, 20, 30, 40, 50]
-                    , curr: vm.searchParams.currentPage
-                    , jump: function (obj, first) {
-                      vm.searchParams.currentPage = obj.curr;
-                      vm.searchParams.pageSize = obj.limit;
-                      //首次不执行
-                      if (!first) {
-                        vm._getOrderList();
-                      }
-                    }
-                  });
-                });*/
       },
       //信息展示
       detailShow: function (val) {

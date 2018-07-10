@@ -7,56 +7,110 @@
     </el-breadcrumb>
 
     <div class="self-nav-box">
-      <a class="self-nav-item">系统公告</a>
-      <a class="self-nav-item">消息<span class="badge-item">5</span></a>
+      <a class="self-nav-item" @click="announcementFn">系统公告</a>
+      <a class="self-nav-item" @click="msgListFn">消息<span class="badge-item">{{getUnReadCount}}</span></a>
     </div>
 
-
-
-
-
     <!--下拉-->
-    <el-dropdown>
+    <el-dropdown @command="handleCommand">
       <span class="el-dropdown-link">
         {{getUseName}}
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item>基础信息</el-dropdown-item>
-        <el-dropdown-item>修改密码</el-dropdown-item>
-        <el-dropdown-item :command="logout">退出系统</el-dropdown-item>
+        <el-dropdown-item command="baseInfo">基础信息</el-dropdown-item>
+        <el-dropdown-item command="changePass">修改密码</el-dropdown-item>
+        <el-dropdown-item command="logout">退出系统</el-dropdown-item>
       </el-dropdown-menu>
     </el-dropdown>
+
+    <!--修改密码dialog-->
+    <el-dialog title="修改密码" :visible.sync="isShowDialog" width="400px">
+      <el-form label-width="80px">
+        <el-form-item label="原密码">
+          <el-input v-model="oldPassword" placeholder="原密码"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码">
+          <el-input v-model="newPassword" placeholder="新密码"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="okFn">修改</el-button>
+          <el-button @click="cancel">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
   import { mapGetters } from 'vuex'
   export default {
+    data(){
+      return{
+        isShowDialog:false,
+        oldPassword:"",
+        newPassword:""
+      }
+    },
+
+
     computed:{
       ...mapGetters([
         'getUseName',
-        'getUseAvatar'
+        'getUseAvatar',
+        'getUnReadCount',
       ])
     },
 
     methods:{
-      logout:function () {
+      //处理command
+      handleCommand(command){
+        if(command==='baseInfo'){
+          //基本信息
+        }else if(command==='changePass'){
+          //修改密码
+          this.isShowDialog=true;
+        }else if(command==='logout'){
+          //退出
 
-        alert(555)
+          this.$router.push("login",function () {
+            console.log("退出");
+          })
 
 
-          this.$alert('这是一段内容', '标题名称', {
-            confirmButtonText: '确定',
-            callback: action => {
-              this.$message({
-                type: 'info',
-                message: `action: ${ action }`
-              });
-            }
-          });
+          //this.$router.
+        }
+      },
+
+      //点击取消
+      cancel(){
+        this.isShowDialog=false;
+      },
+
+      //点击修改
+      okFn(){
+
+      },
+
+
+      //点击系统公告
+      announcementFn(){
+        console.log(888)
+        this.$router.push("announcement");
+      },
+
+      msgListFn(){
+
+        this.$router.push("msgList");
 
 
       }
+
+
+
+
+
+
     }
 
   }

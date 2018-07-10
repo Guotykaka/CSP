@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "user": [{
     "userId": 1,
     "username": "admin",
@@ -855,4 +856,1028 @@
     "roleNames": ["医生角色","健管师","医生主任"],
     "createDate": "2018-05-21 18:09:47"
   }]
+=======
+  "user": [
+    {
+      "userId": 1,
+      "username": "admin",
+      "password": "969d28606deb2d5b498f19b1f142ae7534a3998d30ee4eddd2227c1970892498",
+      "salt": "CbLYM3dU4zAdxBaGnWfW",
+      "email": "250893328@qq.com",
+      "mobile": "13764009077",
+      "status": 1,
+      "roleIdList": {
+        "role": [
+          "医生角色",
+          "运营人员"
+        ],
+        "StuId": 1
+      },
+      "checkList": [
+        "医生角色",
+        "运营人员"
+      ],
+      "createTime": "2016-11-11 11:11:11",
+      "deptId": 1,
+      "deptName": "好卓公司",
+      "userType": "1"
+    },
+    {
+      "userId": 2,
+      "username": "stst",
+      "password": "827b05254b08776560d7c817e1f1b824a348a3739591c42b5f54fe1f14fbe6ff",
+      "salt": "YzcmCZNvbXocrsz9dm8e",
+      "email": "12@qq.com",
+      "mobile": "15851953623",
+      "status": 1,
+      "roleIdList": {
+        "role": [
+          "医生角色",
+          "运营人员"
+        ],
+        "StuId": 1
+      },
+      "checkList": [
+        "医生角色",
+        "运营人员"
+      ],
+      "createTime": "2018-03-05 14:41:16",
+      "deptId": 9,
+      "deptName": "运营部",
+      "userType": "1"
+    },
+    {
+      "userId": 3,
+      "username": "do2",
+      "password": "143facfbf52db5fcf38e918b109760f15215c82697da8333bddeed574df6e3d1",
+      "salt": "sBYRRW2Jn1Jon0lUwZVB",
+      "email": "12@qq.com",
+      "mobile": "15851953626",
+      "status": 1,
+      "roleIdList": {
+        "role": [
+          "医生角色",
+          "运营人员"
+        ],
+        "StuId": 1
+      },
+      "checkList": [
+        "医生角色",
+        "运营人员"
+      ],
+      "createTime": "2018-03-05 16:44:10",
+      "deptId": 8,
+      "deptName": "技术部",
+      "userType": "1"
+    },
+    {
+      "userId": 4,
+      "username": "testadmins",
+      "password": "5695e0524b00c895a23a761aad8809c503e82794ba743fa3e221960d2c5cb73a",
+      "salt": "LPOIHaMEZ2E8fGvfHzHp",
+      "email": "1205@qq.com",
+      "mobile": "15851953969",
+      "status": 1,
+      "roleIdList": {
+        "role": [
+          "医生角色",
+          "运营人员"
+        ],
+        "StuId": 1
+      },
+      "checkList": [
+        "医生角色",
+        "运营人员"
+      ],
+      "createTime": "2018-03-05 17:08:39",
+      "deptId": 11,
+      "deptName": "健管部",
+      "userType": "1"
+    },
+    {
+      "userId": 16,
+      "username": "doctor",
+      "password": "d21cac3d6800a69a8d06c713ab491b72bf6d87f91c1633896950257c420fe10d",
+      "salt": "X8Nhk9uduLVs3BfGL9l1",
+      "email": "1205@qq.com",
+      "mobile": "15851953623",
+      "status": 1,
+      "roleIdList": {
+        "role": [
+          "医生角色",
+          "运营人员"
+        ],
+        "StuId": 1
+      },
+      "checkList": [
+        "医生角色",
+        "运营人员"
+      ],
+      "createTime": "2018-03-09 14:47:07",
+      "deptId": 8,
+      "deptName": "技术部",
+      "userType": "1"
+    },
+    {
+      "userId": 19,
+      "username": "testadmin",
+      "password": "3e17855f87e3b2c6189e54ff6d831b53b0ec0e09ce323dba62bd64abdf57ba08",
+      "salt": "p1JKcbkSR8Rfg3R2KSqG",
+      "email": "12@qq.com",
+      "mobile": "15851234515",
+      "status": 1,
+      "roleIdList": {
+        "role": [
+          "医生角色",
+          "运营人员"
+        ],
+        "StuId": 1
+      },
+      "checkList": [
+        "医生角色",
+        "运营人员"
+      ],
+      "createTime": "2018-03-14 10:02:26",
+      "deptId": 11,
+      "deptName": "健管部",
+      "userType": "1"
+    },
+    {
+      "userId": 20,
+      "username": "zhangxinwen",
+      "password": "948d15300ab17cfac13e2dbae58e7ca992ab3501caff6252dc49853f333c1e5e",
+      "salt": "Dj9zZ4NwxBCeWX19JAAD",
+      "email": "250893328@qq.com",
+      "mobile": "13764009077",
+      "status": 1,
+      "roleIdList": null,
+      "checkList": [
+        "医生角色",
+        "运营人员"
+      ],
+      "createTime": "2018-03-15 14:07:11",
+      "deptId": 8,
+      "deptName": "技术部",
+      "userType": "1"
+    },
+    {
+      "userId": 139,
+      "username": "tangseng",
+      "password": "b3d189a62fb09b06f79549260536a095a2c0841977f562370e1e1f1fb9d693e6",
+      "salt": "aazPAljam0u7OtQIWGPm",
+      "email": "15851396710@qq.com",
+      "mobile": "fasjdflkasjdflkj",
+      "status": 1,
+      "roleIdList": null,
+      "checkList": [
+        "医生角色",
+        "运营人员"
+      ],
+      "createTime": "2018-05-09 11:13:32",
+      "deptId": 11,
+      "deptName": "健管部",
+      "userType": "1"
+    },
+    {
+      "userId": 154,
+      "username": "asdfasd",
+      "password": "0ac70281cab357884f7ee731c37ff94fc6e1e2f50f7fe46a7ee2c64bf5436455",
+      "salt": "pcL3B48Jit1bpX0NrvN7",
+      "email": "asdf@1",
+      "mobile": "asfd",
+      "status": 1,
+      "roleIdList": null,
+      "createTime": "2018-05-09 17:12:29",
+      "deptId": 11,
+      "deptName": "健管部",
+      "userType": "1"
+    },
+    {
+      "userId": 162,
+      "username": "testdorctor",
+      "password": "82a3002721cfe63d0dcabcdc7c212432af69867b5f34809b68c5d5666a13e9db",
+      "salt": "7gXSVqASlPrSviaZVuSj",
+      "email": "1156212706@qq.com",
+      "mobile": "15927326110",
+      "status": 1,
+      "roleIdList": null,
+      "createTime": "2018-05-16 13:20:03",
+      "deptId": 8,
+      "deptName": "技术部",
+      "userType": "1"
+    }
+  ],
+  "notice": [
+    {
+      "noticeOs": "ROLE_TYPE_DOCTOR",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6449275b01644929b5b70005",
+      "noticeType": "NOTICE_TYPE_PRODUCT_PROMOTION",
+      "userName": "admin",
+      "noticeTitle": "5",
+      "noticeOsName": [
+        "医生端"
+      ],
+      "noticeContent": "5",
+      "createTime": "2018-06-29 09:30:27",
+      "noticeStatus": "1",
+      "createUser": "1",
+      "dictName": "产品推广",
+      "lastUpdateTime": "2018-06-29 09:30:27"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_OPERATING",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6449275b01644929a1140004",
+      "noticeType": "NOTICE_TYPE_VERSION_UPGRADES",
+      "userName": "admin",
+      "noticeTitle": "4",
+      "noticeOsName": [
+        "运营端"
+      ],
+      "noticeContent": "4",
+      "createTime": "2018-06-29 09:30:22",
+      "noticeStatus": "1",
+      "createUser": "1",
+      "dictName": "版本升级",
+      "lastUpdateTime": "2018-06-29 09:30:22"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_OPERATING,ROLE_TYPE_DOCTOR",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6449275b016449298c540003",
+      "noticeType": "NOTICE_TYPE_VERSION_UPGRADES",
+      "userName": "admin",
+      "noticeTitle": "3",
+      "noticeOsName": [
+        "运营端",
+        "医生端"
+      ],
+      "noticeContent": "3",
+      "createTime": "2018-06-29 09:30:17",
+      "noticeStatus": "1",
+      "createUser": "1",
+      "dictName": "版本升级",
+      "lastUpdateTime": "2018-06-29 09:30:17"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_OPERATING",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6449275b016449296e1c0002",
+      "noticeType": "NOTICE_TYPE_PRODUCT_PROMOTION",
+      "userName": "admin",
+      "noticeTitle": "2",
+      "noticeOsName": [
+        "运营端"
+      ],
+      "noticeContent": "2",
+      "createTime": "2018-06-29 09:30:09",
+      "noticeStatus": "1",
+      "createUser": "1",
+      "dictName": "产品推广",
+      "lastUpdateTime": "2018-06-29 09:30:09"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_OPERATING",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6449275b01644929571f0001",
+      "noticeType": "NOTICE_TYPE_VERSION_UPGRADES",
+      "userName": "admin",
+      "noticeTitle": "1",
+      "noticeOsName": [
+        "运营端"
+      ],
+      "noticeContent": "1",
+      "createTime": "2018-06-29 09:30:03",
+      "noticeStatus": "1",
+      "createUser": "1",
+      "dictName": "版本升级",
+      "lastUpdateTime": "2018-06-29 09:30:03"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_OPERATING,ROLE_TYPE_DOCTOR",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6443eb9001644415ebee0006",
+      "noticeType": "NOTICE_TYPE_VERSION_UPGRADES",
+      "userName": "admin",
+      "noticeTitle": "医生运营端接收",
+      "noticeOsName": [
+        "运营端",
+        "医生端"
+      ],
+      "noticeContent": "医生运营端接收",
+      "createTime": "2018-06-28 09:50:44",
+      "noticeStatus": "2",
+      "createUser": "1",
+      "dictName": "版本升级",
+      "lastUpdateTime": "2018-07-03 11:33:09"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_OPERATING",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6443eb900164441530da0005",
+      "noticeType": "NOTICE_TYPE_VERSION_UPGRADES",
+      "userName": "admin",
+      "noticeTitle": "运营端接收",
+      "noticeOsName": [
+        "运营端"
+      ],
+      "noticeContent": "运营端接收",
+      "createTime": "2018-06-28 09:49:56",
+      "noticeStatus": "2",
+      "createUser": "1",
+      "dictName": "版本升级",
+      "lastUpdateTime": "2018-06-28 09:49:56"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_DOCTOR",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6443eb9001644414852e0004",
+      "noticeType": "NOTICE_TYPE_VERSION_UPGRADES",
+      "userName": "admin",
+      "noticeTitle": "医生端接收",
+      "noticeOsName": [
+        "医生端"
+      ],
+      "noticeContent": "医生端接收",
+      "createTime": "2018-06-28 09:49:12",
+      "noticeStatus": "2",
+      "createUser": "1",
+      "dictName": "版本升级",
+      "lastUpdateTime": "2018-06-28 09:49:12"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_OPERATING",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6443eb90016443f9992b0002",
+      "noticeType": "NOTICE_TYPE_PRODUCT_PROMOTION",
+      "userName": "admin",
+      "noticeTitle": "测试公告3",
+      "noticeOsName": [
+        "运营端"
+      ],
+      "noticeContent": "测试公告3",
+      "createTime": "2018-06-28 09:19:48",
+      "noticeStatus": "3",
+      "createUser": "1",
+      "dictName": "产品推广",
+      "lastUpdateTime": "2018-06-28 09:32:38"
+    },
+    {
+      "noticeOs": "ROLE_TYPE_DOCTOR",
+      "releaseTime": null,
+      "sysNoticeId": "2c8080aa6443eb90016443f2dfee0001",
+      "noticeType": "NOTICE_TYPE_PRODUCT_PROMOTION",
+      "userName": "admin",
+      "noticeTitle": "测试公告2",
+      "noticeOsName": [
+        "医生端"
+      ],
+      "noticeContent": "测试公告2",
+      "createTime": "2018-06-28 09:12:27",
+      "noticeStatus": "2",
+      "createUser": "1",
+      "dictName": "产品推广",
+      "lastUpdateTime": "2018-06-28 09:47:31"
+    }
+  ],
+  "role": [
+    {
+      "roleId": 32,
+      "roleCode": "sy-js",
+      "roleName": "邵勇-角色",
+      "remark": "邵勇-角色",
+      "deptId": null,
+      "deptName": null,
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-07-02 16:58:57",
+      "roleType": "1",
+      "roleTypelist": [
+        "医生端"
+      ]
+    },
+    {
+      "roleId": 12,
+      "roleCode": null,
+      "roleName": "运营人员",
+      "remark": "运营人员",
+      "deptId": 9,
+      "deptName": "运营部",
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-07-02 16:36:51",
+      "roleType": "2",
+      "roleTypelist": [
+        "运营端"
+      ]
+    },
+    {
+      "roleId": 33,
+      "roleCode": "6",
+      "roleName": "sai医生角色",
+      "remark": "sai医生角色",
+      "deptId": null,
+      "deptName": null,
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-07-02 16:34:23",
+      "roleType": "2",
+      "roleTypelist": [
+        "运营端"
+      ]
+    },
+    {
+      "roleId": 37,
+      "roleCode": "564",
+      "roleName": "567",
+      "remark": "风帆股份给黑",
+      "deptId": null,
+      "deptName": null,
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-06-29 09:31:33",
+      "roleType": "1,2",
+      "roleTypelist": [
+        "医生端",
+        "运营端"
+      ]
+    },
+    {
+      "roleId": 36,
+      "roleCode": "scb",
+      "roleName": "市场部",
+      "remark": "市场部",
+      "deptId": null,
+      "deptName": null,
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-06-27 14:18:42",
+      "roleType": "2",
+      "roleTypelist": [
+        "运营端"
+      ]
+    },
+    {
+      "roleId": 35,
+      "roleCode": "content operator",
+      "roleName": "内容编辑",
+      "remark": "内容编辑",
+      "deptId": null,
+      "deptName": null,
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-06-25 11:13:47",
+      "roleType": "2",
+      "roleTypelist": [
+        "运营端"
+      ]
+    },
+    {
+      "roleId": 34,
+      "roleCode": "media",
+      "roleName": "媒体号",
+      "remark": "社媒",
+      "deptId": null,
+      "deptName": null,
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-06-25 10:53:49",
+      "roleType": "2",
+      "roleTypelist": [
+        "运营端"
+      ]
+    },
+    {
+      "roleId": 29,
+      "roleCode": "003",
+      "roleName": "健管师",
+      "remark": "健管部门",
+      "deptId": 11,
+      "deptName": "健管部",
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-06-22 16:00:33",
+      "roleType": "1,2",
+      "roleTypelist": [
+        "医生端",
+        "运营端"
+      ]
+    },
+    {
+      "roleId": 4,
+      "roleCode": "123",
+      "roleName": "医生角色",
+      "remark": "医生角色账号设置",
+      "deptId": 11,
+      "deptName": "健管部",
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-06-22 11:41:55",
+      "roleType": "1",
+      "roleTypelist": [
+        "医生端"
+      ]
+    },
+    {
+      "roleId": 30,
+      "roleCode": "004",
+      "roleName": "医生主任",
+      "remark": "医生主任",
+      "deptId": null,
+      "deptName": null,
+      "menuIdList": null,
+      "deptIdList": null,
+      "createTime": "2018-06-20 17:01:31",
+      "roleType": "1",
+      "roleTypelist": [
+        "医生端"
+      ]
+    }
+  ],
+  "medicineGroup": [
+    {
+      "medicineGroupId": "c0a5a8ba802611e88a1a000c29466fd7",
+      "medicineGroupName": "qwe",
+      "medicineGroupSort": 0,
+      "medicineGroupDescription": "qwe",
+      "medicineGroupState": 0,
+      "createDate": "2018-07-05 15:41:14",
+      "createUser": "admin",
+      "updateDate": "2018-07-05 15:41:14",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "b31d63ea802611e88a1a000c29466fd7",
+      "medicineGroupName": "111",
+      "medicineGroupSort": 0,
+      "medicineGroupDescription": "111",
+      "medicineGroupState": 0,
+      "createDate": "2018-07-05 15:40:51",
+      "createUser": "admin",
+      "updateDate": "2018-07-05 15:40:51",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "a12f8334802611e88a1a000c29466fd7",
+      "medicineGroupName": "111",
+      "medicineGroupSort": 0,
+      "medicineGroupDescription": "1111",
+      "medicineGroupState": 0,
+      "createDate": "2018-07-05 15:40:21",
+      "createUser": "admin",
+      "updateDate": "2018-07-05 15:40:21",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "b81cf03069f711e8879f000c29637456",
+      "medicineGroupName": "22",
+      "medicineGroupSort": 0,
+      "medicineGroupDescription": "222",
+      "medicineGroupState": 0,
+      "createDate": "2018-06-07 10:09:02",
+      "createUser": "admin",
+      "updateDate": "2018-06-07 10:09:02",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "333cb4485fe511e8879f000c29637456",
+      "medicineGroupName": "66666",
+      "medicineGroupSort": 1,
+      "medicineGroupDescription": "66666333333",
+      "medicineGroupState": 1,
+      "createDate": "2018-05-25 14:31:16",
+      "createUser": "admin",
+      "updateDate": "2018-05-28 15:40:38",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "2f0f4ffc5fe511e8879f000c29637456",
+      "medicineGroupName": "呃呃呃",
+      "medicineGroupSort": 2,
+      "medicineGroupDescription": "11111",
+      "medicineGroupState": 0,
+      "createDate": "2018-05-25 14:31:09",
+      "createUser": "admin",
+      "updateDate": "2018-05-25 14:31:09",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "260179bc5fe511e8879f000c29637456",
+      "medicineGroupName": "大家好",
+      "medicineGroupSort": 3,
+      "medicineGroupDescription": "大家好",
+      "medicineGroupState": 0,
+      "createDate": "2018-05-25 14:30:54",
+      "createUser": "admin",
+      "updateDate": "2018-05-25 14:30:54",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "201e624e5fe511e8879f000c29637456",
+      "medicineGroupName": "您好",
+      "medicineGroupSort": 4,
+      "medicineGroupDescription": "您好",
+      "medicineGroupState": 0,
+      "createDate": "2018-05-25 14:30:44",
+      "createUser": "admin",
+      "updateDate": "2018-05-25 14:30:44",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "19da45065fe511e8879f000c29637456",
+      "medicineGroupName": "2222",
+      "medicineGroupSort": 5,
+      "medicineGroupDescription": "222222",
+      "medicineGroupState": 0,
+      "createDate": "2018-05-25 14:30:34",
+      "createUser": "admin",
+      "updateDate": "2018-05-25 14:30:34",
+      "updateUser": "admin"
+    },
+    {
+      "medicineGroupId": "46023bbe5fe211e8879f000c29637456",
+      "medicineGroupName": "1111",
+      "medicineGroupSort": 6,
+      "medicineGroupDescription": null,
+      "medicineGroupState": 0,
+      "createDate": "2018-05-25 14:10:19",
+      "createUser": "admin",
+      "updateDate": "2018-05-25 14:10:19",
+      "updateUser": "admin"
+    }
+  ],
+  "report_label": [
+    {
+      "reportLabelId": "385d12405a7911e8bb92000c29637456",
+      "reportLabelName": "测试标签111",
+      "reportLabelSort": null,
+      "reportLabelDesc": "测试",
+      "reportLabelState": 0,
+      "createDate": "2018-05-18 16:55:43",
+      "createUser": "1",
+      "updateDate": "2018-05-18 16:55:43"
+    },
+    {
+      "reportLabelId": "88dfc65030b111e8880d000c29637456",
+      "reportLabelName": "测试标签22",
+      "reportLabelSort": 1,
+      "reportLabelDesc": "测试标签1",
+      "reportLabelState": 0,
+      "createDate": "2018-03-26 12:52:05",
+      "createUser": "1",
+      "updateDate": "2018-05-31 14:38:03"
+    },
+    {
+      "reportLabelId": "991462b030b111e8880d000c29637456",
+      "reportLabelName": "测试标签2",
+      "reportLabelSort": 2,
+      "reportLabelDesc": "测试标签2",
+      "reportLabelState": 1,
+      "createDate": "2018-03-26 12:52:32",
+      "createUser": "1",
+      "updateDate": "2018-03-26 13:11:32"
+    },
+    {
+      "reportLabelId": "7ce1c0b630b011e8880d000c29637456",
+      "reportLabelName": "测试标签3",
+      "reportLabelSort": 3,
+      "reportLabelDesc": "测试标签3",
+      "reportLabelState": 0,
+      "createDate": "2018-03-26 12:44:35",
+      "createUser": "1",
+      "updateDate": "2018-05-18 16:55:52"
+    }
+  ],
+  "institution": [
+    {
+      "institutionId": "2c8080aa6464825a016464825a000000",
+      "institutionCode": "bjbr002",
+      "institutionName": "安鑫",
+      "institutionAddr": "234243",
+      "institutionGradeId": "1",
+      "institutionLavelId": "3",
+      "institutionExtensionUrl": null,
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 1,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-07-04 16:57:01",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "公立",
+      "lavelName": "三级医院"
+    },
+    {
+      "institutionId": "2c8080aa6443eb90016444143eb40003",
+      "institutionCode": "56456456",
+      "institutionName": "新机构567",
+      "institutionAddr": "3345345",
+      "institutionGradeId": "1",
+      "institutionLavelId": "4",
+      "institutionExtensionUrl": null,
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 1,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-28 09:48:54",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "公立",
+      "lavelName": "二甲医院"
+    },
+    {
+      "institutionId": "2c8080aa6439ae7b01643b5cb9120001",
+      "institutionCode": "35345",
+      "institutionName": "dgdfgdgfd",
+      "institutionAddr": "345435",
+      "institutionGradeId": "2",
+      "institutionLavelId": "4",
+      "institutionExtensionUrl": null,
+      "qrCodeUrl": null,
+      "extensionLogoUrl": "http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/ikkQrH8wW4Q8MbR5HCNVHPr6xOKJi35u.png",
+      "extensionImageUrl": "http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/gmRaT7iYe5CO3phsmYc7mXBkWahJWyDz.png",
+      "whetherAppShow": 1,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-26 17:11:29",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "民营",
+      "lavelName": "二甲医院"
+    },
+    {
+      "institutionId": "2c8080aa642680ca016435aa7b420003",
+      "institutionCode": "6789667",
+      "institutionName": "这是测试机构",
+      "institutionAddr": "方法更好发挥",
+      "institutionGradeId": "2",
+      "institutionLavelId": "3",
+      "institutionExtensionUrl": "http://www.baidu.com",
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 1,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-25 14:38:42",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "民营",
+      "lavelName": "三级医院"
+    },
+    {
+      "institutionId": "2c8080aa642067460164206746b20000",
+      "institutionCode": "bjbr009",
+      "institutionName": "包头中心医院",
+      "institutionAddr": "包头中心医院",
+      "institutionGradeId": "1",
+      "institutionLavelId": "2",
+      "institutionExtensionUrl": "http://hzswvajgs01:100/SpacePush.html#/2/bjbr009/%E5%8C%85%E5%A4%B4%E4%B8%AD%E5%BF%83%E5%8C%BB%E9%99%A2",
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 1,
+      "whetherOpenMsm": 1,
+      "whetherHasPdfReport": 1,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-21 11:33:16",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "公立",
+      "lavelName": "三甲医院"
+    },
+    {
+      "institutionId": "2c8080aa640272d2016402773c020001",
+      "institutionCode": "bjbr001",
+      "institutionName": "河南省直三院",
+      "institutionAddr": "河南省直三院",
+      "institutionGradeId": "1",
+      "institutionLavelId": "4",
+      "institutionExtensionUrl": null,
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 1,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-15 16:02:05",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "公立",
+      "lavelName": "二甲医院"
+    },
+    {
+      "institutionId": "2c8080aa64010b680164012a87360005",
+      "institutionCode": "测交互",
+      "institutionName": "测交互",
+      "institutionAddr": "测交互",
+      "institutionGradeId": "1",
+      "institutionLavelId": "2",
+      "institutionExtensionUrl": null,
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 0,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-15 09:58:41",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "公立",
+      "lavelName": "三甲医院"
+    },
+    {
+      "institutionId": "2c8080aa64010b680164011b5d690004",
+      "institutionCode": "将军金甲夜不脱",
+      "institutionName": "将军金甲夜不脱",
+      "institutionAddr": "上海",
+      "institutionGradeId": "1",
+      "institutionLavelId": "2",
+      "institutionExtensionUrl": null,
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 0,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-15 09:42:07",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "公立",
+      "lavelName": "三甲医院"
+    },
+    {
+      "institutionId": "2c8080aa64010b68016401108f210003",
+      "institutionCode": "试试长度试试长度试试长度试试长试试长度度",
+      "institutionName": "试试排重",
+      "institutionAddr": "试试排重地址",
+      "institutionGradeId": "1",
+      "institutionLavelId": "2",
+      "institutionExtensionUrl": null,
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 0,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-15 09:30:19",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "公立",
+      "lavelName": "三甲医院"
+    },
+    {
+      "institutionId": "2c8080aa64010b680164010fe98b0001",
+      "institutionCode": "１",
+      "institutionName": "试试排重",
+      "institutionAddr": "试试排重的地址",
+      "institutionGradeId": "1",
+      "institutionLavelId": "2",
+      "institutionExtensionUrl": null,
+      "qrCodeUrl": null,
+      "extensionLogoUrl": null,
+      "extensionImageUrl": null,
+      "whetherAppShow": 0,
+      "whetherOpenMsm": 0,
+      "whetherHasPdfReport": 0,
+      "medicalExamReportLogo": null,
+      "bannerLogo": null,
+      "bannerExtensionUrl": null,
+      "institutionDesc": null,
+      "whetherDelete": 0,
+      "createTime": "2018-06-15 09:29:37",
+      "lastUpdateTime": null,
+      "createUser": "1",
+      "updateUser": null,
+      "registeredReservationAddr": null,
+      "gradeName": "公立",
+      "lavelName": "三甲医院"
+    }
+  ],
+  "queryInsLeaveWordAnswerList": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": [
+      {
+        "insLeaveWordAnswerId": "2c8080aa6459b55e01645f03551904be",
+        "insLeaveWordId": "2c8080aa6459b55e01645f02d14304bd",
+        "parentId": "2c8080aa6459b55e01645f02d14304bd",
+        "answerContent": "operativetest回复你了",
+        "answerUserId": 317,
+        "answerUserName": "operativetest",
+        "createTime": "2018-07-03 15:20:11",
+        "updateTime": null
+      }
+    ]
+  },
+  "queryInsLeaveWordList": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+      "list": [
+        {
+          "insLeaveWordId": "2c8080aa6459b55e01645f02d14304bd",
+          "leaveWordTitle": "今天啥情况啊",
+          "leaveWordContent": "今天啥情况啊",
+          "createUserName": "huihui",
+          "createTime": "2018-07-03 15:19:37",
+          "updateTime": "2018-07-03 15:20:11",
+          "leaveWordStatus": 2,
+          "mobile": "15026502683",
+          "email": null,
+          "roleName": null,
+          "deptName": null,
+          "createUserId": "267"
+        },
+        {
+          "insLeaveWordId": "2c8080aa6459b55e01645ec7422e04bb",
+          "leaveWordTitle": "我的第一次留言",
+          "leaveWordContent": "我的第一次留言你会关注吗",
+          "createUserName": "huihui",
+          "createTime": "2018-07-03 14:14:34",
+          "updateTime": "2018-07-06 11:25:16",
+          "leaveWordStatus": 3,
+          "mobile": "15026502683",
+          "email": null,
+          "roleName": null,
+          "deptName": null,
+          "createUserId": "267"
+        }
+      ],
+      "page": {
+        "pageSize": 10,
+        "totalCount": 2,
+        "currentPage": 1,
+        "pageCount": 1
+      }
+    }
+  }
+>>>>>>> 1cdf7a72822f7e7b2c5165af0398591dece88910
 }

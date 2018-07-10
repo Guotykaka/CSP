@@ -20,6 +20,7 @@
 
         <div class="announ-table">
           <el-table
+            :header-row-style="headStyle"
             :data="msgLists"
             empty-text
             style="width: 100%;">
@@ -90,8 +91,6 @@
         totalcount:null,
         detailShow:null,
 
-
-
         msgLists: [],
         noticeLists: [],
       }
@@ -101,11 +100,13 @@
       this.getNoticeTypes();
     },
     methods: {
+      headStyle(){
+        return {'background':'#e5e5e5!important','color':'#333'}
+      },
       deleteRow(index, rows) {
         rows.splice(index, 1);
       },
       handleSizeChange(val) {
-        console.log(`每页 ${val} 条`);
         this.searchParams.limit=val;
         this._getList()
       },
@@ -181,14 +182,14 @@
     }
     .title-msg {
       font-size: 16px;
-      border-bottom: 1px solid #9F9F9F;
+      border-bottom: 1px solid #e5e5e5;
       padding-bottom: 0px;
       margin-left: 20px;
     }
     .main-msg {
       width: 100px;
       height: 3px;
-      background-color: #4CAF50;
+      background-color: #2186f6;
       margin: -2px 0 10px 0;
     }
     .pageinit{

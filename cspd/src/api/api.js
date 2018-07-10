@@ -1,9 +1,10 @@
 import Vue from 'vue'
 import axios from 'axios' // 所有数据api的域名地址'
-// import * as urls from '@/config/env.js'
+import * as urls from '@/config/env.js'
 
 let qs = require('qs')
 function apipost(url,params){
+
   return axios({
     method:"post",
     url:url,
@@ -85,5 +86,30 @@ export const api ={
   },
   noticeTitleQuery(url,params){
     return apiget(url,params);
+  },
+  /*个人账户*/
+  getDoctorAccountInfo(params){
+    return apipost(urls.API_GET_DOCTOR_ACCOUNT_INFO,params);
+  },
+  listAccountRecord(params){
+    return apipost(urls.API_LIST_ACCOUNT_RECORD,params);
+  },
+  getOrderInfo(params){
+    return apipost(urls.API_GET_ORDER_INFO,params);
+  },
+  queryPhoneConsultationOrder(params){
+    return apipost(urls.API_QUERY_PHONE_CONSULTATION,params);
+  },
+  getSMSTemplate(params){
+    return apipost(urls.API_GET_SMSTEMPLATE,params);
+  },
+  sendSMS(params){
+    return apipost(urls.API_SEND_SMS,params);
+  },
+  queryInsLeaveWordAnswerList(params){
+    return apipost(urls.API_QUERY_INS_LEAVE_ANSWER_LIST,params);
+  },
+  queryInsLeaveWordList(params){
+    return apipost(urls.API_QUERY_INS_LEAVE_WORDLIST,params);
   }
 };

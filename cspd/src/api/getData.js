@@ -14,8 +14,6 @@ export function login(data) {
     params: data
   })
 }
-
-
 //获取医生账户
 export function getDoctorAccountInfo(data) {
   var data = data || {};
@@ -24,8 +22,6 @@ export function getDoctorAccountInfo(data) {
     params: data
   })
 }
-
-
 //获取服务设置
 export function queryInsServiceDoctorByUserId(data) {
   var data = data || {};

@@ -694,7 +694,7 @@
     .main-msg {
       width: 100px;
       height: 3px;
-      background-color: #4CAF50;
+      background-color: #2186f6;
       margin: -2px 15px;
     }
     .common-padding-20 {
