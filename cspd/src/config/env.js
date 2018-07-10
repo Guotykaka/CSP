@@ -9,7 +9,7 @@
 let baseUrl = '';
 let routerMode = 'hash';
 let baseImgPath;
-let localUrl = "http://localhost:8080/api/";
+let localUrl = "http://localhost:8081/api/";
 
 if (process.env.NODE_ENV == 'development') {
   baseUrl = 'http://172.0.0.42:8115/cspd';
