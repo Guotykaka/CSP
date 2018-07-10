@@ -104,5 +104,11 @@ export const api ={
   },
   sendSMS(params){
     return apipost(urls.API_SEND_SMS,params);
+  },
+  queryInsLeaveWordAnswerList(params){
+    return apipost(urls.API_QUERY_INS_LEAVE_ANSWER_LIST,params);
+  },
+  queryInsLeaveWordList(params){
+    return apipost(urls.API_QUERY_INS_LEAVE_WORDLIST,params);
   }
 };

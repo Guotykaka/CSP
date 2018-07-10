@@ -36,6 +36,9 @@ export const API_GET_ORDER_INFO = localUrl+'getOrderInfo';//订单记录
 export const API_QUERY_PHONE_CONSULTATION = localUrl+'queryPhoneConsultationOrder';//电话咨询列表数据
 export const API_GET_SMSTEMPLATE = localUrl+'getSMSTemplate';//
 export const API_SEND_SMS = localUrl+'sendSMS';//发送短信
+/*联系医助*/
+export const API_QUERY_INS_LEAVE_WORDLIST = localUrl+'queryInsLeaveWordList';//发送短信
+export const API_QUERY_INS_LEAVE_ANSWER_LIST = localUrl+'queryInsLeaveWordAnswerList';//发送短信
 
 
 

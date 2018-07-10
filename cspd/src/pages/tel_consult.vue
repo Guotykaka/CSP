@@ -609,13 +609,10 @@
     }
   }
 </style>
-<style lang="less">
-  .tel-consult{
-    .el-table {
-      .tablStyle {
-        background-color: #e5e5e5 !important;
-        color: #333;
-      }
-    }
+<style>
+  .el-table .tablStyle{
+    background-color: #e5e5e5;
+    color: #333
   }
+
 </style>

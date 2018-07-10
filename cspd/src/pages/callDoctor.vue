@@ -1,82 +1,91 @@
 <template>
   <div class="call_doctor">
     <!--<header-top></header-top>-->
-      <div class="main-message">
-        <div class="main-header">
-          <span class="msg-title">我的留言板</span>
-        </div>
-        <div class="addMsg">
-          <input type="text" class="addInput form-control" placeholder="请描述你的问题" v-model="leaveWordTitle">
-          <textarea class="addTextarea form-control" placeholder="请详细描述你的问题" name="" id=""
-                    v-model="leaveWordContent"></textarea>
-          <el-button class="btnAdd" type="primary" @click="getSaveInsLeaveWord">提交</el-button>
-        </div>
-        <div class="message-deatil">
-          <ul>
-            <li style="overflow: hidden;border:1px solid #e5e5e5;border-radius:5px;"
-                v-for="(item,index) in insLeaveDetail" :key="index">
-              <div class="detail-title">
-                <ul>
-                  <li v-if="item.leaveWordStatus==1">状态:<span class="text-red">待回复</span></li>
-                  <li v-if="item.leaveWordStatus==2">状态:<span class="text-red">已回复</span></li>
-                  <li v-if="item.leaveWordStatus==3">状态:<span class="text-red">已关闭</span></li>
-                  <li>留言人:<span class="text-black">{{item.createUserName}}</span></li>
-                  <li>联系方式:<span class="text-black">{{item.mobile}}</span></li>
-                  <li>留言时间:<span class="text-black">{{item.createTime}}</span></li>
-                </ul>
-              </div>
-              <div class="detail-main">
-                <ul class="text-detail">
-                  <li>
-                    <span class="text-sblack">标题:</span>
-                    <span>{{item.leaveWordTitle}}</span>
-                  </li>
-                  <li>
-                    <span class="text-sblack">内容:</span>
-                    <span>{{item.leaveWordContent}}</span>
-                  </li>
-                </ul>
-
-                <!--回复内容-->
-                <div class="re-circle" v-if="checkId==index" v-for="(item1,index1) in insLeaveAnswerlist" :key="index1">
-                  <span class="res-title">回复</span>
-                  <div class="resCircle">
-                    <span class="res-main">{{item1.answerContent}}</span>
-                    <ul class="res-sign">
-                      <li>
-                        <span class="text-sblack">回复人:</span>
-                        <span>{{item1.answerUserName}}</span>
-                      </li>
-                      <li>
-                        <span class="text-sblack">回复时间:</span>
-                        <span>{{item1.createTime}}</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                <ul class="event-btn" v-if="checkId!==index">
-                  <li @click="evnetShowList(item,index)">展开<b class="iconfont icon-xiangs-copy"></b></li>
-                </ul>
-                <ul class="event-btn" v-if="checkId==index">
-                  <li @click="closeList(item.insLeaveWordId)" v-if="item.leaveWordStatus!=3" class="text-red">关闭</li>
-                  <li @click="replyList(item.insLeaveWordId)"
-                      v-if="(item.leaveWordStatus!=3)&&(createUserId!=checkCreatId)">回复
-                  </li>
-                  <li @click="eventHiddenList">收起<b class="iconfont icon-xiala-copy"></b></li>
-                </ul>
-              </div>
-            </li>
-          </ul>
-        </div>
-        <!--分页-->
-        <div id="selPage"
-             style="font-size: 6px; position: absolute; bottom: 0px;width:100%;background-color:#fff;margin:0 auto;text-align:right;"></div>
+    <div class="main-message">
+      <div class="main-header">
+        <span class="msg-title">我的留言板</span>
       </div>
+      <div class="addMsg">
+        <el-input v-model="leaveWordTitle" size="large" clearable class="addInput" maxlength="30"
+                  placeholder="请描述你的问题"></el-input>
+        <el-input
+          type="textarea"
+          v-model="leaveWordContent"
+          rows=10
+          maxlength="500"
+          class="addTextarea"
+          resize="none"
+          placeholder="请详细描述你的问题"></el-input>
+        <el-button class="btnAdd" type="primary" @click="getSaveInsLeaveWord">提交</el-button>
+      </div>
+      <div class="message-deatil">
+        <ul>
+          <li class="detail-li"
+              v-for="(item,index) in insLeaveDetail" :key="index">
+            <div class="detail-title">
+              <ul>
+                <li v-if="item.leaveWordStatus==1">状态:<span class="text-red">待回复</span></li>
+                <li v-if="item.leaveWordStatus==2">状态:<span class="text-red">已回复</span></li>
+                <li v-if="item.leaveWordStatus==3">状态:<span class="text-red">已关闭</span></li>
+                <li>留言人:<span class="text-black">{{item.createUserName}}</span></li>
+                <li>联系方式:<span class="text-black">{{item.mobile}}</span></li>
+                <li>留言时间:<span class="text-black">{{item.createTime}}</span></li>
+              </ul>
+            </div>
+            <div class="detail-main">
+              <ul class="text-detail">
+                <li>
+                  <span class="text-sblack">标题:</span>
+                  <span>{{item.leaveWordTitle}}</span>
+                </li>
+                <li>
+                  <span class="text-sblack">内容:</span>
+                  <span>{{item.leaveWordContent}}</span>
+                </li>
+              </ul>
+
+              <!--回复内容-->
+              <div class="re-circle" v-if="checkId==index" v-for="(item1,index1) in insLeaveAnswerlist" :key="index1">
+                <span class="res-title">回复</span>
+                <div class="resCircle">
+                  <span class="res-main">{{item1.answerContent}}</span>
+                  <ul class="res-sign">
+                    <li>
+                      <span class="text-sblack">回复人:</span>
+                      <span>{{item1.answerUserName}}</span>
+                    </li>
+                    <li>
+                      <span class="text-sblack">回复时间:</span>
+                      <span>{{item1.createTime}}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+              <ul class="event-btn" v-if="checkId!==index">
+                <li @click="evnetShowList(item,index)">展开<b class="iconfont icon-xiangs-copy"></b></li>
+              </ul>
+              <ul class="event-btn" v-if="checkId==index">
+                <li @click="closeList(item.insLeaveWordId)" v-if="item.leaveWordStatus!=3" class="text-red">关闭</li>
+                <li @click="replyList(item.insLeaveWordId)"
+                    v-if="(item.leaveWordStatus!=3)&&(createUserId!=checkCreatId)">回复
+                </li>
+                <li @click="eventHiddenList">收起<b class="iconfont icon-xiala-copy"></b></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!--分页-->
+      <div id="selPage"
+           style="font-size: 6px; position: absolute; bottom: 0px;width:100%;background-color:#fff;margin:0 auto;text-align:right;"></div>
+    </div>
   </div>
 </template>
 
 <script>
   import headerTop from "@/components/headTop.vue"
+  import {localUrl} from "@/config/env.js"
+  import {api} from '@/api/api';
 
   export default {
     name: 'call_doctor',
@@ -116,26 +125,29 @@
     },
     created() {
       this.$store.state.navTitle = ''
+      this.createUserId = localStorage.getItem('userId');
+      this.insDoctorId = localStorage.getItem('insDoctorId');
+      this._getQueryInsLeaveWordList();
     },
     methods: {
       //关闭
       closeList: function (val) {
         var _this = this;
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/insleaveword/closeInsLeaveWordAnswer",
-          data: val,
-          contentType: "application/json",
-          dataType: "json",
-          success: function (res) {
-            if (res.code === 1) {
-              vm._getQueryInsLeaveWordList();
-              vm.checkId = null;
-            } else {
-              alert(res.msg);
-            }
-          }
-        });
+        /*       $.ajax({
+                 type: "POST",
+                 url: baseURL + "ins/insleaveword/closeInsLeaveWordAnswer",
+                 data: val,
+                 contentType: "application/json",
+                 dataType: "json",
+                 success: function (res) {
+                   if (res.code === 1) {
+                     vm._getQueryInsLeaveWordList();
+                     vm.checkId = null;
+                   } else {
+                     alert(res.msg);
+                   }
+                 }
+               });*/
       },
       //回复
       replyList: function (val) {
@@ -163,58 +175,50 @@
             "insLeaveWordId": val,
             "parentId": parernId
           };
-          $.ajax({
-            type: "POST",
-            url: baseURL + "ins/insleaveword/saveInsLeaveWordAnswer",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(parms),
-            success: function (res) {
-              if (res.code === 1) {
-                alert(res.msg, function () {
+          /*          $.ajax({
+                      type: "POST",
+                      url: baseURL + "ins/insleaveword/saveInsLeaveWordAnswer",
+                      contentType: "application/json",
+                      dataType: "json",
+                      data: JSON.stringify(parms),
+                      success: function (res) {
+                        if (res.code === 1) {
+                          alert(res.msg, function () {
 
-                });
-                vm._getQueryInsLeaveWordList();
-                vm.checkId = null;
-              } else {
-                alert(res.msg);
-              }
-            }
-          });
+                          });
+                          vm._getQueryInsLeaveWordList();
+                          vm.checkId = null;
+                        } else {
+                          alert(res.msg);
+                        }
+                      }
+                    });*/
           layer.close(index);
         });
       },
       //展开
       evnetShowList: function (val, index) {
         this.replayMain = true;
-        var params = val.insLeaveWordId;
         this.checkId = index;
-        vm.showList = true;
-        var _this = this;
-        //请求留言板列表
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/insleaveword/queryInsLeaveWordAnswerList",
-          data: val.insLeaveWordId,
-          contentType: "application/json",
-          dataType: "json",
-          success: function (res) {
-            if (res.code === 1) {
-              _this.insLeaveAnswerlist = res.data;
-              if (_this.insLeaveAnswerlist.length > 0) {
-                var count = _this.insLeaveAnswerlist.length - 1;
-                _this.checkCreatId = _this.insLeaveAnswerlist[count].answerUserId;
-              } else {
-                _this.checkCreatId = val.createUserId;
-              }
+        this.showList = true;
+        let _this = this,
+          params = val.insLeaveWordId;
+        api.queryInsLeaveWordAnswerList(params).then((res) => {
+          let data = res.data;
+          if (data.code === 1) {
+            _this.insLeaveAnswerlist = data.data;
+            if (_this.insLeaveAnswerlist.length > 0) {
+              var count = _this.insLeaveAnswerlist.length - 1;
+              _this.checkCreatId = _this.insLeaveAnswerlist[count].answerUserId;
             } else {
-              alert(res.msg);
+              _this.checkCreatId = val.createUserId;
             }
+          } else {
+            alert(data.msg);
           }
         });
-
         this.resList = this.insLeaveAnswerlist;
-        vm.showList = true;
+        // this.showList = true;
       },
       //收起
       eventHiddenList: function () {
@@ -265,7 +269,7 @@
             "leaveWordStatus": 1
           };
           this.clickAgain = false;
-          $.ajax({
+/*          $.ajax({
             type: "POST",
             url: baseURL + "ins/insleaveword/saveInsLeaveWord",
             data: JSON.stringify(params),
@@ -282,34 +286,28 @@
                 alert(res.msg)
               }
             }
-          });
+          });*/
         } else {
           return;
         }
       },
       //请求所有留言
       _getQueryInsLeaveWordList: function () {
-        var params = {
+        let params = {
           "createUserId": this.createUserId,
           // "leaveWordStatus": 1,//信息状态待回复1 ,2已回复,3已关闭
           "leaveWordTitle": '',
           "limit": this.searchParams.pageSize,
           "page": this.searchParams.currentPage
         };
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/insleaveword/queryInsLeaveWordList",
-          data: JSON.stringify(params),
-          contentType: "application/json",
-          dataType: "json",
-          success: function (res) {
-            if (res.code === 1) {
-              vm.insLeaveDetail = res.data.list;
-              vm.insLeavePage = res.data.page;
-              vm._initPage(res.data.page.totalCount)
-            } else {
-              alert(res.msg)
-            }
+        api.queryInsLeaveWordList(params).then((res)=>{
+          let data = res.data;
+          if (data.code === 1) {
+            this.insLeaveDetail = data.data.list;
+            this.insLeavePage = data.data.page;
+            this._initPage(data.data.page.totalCount)
+          } else {
+            alert(data.msg)
           }
         });
       }
@@ -326,6 +324,15 @@
 </script>
 
 <style scoped lang="less">
+  .call_doctor {
+    line-height: 32px;
+    .detail-li {
+      overflow: hidden;
+      border: 1px solid #e5e5e5;
+      border-radius: 5px;
+    }
+  }
+
   .header-message {
     background-color: #00a7d0;
     border-radius: 5px 5px 0 0;
@@ -379,7 +386,7 @@
     overflow: hidden;
     position: relative;
     padding-bottom: 60px;
-    font-size:14px;
+    font-size: 14px;
   }
 
   .main-header {
@@ -516,7 +523,7 @@
     padding: 0 5px;
     height: 30px;
     position: absolute;
-    top: 0;
+    top: -4px;
     left: 25px;
   }
 
@@ -540,26 +547,20 @@
     padding: 0 20px 56px;
     overflow: hidden;
     position: relative;
-    font-size:14px;
+    font-size: 14px;
     .addInput {
       width: 50%;
-      height: 40px;
       line-height: 40px;
       display: block;
-      font-size:14px;
+      font-size: 16px;
       margin-bottom: 30px;
       margin-top: 30px;
-      padding: 10px 20px 10px;
-      border: 1px solid #e5e5e5;
     }
     .addTextarea {
       width: 50%;
       height: 260px;
-      font-size:14px;
+      font-size: 16px;
       display: block;
-      padding: 10px 20px 10px;
-      resize: none;
-      border: 1px solid #e5e5e5;
     }
   }
 
