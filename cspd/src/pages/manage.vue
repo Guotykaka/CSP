@@ -56,11 +56,6 @@
             </el-submenu>
           </el-menu>
         </el-header>
-<!--        <div class="header_container">
-          <el-breadcrumb separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>
-          </el-breadcrumb>
-        </div>-->
         <el-main>
           <keep-alive>
             <router-view>
@@ -94,7 +89,6 @@
       let url = localUrl + 'nav',
         params = '';
       api.nav(url, params).then((res) => {
-        console.log(res)
         let data = res.data;
         if (data.code === 0) {
           this.navMenu = data.menuList;

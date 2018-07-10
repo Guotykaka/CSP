@@ -31,10 +31,8 @@ var queryInsServiceDoctorByUserId = appData.queryInsServiceDoctorByUserId;
 var noticeTitleQuery = appData.noticeTitleQuery;
 var getDictionaryByKey = appData.getDictionaryByKey;
 var sendSMS = appData.sendSMS;
-
-
-
-
+var queryInsLeaveWordList = appData.queryInsLeaveWordList;
+var queryInsLeaveWordAnswerList = appData.queryInsLeaveWordAnswerList;
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -99,6 +97,12 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       });
       app.post('/api/sendSMS', function(req, res){
         res.json(sendSMS)
+      });
+      app.post('/api/queryInsLeaveWordAnswerList', function(req, res){
+        res.json(queryInsLeaveWordAnswerList)
+      });
+      app.post('/api/queryInsLeaveWordList', function(req, res){
+        res.json(queryInsLeaveWordList)
       });
       app.get('/api/noticeTitleQuery', function(req, res){
         res.json(noticeTitleQuery)//公告列表
