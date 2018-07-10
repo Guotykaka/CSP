@@ -240,8 +240,10 @@ export default {
         "roleTypelist": ["医生端"]
       }
       this.dialogAddVisible = false
-      // console.log(this.addTable.username)
-      // console.log(this.index)
+      this.$message({
+        type: 'success',
+        message: '新增角色成功!'
+      })
     },
     //取消新增
     _doAddCancel() {
@@ -259,6 +261,10 @@ export default {
         "roleTypelist": ["医生端"]
       }
       this.dialogAddVisible = false
+      this.$message({
+        type: 'warning',
+        message: '取消新增'
+      })
     },
     // 修改
     handleEdit(index, row) {
@@ -273,11 +279,19 @@ export default {
     //确定修改
     _doHandleEdit() {
       this.dialogEditVisible = false
+      this.$message({
+        type: 'success',
+        message: '修改成功!'
+      })
     },
     //取消修改
     _doCancel() {
       this.tableData.splice(this.inde, 1, this.editTableRoot)//删除修改的数据并替换为原始数据
       this.dialogEditVisible = false
+      this.$message({
+        type: 'warning',
+        message: '取消修改'
+      })
     },
     // 删除提示
     deleteMessage(index, row) {

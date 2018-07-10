@@ -430,7 +430,7 @@
             <el-table-column align="center" label="操作" width="220">
               <template slot-scope="scope">
                 <el-button size="mini" type="primary" @click="handleCheck(scope.$index, scope.row)">查看</el-button>
-                <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                <el-button size="mini" type="success" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -582,8 +582,10 @@ export default {
         lavelName: '三级医院'
       }
       this.dialogAddVisible = false
-      // console.log(this.addTable.username)
-      // console.log(this.index)
+      this.$message({
+        type: 'success',
+        message: '新增机构成功!'
+      })
     },
     //取消新增
     _doAddCancel() {
@@ -616,6 +618,10 @@ export default {
         lavelName: '三级医院'
       }
       this.dialogAddVisible = false
+      this.$message({
+        type: 'warning',
+        message: '取消新增'
+      })
     },
     // 查看
     handleCheck(index, row) {
@@ -632,11 +638,19 @@ export default {
     //确定修改
     _doHandleEdit() {
       this.dialogEditVisible = false
+      this.$message({
+        type: 'success',
+        message: '修改成功!'
+      })
     },
     //取消修改
     _doCancel() {
       this.tableData.splice(this.inde, 1, this.editTableRoot) //删除修改的数据并替换为原始数据
       this.dialogEditVisible = false
+      this.$message({
+        type: 'warning',
+        message: '取消修改'
+      })
     },
     //获取用户列表
     getInstitutionList() {

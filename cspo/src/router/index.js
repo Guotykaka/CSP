@@ -14,6 +14,9 @@ const institution = () => import('@/pages/institution.vue')//机构列表
 const medicine_group = () => import('@/pages/medicine_group.vue')//医学分组
 const report_label = () => import('@/pages/report_label.vue')//报告标签
 const medical_quota = () => import('@/pages/medical_quota.vue')//医学指标
+//商品管理
+const service_info = () => import('@/pages/service_info.vue')//服务管理
+
 
 //医生管理
 const doctorList = () => import('@/pages/doctorList.vue')//医生列表
@@ -78,6 +81,10 @@ export default new Router({
           path: '/medical_quota',
           component: medical_quota,//医学指标
           meta: ["机构业务","医学指标"],
+        },{
+          path: '/service_info',
+          component: service_info,//商品管理 服务管理
+          meta: ["商品管理","服务管理"],
         },{
           path: '/doctorList',
           component: doctorList,//医生管理 医生列表

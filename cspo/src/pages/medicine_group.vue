@@ -39,7 +39,7 @@
           </template>
           <div slot="footer" class="dialog-footer">
             <el-button @click="_doOrderCancel()">取 消</el-button>
-            <el-button type="primary" @click="dialogOrderVisible=false">确 定</el-button>
+            <el-button type="primary" @click="_doOrder()">确 定</el-button>
           </div>
         </el-dialog>
         <!-- 编辑 -->
@@ -184,6 +184,10 @@ export default {
         updateUser: 'admin'
       }
       this.dialogAddVisible = false
+      this.$message({
+        type: 'success',
+        message: '新增医学分组成功!'
+      })
     },
     //取消新增
     _doAddCancel() {
@@ -200,6 +204,10 @@ export default {
         updateUser: 'admin'
       }
       this.dialogAddVisible = false
+      this.$message({
+        type: 'warning',
+        message: '取消新增'
+      })
     },
     // 修改
     handleEdit(index, row) {
@@ -213,11 +221,20 @@ export default {
     //确定修改
     _doHandleEdit() {
       this.dialogEditVisible = false
+      this.$message({
+        type: 'success',
+        message: '修改成功!'
+      })
     },
     //取消修改
     _doCancel() {
       this.tableData.splice(this.inde, 1, this.editTableRoot) //删除编辑弹窗的数据并替换为原始数据
       this.dialogEditVisible = false
+      this.$message({
+        type: 'warning',
+        message: '取消修改'
+      })
+      
     },
     // 上线提示
     _online(index, row) {
@@ -274,10 +291,22 @@ export default {
       console.log(this.orderData)
       this.dialogOrderVisible=true
     },
+    //确定排序
+    _doOrder() {
+      this.dialogOrderVisible=false
+      this.$message({
+        type: 'success',
+        message: '顺序调整成功!'
+      })
+    },
     //取消排序
     _doOrderCancel() {
       this.tableData = JSON.parse(JSON.stringify(this.orderData))
       this.dialogOrderVisible=false
+      this.$message({
+        type: 'warning',
+        message: '取消顺序调整'
+      })
     },
     //设置表格第一行的颜色
 			getRowClass({ row, column, rowIndex, columnIndex }) {

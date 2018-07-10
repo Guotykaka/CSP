@@ -817,5 +817,42 @@
     "registeredReservationAddr": null,
     "gradeName": "公立",
     "lavelName": "三甲医院"
+  }],
+  "service_info": [{
+    "serviceType": "ITEM_PLATFORM_SERVICE",
+    "serviceDesc": "平台服务-电话报告解读服务",
+    "itemType": "ITEM_SERVICE_TYPE",
+    "serviceUnitName": "次",
+    "serviceMaxPrice": 100.0,
+    "serviceRole": "4,12,30",
+    "serviceSuggestedPrice": "50.0-100.0元/次",
+    "serviceName": "电话报告解读",
+    "serviceIconUrl": "http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/z5o5rqJqcKhbMXBNDTgG89AvrZG5eIK1.png",
+    "serviceMinPrice": 50.0,
+    "serviceUnit": "UNIT_SECOND",
+    "serviceStatus": 1,
+    "serviceIntroduce": "%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E",
+    "serviceId": "8ab2b2f56381c35a016381c35a400000",
+    "serviceSort": 1,
+    "roleNames": ["医生角色","运营人员","医生主任"],
+    "createDate": "2018-05-21 16:14:13"
+  }, {
+    "serviceType": "ITEM_PLATFORM_SERVICE",
+    "serviceDesc": "平台服务-图文咨询",
+    "itemType": "ITEM_SERVICE_TYPE",
+    "serviceUnitName": "次",
+    "serviceMaxPrice": 99.0,
+    "serviceRole": "4,29,30",
+    "serviceSuggestedPrice": "1.0-99.0元/次",
+    "serviceName": "图文咨询",
+    "serviceIconUrl": "http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/O8PUbufKOX6vkmKZhHhNZ3nOQ4sWGrvK.png",
+    "serviceMinPrice": 1.0,
+    "serviceUnit": "UNIT_SECOND",
+    "serviceStatus": 1,
+    "serviceIntroduce": "%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E",
+    "serviceId": "8ab2b2f563822d260163822d26fd0000",
+    "serviceSort": 2,
+    "roleNames": ["医生角色","健管师","医生主任"],
+    "createDate": "2018-05-21 18:09:47"
   }]
 }

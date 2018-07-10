@@ -19,6 +19,7 @@ var user = appData.user//获取用户的本地数据
 var medicineGroup = appData.medicineGroup//获取医学分组的本地数据
 var report_label = appData.report_label//获取报告标签的本地数据
 var institution = appData.institution//获取机构列表本地数据
+var service_info = appData.service_info//获取服务管理本地数据
 
 
 const HOST = process.env.HOST
@@ -88,6 +89,12 @@ before(app) {
     res.json({
       errno: 0,
       data: institution
+    });
+  }),
+  app.post('/api/service_info', function (req, res) { // 服务管理
+    res.json({
+      errno: 0,
+      data: service_info
     });
   })
 },
