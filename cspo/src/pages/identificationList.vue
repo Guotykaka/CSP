@@ -223,21 +223,12 @@
 
 
       <!--refuse reason dialog-->
-
       <el-dialog title="拒绝理由" :visible.sync="refuse.isShowDialog" width="400px">
-
-
         <el-input type="textarea" v-model="refuse.refuseReason"></el-input>
-
-
-
         <div class="btn-row" style="text-align: right">
-
           <el-button size="small" type="default" @click="">取消</el-button>
           <el-button size="small" type="primary" @click="">同意</el-button>
-
         </div>
-
       </el-dialog>
 
 

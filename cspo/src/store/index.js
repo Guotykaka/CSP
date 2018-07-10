@@ -7,6 +7,9 @@ const state = {
   use_name:"huihui",
   use_avatar:"",
 
+
+  unReadMsgCount:0,//未读消息数
+
   //医生角色列表
   doctorRolesList:[
     {roleId:4,roleCode:"123",roleName:"医生角色",remark:"医生角色账号设置",deptId:11,deptName:null,menuIdList:null,deptIdList:null,createTime:"2018-06-22 11:41:55",roleType:"0"},
@@ -46,7 +49,16 @@ const getters={
   //获取机构列表
   getInstitutionArr:function (state) {
     return state.institutionArr
+  },
+
+  //获取未读消息数
+  getUnReadCount(state){
+    return state.unReadMsgCount
   }
+
+
+
+
 
 }
 
@@ -73,7 +85,14 @@ const mutations = {
   setInstitutionArr:function (state,lists) {
     state.institutionArr.length=0;
     state.institutionArr.concat(lists)
+  },
+
+  //设置未读消息数
+  setUnReadCount(state,countNum){
+    state.unReadMsgCount=countNum;
   }
+
+
 }
 
 

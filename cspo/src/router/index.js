@@ -6,6 +6,9 @@ import "@/asset/style/mixin.less"
 
 const login = () => import('@/pages/login.vue')//登录
 const manage = () => import('@/pages/manage.vue')//管理页面
+const main = () => import('@/pages/main.vue')//控制台
+const announcement = () => import('@/pages/announcement.vue')//系统公告
+const msgList = () => import('@/pages/msgList.vue')//消息列表
 const notice = () => import('@/pages/notice.vue')//公告管理
 const role = () => import('@/pages/role.vue')//角色管理
 // const dept = () => import('@/pages/dept.vue')//部门管理
@@ -44,6 +47,18 @@ export default new Router({
       component: manage,
       children:[
         {
+          path: '/main',
+          component: main,
+          meta: ["控制台"],//控制台
+        },{
+          path: '/announcement',
+          component: announcement,
+          meta: ["系统公告"],//announcement
+        },{
+          path: '/msgList',
+          component: msgList,
+          meta: ["消息列表"],//消息列表
+        },{
           path: '/notice',
           component: notice,
           meta: ["系统管理","公告管理"],//公告管理

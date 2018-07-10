@@ -741,7 +741,6 @@ export default {
   .el-select{display: block}
   .el-input{margin-bottom: 15px;}
   .el-button--mini{padding: 7px 10px}
-
   .title-note{line-height: 40px;}
   .btn-row{text-align:center;padding-top: 20px;}
   .service-label-box{padding-top: 12px;line-height: 18px;}

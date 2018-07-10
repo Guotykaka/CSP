@@ -1,6 +1,5 @@
 <template>
   <div id="app" class="enter-dom">
-
     <router-view/>
   </div>
 </template>

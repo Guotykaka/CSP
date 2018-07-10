@@ -35,7 +35,6 @@
         </el-form-item>
       </el-form>
 
-
       <!--tab-->
       <el-tabs v-model="tabIndex">
         <el-tab-pane label="申请中" name="0"></el-tab-pane>
@@ -58,8 +57,8 @@
 
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button v-if="scope.row.status===0" size="mini" type="primary" @click="doStatus(scope.row)">同意</el-button>
-            <el-button v-if="scope.row.status===0" size="mini" type="danger" @click="doStatus(scope.row)">拒绝</el-button>
+            <el-button v-if="scope.row.status===0" size="mini" type="primary" @click="doStatus(scope.row,2)">同意</el-button>
+            <el-button v-if="scope.row.status===0" size="mini" type="danger" @click="doStatus(scope.row,1)">拒绝</el-button>
 
             <el-tag type="danger" v-if="scope.row.status===1">已拒绝</el-tag>
             <el-tag type="success" v-if="scope.row.status===2">已完成</el-tag>
@@ -75,6 +74,17 @@
 
 
       <el-button size="mini" type="primary" @click="page">页码</el-button>
+
+
+      <!--refuse reason dialog-->
+      <el-dialog title="拒绝原因" :visible.sync="refuse.isShowDialog" width="400px">
+        <el-input type="textarea" placeholder="请填写原因" v-model="refuse.refuseReason"></el-input>
+        <div class="btn-row" style="text-align: right">
+          <el-button size="small" type="default" @click="">取消</el-button>
+          <el-button size="small" type="primary" @click="">同意</el-button>
+        </div>
+      </el-dialog>
+
 
 
     </div>
@@ -94,9 +104,15 @@ export default {
   data() {
     return {
 
+      refuse:{
+        isShowDialog:false,
+        refuseReason:""
+      },
 
 
-      totalListCount:100,
+      isShowRefuseDialog:false,//是否显示拒绝理由弹窗
+
+      totalListCount:0,
 
 
       tabIndex:0,
@@ -112,18 +128,6 @@ export default {
         endTime: "",
         status: 0//状态 0 1 2
       },
-
-
-
-
-
-
-
-
-
-
-
-
       //获取的列表数据
       dataList:[
         {insAccountRecordId:"2c8080aa64688e870164691a605b000b",username:"saitest2",createTime:"2018-07-05 14:21:33",institutionName:"包头中心医院",disburse:666.0,insDoctorAccountId:"2c8080aa641bf4cd01641bf4cd7e0000",type:2,status:0,refuseReason:null,insDoctorId:"2c8080aa641bf4cd01641bf4cd7e0000"},
@@ -224,6 +228,27 @@ export default {
 
     //点击同意或者拒绝执行的方法
     doStatus:function (item,state) {
+      if(state===1){
+
+        this.refuse.isShowDialog=true;
+
+      }else {
+
+        this.$confirm('确定同意申请吗？')
+          .then(_ => {
+
+            this.isShowDialog=false
+
+          })
+          .catch(_ => {
+
+          });
+
+      }
+
+
+
+
       /*if(state ===1){
         layer.prompt({
           formType: 2,
@@ -285,24 +310,21 @@ export default {
 
 
     //处理size
-    handleSizeChange(){
+    handleSizeChange(val){
       console.log("size变了")
+      console.log(val)
     },
 
 
     //处理当前页变化
-    handleCurrentChange(){
-      console.log(this.searchParams.page)
+    handleCurrentChange(val){
+      this.searchParams.page=val
     },
 
 
 
     page(){
-
       this.searchParams.page=1
-
-      console.log(this.searchParams.page)
-
     }
 
 
@@ -326,5 +348,5 @@ export default {
 </script>
 
 <style lang="less" scoped>
-
+  .el-textarea{margin-bottom: 25px}
 </style>
