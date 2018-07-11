@@ -5,15 +5,15 @@
       <el-header height="30">
 
         <el-row :gutter="20" class="m_b_15">
-          <el-col :span="6">
+          <el-col :span="6" class="minwidth">
             <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
           </el-col>
 
-          <el-col :span="6">
+          <el-col :span="6" class="minwidthB">
             <el-button type="primary">清空</el-button>
             <el-button type="primary">搜索</el-button>
           </el-col>
-          <el-col :span="6" :offset="6">
+          <el-col :span="10" :offset="2" class="minwidthB">
             <el-button class="right m_r_10" type="primary" @click="handleAdd()">新增</el-button>
             <el-button class="right m_r_10" type="success" @click="order()">顺序调整</el-button>
           </el-col>
@@ -24,15 +24,14 @@
         <el-dialog title="顺序调整" :visible.sync="dialogOrderVisible" width=30%>
           <template>
             <el-table :data="tableData" border style="width: 100%" id="app" :header-cell-style="getRowClass">
-              <el-table-column align="center" type="index" label="序号" width="100"></el-table-column>
-              <el-table-column align="center" prop="medicineGroupName" label="分组名称"></el-table-column>
-              <el-table-column align="center" label="操作">
+              <el-table-column show-overflow-tooltip align="center" type="index" label="序号" width="100"></el-table-column>
+              <el-table-column show-overflow-tooltip align="center" prop="medicineGroupName" label="分组名称"></el-table-column>
+              <el-table-column show-overflow-tooltip align="center" label="操作">
                 <template slot-scope="scope">
                   <el-button type="success" size="mini" icon="el-icon-caret-top" @click="toTop(scope.$index, scope.row)" v-if="scope.$index!=0" circle></el-button>
                   <el-button type="success" size="mini" icon="el-icon-arrow-up" @click="prev(scope.$index, scope.row)" v-if="scope.$index!=0" circle></el-button>
                   <el-button type="success" size="mini" icon="el-icon-arrow-down" @click="next(scope.$index, scope.row)" v-if="scope.$index!=tableData.length-1" circle></el-button>
                   <el-button type="success" size="mini" icon="el-icon-caret-bottom" @click="toBottom(scope.$index, scope.row)" v-if="scope.$index!=tableData.length-1" circle></el-button>
-                 
                 </template>
               </el-table-column>
             </el-table>
@@ -83,9 +82,10 @@
         <!-- 列表 -->
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="medicineGroupName" label="分组名称"></el-table-column>
-            <el-table-column align="center" prop="medicineGroupDescription" label="描述"></el-table-column>
-            <el-table-column align="center" label="状态">
+            <el-table-column show-overflow-tooltip align="center" type="index" label=""></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="medicineGroupName" label="分组名称"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="medicineGroupDescription" label="描述"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" label="状态">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium" type="success" v-if="scope.row.medicineGroupState === 1">使用中</el-tag>
@@ -93,8 +93,8 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="createDate" label="操作时间"></el-table-column>
-            <el-table-column align="center" label="操作">
+            <el-table-column show-overflow-tooltip align="center" prop="createDate" label="操作时间"></el-table-column>
+            <el-table-column align="center" label="操作" min-width="125">
               <template slot-scope="scope">
                 <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                 <el-button size="mini" type="success" v-if="scope.row.medicineGroupState === 0" @click="_online(scope.$index, scope.row)">上线</el-button>
@@ -367,6 +367,12 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.minwidth{
+  min-width: 150px;
+}
+.minwidthB{
+  min-width: 250px;
+}
 .dot {
   width: 100%;
 }

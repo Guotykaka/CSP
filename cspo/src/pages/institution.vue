@@ -5,19 +5,19 @@
       <el-header height="30">
 
         <el-row :gutter="20" class="m_b_15">
-          <el-col :span="5">
+          <el-col :span="5" class="minwidth">
             <el-input v-model="formInline.valueBT" placeholder="机构编号" clearable></el-input>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="5" class="minwidth">
             <el-input v-model="formInline.valueLX" placeholder="机构名称" clearable></el-input>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="5" class="minwidth">
             <el-select v-model="formInline.valueCJR" clearable placeholder="APP是否显示">
               <el-option label="是" value="1"></el-option>
               <el-option label="否" value="2"></el-option>
             </el-select>
           </el-col>
-          <el-col :span="5">
+          <el-col :span="5" class="minwidth">
             <el-select v-model="formInline.valueZT" clearable placeholder="短信服务是否开通">
               <el-option label="是" value="1"></el-option>
               <el-option label="否" value="2"></el-option>
@@ -25,9 +25,11 @@
           </el-col>
         </el-row>
         <el-row class="m_b_15">
+          <el-col :span="5" class="minwidthB">
           <el-button type="primary" @click="handleReset()">清空</el-button>
           <el-button type="primary">搜索</el-button>
           <el-button type="primary" @click="handleAdd()">新增</el-button>
+          </el-col>
         </el-row>
       </el-header>
       <el-main>
@@ -407,11 +409,11 @@
         <!-- 列表 -->
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="institutionCode" label="机构编号"></el-table-column>
-            <el-table-column align="center" prop="institutionName" label="机构名称"></el-table-column>
-            <el-table-column align="center" prop="institutionAddr" label="机构地址"></el-table-column>
-            <el-table-column align="center" prop="gradeName" label="机构类型"></el-table-column>
-            <el-table-column align="center" label="APP是否展示">
+            <el-table-column show-overflow-tooltip align="center" prop="institutionCode" label="机构编号"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="institutionName" label="机构名称"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="institutionAddr" label="机构地址"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="gradeName" label="机构类型"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" label="APP是否展示">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium" type="success" v-if="scope.row.whetherAppShow === 1">是</el-tag>
@@ -419,7 +421,7 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column align="center" label="是否开通短信服务">
+            <el-table-column show-overflow-tooltip align="center" label="是否开通短信服务">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium" type="success" v-if="scope.row.whetherOpenMsm ===1">是</el-tag>
@@ -427,7 +429,7 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column align="center" label="操作" width="220">
+            <el-table-column show-overflow-tooltip align="center" label="操作" width="220">
               <template slot-scope="scope">
                 <el-button size="mini" type="primary" @click="handleCheck(scope.$index, scope.row)">查看</el-button>
                 <el-button size="mini" type="success" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
@@ -703,6 +705,12 @@ export default {
 </style>
 
 <style lang="less" scoped>
+.minwidth{
+  min-width: 150px;
+}
+.minwidthB{
+  min-width: 250px;
+}
 .el-select {
   display: block;
 }

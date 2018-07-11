@@ -33,9 +33,9 @@
           <!-- 列表 -->
           <template>
             <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-              <el-table-column align="center" prop="serviceName" label="服务名称"></el-table-column>
-              <el-table-column align="center" prop="roleNames" label="服务角色" width="350"></el-table-column>
-              <el-table-column align="center" label="服务状态" width="100">
+              <el-table-column show-overflow-tooltip align="center" prop="serviceName" label="服务名称"></el-table-column>
+              <el-table-column show-overflow-tooltip align="center" prop="roleNames" label="服务角色" min-width="100%"></el-table-column>
+              <el-table-column show-overflow-tooltip align="center" label="服务状态"  min-width="100%">
                 <template slot-scope="scope">
                   <div slot="reference" class="name-wrapper">
                     <el-tag size="medium" type="success" v-if="scope.row.serviceStatus === 1">可用</el-tag>
@@ -43,19 +43,19 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column align="center" prop="YYTgoods" label="绑定商品"></el-table-column>
-              <el-table-column align="center" label="建议价格">
+              <el-table-column show-overflow-tooltip align="center" prop="YYTgoods" label="绑定商品"></el-table-column>
+              <el-table-column show-overflow-tooltip align="center" label="建议价格">
                 <template slot-scope="scope">
                   <p>{{ scope.row.serviceMinPrice}}-{{ scope.row.serviceMaxPrice}}元/次</p>
                 </template>
               </el-table-column>
-              <el-table-column align="center" prop="createDate" label="创建时间"></el-table-column>
-              <el-table-column label="操作" width="290">
+              <el-table-column show-overflow-tooltip align="center" prop="createDate" label="创建时间"></el-table-column>
+              <el-table-column align="center" label="操作" width="260">
                 <template slot-scope="scope">
                   <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
                   <el-button size="mini" type="danger" v-if="scope.row.serviceStatus === 1" @click="FalseStatus(scope.$index, scope.row)">不可用</el-button>
                   <el-button size="mini" type="success" v-if="scope.row.serviceStatus === 0" @click="TrueStatus(scope.$index, scope.row)">可用</el-button>
-                  <el-button size="mini" type="danger" v-if="scope.row.YYTstatus === 1" @click="GoodsMan()">商品管理</el-button>
+                  <el-button size="mini" type="warning" v-if="scope.row.YYTstatus === 1" @click="GoodsMan()">商品管理</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -146,7 +146,7 @@
           <el-row style="margin-top: 2%;">
             <el-col :span="24" :offset="8">
               <template>
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length">
                 </el-pagination>
               </template>
             </el-col>
@@ -162,27 +162,27 @@
       <el-dialog title="修改" :visible.sync="dialogEditVisible" width=60%>
 
         <el-form :model="editTable">
-          <el-form-item label="服务名称:" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="服务名称:" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input v-model="editTable.serviceName" prop auto-complete="off" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="服务描述:" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="服务描述:" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input v-model="editTable.serviceDesc" auto-complete="off" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="商品类别:" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="商品类别:" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input placeholder="服务" auto-complete="off" :disabled="true" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="服务类别:" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="服务类别:" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input placeholder="平台服务" auto-complete="off" :disabled="true" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="参考价格:" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="参考价格:" :label-width="formLabelWidth">
             <el-col :span="5">
               <el-input v-model="editTable.serviceMinPrice" auto-complete="off" el></el-input>
             </el-col>
@@ -202,7 +202,7 @@
               </el-select>
             </el-col>
           </el-form-item>
-          <el-form-item label="服务ICON:" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="服务ICON:" :label-width="formLabelWidth">
             <el-col :span="3">
               <el-upload class="upload-demo" action="editTable.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
                 <el-button size="small" type="primary">点击上传</el-button>
@@ -215,14 +215,14 @@
               </div>
             </el-col>
           </el-form-item>
-          <el-form-item label="接收端:" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="接收端:" :label-width="formLabelWidth">
             <template slot-scope="scope">
               <el-checkbox-group v-model="editTable.roleNames">
                 <el-checkbox v-for="(item,index) in RoleData" :label="item.roleName" :key="item.roleId"></el-checkbox>
               </el-checkbox-group>
             </template>
           </el-form-item>
-          <el-form-item label="服务介绍" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="服务介绍" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input v-model="editTable.roleNames"></el-input>
             </el-col>
@@ -234,62 +234,30 @@
           <el-button type="primary" @click="_doHandleEdit()">保存</el-button>
         </div>
       </el-dialog>
-      <!-- 详情弹窗 -->
-      <el-dialog title="详情" :visible.sync="dialogCheckVisible" width=40%>
-        <el-form :model="selectTable">
-          <el-form-item label="公告标题:" :label-width="formLabelWidth">
-            <el-col :span="16">
-              <el-input v-model="selectTable.noticeTitle" auto-complete="off" el readonly></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="公告类型:" :label-width="formLabelWidth">
-            <el-col :span="16">
-              <el-input v-model="selectTable.dictName" auto-complete="off" el readonly></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="公告内容:" :label-width="formLabelWidth">
-            <el-col :span="16">
-              <el-input type="textarea" :rows="4" resize="none" v-model="selectTable.noticeContent" auto-complete="off" el readonly></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="接收端:" :label-width="formLabelWidth">
-            <template slot-scope="scope">
-              <el-checkbox-group v-model="selectTable.noticeOsName">
-                <el-checkbox label="运营端" onclick="return false"></el-checkbox>
-                <el-checkbox label="医生端" onclick="return false"></el-checkbox>
-                <el-checkbox label="企业端" onclick="return false"></el-checkbox>
-              </el-checkbox-group>
-            </template>
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="warning" @click="dialogCheckVisible = false">返回</el-button>
-        </div>
-      </el-dialog>
       <!-- 新增弹窗 -->
       <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
         <el-form :model="addTable">
-          <el-form-item label="服务名称:" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="服务名称:" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input v-model="addTable.serviceName" prop auto-complete="off" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="服务描述:" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="服务描述:" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input v-model="addTable.serviceDesc" auto-complete="off" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="商品类别:" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="商品类别:" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input placeholder="服务" auto-complete="off" :disabled="true" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="服务类别:" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="服务类别:" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input placeholder="平台服务" auto-complete="off" :disabled="true" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item label="参考价格:" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="参考价格:" :label-width="formLabelWidth">
             <el-col :span="5">
               <el-input v-model="addTable.serviceMinPrice" auto-complete="off" el></el-input>
             </el-col>
@@ -309,7 +277,7 @@
               </el-select>
             </el-col>
           </el-form-item>
-          <el-form-item label="服务ICON:" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="服务ICON:" :label-width="formLabelWidth">
             <el-col :span="3">
               <el-upload class="upload-demo" action="addTable.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
                 <el-button size="small" type="primary">点击上传</el-button>
@@ -322,14 +290,14 @@
               </div>
             </el-col>
           </el-form-item>
-          <el-form-item label="接收端:" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="接收端:" :label-width="formLabelWidth">
             <template slot-scope="scope">
               <el-checkbox-group v-model="addTable.roleNames">
                 <el-checkbox v-for="(item,index) in RoleData" :label="item.roleName" :key="item.roleId"></el-checkbox>
               </el-checkbox-group>
             </template>
           </el-form-item>
-          <el-form-item label="服务介绍" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="服务介绍" :label-width="formLabelWidth">
             <el-col :span="16">
               <el-input v-model="addTable.roleNames"></el-input>
             </el-col>
@@ -987,7 +955,8 @@ export default {
     },
     //一元厅商品管理页面
     GoodsMan() {
-      this.GoodsManVisible = true
+      // this.GoodsManVisible = true
+      this.$router.push("listenList");
     },
     // 一元厅修改
     handleEdit_YYT(index, row) {

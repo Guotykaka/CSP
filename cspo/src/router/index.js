@@ -19,6 +19,7 @@ const report_label = () => import('@/pages/report_label.vue')//报告标签
 const medical_quota = () => import('@/pages/medical_quota.vue')//医学指标
 //商品管理
 const service_info = () => import('@/pages/service_info.vue')//服务管理
+const listenList = () => import('@/pages/listenList.vue')//服务管理
 
 
 //医生管理
@@ -111,6 +112,11 @@ export default new Router({
           path: '/service_info',
           component: service_info,//商品管理 服务管理
           meta: ["商品管理","服务管理"],
+        },
+        {
+          path: '/listenList',
+          component: listenList,//商品管理 一元听
+          meta: ["商品管理","一元听"],
         },
         {
           path: '/doctorList',

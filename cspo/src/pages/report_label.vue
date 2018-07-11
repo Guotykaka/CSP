@@ -5,15 +5,15 @@
       <el-header height="30">
 
         <el-row :gutter="20" class="m_b_15">
-          <el-col :span="6">
+          <el-col :span="6" class="minwidth">
             <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
           </el-col>
 
-          <el-col :span="6">
-            <el-button type="primary">清空</el-button>
+          <el-col :span="6" class="minwidth">
+           <el-button type="primary">清空</el-button>
             <el-button type="primary">搜索</el-button>
           </el-col>
-          <el-col :span="6" :offset="6">
+          <el-col :span="6" :offset="6"  class="minwidth">
             <el-button class="right m_r_10" type="primary" @click="handleAdd()">新增</el-button>
             <el-button class="right m_r_10" type="success" @click="order()">顺序调整</el-button>
           </el-col>
@@ -83,9 +83,10 @@
         <!-- 列表 -->
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="reportLabelName" label="分组名称"></el-table-column>
-            <el-table-column align="center" prop="reportLabelDesc" label="描述"></el-table-column>
-            <el-table-column align="center" label="状态">
+            <el-table-column show-overflow-tooltip align="center" label="" type="index"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="reportLabelName" label="分组名称"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="reportLabelDesc" label="描述"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" label="状态">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium" type="success" v-if="scope.row.reportLabelState === 1">使用中</el-tag>
@@ -93,8 +94,8 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="createDate" label="操作时间"></el-table-column>
-            <el-table-column align="center" label="操作">
+            <el-table-column show-overflow-tooltip align="center" prop="createDate" label="操作时间"></el-table-column>
+            <el-table-column align="center" label="操作" min-width="180">
               <template slot-scope="scope">
                 <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
                 <el-button size="mini" type="success" v-if="scope.row.reportLabelState === 0" @click="_online(scope.$index, scope.row)">上线</el-button>
@@ -368,6 +369,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.minwidth{
+  min-width: 180px;
+}
 .dot {
   width: 100%;
 }
