@@ -19,12 +19,9 @@ var user = appData.user//获取用户的本地数据
 var medicineGroup = appData.medicineGroup//获取医学分组的本地数据
 var report_label = appData.report_label//获取报告标签的本地数据
 var institution = appData.institution//获取机构列表本地数据
-<<<<<<< HEAD
 var service_info = appData.service_info//获取服务管理本地数据
-=======
 var queryInsLeaveWordList = appData.queryInsLeaveWordList//获取个人中心聊天数据
 var queryInsLeaveWordAnswerList = appData.queryInsLeaveWordAnswerList//查看个人中心聊天数据
->>>>>>> 1cdf7a72822f7e7b2c5165af0398591dece88910
 
 
 const HOST = process.env.HOST
@@ -95,23 +92,22 @@ before(app) {
       errno: 0,
       data: institution
     });
-<<<<<<< HEAD
-  }),
+  });
   app.post('/api/service_info', function (req, res) { // 服务管理
     res.json({
       errno: 0,
       data: service_info
     });
-  })
-=======
-  });
+  }),
   app.post('/api/queryInsLeaveWordList', function (req, res) { //
     res.json(queryInsLeaveWordList);
   });
+
   app.post('/api/queryInsLeaveWordAnswerList', function (req, res) { // 机构列表
     res.json(queryInsLeaveWordAnswerList);
-  });
->>>>>>> 1cdf7a72822f7e7b2c5165af0398591dece88910
+
+})
+  
 },
 
     clientLogLevel: 'warning',
