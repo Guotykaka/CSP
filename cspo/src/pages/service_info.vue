@@ -65,7 +65,7 @@
 
         <el-footer height="30px" v-show="!GoodsManVisible">
           <el-row style="margin-top: 2%;">
-            <el-col :span="24" :offset="6">
+            <el-col :span="24" :offset="8">
               <template>
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                 </el-pagination>
@@ -106,7 +106,7 @@
             <el-table-column align="center" prop="firstType" label="商品一级分类"></el-table-column>
             <el-table-column align="center" prop="secondType" label="商品二级分类"></el-table-column>
             <el-table-column align="center" prop="goodsName" label="商品名称"></el-table-column>
-            <el-table-column align="center" prop="goodsWords" label="商品文案"></el-table-column>
+            <el-table-column align="center" prop="goodsWords" label="商品文案" show-overflow-tooltip></el-table-column>
             <el-table-column align="center" label="商品状态" width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
@@ -143,8 +143,8 @@
         </el-main>
 
         <el-footer height="30px" v-show="GoodsManVisible">
-          <el-row style="margin-top: 10%;">
-            <el-col :span="24" :offset="6">
+          <el-row style="margin-top: 2%;">
+            <el-col :span="24" :offset="8">
               <template>
                 <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                 </el-pagination>
@@ -249,7 +249,7 @@
           </el-form-item>
           <el-form-item label="公告内容:" :label-width="formLabelWidth">
             <el-col :span="16">
-              <el-input type="textarea" :rows="4" v-model="selectTable.noticeContent" auto-complete="off" el readonly></el-input>
+              <el-input type="textarea" :rows="4" resize="none" v-model="selectTable.noticeContent" auto-complete="off" el readonly></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="接收端:" :label-width="formLabelWidth">
@@ -381,8 +381,10 @@
           </el-form-item>
           <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input type="textarea" :rows="5" v-model="editTable_YYT.goodsCopywriting"></el-input>
+              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="editTable_YYT.goodsCopywriting"></el-input>
             </el-col>
+            <el-col :span="4" class="wordsnum">50字内</el-col>
+            
           </el-form-item>
         </el-form>
 
@@ -431,8 +433,9 @@
           </el-form-item>
           <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input type="textarea" :rows="5" v-model="addTable_YYT.goodsCopywriting"></el-input>
+              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="addTable_YYT.goodsCopywriting"></el-input>
             </el-col>
+            <el-col :span="4" class="wordsnum">50字内</el-col>
           </el-form-item>
         </el-form>
 
@@ -1121,7 +1124,13 @@ export default {
 }
 // .el-form-item {margin-bottom: 0}
 // .el-checkbox+.el-checkbox{margin: 0}
+.wordsnum{
+    height: 117px;
+    /* vertical-align: middle; */
+    text-align: center;
+    line-height: 117px;
 
+}
 </style>
 <style lang="less">
 .el-form-item {
