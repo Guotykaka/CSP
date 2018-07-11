@@ -2784,7 +2784,6 @@ export default {
       //订单详情
       orderInfo:{},
 
-
       //订单变更记录
       orderChangeList: [
         {ORDER_CODE:"20180706171604780814_01",CREATE_TIME:"2018-07-06 17:19:00",TRADE_STATUS:3},
@@ -2833,16 +2832,12 @@ export default {
       //this.getOrderChanges(item.orderCode);
     },
 
-
-
     //点击返回
     _doBack: function () {
       this.showStatus = 1;
     },
 
     //点击显示体检报告详情
-
-
     showReportFn(){
       this.isShowReport=true;
 
