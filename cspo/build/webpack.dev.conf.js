@@ -98,7 +98,7 @@ before(app) {
       errno: 0,
       data: service_info
     });
-  }),
+  });
   app.post('/api/queryInsLeaveWordList', function (req, res) { //
     res.json(queryInsLeaveWordList);
   });

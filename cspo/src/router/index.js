@@ -105,18 +105,14 @@ export default new Router({
         {
           path: '/medical_quota',
           component: medical_quota,//医学指标
-<<<<<<< HEAD
-          meta: ["机构业务","医学指标"],
-        },{
-          path: '/service_info',
-          component: service_info,//商品管理 服务管理
-          meta: ["商品管理","服务管理"],
-        },{
-=======
           meta: ["机构业务", "医学指标"],
         },
         {
->>>>>>> 1cdf7a72822f7e7b2c5165af0398591dece88910
+          path: '/service_info',
+          component: service_info,//商品管理 服务管理
+          meta: ["商品管理","服务管理"],
+        },
+        {
           path: '/doctorList',
           component: doctorList,//医生管理 医生列表
           meta: ["医生管理", "医生列表"],
