@@ -20,6 +20,7 @@ var medicineGroup = appData.medicineGroup//获取医学分组的本地数据
 var report_label = appData.report_label//获取报告标签的本地数据
 var institution = appData.institution//获取机构列表本地数据
 var service_info = appData.service_info//获取服务管理本地数据
+var yiyuanting = appData.yiyuanting//获取一元厅本地数据
 var queryInsLeaveWordList = appData.queryInsLeaveWordList//获取个人中心聊天数据
 var queryInsLeaveWordAnswerList = appData.queryInsLeaveWordAnswerList//查看个人中心聊天数据
 
@@ -97,6 +98,12 @@ before(app) {
     res.json({
       errno: 0,
       data: service_info
+    });
+  });
+  app.post('/api/yiyuanting', function (req, res) { // 一元厅
+    res.json({
+      errno: 0,
+      data: yiyuanting
     });
   });
   app.post('/api/queryInsLeaveWordList', function (req, res) { //

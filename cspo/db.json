@@ -1,6 +1,5 @@
 {
-  "user": [
-    {
+  "user": [{
       "userId": 1,
       "username": "admin",
       "password": "969d28606deb2d5b498f19b1f142ae7534a3998d30ee4eddd2227c1970892498",
@@ -209,8 +208,7 @@
       "userType": "1"
     }
   ],
-  "notice": [
-    {
+  "notice": [{
       "noticeOs": "ROLE_TYPE_DOCTOR",
       "releaseTime": null,
       "sysNoticeId": "2c8080aa6449275b01644929b5b70005",
@@ -383,8 +381,7 @@
       "lastUpdateTime": "2018-06-28 09:47:31"
     }
   ],
-  "role": [
-    {
+  "role": [{
       "roleId": 32,
       "roleCode": "sy-js",
       "roleName": "邵勇-角色",
@@ -537,8 +534,7 @@
       ]
     }
   ],
-  "medicineGroup": [
-    {
+  "medicineGroup": [{
       "medicineGroupId": "c0a5a8ba802611e88a1a000c29466fd7",
       "medicineGroupName": "qwe",
       "medicineGroupSort": 0,
@@ -649,8 +645,7 @@
       "updateUser": "admin"
     }
   ],
-  "report_label": [
-    {
+  "report_label": [{
       "reportLabelId": "385d12405a7911e8bb92000c29637456",
       "reportLabelName": "测试标签111",
       "reportLabelSort": null,
@@ -691,8 +686,7 @@
       "updateDate": "2018-05-18 16:55:52"
     }
   ],
-  "institution": [
-    {
+  "institution": [{
       "institutionId": "2c8080aa6464825a016464825a000000",
       "institutionCode": "bjbr002",
       "institutionName": "安鑫",
@@ -963,28 +957,131 @@
       "lavelName": "三甲医院"
     }
   ],
+  "service_info": [{
+    "serviceType": "ITEM_PLATFORM_SERVICE",
+    "serviceDesc": "平台服务-一元厅",
+    "itemType": "ITEM_SERVICE_TYPE",
+    "serviceUnitName": "次",
+    "serviceMaxPrice": 100.0,
+    "serviceRole": "4,12,30",
+    "serviceSuggestedPrice": "50.0-100.0元/次",
+    "serviceName": "一元厅",
+    "serviceIconUrl": "http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/z5o5rqJqcKhbMXBNDTgG89AvrZG5eIK1.png",
+    "serviceMinPrice": 50.0,
+    "serviceUnit": "UNIT_SECOND",
+    "serviceStatus": 1,
+    "YYTgoods": 43,
+    "YYTstatus": 1,
+    "serviceIntroduce": "%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E",
+    "serviceId": "8ab2b2f56381c35a016381c35a400000",
+    "serviceSort": 1,
+    "roleNames": ["医生角色","运营人员","医生主任"],
+    "createDate": "2018-05-21 16:14:13"
+  },{
+    "serviceType": "ITEM_PLATFORM_SERVICE",
+    "serviceDesc": "平台服务-电话报告解读服务",
+    "itemType": "ITEM_SERVICE_TYPE",
+    "serviceUnitName": "次",
+    "serviceMaxPrice": 100.0,
+    "serviceRole": "4,12,30",
+    "serviceSuggestedPrice": "50.0-100.0元/次",
+    "serviceName": "电话报告解读",
+    "serviceIconUrl": "http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/z5o5rqJqcKhbMXBNDTgG89AvrZG5eIK1.png",
+    "serviceMinPrice": 50.0,
+    "serviceUnit": "UNIT_SECOND",
+    "serviceStatus": 1,
+    "serviceIntroduce": "%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E",
+    "serviceId": "8ab2b2f56381c35a016381c35a400000",
+    "serviceSort": 1,
+    "roleNames": ["医生角色","运营人员","医生主任"],
+    "createDate": "2018-05-21 16:14:13"
+  }, {
+    "serviceType": "ITEM_PLATFORM_SERVICE",
+    "serviceDesc": "平台服务-图文咨询",
+    "itemType": "ITEM_SERVICE_TYPE",
+    "serviceUnitName": "次",
+    "serviceMaxPrice": 99.0,
+    "serviceRole": "4,29,30",
+    "serviceSuggestedPrice": "1.0-99.0元/次",
+    "serviceName": "图文咨询",
+    "serviceIconUrl": "http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/O8PUbufKOX6vkmKZhHhNZ3nOQ4sWGrvK.png",
+    "serviceMinPrice": 1.0,
+    "serviceUnit": "UNIT_SECOND",
+    "serviceStatus": 1,
+    "serviceIntroduce": "%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E",
+    "serviceId": "8ab2b2f563822d260163822d26fd0000",
+    "serviceSort": 2,
+    "roleNames": ["医生角色","健管师","医生主任"],
+    "createDate": "2018-05-21 18:09:47"
+  }],
+  "yiyuanting": [{
+    "goodCode": 222122,
+    "firstType": "服务",
+    "secondType": "一元听",
+    "goodsName": "尿阳性",
+    "goodsWords": "你好，我查出来窦行心动过缓，不齐",
+    "goodsStatus": 1,
+    "goodsPrice": 1,
+    "audioStatus": 1,
+    "serviceStatus": 1,
+    "YYTgoods": 43,
+    "YYTstatus": 1,
+    "doctor": 1,
+    "AbnormalKeywords": "乳腺增生，乳腺囊性增生，乳腺轻度增生，",
+    "goodsCopywriting": "你好，我查出来窦行心动过缓，不齐。我的体检报告上说我窦性频率次小于60次  每分，和我最近工作很忙，平时不怎么运动有关吗？想咨询一下医生窦性心动过缓 会引起什么后果呢？一元听",
+    "createDate": "2018-05-21"
+  },{
+    "goodCode": 4231231,
+    "firstType": "服务",
+    "secondType": "一元听",
+    "goodsName": "甘油三脂",
+    "goodsWords": "你好，我查出来窦行心动过缓，不齐",
+    "goodsStatus": 0,
+    "goodsPrice": 1,
+    "audioStatus": 1,
+    "serviceStatus": 1,
+    "YYTgoods": 43,
+    "YYTstatus": 1,
+    "doctor": 2,
+    "AbnormalKeywords": "乳腺增生，乳腺囊性增生，乳腺轻度增生，",
+    "goodsCopywriting": "你好，我查出来窦行心动过缓，不齐。我的体检报告上说我窦性频率次小于60次  每分，和我最近工作很忙，平时不怎么运动有关吗？想咨询一下医生窦性心动过缓 会引起什么后果呢？一元听",
+    "createDate": "2018-05-21"
+  }, {
+    "goodCode": 4231232,
+    "firstType": "服务",
+    "secondType": "一元听",
+    "goodsName": "白细胞",
+    "goodsWords": "你好，我查出来窦行心动过缓，不齐",
+    "goodsStatus": 1,
+    "goodsPrice": 1,
+    "audioStatus": 1,
+    "serviceStatus": 1,
+    "YYTgoods": 43,
+    "YYTstatus": 1,
+    "doctor": 3,
+    "AbnormalKeywords": "乳腺增生，乳腺囊性增生，乳腺轻度增生，",
+    "goodsCopywriting": "你好，我查出来窦行心动过缓，不齐。我的体检报告上说我窦性频率次小于60次  每分，和我最近工作很忙，平时不怎么运动有关吗？想咨询一下医生窦性心动过缓 会引起什么后果呢？一元听",
+    "createDate": "2018-05-21"
+  }],
   "queryInsLeaveWordAnswerList": {
     "code": 1,
     "msg": "操作成功",
-    "data": [
-      {
-        "insLeaveWordAnswerId": "2c8080aa6459b55e01645f03551904be",
-        "insLeaveWordId": "2c8080aa6459b55e01645f02d14304bd",
-        "parentId": "2c8080aa6459b55e01645f02d14304bd",
-        "answerContent": "operativetest回复你了",
-        "answerUserId": 317,
-        "answerUserName": "operativetest",
-        "createTime": "2018-07-03 15:20:11",
-        "updateTime": null
-      }
-    ]
+    "data": [{
+      "insLeaveWordAnswerId": "2c8080aa6459b55e01645f03551904be",
+      "insLeaveWordId": "2c8080aa6459b55e01645f02d14304bd",
+      "parentId": "2c8080aa6459b55e01645f02d14304bd",
+      "answerContent": "operativetest回复你了",
+      "answerUserId": 317,
+      "answerUserName": "operativetest",
+      "createTime": "2018-07-03 15:20:11",
+      "updateTime": null
+    }]
   },
   "queryInsLeaveWordList": {
     "code": 1,
     "msg": "操作成功",
     "data": {
-      "list": [
-        {
+      "list": [{
           "insLeaveWordId": "2c8080aa6459b55e01645f02d14304bd",
           "leaveWordTitle": "今天啥情况啊",
           "leaveWordContent": "今天啥情况啊",
