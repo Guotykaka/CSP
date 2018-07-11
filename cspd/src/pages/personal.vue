@@ -1,508 +1,236 @@
 <template>
   <div class="personal">
-    <!--<head-top></head-top>-->
-    <div class="msgTitle">
-      <section class="page-wrapper">
-        <el-card class="box-card">
-          <el-row :gutter="24">
-            <el-col :span="8">
-              <strong class="note-title">账户余额：</strong>
-              <span>{{accountINfo.balance}}</span>
-            </el-col>
-            <el-col :span="8">
-              <strong class="note-title">总收益：</strong>
-              <span>{{accountINfo.sumEarnings}}</span>
-            </el-col>
-            <el-col :span="8">
-              <strong class="note-title">已提现：</strong>
-              <span>{{accountINfo.withdrawDeposit}}</span>
-            </el-col>
-          </el-row>
-        </el-card>
-      </section>
-    </div>
-    <div class="msgTabs">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="我要提现" name="first">
-          <div class="first-body">
-            <ul class="tab-one">
-              <li class="box-hidden p_b_30">
-                <span class="sel-note">账户金额：</span>
-                <div class="sel-body">
-                  <strong class="red-text" style="padding-right: 20px;">￥{{accountINfo.balance}}</strong>余额未满500不支持提现
-                </div>
-              </li>
-              <li class="box-hidden p_b_30">
-                <span class="sel-note">提现金额：</span>
-                <div class="sel-body">
-                  <el-input size="medium" v-model="doDepositParms.disburse" placeholder="请输入内容"></el-input>
-                  <p class="selPs">单日提款范围500~10000;T+3到账</p>
-                </div>
-              </li>
-              <li class="box-hidden p_b_30">
-                <span class="sel-note"></span>
-                <div class="sel-body">
-                  <el-button type="primary" disabled value="我要提现" v-show="isDisable">我要提现</el-button>
-                  <el-button type="primary" @click="withdrawDepositFN" value="我要提现"
-                             v-show="!isDisable">我要提现
-                  </el-button>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="提现记录" name="second">
-          <el-table
-            :data="withdrawList"
-            :header-row-class-name="headerStyle"
-            style="width: 100%">
-            <el-table-column
-              prop="createTime"
-              label="时间">
-            </el-table-column>
-            <el-table-column
-              prop="disburse"
-              label="金额">
-            </el-table-column>
-            <el-table-column
-              prop="address"
-              label="状态">
-              <template slot-scope="scope">
-                <span v-if="scope.row.status === 0" class="color_green">申请中</span>
-                <div v-if="scope.row.status === 1">
-                  <span class="color_red">已拒绝</span>
-                  <a @click="_showRefuseReason(scope.row.refuseReason)" class="color_blue">理由</a>
-                </div>
-                <span v-if="scope.row.status === 2">已完成</span>
-              </template>
-            </el-table-column>
-          </el-table>
-          <div class="block" v-if="withdrawList.length>0">
-            <el-pagination
-              background
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              :current-page="withdrawPage.currentPage"
-              :page-sizes="[10, 20, 30, 50]"
-              :page-size="withdrawPage.pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="withdrawPage.totalCount">
-            </el-pagination>
-          </div>
-        </el-tab-pane>
-        <el-tab-pane label="订单记录" name="third">
-          <el-table
-            :data="orderList"
-            :header-row-class-name="headerStyle"
-            style="width: 100%">
-            <el-table-column
-              prop="orderCode"
-              label="订单号">
-            </el-table-column>
-            <el-table-column
-              prop="serviceName"
-              label="服务名称">
-            </el-table-column>
-            <el-table-column
-              prop="orderTime"
-              label="订单时间">
-            </el-table-column>
-            <el-table-column
-              prop="serviceFinishTime"
-              label="服务完成时间">
-            </el-table-column>
-            <el-table-column
-              prop="totalAmount"
-              label="订单金额">
-            </el-table-column>
-          </el-table>
-          <div class="block" v-if="orderList.length>0">
-            <el-pagination
-              @size-change="handleSizeChange"
-              @current-change="handleCurrentChange"
-              background
-              :current-page="orderPage.currentPage"
-              :page-sizes="[10, 20, 30, 50]"
-              :page-size="orderPage.pageSize"
-              layout="total, sizes, prev, pager, next, jumper"
-              :total="orderPage.totalCount">
-            </el-pagination>
-          </div>
-        </el-tab-pane>
-      </el-tabs>
-    </div>
+
+    <!--账户card-->
+    <el-card class="box-card">
+      <el-row :gutter="24">
+        <el-col :span="8">
+          <strong>账户余额：</strong>
+          <span>{{accountINfo.balance}}</span>
+        </el-col>
+        <el-col :span="8">
+          <strong>总收益：</strong>
+          <span>{{accountINfo.sumEarnings}}</span>
+        </el-col>
+        <el-col :span="8">
+          <strong>已提现：</strong>
+          <span>{{accountINfo.withdrawDeposit}}</span>
+        </el-col>
+      </el-row>
+    </el-card>
+
+
+    <el-tabs v-model="activeName">
+      <el-tab-pane label="我要提现" name="first">
+
+        <el-row :gutter="20" style="margin-bottom: 10px">
+          <el-col :span="6" class="title-note">
+            <strong class="note-t">账户金额：</strong>
+          </el-col>
+          <el-col :span="18">
+            <p class="col-text">
+              <span class="blue-text">￥0.04</span>未满500元不支持提现
+            </p>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20" style="margin-bottom: 10px">
+          <el-col :span="6" class="title-note">
+            <strong class="note-t">提现金额：</strong>
+          </el-col>
+          <el-col :span="8">
+            <el-input v-model="disburse" placeholder="请输入内容"></el-input>
+            <p class="addtion-text">单日提款范围500~10000;T+3到账</p>
+          </el-col>
+        </el-row>
+        <el-row :gutter="20" style="margin-bottom: 10px">
+          <el-col :span="6" class="title-note">&nbsp;</el-col>
+          <el-col :span="8">
+            <el-button type="primary">我要提现</el-button>
+          </el-col>
+        </el-row>
+
+
+
+      </el-tab-pane>
+      <el-tab-pane label="提现记录" name="second">
+        <!--table 表单开始-->
+        <el-table
+          :data="withdrawList"
+          border
+          style="width: 100%">
+          <el-table-column prop="createTime" label="时间"></el-table-column>
+          <el-table-column prop="disburse" label="金额"></el-table-column>
+
+          <el-table-column label="状态" width="300">
+            <template slot-scope="scope">
+              <el-tag v-if="scope.row.status === 0">申请中</el-tag>
+              <el-tag v-if="scope.row.status === 1" type="danger" class="refuse-tag">已拒绝</el-tag>
+              <el-button v-if="scope.row.status === 1" size="mini" type="primary" @click="checkReason(scope.row)">查看原因</el-button>
+              <el-tag v-if="scope.row.status === 2" type="success">已完成</el-tag>
+            </template>
+          </el-table-column>
+        </el-table>
+        <!--table 表单结束-->
+
+        <!--分页-->
+        <div class="self-page-container">
+          <el-pagination @size-change="withdrawHandSize" @current-change="withdrawHandleCurrent" :current-page="withdrawPage.currentPage" :page-sizes="[10,20]" :page-size="withdrawPage.limit" layout="total, sizes, prev, pager, next, jumper" :total="withdrawPage.totalListCount">
+          </el-pagination>
+        </div>
+
+      </el-tab-pane>
+
+      <el-tab-pane label="订单记录" name="third">
+        <el-table
+          :data="orderList"
+          border
+          style="width: 100%">
+          <el-table-column prop="orderCode" label="订单号"></el-table-column>
+          <el-table-column prop="serviceName" label="服务名称"></el-table-column>
+          <el-table-column prop="orderTime" label="订单时间"></el-table-column>
+          <el-table-column prop="serviceFinishTime" label="服务完成时间"></el-table-column>
+          <el-table-column prop="totalAmount" label="订单金额"></el-table-column>
+        </el-table>
+
+        <!--分页-->
+        <div class="self-page-container">
+          <el-pagination @size-change="orderHandSize" @current-change="orderHandleCurrent" :current-page="orderPage.currentPage" :page-sizes="[10,20]" :page-size="orderPage.limit" layout="total, sizes, prev, pager, next, jumper" :total="orderPage.totalListCount">
+          </el-pagination>
+        </div>
+
+      </el-tab-pane>
+    </el-tabs>
+
+
+    <!--拒绝原因的dialog-->
+    <el-dialog title="拒绝原因" :visible.sync="refuse.isShowDialog">
+
+      <p class="info-content">{{refuse.reason}}</p>
+      <div class="btn-row" style="text-align:center">
+        <el-button size="small" type="danger" @click="closeDialog">关闭</el-button>
+      </div>
+    </el-dialog>
+
+
   </div>
 </template>
 
 <script>
-  import {localUrl} from "@/config/env.js"
-  import {api} from '@/api/api';
 
   export default {
     name:'personal',
     data() {
       return {
+
+
+        refuse:{
+
+          isShowDialog:false,
+          reason:""
+
+        },
+
+
+
         activeName: 'first',
-        //提现列表数据
-        withdrawList: [],
-        withdrawPage:{},
-        withdrawParms: {
-          limit: 10,
-          page: 1
-        },
-        doDepositParms: {
-          disburse: ""
-        },
-        //订单列表数据
-        orderList: [],
-        orderPage:{},
-        orderParams: {
-          limit: 10,
-          page: 1
-        },
         //账户
         accountINfo: {
-          balance: '',//余额
-          sumEarnings: '',//总收益
-          withdrawDeposit: ''//提现
-        }
+          balance: '100',//余额
+          sumEarnings: '120',//总收益
+          withdrawDeposit: '200'//提现
+        },
+
+
+        disburse:"",//提现金额
+
+
+        //提现分页参数
+        withdrawPage:{
+          currentPage:1,
+          limit:10,
+          totalListCount:100
+        },
+        //提现记录数据
+        withdrawList:[
+          {"insAccountRecordId":"2c8080aa64688e870164688fa4c00002","username":"huihui","createTime":"2018-07-05 11:50:01","institutionName":"上海天意达公司","disburse":10001.0,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":2,"refuseReason":null,"insDoctorId":"2c8080aa63de70c60163de70c6450000"},
+          {"insAccountRecordId":"2c8080aa64688e870164688e87490000","username":"huihui","createTime":"2018-07-05 11:48:48","institutionName":"上海天意达公司","disburse":500.0,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":2,"refuseReason":null,"insDoctorId":"2c8080aa63de70c60163de70c6450000"},
+          {"insAccountRecordId":"2c8080aa6439afef016439c9cc470005","username":"huihui","createTime":"2018-06-26 09:51:23","institutionName":"上海天意达公司","disburse":500.17,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":2,"refuseReason":null,"insDoctorId":"2c8080aa63de70c60163de70c6450000"},
+          {"insAccountRecordId":"2c8080aa6439afef016439c8dd5b0002","username":"huihui","createTime":"2018-06-26 09:50:22","institutionName":"上海天意达公司","disburse":500.0,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":1,"refuseReason":"不同意请填写拒绝理由","insDoctorId":"2c8080aa63de70c60163de70c6450000"},
+          {"insAccountRecordId":"2c8080aa6420cfae01642106e616000a","username":"huihui","createTime":"2018-06-21 14:27:37","institutionName":"上海天意达公司","disburse":500.0,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":1,"refuseReason":"请填写拒绝理由","insDoctorId":"2c8080aa63de70c60163de70c6450000"}
+        ],
+
+
+        //订单分页参数
+        orderPage:{
+          currentPage:1,
+          limit:10,
+          totalListCount:100
+        },
+
+        //订单记录
+        orderList:[
+          {"orderCode":"20180711115019393989_01","serviceName":"图文咨询","orderTime":"2018-07-11 11:50:19.0","serviceFinishTime":"2018-07-11 12:50:42.0","totalAmount":0.01},
+          {"orderCode":"20180711114515281599_01","serviceName":"图文咨询","orderTime":"2018-07-11 11:45:15.0","serviceFinishTime":"2018-07-11 11:49:52.0","totalAmount":0.01},
+          {"orderCode":"20180711105148690062_01","serviceName":"电话报告解读","orderTime":"2018-07-11 10:51:48.0","serviceFinishTime":null,"totalAmount":0.01},
+          {"orderCode":"20180711095255186040_01","serviceName":"电话报告解读","orderTime":"2018-07-11 09:52:55.0","serviceFinishTime":null,"totalAmount":0.01},
+          {"orderCode":"20180711092120785166_01","serviceName":"图文咨询","orderTime":"2018-07-11 09:21:20.0","serviceFinishTime":null,"totalAmount":0.01},
+          {"orderCode":"20180710174728231273_01","serviceName":"电话报告解读","orderTime":"2018-07-10 17:47:28.0","serviceFinishTime":null,"totalAmount":0.01},
+          {"orderCode":"20180710173015030428_01","serviceName":"电话报告解读","orderTime":"2018-07-10 17:30:15.0","serviceFinishTime":null,"totalAmount":0.01},
+          {"orderCode":"20180710170723681671_01","serviceName":"图文咨询","orderTime":"2018-07-10 17:07:23.0","serviceFinishTime":"2018-07-11 09:20:48.0","totalAmount":0.01},
+          {"orderCode":"20180709170237617309_01","serviceName":"电话报告解读","orderTime":"2018-07-09 17:02:37.0","serviceFinishTime":null,"totalAmount":0.01},
+          {"orderCode":"20180706190803111292_01","serviceName":"图文咨询","orderTime":"2018-07-06 19:08:03.0","serviceFinishTime":"2018-07-06 19:09:23.0","totalAmount":0.01}
+        ]
       }
     },
-    created() {
-      this._getDoctorInfo();
-    },
+
     methods: {
-      headerStyle(row, rowIndex) {
-        return 'tablStyle';
-      },
-      handleClick(tab, event) {
-        if (tab.index == 1) {
-          this._getWithdrawData()
-        } else if (tab.index == 2) {
-          this._getOrderList()
-        } else if (tab.index == 0) {
-          this._getDoctorInfo()
-        }
-      },
-      handleSizeChange(val) {
-        if(this.activeName==='second'){
-          this.withdrawParms.limit=val;
-          this._getWithdrawData();
-        }else if(this.activeName==='third'){
-          this.orderParams.limit=val;
-          this._getOrderList();
-        }
-      },
-      handleCurrentChange(val) {
-        if(this.activeName==='second'){
-          this.withdrawParms.page=val;
-          this._getWithdrawData();
-        }else if(this.activeName==='third'){
-          this.orderParams.page=val;
-          this._getOrderList();
-        }
-      },
-      //获取医生个人信息
-      _getDoctorInfo: function () {
-        let params = null,
-          that = this;
-        api.getDoctorAccountInfo(params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            that.accountINfo = {
-              balance: data.data.balance,
-              sumEarnings: data.data.incomeTotal,
-              withdrawDeposit: data.data.disburseTotal
-            };
-          } else {
-            alert(data.msg);
-          }
-        })
+
+
+      withdrawHandSize(){
+
       },
 
-      //获取提现列表数据
-      _getWithdrawData: function () {
-        let params = this.withdrawParms;
-        api.listAccountRecord(params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            this.withdrawList = data.data.list;
-            this.withdrawPage = data.data.page;
-          } else {
-            alert(data.msg);
-          }
-        })
+      withdrawHandleCurrent(){
+
+
       },
 
-      //操作提现
-      withdrawDepositFN: function () {
-        if (!this.doDepositParms.disburse) {
-          alert("提现金额不能为空");
-          return;
-        }
-        if (parseInt(this.doDepositParms.disburse) < 500) {
-          alert("提现金额不能小于500");
-          return;
-        }
+      orderHandSize(){
 
-        if (parseInt(this.doDepositParms.disburse) > parseInt(this.accountINfo.balance)) {
-          alert("提现金额不能大于账户余额");
-          return;
-        }
-        layui.use('layer', function () {
-          var loading = layer.load(1, {
-            shade: [0.3, '#000'] //0.1透明度的白色背景
-          });
-          /*          $.ajax({
-                      type: "POST",
-                      url: baseURL + "ins/doctorAccount/saveAccountRecord",
-                      contentType: "application/json",
-                      data: JSON.stringify(vm.doDepositParms),
-                      success: function(res){
-                        layer.close(loading);
-                        alert(res.msg,function () {
-                          vm._getDoctorInfo();
-                          vm.doDepositParms.disburse="";
-                        });
-                      },
-                      error:function () {
-                        layer.close(index);
-                      }
-                    });*/
-        });
       },
 
-      //提现列表分页
-      _initWithdrawPage: function (totalCount) {
-        layui.use('laypage', function () {
-          var laypage = layui.laypage;
-          //完整功能
-          laypage.render({
-            elem: 'withdrawPage'
-            , limit: vm.withdrawParms.limit
-            , count: totalCount//总页数 //数据总数，从服务端得到
-            , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            , limits: [10, 20, 30, 40, 50]
-            , curr: vm.withdrawParms.page
-            , jump: function (obj, first) {
-              vm.withdrawParms.page = obj.curr;
-              vm.withdrawParms.limit = obj.limit;
-              //首次不执行
-              if (!first) {
-                vm._getWithdrawData();
-              }
-            }
-          });
-        });
+      orderHandleCurrent(){
+
+
       },
 
-      //拒绝理由
-      _showRefuseReason: function (reason) {
-        var reason = reason || "暂无拒绝理由";
-        alert(reason)
+
+      //查看拒绝原因
+      checkReason(item){
+        this.refuse.reason=item.refuseReason;
+        this.refuse.isShowDialog=true;
       },
 
-      //点击同意或者拒绝执行的方法
-      doStatus: function (listId, state) {
-        var msg = "";
-        state == 1 ? msg = "确定要拒绝吗" : msg = "确定通过吗";
-        confirm(msg, function () {
-          var parms = {
-            insAccountRecordId: listId,
-            status: state
-          };
-          /*          $.ajax({
-                      type: "POST",
-                      url: baseURL+"ins/withdraw/updateApplyStatus",
-                      contentType: "application/json",
-                      data: JSON.stringify(parms),
-                      success: function(r){
-                        if(r.code === 1){
 
-                        }else{
-                          alert(r.msg);
-                        }
-                        vm._getData();
-                      }
-                    });*/
-        })
-      },
-
-      //导出提现记录
-      _exportAccountRecord: function () {
-        var params = {
-          username: this.searchParams.username,
-          institutionId: this.searchParams.institutionId,
-          startTime: this.searchParams.startTime,
-          endTime: this.searchParams.endTime,
-          status: this.searchParams.status
-        };
-        /*        $.ajax({
-                  type: "POST",
-                  url: baseURL + "ins/withdraw/exportAccountRecord",
-                  contentType: "application/json",
-                  data: JSON.stringify(params),
-                  success: function(r){
-                    if(r.code == 1){
-                      alert('成功导出到桌面了');
-                    }else{
-                      alert(r.msg);
-                    }
-                  }
-                });*/
-      },
-
-      //订单记录列表的分页
-      _initOrderPage: function (totalCount) {
-        layui.use('laypage', function () {
-          var laypage = layui.laypage;
-          //完整功能
-          laypage.render({
-            elem: 'orderPage'
-            , limit: vm.orderParams.limit
-            , count: totalCount//总页数 //数据总数，从服务端得到
-            , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            , limits: [10, 20, 30, 40, 50]
-            , curr: vm.orderParams.page
-            , jump: function (obj, first) {
-              vm.orderParams.page = obj.curr;
-              vm.orderParams.limit = obj.limit;
-              //首次不执行
-              if (!first) {
-                vm._getOrderList();
-              }
-            }
-          });
-        });
-      },
-
-      //获取订单记录
-      _getOrderList: function () {
-        let params = this.orderParams;
-        api.getOrderInfo(params).then((res)=>{
-          let data =res.data;
-          if(data.code === 1){
-            this.orderList=data.data.list;
-            this.orderPage=data.data.page;
-          }else{
-            alert(data.msg);
-          }
-        })
+      closeDialog(){
+        this.refuse.isShowDialog=false;
       }
+
     },
     computed: {
-      isDisable: function () {
-        if (this.accountINfo.balance < 500 || this.doDepositParms.disburse < 500 || this.doDepositParms.disburse > this.accountINfo.balance) {
-          return true;
-        } else {
-          return false;
-        }
-      }
+
     },
 
   }
 </script>
-<style lang="less">
-  .el-table {
-    .tablStyle {
-      background-color:#e5e5e5!important;
-      color:#333;
-    }
-  }
-</style>
+
 <style lang="less" scoped>
-  .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-
-  .el-col {
-    border-radius: 4px;
-  }
-
-  .row-bg {
-    padding: 10px 0;
-    background-color: #f9fafc;
-  }
-
-  /*我的样式*/
-  .personal {
-    line-height: 32px;
-    .sel-note {
-      display: inline-block;
-      flex: 1;
-      line-height: 34px;
-      font-size: 14px;
-      text-align: right;
-      margin-right: 10px;
-    }
-    .sel-body {
-      flex: 2;
-      text-align: left;
-      .selPs {
-        margin-top: 10px;
-      }
-    }
-    /*tab切换提现记录*/
-    .block{
-      text-align:center;
-      margin-top:20px;
-    }
-    .box-hidden {
-      overflow: hidden;
-      display: flex;
-    }
-
-    .p_b_30 {
-      padding-bottom: 30px;
-    }
-    .p_t_30 {
-      padding-top: 30px;
-    }
-    .red-text {
-      color: #f86b4f;
-      font-size: 18px;
-    }
-    .color_red {
-      color: red
-    }
-    .color_green {
-      color: green
-    }
-    .color_blue {
-      color: blue
-    }
-    .color_blue:hover {
-      color: darkblue;
-      cursor: pointer
-    }
-    .disableBtn {
-      background-color: #999;
-    }
-
-    .sel-panel {
-      padding: 25px;
-    }
-    input::-webkit-outer-spin-button,
-    input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-    }
-    input[type="number"] {
-      -moz-appearance: textfield;
-    }
-  }
-
-  .msgTabs {
-
-    .tab-one {
-      padding-top: 20px;
-      margin: 0 auto;
-    }
-    .price-box {
-      overflow: hidden;
-    }
-
-  }
+  .box-card{margin-bottom: 20px;}
+  .title-note{text-align: right}
+  .blue-text{color:#409EFF;padding-right: 10px}
+  .note-t{line-height: 40px;color:#606266;font-size: 15px;}
+  .col-text{line-height: 40px;color:#606266;font-size: 14px;}
+  .addtion-text{line-height: 22px;font-size: 13px;color:#909399;padding: 8px 0}
+  .refuse-tag{margin-right: 10px;}
+  .info-content{color: #606266;font-size: 14px;line-height: 22px;margin-bottom: 20px;}
 </style>

@@ -1,618 +1,164 @@
 <template>
-  <div class="tel-consult">
-    <!--<header-top></header-top>-->
-    <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="客户名称">
-        <el-input v-model="searchParams.username" placeholder="请输入客户名称"></el-input>
+  <div>
+    <el-form :inline="true" :model="searchParams" class="demo-form-inline">
+      <el-form-item label="名称">
+        <el-input placeholder="客户名称" v-model="searchParams.realName"></el-input>
       </el-form-item>
-      <el-form-item label="客户手机号">
-        <el-input type="number" v-model="formInline.usermobile" placeholder="请输入客户手机号"></el-input>
+      <el-form-item label="手机号">
+        <el-input placeholder="手机号" v-model="searchParams.mobile"></el-input>
       </el-form-item>
       <el-form-item label="订单号">
-        <el-input type="number" v-model="formInline.userfile" placeholder="请输入订单号"></el-input>
+        <el-input placeholder="订单号" v-model="searchParams.orderCode"></el-input>
       </el-form-item>
-      <div class="block" style="display:inline-block;margin-right:20px;">
-        <span class="demonstration">选择时间</span>
+      <el-form-item label="时间">
         <el-date-picker
-          v-model="formInline.selDate"
-          type="datetimerange"
-          value-format="yyyy-MM-DD HH:mm:ss"
-          @change="getselTime"
-          :picker-options="pickerOptions2"
+          v-model="rangeTime"
+          type="daterange"
+          format="yyyy-MM-dd"
+          value-format="yyyy-MM-dd"
           range-separator="至"
           start-placeholder="开始日期"
-          end-placeholder="结束日期"
-          align="right">
+          end-placeholder="结束日期">
         </el-date-picker>
-      </div>
+      </el-form-item>
       <el-form-item>
-        <el-button type="primary" @click="doSearch" icon="el-icon-search">查询</el-button>
-        <el-button type="primary" @click="clearParams" icon="el-icon-refresh">重置</el-button>
+        <el-button type="primary" @click="doSearch">查询</el-button>
+        <el-button type="primary" @click="_resetParams">清空</el-button>
       </el-form-item>
     </el-form>
-    <div class="tel-table">
-      <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="处理中心" name="first"></el-tab-pane>
-        <el-tab-pane label="客户忙待联系" name="second"></el-tab-pane>
-        <el-tab-pane label="已完成" name="third"></el-tab-pane>
-        <el-tab-pane label="已失效（退款）" name="fourth"></el-tab-pane>
-      </el-tabs>
-    </div>
-    <div class="tableDetail">
-      <el-table
-        :data="orderLists"
-        border
-        :header-row-class-name="headerStyle"
-        empty-text="暂无数据"
-        :row-style="rowStyle"
-        style="width: 100%;">
-        <el-table-column type="index" label="序号"></el-table-column>
-        <el-table-column prop="mobile" label="手机号"></el-table-column>
-        <el-table-column prop="orderCode" label="订单号"></el-table-column>
-        <el-table-column prop="itemName" label="服务名称"></el-table-column>
-        <el-table-column prop="orderTime" label="订单日期"></el-table-column>
-        <el-table-column prop="totalPrice" label="支付价格"></el-table-column>
-        <el-table-column label="短信通知">
-          <template slot-scope="smsMsg">
-            <el-button
-              @click.native.prevent="showMegModel(smsMsg.$index, orderLists)"
-              type="text"
-              size="medium" style="color:red;">
-              发送短信
-            </el-button>
-            <p class="blue-text" v-show="smsMsg.row.smsNumTimes>0">已发{{smsMsg.row.smsNumTimes}}次</p>
-          </template>
-        </el-table-column>
-        <el-table-column prop="serviceEndTime" label="服务时间"></el-table-column>
-        <el-table-column prop="remark" label="备注"></el-table-column>
-        <el-table-column
-          label="操作">
-          <template slot-scope="scope">
-            <span title="查看体检报告详情" v-show="searchParams.orderServiceStatus !=4"
-                  class="iconfont icon-dingdanguanli doIcon" @click.native.prevent="showReport(scope.row)"></span>
-            <span title="打电话" v-show="searchParams.orderServiceStatus ==0 || searchParams.orderServiceStatus == 1"
-                  class="iconfont icon-dh2 doIcon" @click.native.prevent="callFn(scope.row.cspOrderId)"></span>
-            <span title="查看备注" v-show="searchParams.orderServiceStatus !=4" class="iconfont icon-ffxj doIcon"
-                  @click.native.prevent="_showSaveRemark(scope.row)"></span>
-            <span title="查看录音列表" v-show="searchParams.orderServiceStatus ==1 || searchParams.orderServiceStatus ==3"
-                  class="iconfont icon-ej doIcon" @click.native.prevent="getVoiveLists(scope.row.cspOrderId)"></span>
-            <span v-show="searchParams.orderServiceStatus ==4" class="pink-text"
-                  @click.native.prevent="showRefuseModel(scope.row)">查看退款原因</span>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <!--分页-->
-    <div class="pageDetail" v-if="orderLists.length>0">
-      <el-pagination
-        background
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
-        :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40]"
-        :page-size="pageSize"
-        layout="total, sizes, prev, pager, next, jumper"
-        :total="totalCount">
+
+    <!--tab-->
+    <el-tabs v-model="tabIndex">
+      <el-tab-pane label="客户忙" name="0"></el-tab-pane>
+      <el-tab-pane label="待联系" name="1"></el-tab-pane>
+      <el-tab-pane label="已完成" name="3"></el-tab-pane>
+      <el-tab-pane label="已失效(退款)" name="4"></el-tab-pane>
+    </el-tabs>
+
+
+    <!--table 表单开始-->
+    <el-table
+      :data="orderLists"
+      border
+      style="width: 100%">
+      <el-table-column prop="" label="序号"  width="50" type="index"></el-table-column>
+      <el-table-column prop="mobile" label="手机号"></el-table-column>
+      <el-table-column prop="orderCode" label="订单号"></el-table-column>
+      <el-table-column prop="itemName" label="服务名称"></el-table-column>
+      <el-table-column prop="orderTime" label="订单日期"></el-table-column>
+      <el-table-column prop="totalPrice" label="支付价格" width="100"></el-table-column>
+
+
+      <el-table-column label="短信通知" width="100">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" v-show="scope.row.orderServiceStatus === 0 || scope.row.orderServiceStatus === 1">发送短信</el-button>
+          <el-tag type="info" v-if="scope.row.smsCount" style="margin-top: 5px;">已发送{{scope.row.smsNumTimes}}次</el-tag>
+        </template>
+      </el-table-column>
+
+      <el-table-column prop="serviceEndTime" label="服务时间"></el-table-column>
+      <el-table-column prop="remark" label="备注"></el-table-column>
+      <el-table-column label="操作" width="260">
+        <template slot-scope="scope">
+          <el-button size="mini" type="primary" v-if="scope.row.orderServiceStatus!==4">体检报告</el-button>
+          <el-button size="mini" type="success" v-if="scope.row.orderServiceStatus===0 || scope.row.orderServiceStatus===1">打电话</el-button>
+          <el-button size="mini" v-if="scope.row.orderServiceStatus!==4">备注</el-button>
+          <el-button size="mini" type="primary" v-if="scope.row.orderServiceStatus===1 || scope.row.orderServiceStatus===3">听录音</el-button>
+          <el-button size="mini" type="warning" v-if="scope.row.orderServiceStatus===4">退款原因</el-button>
+        </template>
+      </el-table-column>
+
+
+    </el-table>
+    <!--table 表单结束-->
+
+    <div class="self-page-container">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.page" :page-sizes="[10,20]" :page-size="searchParams.limit" layout="total, sizes, prev, pager, next, jumper" :total="totalListCount">
       </el-pagination>
     </div>
 
+
   </div>
+
+
 </template>
 
 
 <script>
-  import headerTop from "@/components/headTop.vue"
-  import {localUrl} from "@/config/env.js"
-  import {api} from '@/api/api';
-  import {storeManager} from '@/api/util.js';
+
 
   export default {
-    components: {
-      headerTop,
-    },
-    data() {
-      return {
-        activeName: 'first',
-        formInline: {
-          username: '',
-          usermobile: '',
-          userfile: '',
-          selDate: ''
-        },
-        pickerOptions2: {
-          shortcuts: [{
-            text: '最近一周',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近一个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
-              picker.$emit('pick', [start, end]);
-            }
-          }, {
-            text: '最近三个月',
-            onClick(picker) {
-              const end = new Date();
-              const start = new Date();
-              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
-              picker.$emit('pick', [start, end]);
-            }
-          }]
-        },
-        activeIndex2: '1',
-        currentPage4: 1,
-        orderLists: [],
-        currentPage: '',
-        pageSize: '',
-        totalCount: '',
-        //保存备注的信息
-        saveRemark: {
-          currentStatus: 0,
-          isShow: false,
-          tabArr: [{name: "客户忙待联系", status: 0}, {name: "已完成通话", status: 1}],
-          remarkValue: "",
-          briefSummary: "",
-          tradeDetailId: "",
-          cspOrderId: "",
-          isAbleEditor: true,
-          cspCustomId: ""//增加的客户Id
-        },
-        //录音记录
-        voiceData: {
-          isShow: false,
-          list: []
-        },
-        audioObj: {
-          path: "",
-          isPlay: false,
-          currentIndex: -1
-        },
-        //短信的内容
-        msgData: {
-          isShow: false,
-          msgText: "【掌上体检】您好！电话服务医生稍后将通过021-***5630联系您，\n" +
-          "请保持电话通畅，因涉及隐私，建议您在私人空间接听电话。",
-          providerServiceUserId: storeManager.getInsDoctorId(),//服务提供者ID
-          userId: "",//会员ID，
-          userName: "",//会员名称，
-          sendType: 2,//1:发送给医生;2:发送给下单用户;3:发送给注册用户
-          sendPhone: "",//发送手机号
-          tradeDetailId: ""
-        },
-        //退款原因
-        refuseData: {
-          isShow: false,
-          refuseText: ""
-        },
-        //搜索参数
-        searchParams: {
-          providerServiceUserId: "",
-          providerServiceUserType: 1,
-          itemId: "",
-          orderServiceStatus: 0,
-          orderCode: "",
-          startTime: "",
-          endTime: "",
-          mobile: "",
-          realName: "",
-          tradeCode: "",
-          currentPage: 1,
-          pageSize: 10
-        },
-        //订单的状态
-        tabsArr: [
-          {status: 0, name: "待服务"},
-          {status: 1, name: "客户忙待联系"},
-          {status: 3, name: "已完成"},
-          {status: 4, name: "已失效(退款)"}
-        ],
 
-        //体检报告数据
-        isShowReport: false,
-        reportData: {},
-        currentHash: "baseInfo"
+
+    data(){
+      return{
+        tabIndex:0,
+
+
+        rangeTime:"",
+
+        totalListCount:100,
+        searchParams:{
+          realName:"",
+          mobile:"",
+          orderCode:"",
+          page:1,
+          limit:10
+        },
+
+
+
+
+
+        //列表数据
+        orderLists:[
+          {"cspOrderId":"2c8080aa646f3ff20164874081770046","totalPrice":"0.01","customerSex":null,"remark":null,"imageSrc":"http://zhangshangtijian.b0.upaiyun.com/default/DefaultUserHeader/2.jpg","checkUnitCode":"sta2015","workNo":"00291190","itemName":"电话报告解读","orderTime":"2018-07-11 10:51:48","cspCustomId":"c7657be8-2eda-4fc5-84dc-7473cc0977d2","serviceEndTime":null,"customerAge":null,"tradeDetailId":"2c8080aa646f3ff20164874081750044","smsCount":null,"serviceBeginTime":null,"refundReason":"过敏人转切转切转切转","mobile":"13916513888","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"3888","instruction":null,"replyStatus":1,"orderCode":"20180711105148690062_01","smsNumTimes":0,"customerMobile":"13916513888","orderServiceStatus":0},
+          {"cspOrderId":"2c8080aa646f3ff201648396b313002b","totalPrice":"0.01","customerSex":null,"remark":null,"imageSrc":"http://zhangshangtijian.b0.upaiyun.com/default/DefaultUserHeader/2.jpg","checkUnitCode":"sta2015","workNo":"00291153","itemName":"电话报告解读","orderTime":"2018-07-10 17:47:28","cspCustomId":"c7657be8-2eda-4fc5-84dc-7473cc0977d2","serviceEndTime":null,"customerAge":null,"tradeDetailId":"2c8080aa646f3ff201648396b3120029","smsCount":null,"serviceBeginTime":null,"refundReason":"俺家住咯做最空","mobile":"13916513888","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"3888","instruction":null,"replyStatus":1,"orderCode":"20180710174728231273_01","smsNumTimes":0,"customerMobile":"13916513888","orderServiceStatus":0},
+          {"cspOrderId":"2c8080aa646f3ff201647e4745a30012","totalPrice":"0.01","customerSex":null,"remark":null,"imageSrc":"http://thirdqq.qlogo.cn/qqapp/1105804636/A18863B96E67BE918021B7455DC3A5A0/100","checkUnitCode":"mid001","workNo":"1704120001","itemName":"电话报告解读","orderTime":"2018-07-09 17:02:37","cspCustomId":"0be8710d-c129-41de-ad05-32f358790c13","serviceEndTime":null,"customerAge":null,"tradeDetailId":"2c8080aa646f3ff201647e4745a00010","smsCount":null,"serviceBeginTime":null,"refundReason":null,"mobile":"13761516041","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"6041","instruction":null,"replyStatus":1,"orderCode":"20180709170237617309_01","smsNumTimes":0,"customerMobile":"13761516041","orderServiceStatus":0},
+          {"cspOrderId":"2c8080aa6468a07e01646d98f5c90061","totalPrice":"0.01","customerSex":null,"remark":null,"imageSrc":"http://thirdqq.qlogo.cn/qqapp/1105804636/A18863B96E67BE918021B7455DC3A5A0/100","checkUnitCode":"mid001","workNo":"1704120001","itemName":"电话报告解读","orderTime":"2018-07-06 11:18:18","cspCustomId":"0be8710d-c129-41de-ad05-32f358790c13","serviceEndTime":null,"customerAge":null,"tradeDetailId":"2c8080aa6468a07e01646d98f5c7005f","smsCount":2,"serviceBeginTime":null,"refundReason":null,"mobile":"13761516041","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"6041","instruction":null,"replyStatus":1,"orderCode":"20180706111818819385_01","smsNumTimes":2,"customerMobile":"13761516041","orderServiceStatus":0},
+          {"cspOrderId":"2c8080aa646f3ff20164870a95580040","totalPrice":"0.01","customerSex":null,"remark":"dfddfg","imageSrc":"http://zhangshangtijian.b0.upaiyun.com/default/DefaultUserHeader/2.jpg","checkUnitCode":"sta2015","workNo":"00291190","itemName":"电话报告解读","orderTime":"2018-07-11 09:52:55","cspCustomId":"c7657be8-2eda-4fc5-84dc-7473cc0977d2","serviceEndTime":null,"customerAge":null,"tradeDetailId":"2c8080aa646f3ff20164870a9557003e","smsCount":null,"serviceBeginTime":"2018-07-11 10:17:15","refundReason":null,"mobile":"13916513888","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"3888","instruction":null,"replyStatus":1,"orderCode":"20180711095255186040_01","smsNumTimes":0,"customerMobile":"13916513888","orderServiceStatus":1},
+          {"cspOrderId":"2c8080aa64591d2101645a69d16001ad","totalPrice":"0.10","customerSex":null,"remark":"客户忙。。。。。。。。。。。。。","imageSrc":"http://zhangshangtijian.b0.upaiyun.com/default/DefaultUserHeader/6.jpg","checkUnitCode":"bjbr002","workNo":"143608900486239","itemName":"电话报告解读","orderTime":"2018-07-02 17:54:01","cspCustomId":"12ade660-1c73-4efb-898d-a06b11e189f1","serviceEndTime":null,"customerAge":null,"tradeDetailId":"2c8080aa64591d2101645a69d15f01ab","smsCount":null,"serviceBeginTime":"2018-07-04 15:32:20","refundReason":null,"mobile":"17740877123","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"zuolih","instruction":null,"replyStatus":1,"orderCode":"20180702175401616782_01","smsNumTimes":0,"customerMobile":"17740877123","orderServiceStatus":1},
+          {"cspOrderId":"2c8080aa6463639701646440a82e005e","totalPrice":"0.10","customerSex":null,"remark":null,"imageSrc":"http://zhangshangtijian.b0.upaiyun.com/test/uploads/20180302/twe6hl6pe88qyn7mt64et9aotbqlymm2.jpg!imgUrl200","checkUnitCode":"mid001","workNo":"1704210003","itemName":"电话报告解读","orderTime":"2018-07-04 15:45:16","cspCustomId":"a8ef93e1-be25-4457-819c-ad1fb50f0398","serviceEndTime":"2018-07-04 17:24:31","customerAge":null,"tradeDetailId":"2c8080aa6463639701646440a82d005c","smsCount":null,"serviceBeginTime":null,"refundReason":null,"mobile":"18616579021","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"9021","instruction":"41454","replyStatus":1,"orderCode":"20180704154516970363_01","smsNumTimes":0,"customerMobile":"18616579021","orderServiceStatus":3},
+          {"cspOrderId":"2c8080aa64636397016464266b4f0046","totalPrice":"0.10","customerSex":null,"remark":null,"imageSrc":"http://zhangshangtijian.b0.upaiyun.com/default/DefaultUserHeader/6.jpg","checkUnitCode":"bjbr001","workNo":"00291218","itemName":"电话报告解读","orderTime":"2018-07-04 15:16:36","cspCustomId":"80db7ae7-34cb-44fa-ab64-4c9cb0063f63","serviceEndTime":"2018-07-04 15:25:32","customerAge":null,"tradeDetailId":"2c8080aa64636397016464266b480044","smsCount":null,"serviceBeginTime":null,"refundReason":null,"mobile":"15026502685","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"2685","instruction":"嘎嘎嘎","replyStatus":1,"orderCode":"20180704151636883302_01","smsNumTimes":0,"customerMobile":"15026502685","orderServiceStatus":3},
+          {"cspOrderId":"2c8080aa64591d2101645a5c4412019a","totalPrice":"0.10","customerSex":null,"remark":null,"imageSrc":"http://zhangshangtijian.b0.upaiyun.com/default/DefaultUserHeader/1.jpg","checkUnitCode":"mid001","workNo":"1704120001","itemName":"电话报告解读","orderTime":"2018-07-02 17:39:13","cspCustomId":"8cf1bec4-14f4-4e7d-a48b-61470b6a6aa4","serviceEndTime":"2018-07-04 17:29:10","customerAge":null,"tradeDetailId":"2c8080aa64591d2101645a5c44100198","smsCount":null,"serviceBeginTime":null,"refundReason":null,"mobile":"13888888888","customerImgs":null,"customerDesc":null,"customerName":null,"itemId":"8ab2b2f56381c35a016381c35a400000","realName":"8888","instruction":"41454","replyStatus":1,"orderCode":"20180702173913676446_01","smsNumTimes":0,"customerMobile":"13888888888","orderServiceStatus":3}
+        ]
+
+
       }
     },
-    created() {
 
-      //获取医生id
-      this.searchParams.providerServiceUserId = storeManager.getInsDoctorId();
-      //获取角色 1医生 2 主任
-      //this.searchParams.providerServiceUserType=storeManager.getRoleType();
-      this._getList();
-      this.getSMSTemplate()
-    },
-    methods: {
-      getselTime() {
-        if (this.formInline.selDate) {
-          this.searchParams.startTime = this.formInline.selDate[0];
-          this.searchParams.endTime = this.formInline.selDate[1];
-        }
-      },
-      headerStyle(row, rowIndex) {
-        return 'tablStyle';
-      },
-      handleClick(tab, event) {
-        if (tab.index == 0) {
-          this.searchParams.orderServiceStatus = 0;
-        } else if (tab.index == 1) {
-          this.searchParams.orderServiceStatus = 1;
-        } else if (tab.index == 2) {
-          this.searchParams.orderServiceStatus = 3;
-        } else if (tab.index == 3) {
-          this.searchParams.orderServiceStatus = 4;
-        }
-        this._getList();
-      },
-      /*选择状态*/
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      handleSizeChange(val) {
-        this.searchParams.pageSize = val;
-        this._getList();
-      },
-      handleCurrentChange(val) {
-        this.searchParams.currentPage = val;
-        this._getList();
-      },
-      /*设置单元格样式*/
-      rowStyle({row, column, rowIndex}) {
-        if (column === 0) {
-          return 'color:green'
-        } else {
-          return ''
-        }
-      },
-      deleteRow(index, rows) {
-        rows.splice(index, 1);
-      },
-      //状态切换
-      selectStatus: function (status) {
-        this.searchParams.orderServiceStatus = status;
-        this._getList();
-      },
+    methods:{
 
-      mobileBlur: function () {
-        if (this.searchParams.mobile && !storeManager.mbTest.test(this.searchParams.mobile)) {
-          alert("手机格式不正确", function () {
-            this.searchParams.mobile = "";
-          });
-        }
-      },
+      doSearch(){
 
-      //查看保存备注切换状态
-      selectSaveRemarkStatus: function (status) {
-        this.saveRemark.currentStatus = status;
-      },
-
-      //显示保存备注弹窗
-      _showSaveRemark: function (item) {
-        this.saveRemark.isShow = true;
-        this.saveRemark.tradeDetailId = item.tradeDetailId;
-        this.saveRemark.remarkValue = item.remark;
-        this.saveRemark.cspOrderId = item.cspOrderId;
-        this.saveRemark.cspCustomId = item.cspCustomId;
-        if (item.instruction) {
-          this.saveRemark.briefSummary = item.instruction;
-          this.saveRemark.isAbleEditor = false;
-        }
-      },
-
-      //关闭保存备注
-      _closeSaveRemark: function () {
-        this.saveRemark.isShow = false;
-        this.saveRemark.remarkValue = "";
-        this.saveRemark.briefSummary = "";
-      },
-
-      //提交备注
-      submitRemark: function () {
-        var params = {
-          tradeDetailId: this.saveRemark.tradeDetailId,
-          remark: this.saveRemark.remarkValue
-        };
-        if (!params.remark) {
-          alert("备注内容不能为空");
-          return;
-        }
-        /*        $.ajax({
-                  type: "POST",
-                  url:  baseURL+"ins/phoneconsultation/updateTradeDetailRemark",
-                  contentType: "application/x-www-form-urlencoded",
-                  data: params,
-                  success: function(res){
-                    if(res.code === 1){
-                      alert("备注保存成功",function () {
-                        vm._getList();
-                        vm.saveRemark.isShow=false;
-                      })
-                    }else {
-                      alert(res.msg)
-                    }
-                  }
-                });*/
-      },
-
-      //提交服务小结
-      submitBriefSummary: function () {
-        var params = {
-          cspOrderId: this.saveRemark.cspOrderId,
-          tradeDetailId: this.saveRemark.tradeDetailId,
-          cspCustomId: this.saveRemark.cspCustomId,
-          instruction: this.saveRemark.briefSummary
-        };
-        if (!params.instruction) {
-          alert("小结内容不能为空");
-          return;
-        }
-        /*        $.ajax({
-                  type: "POST",
-                  url:  baseURL+"ins/phoneconsultation/saveOrderCallReport",
-                  contentType: "application/x-www-form-urlencoded",
-                  data: params,
-                  success: function(res){
-                    if(res.code === 1){
-                      alert("备注保存成功",function () {
-                        vm._getList();
-                        vm.saveRemark.isShow=false;
-                      })
-                    }else {
-                      alert(res.msg)
-                    }
-                  }
-                });*/
-      },
-
-      //搜索列表
-      doSearch: function () {
-        this.searchParams.currentPage = 1;
-        this.searchParams.realName = this.formInline.username;
-        this.searchParams.mobile =this.formInline.usermobile;
-        this.searchParams.orderCode =this.formInline.userfile;
-        this._getList();
-      },
-      //请求列表数据
-      _getList: function () {
-        if (this.searchParams.mobile) {
-          if (!storeManager.mbTest.test(this.searchParams.mobile)) {
-            alert("手机格式不正确", function () {
-              this.searchParams.mobile = "";
-            });
-            return;
-          }
-        }
-        //订单时间范围
-        let params = this.searchParams,
-          that = this;
-        api.queryPhoneConsultationOrder(params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            if (data.data) {
-              that.orderLists = data.data.list;
-              that.currentPage = data.data.currentPage;
-              that.pageSize = data.data.pageSize;
-              that.totalCount = data.data.totalCount;
-            } else {
-              that.orderLists = [];
-            }
-          } else {
-            alert(data.msg)
-          }
-        })
-      },
-
-      //打电话
-      callFn: function (orderId) {
-        var params = {
-          cspOrderId: orderId
-        };
-        /*        $.ajax({
-                  type: "POST",
-                  url:  baseURL+"ins/phoneconsultation/list",
-                  contentType: "application/x-www-form-urlencoded",
-                  data: params,
-                  success: function(res){
-                    if(res.code === 1){
-                      alert("电话拨通成功",function () {
-                        vm._getList();
-                      })
-                    }else {
-                      alert(res.msg)
-                    }
-                  }
-                });*/
-      },
-
-      //录音列表
-      getVoiveLists: function (orderId) {
-        var params = {
-          cspOrderId: orderId,
-          currentPage: 1,
-          pageSize: 10
-        };
-        /*      $.ajax({
-                type: "POST",
-                url:  baseURL+"ins/phoneconsultation/getInsOrderCallRecordByPage",
-                contentType: "application/json",
-                data: JSON.stringify(params),
-                success: function(res){
-                  if(res.code === 1){
-                    if(res.data.list){
-                      vm.voiceData.list.length=0;
-                      res.data.list.forEach(function (item) {
-                        if(item.billsec >0){
-                          vm.voiceData.list.push(Object.assign(item,{playFlag:false}));
-                        }
-                      })
-                    }
-                    vm.voiceData.isShow=true;
-                  }else {
-                    alert(res.msg)
-                  }
-
-                }
-              });*/
-      },
-
-      //关闭录音弹层
-      closeVoiceModel: function () {
-        this.voiceData.isShow = false;
-      },
-
-      //获取短信模板
-      getSMSTemplate: function () {
-        let params = '';
-        api.getSMSTemplate(params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            this.msgData.msgText = data.data.messageTemplateContent;
-          } else {
-            alert(data.msg);
-          }
-        })
-      },
-
-      //显示短信弹窗
-      showMegModel: function (index, rows) {
-        let item = rows[index],
-          params = {
-            providerServiceUserId: this.msgData.providerServiceUserId,//服务提供者ID
-            userId: item.cspCustomId,//会员ID，
-            tradeDetailId: item.tradeDetailId,//会员ID，
-            userName: item.realName,//会员名称，
-            sendType: 2,//1:发送给医生;2:发送给下单用户;3:发送给注册用户
-            sendPhone: item.mobile//发送手机号
-          };
-        this.$confirm(this.msgData.msgText, '短信内容', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消'
-        }).then(() => {
-          api.sendSMS(params).then((res) => {
-            let data = res.data;
-            if (data.code === 1) {
-              this.$message({
-                type: 'success',
-                message: '已发送信息!'
-              });
-            } else {
-              this.$message({
-                type: 'info',
-                message: '发送信息失败!'
-              });
-            }
-          })
-        }).catch(() => {
-          this.$message({
-            type: 'info',
-            message: '已取消发送信息'
-          });
-        });
-      },
-      //显示退款原因的弹窗
-      showRefuseModel: function (item) {
-        this.refuseData.refuseText = item.refundReason || "暂无退款原因";
-        this.refuseData.isShow = true;
-      },
-
-      //关闭退款原因弹窗
-      closeRefuseModel: function () {
-        this.refuseData.isShow = false;
-      },
-
-      //点击播放语音
-      togglePlay: function (item) {
-        this.audioObj.path = item.filePath;
-      },
-
-      clearParams: function () {
-        this.formInline = {
-          username: '',
-          usermobile: '',
-          userfile: '',
-          selDate: ''
-        }
 
       },
 
-      //显示体检报告
-      showReport: function (item) {
-        var params = {
-          workNo: item.workNo,
-          checkUnitCode: item.checkUnitCode
-        };
-        /*        $.ajax({
-                  type: "POST",
-                  url: baseURL + "ins/phoneconsultation/getMedicalReportDetail",
-                  contentType: "application/x-www-form-urlencoded",
-                  data: params,
-                  success: function (res) {
-                    if (res.code === 1) {
-                      if(res.data){
-                        vm.isShowReport=true;
-                        vm.reportData=res.data;
-                      }else {
-                        alert("暂无体检报告")
-                      }
-                    } else {
-                      alert(res.msg);
-                    }
-                  }
-                });*/
+      _resetParams(){
+
+
       },
 
-      //关闭报告
-      closeReport: function () {
-        this.isShowReport = false;
+
+      handleSizeChange(){
+
+
       },
 
-      //点击nav
-      _navClick: function (index) {
-        this.currentHash = index;
-        location.hash = index;
-      }
-    },
+      handleCurrentChange(){
+
+
+      },
+    }
   }
 
 </script>
 <style scoped lang="less">
-  .tel-consult {
-    line-height: 32px;
-    .tableDetail {
-      color: #000;
-    }
-    .pageDetail {
-      text-align: center;
-      margin-top: 20px;
-    }
-    .blue-text {
-      color: #4f9bef;
-    }
-    .doIcon {
-      font-size: 18px;
-      padding: 2px;
-    }
-    .doIcon:hover {
-      cursor: pointer;
-      color: #4f9bef
-    }
-    .pink-text {
-      color: #f96b53;
-      cursor: pointer
-    }
-  }
-</style>
-<style>
-  .el-table .tablStyle{
-    background-color: #e5e5e5;
-    color: #333
+
+  .el-button--mini{padding: 7px 7px;}
+
+  .el-button+.el-button {
+    margin-left:5px;
   }
 
 </style>

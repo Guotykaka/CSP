@@ -72,10 +72,6 @@
         </el-pagination>
       </div>
 
-
-      <el-button size="mini" type="primary" @click="page">页码</el-button>
-
-
       <!--refuse reason dialog-->
       <el-dialog title="拒绝原因" :visible.sync="refuse.isShowDialog" width="400px">
         <el-input type="textarea" placeholder="请填写原因" v-model="refuse.refuseReason"></el-input>
