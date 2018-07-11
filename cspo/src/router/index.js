@@ -29,6 +29,7 @@ const indentList = () => import('@/pages/identificationList.vue')//认证列表
 //订单管理
 const refundsList = () => import('@/pages/refundsList.vue')//退款列表
 const orderList = () => import('@/pages/orderList.vue')//订单列表
+const orderDetail = () => import('@/pages/orderDetail.vue')//订单详情
 
 //财务管理
 const withdrawList = () => import('@/pages/withdrawList.vue')//提现列表
@@ -137,6 +138,12 @@ export default new Router({
           path: '/orderList',
           component: orderList,//订单管理 订单列表
           meta: ["订单管理", "订单列表"],
+        },
+        {
+          path: '/orderList/orderDetail',
+          name:'orderDetail',
+          component: orderDetail,//订单管理 订单列表
+          meta: ["订单管理", "订单列表","订单详情"],
         },
         {
           path: '/withdrawList',

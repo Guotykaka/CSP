@@ -9,6 +9,7 @@ import store from './store/index.js'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
+import './asset/iconfont/iconfont.css'
 Vue.prototype.$http = axios
 
 Vue.config.productionTip = false;

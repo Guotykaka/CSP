@@ -24,6 +24,12 @@ var yiyuanting = appData.yiyuanting//获取一元厅本地数据
 var queryInsLeaveWordList = appData.queryInsLeaveWordList//获取个人中心聊天数据
 var queryInsLeaveWordAnswerList = appData.queryInsLeaveWordAnswerList//查看个人中心聊天数据
 
+var listServiceDict = appData.listServiceDict//订单列表词典
+var tradeList = appData.tradeList//主订单列表
+var cspOrderList = appData.cspOrderList//子订单列表
+var tradeInfo = appData.tradeInfo//主订单详情
+var getRefundDetail = appData.getRefundDetail//退款详情
+
 
 const HOST = process.env.HOST
 const PORT = process.env.PORT && Number(process.env.PORT)
@@ -94,27 +100,27 @@ before(app) {
       data: institution
     });
   });
-  app.post('/api/service_info', function (req, res) { // 服务管理
-    res.json({
-      errno: 0,
-      data: service_info
-    });
-  });
-  app.post('/api/yiyuanting', function (req, res) { // 一元厅
-    res.json({
-      errno: 0,
-      data: yiyuanting
-    });
-  });
   app.post('/api/queryInsLeaveWordList', function (req, res) { //
     res.json(queryInsLeaveWordList);
   });
-
   app.post('/api/queryInsLeaveWordAnswerList', function (req, res) { // 机构列表
     res.json(queryInsLeaveWordAnswerList);
-
-})
-  
+  });
+  app.get('/api/listServiceDict', function (req, res) { // 机构列表
+    res.json(listServiceDict);
+  });
+  app.post('/api/tradeList', function (req, res) { // 机构列表
+    res.json(tradeList);
+  });
+  app.post('/api/cspOrderList', function (req, res) { // 机构列表
+    res.json(cspOrderList);
+  });
+  app.post('/api/tradeInfo', function (req, res) { // 机构列表
+    res.json(tradeInfo);
+  });
+  app.post('/api/getRefundDetail', function (req, res) { // 机构列表
+    res.json(getRefundDetail);
+  });
 },
 
     clientLogLevel: 'warning',
