@@ -147,16 +147,14 @@
   .el-main {
     background-color: #FFf;
     color: #333;
-    /*text-align: center;*/
-    line-height: 160px;
     height: 100%;
-    /*padding-top: 0;*/
   }
 
   body > .el-container {
     margin-bottom: 40px;
   }
 
+/*
   .el-container:nth-child(5) .el-aside,
   .el-container:nth-child(6) .el-aside {
     line-height: 260px;
@@ -165,6 +163,7 @@
   .el-container:nth-child(7) .el-aside {
     line-height: 320px;
   }
+*/
 
   /*容器样式end*/
   /*面包屑start*/

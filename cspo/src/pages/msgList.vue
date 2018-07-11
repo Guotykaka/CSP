@@ -2,10 +2,7 @@
   <div class="page-wrapper">
     <header-top></header-top>
     <div class="page-container">
-
-
       <el-card class="box-card">
-
         <!--tab-->
         <el-tabs>
           <el-tab-pane label="我的消息列表" name="0"></el-tab-pane>
@@ -28,22 +25,13 @@
           </el-table-column>
         </el-table>
         <!--table 表单结束-->
-
       </el-card>
-
     </div>
   </div>
-
 </template>
-
-
 <script>
-
 import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
-
-
-
 export default {
   data() {
     return {
@@ -54,7 +42,6 @@ export default {
         {"unReadCount":"5","newsTitle":"新提现订单","typeName":"提现申请通知","newsType":"4"}      ]
   }
   },
-
   components:{
     headerTop,
   },
@@ -64,7 +51,6 @@ export default {
   },
 
   methods:{
-
     //查看详情
     _checkDetail(item){
       if(item.newsType ==='1'){
@@ -81,22 +67,10 @@ export default {
         this.$router.push("withdrawList")
       }
     },
-
-
   },
-
-
-
-
-
-
-
 }
 </script>
 <style lang="less" scoped>
-
   .info-title{text-align: center;line-height: 24px;font-size: 18px;color:#303133;font-weight:normal;margin-bottom: 15px}
-
   .info-content{color:#606266;font-size: 14px;line-height: 22px;margin-bottom: 20px}
-
 </style>

@@ -42,13 +42,13 @@
           :data="doctorList"
           border
           style="width: 100%">
-          <el-table-column prop="name" label="用户名"  width="100"></el-table-column>
+          <el-table-column prop="name" label="用户名"></el-table-column>
           <el-table-column prop="mobile" label="手机号"></el-table-column>
-          <el-table-column prop="username" label="用户账号" width="100"></el-table-column>
-          <el-table-column prop="roleName" label="角色" width="100"></el-table-column>
+          <el-table-column prop="username" label="用户账号"></el-table-column>
+          <el-table-column prop="roleName" label="角色"></el-table-column>
           <el-table-column prop="creatTime" label="创建日期"></el-table-column>
-          <el-table-column prop="instituionName" label="所属机构" width="100"></el-table-column>
-          <el-table-column prop="doctorServiceSettingString" label="开通服务" width="100"></el-table-column>
+          <el-table-column prop="instituionName" label="所属机构"></el-table-column>
+          <el-table-column prop="doctorServiceSettingString" label="开通服务"></el-table-column>
           <el-table-column prop="sort" label="排序" width="100"></el-table-column>
           <el-table-column label="操作" width="380">
             <template slot-scope="scope">

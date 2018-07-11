@@ -1,8 +1,8 @@
 <template>
-  <div class="manage_page fillcontain">
-    <div style="height: 100%;display: flex">
+  <div class="manage_page fillcontain" style="display: flex">
+
       <!--左nav-->
-      <div style="min-height: 100%; background-color:#222d32;width: 250px">
+      <div class="main-nav">
         <h2 class="logo-t-text">掌上体检云服务平台</h2>
 
         <!--医生管理-->
@@ -49,16 +49,14 @@
       </div>
 
       <!--右container-->
-      <div style="height: 100%;flex: 1">
+      <div class="main-container">
         <keep-alive>
           <router-view></router-view>
         </keep-alive>
       </div>
 
-    </div>
-    <el-row>
 
-    </el-row>
+
   </div>
 </template>
 
@@ -86,12 +84,12 @@
 
 </script>
 
-<style scoped>
-
+<style scoped lang="less">
   .logo-t-text{line-height: 60px;text-align: center;color: #fff;font-size: 20px;font-weight: bold;background-color:#367fa9}
   .nav-t-icon{color: #b8c7ce;}
   .el-menu-item{background-color: #1f2d3d!important;}
   .el-menu-item:hover{background-color:rgb(50,65,87)!important;}
   .el-menu{border-right:none}
-
+  .main-nav{flex: 0 0 250px;height: 100%; background-color:#222d32;overflow: auto}
+  .main-container{flex: 1;height: 100%;min-width: 0}
 </style>
