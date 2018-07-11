@@ -18,7 +18,7 @@
         <i class="el-icon-arrow-down el-icon--right"></i>
       </span>
       <el-dropdown-menu slot="dropdown">
-        <el-dropdown-item command="baseInfo">基础信息</el-dropdown-item>
+        <el-dropdown-item command="baseInfo">个人中心</el-dropdown-item>
         <el-dropdown-item command="changePass">修改密码</el-dropdown-item>
         <el-dropdown-item command="logout">退出系统</el-dropdown-item>
       </el-dropdown-menu>
@@ -66,7 +66,9 @@
       //处理command
       handleCommand(command){
         if(command==='baseInfo'){
-          //基本信息
+          //个人中心
+          this.$router.push('goMyself')
+
         }else if(command==='changePass'){
           //修改密码
           this.isShowDialog=true;

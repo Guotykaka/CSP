@@ -8,7 +8,7 @@
               :default-active="defaultActive"
               class="el-menu-vertical-demo"
               background-color="#324057"
-              text-color="#bfbfac"
+              text-color="#fff"
               active-text-color="#3c8dbc"
               router>
               <el-menu-item index="doctor_index" class="homeTitle"><i class="el-icon-menu"></i>云服务平台医生端</el-menu-item>

@@ -179,9 +179,9 @@
         <!-- 列表 -->
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="noticeTitle" label="公告标题"></el-table-column>
-            <el-table-column align="center" prop="noticeType" label="类型" width="350"></el-table-column>
-            <el-table-column align="center" label="状态" width="100">
+            <el-table-column show-overflow-tooltip align="center" prop="noticeTitle" label="公告标题"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="noticeType" label="类型" min-width="100%"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" label="状态" width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
                   <el-tag size="medium" type="info" v-if="scope.row.noticeStatus === '1'">待发布</el-tag>
@@ -190,11 +190,11 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="userName" label="创建人"></el-table-column>
-            <el-table-column align="center" prop="noticeOsName" label="接收端"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="userName" label="创建人"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="noticeOsName" label="接收端"></el-table-column>
 
-            <el-table-column align="center" prop="createTime" label="最后更新时间"></el-table-column>
-            <el-table-column label="操作" width="290">
+            <el-table-column show-overflow-tooltip align="center" prop="createTime" label="最后更新时间"></el-table-column>
+            <el-table-column align="center" label="操作" width="290">
               <template slot-scope="scope">
                 <el-button size="mini" type="primary" v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
                 <el-button size="mini" type="success" v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="ReleaseMessage(scope.$index, scope.row)">发布</el-button>
@@ -208,7 +208,7 @@
       </el-main>
       <el-footer height="30px">
         <el-row style="margin-top: 2%;">
-          <el-col :span="24" :offset="6">
+          <el-col :span="24" :offset="8">
             <template>
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>

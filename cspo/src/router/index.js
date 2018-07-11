@@ -19,6 +19,7 @@ const report_label = () => import('@/pages/report_label.vue')//报告标签
 const medical_quota = () => import('@/pages/medical_quota.vue')//医学指标
 //商品管理
 const service_info = () => import('@/pages/service_info.vue')//服务管理
+const listenList = () => import('@/pages/listenList.vue')//服务管理
 
 
 //医生管理
@@ -28,6 +29,7 @@ const indentList = () => import('@/pages/identificationList.vue')//认证列表
 //订单管理
 const refundsList = () => import('@/pages/refundsList.vue')//退款列表
 const orderList = () => import('@/pages/orderList.vue')//订单列表
+const orderDetail = () => import('@/pages/orderDetail.vue')//订单详情
 
 //财务管理
 const withdrawList = () => import('@/pages/withdrawList.vue')//提现列表
@@ -113,6 +115,11 @@ export default new Router({
           meta: ["商品管理","服务管理"],
         },
         {
+          path: '/listenList',
+          component: listenList,//商品管理 一元听
+          meta: ["商品管理","一元听"],
+        },
+        {
           path: '/doctorList',
           component: doctorList,//医生管理 医生列表
           meta: ["医生管理", "医生列表"],
@@ -131,6 +138,12 @@ export default new Router({
           path: '/orderList',
           component: orderList,//订单管理 订单列表
           meta: ["订单管理", "订单列表"],
+        },
+        {
+          path: '/orderList/orderDetail',
+          name:'orderDetail',
+          component: orderDetail,//订单管理 订单列表
+          meta: ["订单管理", "订单列表","订单详情"],
         },
         {
           path: '/withdrawList',

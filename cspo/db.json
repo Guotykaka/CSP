@@ -1117,5 +1117,438 @@
         "pageCount": 1
       }
     }
+  },
+  "listServiceDict": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": [
+      {
+        "dictId": 10,
+        "dictCode": "8ab2b2f563822d260163822d26fd0000",
+        "dictName": "图文咨询"
+      },
+      {
+        "dictId": 20,
+        "dictCode": "8ab2b2f56381c35a016381c35a400000",
+        "dictName": "电话报告解读"
+      }
+    ]
+  },
+  "tradeList": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+      "totalCount": 140,
+      "pageSize": 10,
+      "totalPage": 14,
+      "currPage": 1,
+      "list": [
+        {
+          "itemNameString": "图文咨询",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "已完成",
+          "mobile": "13916513888",
+          "tradeCode": "20180711115019393989",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "3888",
+          "realName": "3888",
+          "orderTime": "2018-07-11 11:50:19",
+          "tradeStatus": 3,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff20164877610d30056"
+        },
+        {
+          "itemNameString": "图文咨询",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "已完成",
+          "mobile": "13916513888",
+          "tradeCode": "20180711114515281599",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "3888",
+          "realName": "3888",
+          "orderTime": "2018-07-11 11:45:15",
+          "tradeStatus": 3,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff2016487717016004c"
+        },
+        {
+          "itemNameString": "电话报告解读",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "待服务",
+          "mobile": "13916513888",
+          "tradeCode": "20180711105148690062",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "3888",
+          "realName": "3888",
+          "orderTime": "2018-07-11 10:51:48",
+          "tradeStatus": 2,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff20164874081710043"
+        },
+        {
+          "itemNameString": "电话报告解读",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "客户忙待联系",
+          "mobile": "13916513888",
+          "tradeCode": "20180711095255186040",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "3888",
+          "realName": "3888",
+          "orderTime": "2018-07-11 09:52:55",
+          "tradeStatus": 2,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff20164870a9554003d"
+        },
+        {
+          "itemNameString": "图文咨询",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "已失效",
+          "mobile": "13916513888",
+          "tradeCode": "20180711092120785166",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "3888",
+          "realName": "3888",
+          "orderTime": "2018-07-11 09:21:20",
+          "tradeStatus": 3,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff2016486edace50032"
+        },
+        {
+          "itemNameString": "电话报告解读",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "待服务",
+          "mobile": "13916513888",
+          "tradeCode": "20180710174728231273",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "3888",
+          "realName": "3888",
+          "orderTime": "2018-07-10 17:47:28",
+          "tradeStatus": 2,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff201648396b30f0028"
+        },
+        {
+          "itemNameString": "电话报告解读",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "已失效",
+          "mobile": "13916513888",
+          "tradeCode": "20180710173015030428",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "3888",
+          "realName": "3888",
+          "orderTime": "2018-07-10 17:30:15",
+          "tradeStatus": 3,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff201648386ee58001b"
+        },
+        {
+          "itemNameString": "图文咨询",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "已完成",
+          "mobile": "13916513888",
+          "tradeCode": "20180710170723681671",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "3888",
+          "realName": "3888",
+          "orderTime": "2018-07-10 17:07:23",
+          "tradeStatus": 3,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff201648371fff00015"
+        },
+        {
+          "itemNameString": "电话报告解读",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "待服务",
+          "mobile": "13761516041",
+          "tradeCode": "20180709170237617309",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "6041",
+          "realName": "6041",
+          "orderTime": "2018-07-09 17:02:37",
+          "tradeStatus": 2,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff201647e474597000f"
+        },
+        {
+          "itemNameString": "图文咨询",
+          "totalPrice": "0.01",
+          "doctorNameString": "huihui",
+          "orderServiceStatusString": "已完成",
+          "mobile": "15026502683",
+          "tradeCode": "20180706190803111292",
+          "institutionNameString": "上海天意达公司",
+          "customerName": "2683",
+          "realName": "2683",
+          "orderTime": "2018-07-06 19:08:03",
+          "tradeStatus": 3,
+          "payChannel": 1,
+          "cspTradeId": "2c8080aa646f3ff201646f47074a0007"
+        }
+      ]
+    }
+  },
+  "cspOrderList": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+      "totalCount": 142,
+      "pageSize": 10,
+      "totalPage": 15,
+      "currPage": 1,
+      "list": [
+        {
+          "realName": "3888",
+          "itemName": "图文咨询",
+          "createTime": "2018-07-11 11:50:19",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13916513888",
+          "name": "huihui",
+          "orderStatus": 3,
+          "orderCode": "20180711115019393989_01",
+          "payChannel": 1,
+          "customerName": "3888",
+          "orderServiceStatus": 3
+        },
+        {
+          "realName": "3888",
+          "itemName": "图文咨询",
+          "createTime": "2018-07-11 11:45:15",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13916513888",
+          "name": "huihui",
+          "orderStatus": 3,
+          "orderCode": "20180711114515281599_01",
+          "payChannel": 1,
+          "customerName": "3888",
+          "orderServiceStatus": 3
+        },
+        {
+          "realName": "3888",
+          "itemName": "电话报告解读",
+          "createTime": "2018-07-11 10:51:48",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13916513888",
+          "name": "huihui",
+          "orderStatus": 2,
+          "orderCode": "20180711105148690062_01",
+          "payChannel": 1,
+          "customerName": "3888",
+          "orderServiceStatus": 0
+        },
+        {
+          "realName": "3888",
+          "itemName": "电话报告解读",
+          "createTime": "2018-07-11 09:52:55",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13916513888",
+          "name": "huihui",
+          "orderStatus": 2,
+          "orderCode": "20180711095255186040_01",
+          "payChannel": 1,
+          "customerName": "3888",
+          "orderServiceStatus": 1
+        },
+        {
+          "realName": "3888",
+          "itemName": "图文咨询",
+          "createTime": "2018-07-11 09:21:20",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13916513888",
+          "name": "huihui",
+          "orderStatus": 3,
+          "orderCode": "20180711092120785166_01",
+          "payChannel": 1,
+          "customerName": "3888",
+          "orderServiceStatus": 4
+        },
+        {
+          "realName": "3888",
+          "itemName": "电话报告解读",
+          "createTime": "2018-07-10 17:47:28",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13916513888",
+          "name": "huihui",
+          "orderStatus": 2,
+          "orderCode": "20180710174728231273_01",
+          "payChannel": 1,
+          "customerName": "3888",
+          "orderServiceStatus": 0
+        },
+        {
+          "realName": "3888",
+          "itemName": "电话报告解读",
+          "createTime": "2018-07-10 17:30:15",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13916513888",
+          "name": "huihui",
+          "orderStatus": 3,
+          "orderCode": "20180710173015030428_01",
+          "payChannel": 1,
+          "customerName": "3888",
+          "orderServiceStatus": 4
+        },
+        {
+          "realName": "3888",
+          "itemName": "图文咨询",
+          "createTime": "2018-07-10 17:07:23",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13916513888",
+          "name": "huihui",
+          "orderStatus": 3,
+          "orderCode": "20180710170723681671_01",
+          "payChannel": 1,
+          "customerName": "3888",
+          "orderServiceStatus": 3
+        },
+        {
+          "realName": "6041",
+          "itemName": "电话报告解读",
+          "createTime": "2018-07-09 17:02:37",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "13761516041",
+          "name": "huihui",
+          "orderStatus": 2,
+          "orderCode": "20180709170237617309_01",
+          "payChannel": 1,
+          "customerName": "6041",
+          "orderServiceStatus": 0
+        },
+        {
+          "realName": "2683",
+          "itemName": "图文咨询",
+          "createTime": "2018-07-06 19:08:03",
+          "totalPrice": "0.01",
+          "institutionName": "上海天意达公司",
+          "mobile": "15026502683",
+          "name": "huihui",
+          "orderStatus": 3,
+          "orderCode": "20180706190803111292_01",
+          "payChannel": 1,
+          "customerName": "2683",
+          "orderServiceStatus": 3
+        }
+      ]
+    }
+  },
+  "tradeInfo": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+      "cspTradeInfoEntity": {
+        "cspTradeId": "2c8080aa646f3ff2016487717016004c",
+        "tradeCode": "20180711114515281599",
+        "createTime": "2018-07-11 11:45:15",
+        "customerId": "c7657be8-2eda-4fc5-84dc-7473cc0977d2",
+        "tradeStatus": 3,
+        "whetherBilling": 0,
+        "payChannel": 1,
+        "thirdTradeNo": "2018071121001004030542845185",
+        "paymentTime": "2018-07-11 11:45:31",
+        "discountAmount": 0.0,
+        "totalPrice": 0.01,
+        "orderTime": "2018-07-11 11:45:15",
+        "updateTime": "2018-07-11 11:45:31"
+      },
+      "cspOrderInfoList": [
+        {
+          "serviceType": 1,
+          "customerAge": 25,
+          "orderChangeList": [
+            {
+              "ORDER_CODE": "20180711114515281599_01",
+              "CREATE_TIME": "2018-07-11 11:49:52",
+              "TRADE_STATUS": 3
+            },
+            {
+              "ORDER_CODE": "20180711114515281599_01",
+              "CREATE_TIME": "2018-07-11 11:47:36",
+              "TRADE_STATUS": 8
+            },
+            {
+              "ORDER_CODE": "20180711114515281599_01",
+              "CREATE_TIME": "2018-07-11 11:47:08",
+              "TRADE_STATUS": 4
+            },
+            {
+              "ORDER_CODE": "20180711114515281599_01",
+              "CREATE_TIME": "2018-07-11 11:45:31",
+              "TRADE_STATUS": 2
+            },
+            {
+              "ORDER_CODE": "20180711114515281599_01",
+              "CREATE_TIME": "2018-07-11 11:45:15",
+              "TRADE_STATUS": 0
+            }
+          ],
+          "totalPrice": 0.009999999776482582,
+          "mobile": null,
+          "customerSex": 1,
+          "orderStatus": 3,
+          "tradeCode": "20180711114515281599_01",
+          "insOrderRefundId": "2c8080aa646f3ff2016487732a2c0052",
+          "checkUnitCode": null,
+          "customerImgs": null,
+          "customerDesc": "ing咨询lol你",
+          "customerName": "你可以",
+          "workNo": null,
+          "itemName": "图文咨询",
+          "insOrderRefundEntity": {
+            "insOrderRefundId": "2c8080aa646f3ff2016487732a2c0052",
+            "refundCode": "20180711114708501531",
+            "cspOrderId": "2c8080aa646f3ff201648771701a004f",
+            "refundAmount": 0.01,
+            "refundStatus": 3,
+            "refuseReason": "hfghfgh",
+            "approvalTime": null,
+            "approvalUserId": null,
+            "refundSource": null,
+            "refundReason": "好哦有觉悟需要",
+            "refundRemark": "线上退款",
+            "createTime": "2018-07-11 11:47:08",
+            "updateTime": "2018-07-11 11:47:36"
+          },
+          "institutionName": "上海天意达公司",
+          "name": "huihui",
+          "refundCode": "20180711114708501531"
+        }
+      ]
+    }
+  },
+  "getRefundDetail": {
+    "code": 1,
+    "msg": "操作成功",
+    "data": {
+      "insOrderRefundId": "2c8080aa646f3ff2016487732a2c0052",
+      "refundCode": "20180711114708501531",
+      "cspOrderId": "2c8080aa646f3ff201648771701a004f",
+      "refundAmount": 0.01,
+      "refundStatus": 3,
+      "refuseReason": "hfghfgh",
+      "approvalTime": null,
+      "approvalUserId": null,
+      "refundSource": null,
+      "refundReason": "好哦有觉悟需要",
+      "refundRemark": "线上退款",
+      "createTime": "2018-07-11 11:47:08",
+      "updateTime": "2018-07-11 11:47:36"
+    }
   }
 }

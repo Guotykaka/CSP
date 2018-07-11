@@ -5,11 +5,11 @@
       <el-header height="30">
         
       <el-row :gutter="20" class="m_b_15">
-        <el-col :span="6">
+        <el-col :span="6" class="minwidth">
           <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
         </el-col>
        
-        <el-col :span="6">
+        <el-col :span="6" class="minwidth">
           <el-button type="primary">查询</el-button>
           <el-button type="primary" @click="handleAdd()">新增</el-button>
         </el-col>
@@ -19,39 +19,29 @@
         <!-- 修改 -->
         <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
           <el-form :model="editTable">
-            <el-form-item label="用户名:" :label-width="formLabelWidth">
+            <el-form-item class="is-required" label="用户名:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="editTable.username" auto-complete="off" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
-            <el-form-item label="密码:" :label-width="formLabelWidth">
+            <el-form-item class="is-required" label="密码:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="editTable.password" auto-complete="off" placeholder="密码" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
-            <el-form-item label="邮箱:" :label-width="formLabelWidth">
+            <el-form-item class="is-required" label="邮箱:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="editTable.email" auto-complete="off" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
-            <el-form-item label="手机号:" :label-width="formLabelWidth">
+            <el-form-item class="is-required" label="手机号:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="editTable.mobile" auto-complete="off" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
-            <el-form-item label="所属部门:" :label-width="formLabelWidth">
+            <el-form-item class="is-required" label="所属部门:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="editTable.deptName" auto-complete="off" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
             <el-form-item label="角色:" :label-width="formLabelWidth">
@@ -143,39 +133,29 @@
         <!-- 新增 -->
         <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
           <el-form :model="addTable">
-            <el-form-item label="用户名:" :label-width="formLabelWidth">
+            <el-form-item class="is-required" label="用户名:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="addTable.username" auto-complete="off" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
-            <el-form-item label="密码:" :label-width="formLabelWidth">
+            <el-form-item class="is-required" label="密码:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="addTable.password" auto-complete="off" placeholder="密码" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
-            <el-form-item label="邮箱:" :label-width="formLabelWidth">
+            <el-form-item class="is-required" label="邮箱:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="addTable.email" auto-complete="off" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
             <el-form-item label="手机号:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="addTable.mobile" auto-complete="off" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
             <el-form-item label="所属部门:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-badge is-dot class="dot">
                   <el-input v-model="addTable.deptName" auto-complete="off" el></el-input>
-                </el-badge>
               </el-col>
             </el-form-item>
             <el-form-item label="角色:" :label-width="formLabelWidth">
@@ -212,11 +192,11 @@
         <!-- 列表 -->
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="userId" type="index" label="Id" width="50"></el-table-column>
-            <el-table-column align="center" prop="username" label="用户名" width="150"></el-table-column>
-            <el-table-column align="center" prop="deptName" label="所属部门"></el-table-column>
-            <el-table-column align="center" prop="email" label="邮箱"></el-table-column>
-            <el-table-column align="center" prop="mobile" label="手机号"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="userId" type="index" label="Id" min-width="25%"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="username" label="用户名" min-width="50%"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="deptName" label="所属部门"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="email" label="邮箱"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="mobile" label="手机号"></el-table-column>
             <el-table-column align="center" label="状态">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
@@ -225,8 +205,8 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
-            <el-table-column align="center" label="操作" width="350">
+            <el-table-column show-overflow-tooltip align="center" prop="createTime" label="创建时间"></el-table-column>
+            <el-table-column align="center" label="操作" width="312">
               <template slot-scope="scope">
                 <el-button size="mini" type="info" @click="handleCheck(scope.$index, scope.row)">查看</el-button>
                 <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
@@ -239,7 +219,7 @@
       </el-main>
       <el-footer height="30px">
         <el-row style="margin-top: 2%;">
-          <el-col :span="24" :offset="6">
+          <el-col :span="24" :offset="8">
             <template>
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
@@ -455,7 +435,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.dot {
-  width: 100%;
+.minwidth{
+  min-width: 200px;
 }
 </style>

@@ -22,6 +22,22 @@ export const api ={
   queryInsLeaveWordAnswerList(data){
     return post(urls.API_QUERY_INSLEAVE_WORD_ANSWER_LIST,data);//查看回复数据
   },
+  /*订单列表*/
+  listServiceDict(data){
+    return get(urls.API_LIST_SERVICE_dict,data);//获取聊天数据
+  },
+  tradeList(data){
+    return post(urls.API_TRADE_LIST,data);//查看回复数据
+  },
+  cspOrderList(data){
+    return post(urls.API_CSP_ORDER_LIST,data);//获取聊天数据
+  },
+  tradeInfo(data){
+    return post(urls.API_trade_INFO,data);//查看回复数据
+  },
+  getRefundDetail(data){
+    return post(urls.API_GET_REFUND_DETAIL,data);//查看回复数据
+  },
 }
 
 

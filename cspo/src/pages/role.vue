@@ -5,11 +5,11 @@
       <el-header height="30">
         
       <el-row :gutter="20" class="m_b_15">
-        <el-col :span="6">
+        <el-col :span="6" class="minwidth">
           <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
         </el-col>
        
-        <el-col :span="6">
+        <el-col :span="6" class="minwidth">
           <el-button type="primary">查询</el-button>
           <el-button type="primary" @click="handleAdd()">新增</el-button>
         </el-col>
@@ -141,11 +141,11 @@
         <!-- 列表 -->
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="roleId" label="角色Id"></el-table-column>
-            <el-table-column align="center" prop="roleName" label="角色名称"></el-table-column>
-            <el-table-column align="center" prop="remark" label="角色描述"></el-table-column>
-            <el-table-column align="center" prop="createTime" label="创建时间"></el-table-column>
-            <el-table-column align="center" label="操作">
+            <el-table-column show-overflow-tooltip align="center" prop="roleId" label="角色Id"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="roleName" label="角色名称"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="remark" label="角色描述"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="createTime" label="创建时间"></el-table-column>
+            <el-table-column align="center" label="操作" min-width="152">
               <template slot-scope="scope">
                 <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
                 <el-button size="mini" type="danger" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
@@ -156,7 +156,7 @@
       </el-main>
       <el-footer height="30px">
         <el-row style="margin-top: 2%;">
-          <el-col :span="24" :offset="6">
+          <el-col :span="24" :offset="8">
             <template>
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
@@ -351,5 +351,8 @@ export default {
 }
 .el-select{
   width: 100%;
+}
+.minwidth{
+  min-width: 200px;
 }
 </style>
