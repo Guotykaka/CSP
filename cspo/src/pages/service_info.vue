@@ -2,271 +2,445 @@
   <div class="page-wrapper">
     <header-top></header-top>
     <div class="page-container">
-      <el-header height="30">
-        <!-- 操作行-->
-        <el-row :gutter="20">
-          <el-col :span="6">
-            <el-input v-model="formInline.valueBT" placeholder="服务名称" clearable></el-input>
-          </el-col>
-          <el-col :span="6">
-            <el-select v-model="formInline.valueLX" clearable placeholder="请选择角色">
-              <el-option v-for="item in RoleData" :key="item.roleId" :label="item.roleName" :value="item.roleId">
-              </el-option>
-            </el-select>
-          </el-col>
-          <el-col :span="6">
-            <el-button type="primary">搜索</el-button>
-          </el-col>
-        </el-row>
-        <!--新增按钮-->
-        <el-row class="m_b_15">
-          <el-button type="primary" @click="handleAdd()">新增</el-button>
-        </el-row>
 
-      </el-header>
-      <el-main>
-        <!-- 修改 -->
-        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=60%>
+      <!-- 服务页面 -->
+      <div v-show="!GoodsManVisible">
+        <el-header height="30">
+          <!-- 操作行-->
+          <el-row :gutter="20">
+            <el-col :span="6">
+              <el-input v-model="formInline.valueBT" placeholder="服务名称" clearable></el-input>
+            </el-col>
+            <el-col :span="6">
+              <el-select v-model="formInline.valueLX" clearable placeholder="请选择角色">
+                <el-option v-for="item in RoleData" :key="item.roleId" :label="item.roleName" :value="item.roleId">
+                </el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="6">
+              <el-button type="primary">搜索</el-button>
+            </el-col>
+          </el-row>
+          <!--新增按钮-->
+          <el-row class="m_b_15">
+            <el-button type="primary" @click="handleAdd()">新增</el-button>
+          </el-row>
 
-              <el-form :model="editTable">
-                <el-form-item label="服务名称:" :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input v-model="editTable.serviceName" prop auto-complete="off" el></el-input>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="服务描述:" :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input v-model="editTable.serviceDesc" auto-complete="off" el></el-input>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="商品类别:" :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input placeholder="服务" auto-complete="off" :disabled="true" el></el-input>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="服务类别:" :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input placeholder="平台服务" auto-complete="off" :disabled="true" el></el-input>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="参考价格:" :label-width="formLabelWidth">
-                  <el-col :span="5">
-                    <el-input v-model="editTable.serviceMinPrice" auto-complete="off" el></el-input>
-                  </el-col>
-                  <el-col :span="1">
-                    <div style="text-align:center">--</div>
-                  </el-col>
-                  <el-col :span="5">
-                    <el-input v-model="editTable.serviceMaxPrice" auto-complete="off" el></el-input>
-                  </el-col>
-                  <el-col :span="1">
-                    <div style="text-align:center">元</div>
-                  </el-col>
-                  <el-col :span="5">
-                    <el-select v-model="editTable.serviceUnit" clearable placeholder="请选择单位">
-                      <el-option label="次" value ="UNIT_SECOND"></el-option>
-                      <el-option label="小时" value ="UNIT_HOUR"></el-option>
-                    </el-select>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="服务ICON:" :label-width="formLabelWidth">
-                  <el-col :span="3">
-                    <el-upload
-                      class="upload-demo"
-                      action="editTable.qrCodeUrl"
-                      :on-preview="handlePreview"
-                      :on-remove="handleRemove"
-                      :before-remove="beforeRemove"
-                      :multiple= false
-                      list-type= "picture"
-                      :limit="1"
-                      :on-exceed="handleExceed"
-                      >
-                      <el-button size="small" type="primary">点击上传</el-button>
-                      <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
-                    </el-upload>
-                  </el-col>
-                  <el-col :span="5" :offset="4">
-                    <div v-show="dialogVisible">
-                        <img :src="editTable.serviceIconUrl" style="width: 370px;height: 200px;">
-                    </div>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="接收端:" :label-width="formLabelWidth">
-                  <template slot-scope="scope">
-                    <el-checkbox-group  v-model="editTable.roleNames">
-                      <el-checkbox v-for="(item,index) in RoleData" :label="item.roleName" :key="item.roleId"></el-checkbox>
-                    </el-checkbox-group>
-                  </template>
-                </el-form-item>
-                <el-form-item label="服务介绍"  :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input v-model="editTable.roleNames"></el-input>
-                  </el-col>
-                </el-form-item>
-              </el-form>
+        </el-header>
 
-          <div slot="footer" class="dialog-footer">
-            <el-button type="warning" @click="_doCancel()">取消</el-button>
-            <el-button type="primary" @click="_doHandleEdit()">保存</el-button>
-          </div>
-        </el-dialog>
+        <el-main>
 
-        <!-- 详情 -->
-        <el-dialog title="详情" :visible.sync="dialogCheckVisible" width=40%>
-          <el-form :model="selectTable">
-            <el-form-item label="公告标题:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-input v-model="selectTable.noticeTitle" auto-complete="off" el readonly></el-input>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="公告类型:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-input v-model="selectTable.dictName" auto-complete="off" el readonly></el-input>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="公告内容:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-input type="textarea" :rows="4" v-model="selectTable.noticeContent" auto-complete="off" el readonly></el-input>
-              </el-col>
-            </el-form-item>
-            <el-form-item label="接收端:" :label-width="formLabelWidth">
-              <template slot-scope="scope">
-                <el-checkbox-group v-model="selectTable.noticeOsName">
-                  <el-checkbox label="运营端" onclick="return false"></el-checkbox>
-                  <el-checkbox label="医生端" onclick="return false"></el-checkbox>
-                  <el-checkbox label="企业端" onclick="return false"></el-checkbox>
-                </el-checkbox-group>
+          <!-- 列表 -->
+          <template>
+            <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
+              <el-table-column align="center" prop="serviceName" label="服务名称"></el-table-column>
+              <el-table-column align="center" prop="roleNames" label="服务角色" width="350"></el-table-column>
+              <el-table-column align="center" label="服务状态" width="100">
+                <template slot-scope="scope">
+                  <div slot="reference" class="name-wrapper">
+                    <el-tag size="medium" type="success" v-if="scope.row.serviceStatus === 1">可用</el-tag>
+                    <el-tag size="medium" type="danger" v-if="scope.row.serviceStatus === 0">不可用</el-tag>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column align="center" prop="YYTgoods" label="绑定商品"></el-table-column>
+              <el-table-column align="center" label="建议价格">
+                <template slot-scope="scope">
+                  <p>{{ scope.row.serviceMinPrice}}-{{ scope.row.serviceMaxPrice}}元/次</p>
+                </template>
+              </el-table-column>
+              <el-table-column align="center" prop="createDate" label="创建时间"></el-table-column>
+              <el-table-column label="操作" width="290">
+                <template slot-scope="scope">
+                  <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                  <el-button size="mini" type="danger" v-if="scope.row.serviceStatus === 1" @click="FalseStatus(scope.$index, scope.row)">不可用</el-button>
+                  <el-button size="mini" type="success" v-if="scope.row.serviceStatus === 0" @click="TrueStatus(scope.$index, scope.row)">可用</el-button>
+                  <el-button size="mini" type="danger" v-if="scope.row.YYTstatus === 1" @click="GoodsMan()">商品管理</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+          </template>
+
+        </el-main>
+
+        <el-footer height="30px" v-show="!GoodsManVisible">
+          <el-row style="margin-top: 2%;">
+            <el-col :span="24" :offset="6">
+              <template>
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                </el-pagination>
               </template>
-            </el-form-item>
-          </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button type="warning" @click="dialogCheckVisible = false">返回</el-button>
-          </div>
-        </el-dialog>
-        <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
-          <el-form :model="addTable">
-                <el-form-item label="服务名称:" :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input v-model="addTable.serviceName" prop auto-complete="off" el></el-input>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="服务描述:" :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input v-model="addTable.serviceDesc" auto-complete="off" el></el-input>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="商品类别:" :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input placeholder="服务" auto-complete="off" :disabled="true" el></el-input>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="服务类别:" :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input placeholder="平台服务" auto-complete="off" :disabled="true" el></el-input>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="参考价格:" :label-width="formLabelWidth">
-                  <el-col :span="5">
-                    <el-input v-model="addTable.serviceMinPrice" auto-complete="off" el></el-input>
-                  </el-col>
-                  <el-col :span="1">
-                    <div style="text-align:center">--</div>
-                  </el-col>
-                  <el-col :span="5">
-                    <el-input v-model="addTable.serviceMaxPrice" auto-complete="off" el></el-input>
-                  </el-col>
-                  <el-col :span="1">
-                    <div style="text-align:center">元</div>
-                  </el-col>
-                  <el-col :span="5">
-                    <el-select v-model="addTable.serviceUnit" clearable placeholder="请选择单位">
-                      <el-option label="次" value="UNIT_SECOND"></el-option>
-                      <el-option label="小时" value="UNIT_HOUR"></el-option>
-                    </el-select>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="服务ICON:" :label-width="formLabelWidth">
-                  <el-col :span="3">
-                    <el-upload
-                      class="upload-demo"
-                      action="addTable.qrCodeUrl"
-                      :on-preview="handlePreview"
-                      :on-remove="handleRemove"
-                      :before-remove="beforeRemove"
-                      :multiple= false
-                      list-type= "picture"
-                      :limit="1"
-                      :on-exceed="handleExceed"
-                      >
-                      <el-button size="small" type="primary">点击上传</el-button>
-                      <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
-                    </el-upload>
-                  </el-col>
-                  <el-col :span="5" :offset="4">
-                    <div v-show="dialogVisible">
-                        <img :src="dialogImageUrl" style="width: 370px;height: 200px;">
-                    </div>
-                  </el-col>
-                </el-form-item>
-                <el-form-item label="接收端:" :label-width="formLabelWidth">
-                  <template slot-scope="scope">
-                    <el-checkbox-group  v-model="addTable.roleNames">
-                      <el-checkbox v-for="(item,index) in RoleData" :label="item.roleName" :key="item.roleId"></el-checkbox>
-                    </el-checkbox-group>
-                  </template>
-                </el-form-item>
-                <el-form-item label="服务介绍"  :label-width="formLabelWidth">
-                  <el-col :span="16">
-                    <el-input v-model="addTable.roleNames"></el-input>
-                  </el-col>
-                </el-form-item>
-              </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button type="warning" @click="_doAddCancel()">取消</el-button>
-            <el-button type="primary" @click="_doAdd()">保存</el-button>
-          </div>
-        </el-dialog>
-        <!-- 列表 -->
-        <template>
-          <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="serviceName" label="服务名称"></el-table-column>
-            <el-table-column align="center" prop="roleNames" label="服务角色" width="350"></el-table-column>
-            <el-table-column align="center" label="服务状态" width="100">
+            </el-col>
+          </el-row>
+        </el-footer>
+      </div>
+
+      <!-- 一元厅商品管理页面 -->
+      <div v-show="GoodsManVisible">
+        <el-header height="30">
+          <!-- 操作行-->
+          <el-row :gutter="20">
+            <el-col :span="6">
+              <el-input v-model="formInline.valueBT" placeholder="服务名称" clearable></el-input>
+            </el-col>
+            <el-col :span="6">
+              <el-select v-model="formInline.valueLX" clearable placeholder="请选择角色">
+                <el-option v-for="item in RoleData" :key="item.roleId" :label="item.roleName" :value="item.roleId">
+                </el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="6">
+              <el-button type="primary">搜索</el-button>
+            </el-col>
+          </el-row>
+          <!--一元厅新增按钮-->
+          <el-row class="m_b_15">
+            <el-button type="primary" @click="handleAdd_YYT()">新增</el-button>
+          </el-row>
+
+        </el-header>
+
+        <el-main>
+          <el-table :data="tableData_YYT.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
+            <el-table-column align="center" prop="goodCode" label="商品编号"></el-table-column>
+            <el-table-column align="center" prop="firstType" label="商品一级分类"></el-table-column>
+            <el-table-column align="center" prop="secondType" label="商品二级分类"></el-table-column>
+            <el-table-column align="center" prop="goodsName" label="商品名称"></el-table-column>
+            <el-table-column align="center" prop="goodsWords" label="商品文案"></el-table-column>
+            <el-table-column align="center" label="商品状态" width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.serviceStatus === 1">可用</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.serviceStatus === 0">不可用</el-tag>
+                  <el-tag size="medium" type="success" v-if="scope.row.goodsStatus === 1">下架</el-tag>
+                  <el-tag size="medium" type="danger" v-if="scope.row.goodsStatus === 0">上架</el-tag>
                 </div>
               </template>
             </el-table-column>
+            <el-table-column align="center" prop="YYTgoods" label="绑定商品"></el-table-column>
             <el-table-column align="center" label="建议价格">
               <template slot-scope="scope">
-                <p>{{ scope.row.serviceMinPrice}}-{{ scope.row.serviceMaxPrice}}元/次</p>
+                <p>￥{{ scope.row.goodsPrice}}</p>
+              </template>
+            </el-table-column>
+            <el-table-column align="center" prop="createDate" label="音频" width="100">
+              <template slot-scope="scope">
+                <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium" type="success" v-if="scope.row.audioStatus === 1">已添加</el-tag>
+                  <el-tag size="medium" type="danger" v-if="scope.row.audioStatus === 0">未添加</el-tag>
+                </div>
               </template>
             </el-table-column>
             <el-table-column align="center" prop="createDate" label="创建时间"></el-table-column>
             <el-table-column label="操作" width="290">
-              <template slot-scope="scope">
-                <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-                <el-button size="mini" type="danger" v-if="scope.row.serviceStatus === 1" @click="FalseStatus(scope.$index, scope.row)">不可用</el-button>
-                <el-button size="mini" type="success" v-if="scope.row.serviceStatus === 0" @click="TrueStatus(scope.$index, scope.row)">可用</el-button>
-              </template>
+                <template slot-scope="scope">
+                  <el-button size="mini" type="danger" v-if="scope.row.goodsStatus === 1" @click="FalseStatus_YYT(scope.$index, scope.row)">上架</el-button>
+                  <el-button size="mini" type="success" v-if="scope.row.goodsStatus === 0" @click="TrueStatus_YYT(scope.$index, scope.row)">下架</el-button>
+                  <el-button size="mini" type="primary" @click="handleEdit_YYT(scope.$index, scope.row)">修改</el-button>
+                  <el-button size="mini" type="danger" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
+                  
+                </template>
             </el-table-column>
           </el-table>
-        </template>
-      </el-main>
-      <el-footer height="30px">
-        <el-row style="margin-top: 2%;">
-          <el-col :span="24" :offset="6">
-            <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
-              </el-pagination>
+        </el-main>
+
+        <el-footer height="30px" v-show="GoodsManVisible">
+          <el-row style="margin-top: 10%;">
+            <el-col :span="24" :offset="6">
+              <template>
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                </el-pagination>
+              </template>
+            </el-col>
+          </el-row>
+          <el-button type="warning" @click="GoodsManVisible=false">返回</el-button>
+          
+        </el-footer>
+      </div>
+
+
+
+      <!-- 修改弹窗 -->
+      <el-dialog title="修改" :visible.sync="dialogEditVisible" width=60%>
+
+        <el-form :model="editTable">
+          <el-form-item label="服务名称:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input v-model="editTable.serviceName" prop auto-complete="off" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="服务描述:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input v-model="editTable.serviceDesc" auto-complete="off" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="商品类别:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input placeholder="服务" auto-complete="off" :disabled="true" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="服务类别:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input placeholder="平台服务" auto-complete="off" :disabled="true" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="参考价格:" :label-width="formLabelWidth">
+            <el-col :span="5">
+              <el-input v-model="editTable.serviceMinPrice" auto-complete="off" el></el-input>
+            </el-col>
+            <el-col :span="1">
+              <div style="text-align:center">--</div>
+            </el-col>
+            <el-col :span="5">
+              <el-input v-model="editTable.serviceMaxPrice" auto-complete="off" el></el-input>
+            </el-col>
+            <el-col :span="1">
+              <div style="text-align:center">元</div>
+            </el-col>
+            <el-col :span="5">
+              <el-select v-model="editTable.serviceUnit" clearable placeholder="请选择单位">
+                <el-option label="次" value="UNIT_SECOND"></el-option>
+                <el-option label="小时" value="UNIT_HOUR"></el-option>
+              </el-select>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="服务ICON:" :label-width="formLabelWidth">
+            <el-col :span="3">
+              <el-upload class="upload-demo" action="editTable.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+              </el-upload>
+            </el-col>
+            <el-col :span="5" :offset="4">
+              <div v-show="dialogVisible">
+                <img :src="editTable.serviceIconUrl" style="width: 370px;height: 200px;">
+              </div>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="接收端:" :label-width="formLabelWidth">
+            <template slot-scope="scope">
+              <el-checkbox-group v-model="editTable.roleNames">
+                <el-checkbox v-for="(item,index) in RoleData" :label="item.roleName" :key="item.roleId"></el-checkbox>
+              </el-checkbox-group>
             </template>
-          </el-col>
-        </el-row>
-      </el-footer>
+          </el-form-item>
+          <el-form-item label="服务介绍" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input v-model="editTable.roleNames"></el-input>
+            </el-col>
+          </el-form-item>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+          <el-button type="warning" @click="_doCancel()">取消</el-button>
+          <el-button type="primary" @click="_doHandleEdit()">保存</el-button>
+        </div>
+      </el-dialog>
+      <!-- 详情弹窗 -->
+      <el-dialog title="详情" :visible.sync="dialogCheckVisible" width=40%>
+        <el-form :model="selectTable">
+          <el-form-item label="公告标题:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input v-model="selectTable.noticeTitle" auto-complete="off" el readonly></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="公告类型:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input v-model="selectTable.dictName" auto-complete="off" el readonly></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="公告内容:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input type="textarea" :rows="4" v-model="selectTable.noticeContent" auto-complete="off" el readonly></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="接收端:" :label-width="formLabelWidth">
+            <template slot-scope="scope">
+              <el-checkbox-group v-model="selectTable.noticeOsName">
+                <el-checkbox label="运营端" onclick="return false"></el-checkbox>
+                <el-checkbox label="医生端" onclick="return false"></el-checkbox>
+                <el-checkbox label="企业端" onclick="return false"></el-checkbox>
+              </el-checkbox-group>
+            </template>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="warning" @click="dialogCheckVisible = false">返回</el-button>
+        </div>
+      </el-dialog>
+      <!-- 新增弹窗 -->
+      <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
+        <el-form :model="addTable">
+          <el-form-item label="服务名称:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input v-model="addTable.serviceName" prop auto-complete="off" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="服务描述:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input v-model="addTable.serviceDesc" auto-complete="off" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="商品类别:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input placeholder="服务" auto-complete="off" :disabled="true" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="服务类别:" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input placeholder="平台服务" auto-complete="off" :disabled="true" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="参考价格:" :label-width="formLabelWidth">
+            <el-col :span="5">
+              <el-input v-model="addTable.serviceMinPrice" auto-complete="off" el></el-input>
+            </el-col>
+            <el-col :span="1">
+              <div style="text-align:center">--</div>
+            </el-col>
+            <el-col :span="5">
+              <el-input v-model="addTable.serviceMaxPrice" auto-complete="off" el></el-input>
+            </el-col>
+            <el-col :span="1">
+              <div style="text-align:center">元</div>
+            </el-col>
+            <el-col :span="5">
+              <el-select v-model="addTable.serviceUnit" clearable placeholder="请选择单位">
+                <el-option label="次" value="UNIT_SECOND"></el-option>
+                <el-option label="小时" value="UNIT_HOUR"></el-option>
+              </el-select>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="服务ICON:" :label-width="formLabelWidth">
+            <el-col :span="3">
+              <el-upload class="upload-demo" action="addTable.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+              </el-upload>
+            </el-col>
+            <el-col :span="5" :offset="4">
+              <div v-show="dialogVisible">
+                <img :src="dialogImageUrl" style="width: 370px;height: 200px;">
+              </div>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="接收端:" :label-width="formLabelWidth">
+            <template slot-scope="scope">
+              <el-checkbox-group v-model="addTable.roleNames">
+                <el-checkbox v-for="(item,index) in RoleData" :label="item.roleName" :key="item.roleId"></el-checkbox>
+              </el-checkbox-group>
+            </template>
+          </el-form-item>
+          <el-form-item label="服务介绍" :label-width="formLabelWidth">
+            <el-col :span="16">
+              <el-input v-model="addTable.roleNames"></el-input>
+            </el-col>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button type="warning" @click="_doAddCancel()">取消</el-button>
+          <el-button type="primary" @click="_doAdd()">保存</el-button>
+        </div>
+      </el-dialog>
+
+      <!-- 一元厅修改弹窗 -->
+      <el-dialog title="修改" :visible.sync="dialogEditVisible_YYT" width=40%>
+
+        <el-form :model="editTable_YYT">
+          <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
+            <el-col :span="16">
+              <el-input v-model="editTable_YYT.goodsName" prop auto-complete="off" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item class="is-required2" label="绑定医生"  :label-width="formLabelWidth2">
+            <template slot-scope="scope">
+            <el-col :span="16">
+              <el-select v-model="editTable_YYT.doctor" clearable placeholder="请绑定医生">
+                <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-col>
+            </template>
+          </el-form-item>
+          <el-form-item class="is-required2" label="商品文件" :label-width="formLabelWidth2">
+            <el-col :span="3">
+              <el-upload class="upload-demo" action="editTable_YYT.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+              </el-upload>
+            </el-col>
+          </el-form-item>
+          
+          <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
+            <el-col :span="16">
+              <el-input v-model="editTable_YYT.AbnormalKeywords"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="相关指标" :label-width="formLabelWidth2">
+            <el-col :span="16">
+              <el-input v-model="editTable_YYT.AbnormalKeywords"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
+            <el-col :span="16">
+              <el-input type="textarea" :rows="5" v-model="editTable_YYT.goodsCopywriting"></el-input>
+            </el-col>
+          </el-form-item>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+          <el-button type="warning" @click="_doCancel_YYT()">取消</el-button>
+          <el-button type="primary" @click="_doHandleEdit_YYT()">保存</el-button>
+        </div>
+      </el-dialog>
+
+      <!-- 一元厅新增弹窗 -->
+      <el-dialog title="新增" :visible.sync="dialogAddVisible_YYT" width=40%>
+       <el-form :model="addTable_YYT">
+          <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
+            <el-col :span="16">
+              <el-input v-model="addTable_YYT.goodsName" prop auto-complete="off" el></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item class="is-required2" label="绑定医生"  :label-width="formLabelWidth2">
+            <template slot-scope="scope">
+            <el-col :span="16">
+              <el-select v-model="addTable_YYT.doctor" clearable placeholder="请绑定医生">
+                <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
+                </el-option>
+              </el-select>
+            </el-col>
+            </template>
+          </el-form-item>
+          <el-form-item class="is-required2" label="商品文件" :label-width="formLabelWidth2">
+            <el-col :span="3">
+              <el-upload class="upload-demo" action="addTable_YYT.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
+                <el-button size="small" type="primary">点击上传</el-button>
+                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+              </el-upload>
+            </el-col>
+          </el-form-item>
+          
+          <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
+            <el-col :span="16">
+              <el-input v-model="addTable_YYT.AbnormalKeywords"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item label="相关指标" :label-width="formLabelWidth2">
+            <el-col :span="16">
+              <el-input v-model="addTable_YYT.AbnormalKeywords"></el-input>
+            </el-col>
+          </el-form-item>
+          <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
+            <el-col :span="16">
+              <el-input type="textarea" :rows="5" v-model="addTable_YYT.goodsCopywriting"></el-input>
+            </el-col>
+          </el-form-item>
+        </el-form>
+
+        <div slot="footer" class="dialog-footer">
+          <el-button type="warning" @click="_doAddCancel_YYT()">取消</el-button>
+          <el-button type="primary" @click="_doAdd_YYT()">保存</el-button>
+        </div>
+      </el-dialog>
     </div>
   </div>
 
@@ -282,9 +456,159 @@ export default {
   },
   data() {
     return {
-      dialogImageUrl: 'http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/z5o5rqJqcKhbMXBNDTgG89AvrZG5eIK1.png',
+      dialogImageUrl:
+        'http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/z5o5rqJqcKhbMXBNDTgG89AvrZG5eIK1.png',
       dialogVisible: true,
-      RoleData:[{"roleId":4,"roleCode":"123","roleName":"医生角色","remark":"医生角色账号设置","deptId":11,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-06-22 11:41:55","roleType":"0"},{"roleId":12,"roleCode":null,"roleName":"运营人员","remark":"运营人员","deptId":9,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-07-02 16:36:51","roleType":"1"},{"roleId":29,"roleCode":"003","roleName":"健管师","remark":"健管部门","deptId":11,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-06-22 16:00:33","roleType":"1,0"},{"roleId":30,"roleCode":"004","roleName":"医生主任","remark":"医生主任","deptId":null,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-06-20 17:01:31","roleType":"0"},{"roleId":31,"roleCode":"产品","roleName":"产品","remark":"产品","deptId":null,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-05-23 12:00:20","roleType":"1"},{"roleId":32,"roleCode":"sy-js","roleName":"邵勇-角色","remark":"邵勇-角色","deptId":null,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-07-02 16:58:57","roleType":"0"},{"roleId":33,"roleCode":"6","roleName":"sai医生角色","remark":"sai医生角色","deptId":null,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-07-02 16:34:23","roleType":"1"},{"roleId":34,"roleCode":"media","roleName":"媒体号","remark":"社媒","deptId":null,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-06-25 10:53:49","roleType":"1"},{"roleId":35,"roleCode":"content operator","roleName":"内容编辑","remark":"内容编辑","deptId":null,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-06-25 11:13:47","roleType":"1"},{"roleId":36,"roleCode":"scb","roleName":"市场部","remark":"市场部","deptId":null,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-06-27 14:18:42","roleType":"1"},{"roleId":37,"roleCode":"564","roleName":"567","remark":"风帆股份给黑","deptId":null,"deptName":null,"menuIdList":null,"deptIdList":null,"createTime":"2018-06-29 09:31:33","roleType":"1,0"}],
+      RoleData: [
+        {
+          roleId: 4,
+          roleCode: '123',
+          roleName: '医生角色',
+          remark: '医生角色账号设置',
+          deptId: 11,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-06-22 11:41:55',
+          roleType: '0'
+        },
+        {
+          roleId: 12,
+          roleCode: null,
+          roleName: '运营人员',
+          remark: '运营人员',
+          deptId: 9,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-07-02 16:36:51',
+          roleType: '1'
+        },
+        {
+          roleId: 29,
+          roleCode: '003',
+          roleName: '健管师',
+          remark: '健管部门',
+          deptId: 11,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-06-22 16:00:33',
+          roleType: '1,0'
+        },
+        {
+          roleId: 30,
+          roleCode: '004',
+          roleName: '医生主任',
+          remark: '医生主任',
+          deptId: null,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-06-20 17:01:31',
+          roleType: '0'
+        },
+        {
+          roleId: 31,
+          roleCode: '产品',
+          roleName: '产品',
+          remark: '产品',
+          deptId: null,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-05-23 12:00:20',
+          roleType: '1'
+        },
+        {
+          roleId: 32,
+          roleCode: 'sy-js',
+          roleName: '邵勇-角色',
+          remark: '邵勇-角色',
+          deptId: null,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-07-02 16:58:57',
+          roleType: '0'
+        },
+        {
+          roleId: 33,
+          roleCode: '6',
+          roleName: 'sai医生角色',
+          remark: 'sai医生角色',
+          deptId: null,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-07-02 16:34:23',
+          roleType: '1'
+        },
+        {
+          roleId: 34,
+          roleCode: 'media',
+          roleName: '媒体号',
+          remark: '社媒',
+          deptId: null,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-06-25 10:53:49',
+          roleType: '1'
+        },
+        {
+          roleId: 35,
+          roleCode: 'content operator',
+          roleName: '内容编辑',
+          remark: '内容编辑',
+          deptId: null,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-06-25 11:13:47',
+          roleType: '1'
+        },
+        {
+          roleId: 36,
+          roleCode: 'scb',
+          roleName: '市场部',
+          remark: '市场部',
+          deptId: null,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-06-27 14:18:42',
+          roleType: '1'
+        },
+        {
+          roleId: 37,
+          roleCode: '564',
+          roleName: '567',
+          remark: '风帆股份给黑',
+          deptId: null,
+          deptName: null,
+          menuIdList: null,
+          deptIdList: null,
+          createTime: '2018-06-29 09:31:33',
+          roleType: '1,0'
+        }
+      ],
+      DoctorData: [{
+          value: 1,
+          label: '赵医生'
+        }, {
+          value: 2,
+          label: '钱医生'
+        }, {
+          value: 3,
+          label: '孙医生'
+        }, {
+          value: 4,
+          label: '李医生'
+        }, {
+          value: 5,
+          label: '周医生'
+        }],
       formInline: {
         optionsLX: [
           {
@@ -349,9 +673,12 @@ export default {
       currentPage: 1, //分页初始页码
       pagesize: 30, //分页初始显示条数
       tableData: [], //列表数据
+      tableData_YYT: [], //一元厅列表数据
       selectTable: {}, //查看单个数据
       editTable: {}, //修改单个数据
       editTableRoot: {},
+      editTable_YYT: {}, //修改一元厅单个数据
+      editTableRoot_YYT: {},
       addTable: {
         serviceType: 'ITEM_PLATFORM_SERVICE',
         serviceDesc: '平台服务-图文咨询',
@@ -370,32 +697,58 @@ export default {
           '%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E',
         serviceId: '8ab2b2f563822d260163822d26fd0000',
         serviceSort: 2,
-        roleNames: ["医生角色","运营人员","医生主任"],
+        roleNames: ['医生角色', '运营人员', '医生主任'],
         createDate: '2018-05-21 18:09:47'
       }, //新增单个数据
+      addTable_YYT: {
+        "goodCode": 4231231,
+        "firstType": "服务",
+        "secondType": "一元听",
+        "goodsName": "",
+        "goodsWords": "",
+        "goodsStatus": 0,
+        "goodsPrice": 1,
+        "audioStatus": 1,
+        "serviceStatus": 1,
+        "YYTgoods": 43,
+        "YYTstatus": 1,
+        "doctor": 2,
+        "AbnormalKeywords": "",
+        "goodsCopywriting": "",
+        "createDate": "2018-05-21"
+      }, //一元厅新增单个数据
       dialogCheckVisible: false, //查看
       dialogEditVisible: false, //修改
+      dialogEditVisible_YYT: false, //一元厅修改
       dialogAddVisible: false, //新增
+      dialogAddVisible_YYT: false, //一元厅新增
+      GoodsManVisible: false, //一元厅商品管理
       inde: null, //index flag
-      formLabelWidth: '120px'
+      inde_YYT: null, //一元厅index flag
+      formLabelWidth: '120px',
+      formLabelWidth2: '170px'
     }
   },
   methods: {
-      // 上传方法
-      handleRemove(file, fileList) {
-        console.log(file, fileList);
-      },
-      handlePreview(file) {
-        console.log(file);
-        this.dialogImageUrl = file.url;
-        this.dialogVisible = true;
-      },
-      handleExceed(files, fileList) {
-        this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
-      },
-      beforeRemove(file, fileList) {
-        return this.$confirm(`确定移除 ${ file.name }？`);
-      },
+    // 上传方法
+    handleRemove(file, fileList) {
+      console.log(file, fileList)
+    },
+    handlePreview(file) {
+      console.log(file)
+      this.dialogImageUrl = file.url
+      this.dialogVisible = true
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(
+        `当前限制选择 1 个文件，本次选择了 ${
+          files.length
+        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
+      )
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`)
+    },
     handleReset() {
       //重置按钮
       this.formInline.valueCJR = ''
@@ -441,7 +794,7 @@ export default {
           '%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E',
         serviceId: '8ab2b2f563822d260163822d26fd0000',
         serviceSort: 2,
-        roleNames: ["医生角色","运营人员","医生主任"],
+        roleNames: ['医生角色', '运营人员', '医生主任'],
         createDate: '2018-05-21 18:09:47'
       }
       this.$message({
@@ -470,7 +823,7 @@ export default {
           '%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E',
         serviceId: '8ab2b2f563822d260163822d26fd0000',
         serviceSort: 2,
-        roleNames: ["医生角色","运营人员","医生主任"],
+        roleNames: ['医生角色', '运营人员', '医生主任'],
         createDate: '2018-05-21 18:09:47'
       }
       this.dialogAddVisible = false
@@ -521,7 +874,7 @@ export default {
             type: 'success',
             message: '删除成功!'
           })
-          this.tableData.splice(
+          this.tableData_YYT.splice(
             index + (this.currentPage - 1) * this.pagesize,
             1
           ) //删除
@@ -581,6 +934,138 @@ export default {
           })
         })
     },
+    // 一元厅下架
+    TrueStatus_YYT(index, row) {
+      this.$confirm('确定下架?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      })
+        .then(() => {
+          this.$message({
+            type: 'success',
+            message: '已下架!'
+          })
+          this.tableData_YYT[
+            index + (this.currentPage - 1) * this.pagesize
+          ].goodsStatus = 1 //更改发布状态
+        })
+        .catch(() => {
+          this.$message({
+            type: 'warning ',
+            message: '已取消更改'
+          })
+        })
+    },
+    // 一元厅上架
+    FalseStatus_YYT(index, row) {
+      this.$confirm('确定上架?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+        center: true
+      })
+        .then(() => {
+          this.$message({
+            type: 'success',
+            message: '已上架!'
+          })
+          this.tableData_YYT[
+            index + (this.currentPage - 1) * this.pagesize
+          ].goodsStatus = 0 //更改发布状态
+        })
+        .catch(() => {
+          this.$message({
+            type: 'warning ',
+            message: '已取消更改'
+          })
+        })
+    },
+    //一元厅商品管理页面
+    GoodsMan() {
+      this.GoodsManVisible = true
+    },
+    // 一元厅修改
+    handleEdit_YYT(index, row) {
+      this.inde_YYT = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
+      this.editTableRoot_YYT = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
+      this.editTable_YYT = row //复制单列数据
+      this.dialogEditVisible_YYT = true
+    },
+    // 一元厅取消修改
+    _doCancel_YYT() {
+      this.tableData_YYT.splice(this.inde_YYT, 1, this.editTableRoot_YYT) //删除修改的数据并替换为原始数据
+      this.dialogEditVisible_YYT = false
+      this.$message({
+        type: 'warning',
+        message: '取消修改'
+      })
+    },
+    // 一元厅确定修改
+    _doHandleEdit_YYT() {
+      this.dialogEditVisible_YYT = false
+      this.$message({
+        type: 'success',
+        message: '修改成功!'
+      })
+    },
+     // 一元厅新增
+    handleAdd_YYT() {
+      this.dialogAddVisible_YYT = true
+    },
+    // 一元厅确定新增
+    _doAdd_YYT() {
+      this.tableData_YYT.push(this.addTable_YYT)
+      this.dialogAddVisible_YYT = false
+      this.addTable_YYT = {
+        "goodCode": 4231231,
+        "firstType": "服务",
+        "secondType": "一元听",
+        "goodsName": "",
+        "goodsWords": "",
+        "goodsStatus": 0,
+        "goodsPrice": 1,
+        "audioStatus": 1,
+        "serviceStatus": 1,
+        "YYTgoods": 43,
+        "YYTstatus": 1,
+        "doctor": 2,
+        "AbnormalKeywords": "",
+        "goodsCopywriting": "",
+        "createDate": "2018-05-21"
+      }
+      this.$message({
+        type: 'success',
+        message: '新增服务成功!'
+      })
+    },
+    // 一元厅取消新增
+    _doAddCancel_YYT() {
+      this.addTable_YYT = {
+        //重置新增数据为空
+        "goodCode": 4231231,
+        "firstType": "服务",
+        "secondType": "一元听",
+        "goodsName": "",
+        "goodsWords": "",
+        "goodsStatus": 0,
+        "goodsPrice": 1,
+        "audioStatus": 1,
+        "serviceStatus": 1,
+        "YYTgoods": 43,
+        "YYTstatus": 1,
+        "doctor": 2,
+        "AbnormalKeywords": "",
+        "goodsCopywriting": "",
+        "createDate": "2018-05-21"
+      }
+      this.dialogAddVisible_YYT = false
+      this.$message({
+        type: 'warning',
+        message: '取消新增'
+      })
+    },
     //获取用户列表
     getNoticeList() {
       this.$http
@@ -592,6 +1077,17 @@ export default {
           //   const tableData = {}
           //   tableData.username = item.username
           //   this.tableData.push(tableData)
+          // })
+        })
+      this.$http
+        .post('http://localhost:8080/api/yiyuanting')
+        .then(response => {
+          this.tableData_YYT = []
+          this.tableData_YYT = this.tableData_YYT.concat(response.data.data)
+          // response.data.data.forEach(item => {
+          //   const tableData = {}
+          //   tableData.username = item.username
+          //   this.tableDataYYT.push(tableData)
           // })
         })
     }
@@ -625,5 +1121,19 @@ export default {
 }
 // .el-form-item {margin-bottom: 0}
 // .el-checkbox+.el-checkbox{margin: 0}
-.el-checkbox {margin-left: 10px}
+
 </style>
+<style lang="less">
+.el-form-item {
+  &.is-required2 {
+    .el-form-item__label {
+      &:after {
+        content: "*";
+        color: #f56c6c;
+        margin-left: 4px;
+      }
+    }
+  }
+}
+</style>
+
