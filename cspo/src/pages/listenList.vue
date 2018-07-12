@@ -35,7 +35,7 @@
             <el-table-column show-overflow-tooltip align="center" prop="firstType" label="商品一级分类"></el-table-column>
             <el-table-column show-overflow-tooltip align="center" prop="secondType" label="商品二级分类"></el-table-column>
             <el-table-column show-overflow-tooltip align="center" prop="goodsName" label="商品名称"></el-table-column>
-            <el-table-column show-overflow-tooltip align="center" prop="goodsWords" label="商品文案" min-width="100%"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="goodsCopywriting" label="商品文案" min-width="100%"></el-table-column>
             <el-table-column align="center" label="商品状态" width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
@@ -63,7 +63,7 @@
                 <template slot-scope="scope">
                   <el-button size="mini" type="danger" v-if="scope.row.goodsStatus === 1" @click="FalseStatus_YYT(scope.$index, scope.row)">上架</el-button>
                   <el-button size="mini" type="success" v-if="scope.row.goodsStatus === 0" @click="TrueStatus_YYT(scope.$index, scope.row)">下架</el-button>
-                  <el-button size="mini" type="primary" @click="handleEdit_YYT(scope.$index, scope.row)">修改</el-button>
+                  <el-button size="mini" type="primary" @click="handleEdit_YYT(scope.$index, scope.row)">编辑</el-button>
                   <el-button size="mini" type="danger" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
                   
                 </template>
@@ -86,8 +86,8 @@
 
      
     
-      <!-- 一元听修改弹窗 -->
-      <el-dialog title="修改" :visible.sync="dialogEditVisible_YYT" width=40%>
+      <!-- 一元听编辑弹窗 -->
+      <el-dialog title="编辑" :visible.sync="dialogEditVisible_YYT" width=40%>
 
         <el-form :model="editTable_YYT">
           <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
@@ -392,7 +392,7 @@ export default {
       currentPage: 1, //分页初始页码
       pagesize: 30, //分页初始显示条数
       tableData_YYT: [], //一元厅列表数据
-      editTable_YYT: {}, //修改一元厅单个数据
+      editTable_YYT: {}, //编辑一元厅单个数据
       editTableRoot_YYT: {},
       addTable_YYT: {
         "goodCode": 4231231,
@@ -411,7 +411,7 @@ export default {
         "goodsCopywriting": "",
         "createDate": "2018-05-21"
       }, //一元听新增单个数据
-      dialogEditVisible_YYT: false, //一元厅修改
+      dialogEditVisible_YYT: false, //一元厅编辑
       dialogAddVisible_YYT: false, //一元厅新增
       GoodsManVisible: false, //一元厅商品管理
       inde_YYT: null, //一元厅index flag
@@ -537,28 +537,28 @@ export default {
     GoodsMan() {
       this.GoodsManVisible = true
     },
-    // 一元厅修改
+    // 一元厅编辑
     handleEdit_YYT(index, row) {
       this.inde_YYT = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
       this.editTableRoot_YYT = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
       this.editTable_YYT = row //复制单列数据
       this.dialogEditVisible_YYT = true
     },
-    // 一元厅取消修改
+    // 一元厅取消编辑
     _doCancel_YYT() {
-      this.tableData_YYT.splice(this.inde_YYT, 1, this.editTableRoot_YYT) //删除修改的数据并替换为原始数据
+      this.tableData_YYT.splice(this.inde_YYT, 1, this.editTableRoot_YYT) //删除编辑的数据并替换为原始数据
       this.dialogEditVisible_YYT = false
       this.$message({
         type: 'warning',
-        message: '取消修改'
+        message: '取消编辑'
       })
     },
-    // 一元厅确定修改
+    // 一元厅确定编辑
     _doHandleEdit_YYT() {
       this.dialogEditVisible_YYT = false
       this.$message({
         type: 'success',
-        message: '修改成功!'
+        message: '编辑成功!'
       })
     },
     // 一元厅新增

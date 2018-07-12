@@ -3,17 +3,17 @@
     <header-top></header-top>
     <div class="page-container">
       <el-header height="30">
-        
-      <el-row :gutter="20" class="m_b_15">
-        <el-col :span="6" class="minwidth">
-          <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
-        </el-col>
-       
-        <el-col :span="6" class="minwidth">
-          <el-button type="primary">查询</el-button>
-          <el-button type="primary" @click="handleAdd()">新增</el-button>
-        </el-col>
-      </el-row>
+
+        <el-row :gutter="20" class="m_b_15">
+          <el-col :span="6" class="minwidth">
+            <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
+          </el-col>
+
+          <el-col :span="6" class="minwidth">
+            <el-button type="primary">查询</el-button>
+            <el-button type="primary" @click="handleAdd()">新增</el-button>
+          </el-col>
+        </el-row>
       </el-header>
       <el-main>
         <!-- 修改 -->
@@ -21,17 +21,17 @@
           <el-form :model="editTable">
             <el-form-item label="角色名称:" :label-width="formLabelWidth">
               <el-col :span="16">
-                  <el-input v-model="editTable.roleName" auto-complete="off" el></el-input>
+                <el-input v-model="editTable.roleName" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="角色代码:" :label-width="formLabelWidth">
               <el-col :span="16">
-                  <el-input v-model="editTable.roleCode" auto-complete="off" el></el-input>
+                <el-input v-model="editTable.roleCode" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="角色描述:" :label-width="formLabelWidth">
               <el-col :span="16">
-                  <el-input v-model="editTable.remark" auto-complete="off" el></el-input>
+                <el-input v-model="editTable.remark" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="角色类别:" :label-width="formLabelWidth">
@@ -45,30 +45,30 @@
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth">
               <el-row :gutter="20">
-              <template v-if="editTable.roleType === '1'||editTable.roleType === '1,2'||editTable.roleType === '1,3'||editTable.roleType === '1,2,3'">
-                <el-col :span="5">
-               <el-select v-model="editTable.purview" clearable placeholder="请选择1">
-                  <el-option label="产品推广" value="1"></el-option>
-                  <el-option label="版本升级" value="2"></el-option>
-                </el-select>
-                </el-col>
-              </template>
-              <template v-if="editTable.roleType === '2'||editTable.roleType === '1,2'||editTable.roleType === '2,3'||editTable.roleType === '1,2,3'">
-                <el-col :span="5">
-               <el-select v-model="editTable.purview" clearable placeholder="请选择2">
-                  <el-option label="产品推广" value="1"></el-option>
-                  <el-option label="版本升级" value="2"></el-option>
-                </el-select>
-                </el-col>
-              </template>
-              <template v-if="editTable.roleType === '3'||editTable.roleType === '1,3'||editTable.roleType === '2,3'||editTable.roleType === '1,2,3'">
-                <el-col :span="5">
-               <el-select v-model="editTable.purview" clearable placeholder="请选择3">
-                  <el-option label="产品推广" value="1"></el-option>
-                  <el-option label="版本升级" value="2"></el-option>
-                </el-select>
-                </el-col>
-              </template>
+                <template v-if="editTable.roleType === '1'||editTable.roleType === '1,2'||editTable.roleType === '1,3'||editTable.roleType === '1,2,3'">
+                  <el-col :span="5">
+                    <el-select v-model="editTable.purview" clearable placeholder="请选择1">
+                      <el-option label="产品推广" value="1"></el-option>
+                      <el-option label="版本升级" value="2"></el-option>
+                    </el-select>
+                  </el-col>
+                </template>
+                <template v-if="editTable.roleType === '2'||editTable.roleType === '1,2'||editTable.roleType === '2,3'||editTable.roleType === '1,2,3'">
+                  <el-col :span="5">
+                    <el-select v-model="editTable.purview" clearable placeholder="请选择2">
+                      <el-option label="产品推广" value="1"></el-option>
+                      <el-option label="版本升级" value="2"></el-option>
+                    </el-select>
+                  </el-col>
+                </template>
+                <template v-if="editTable.roleType === '3'||editTable.roleType === '1,3'||editTable.roleType === '2,3'||editTable.roleType === '1,2,3'">
+                  <el-col :span="5">
+                    <el-select v-model="editTable.purview" clearable placeholder="请选择3">
+                      <el-option label="产品推广" value="1"></el-option>
+                      <el-option label="版本升级" value="2"></el-option>
+                    </el-select>
+                  </el-col>
+                </template>
               </el-row>
             </el-form-item>
           </el-form>
@@ -79,20 +79,20 @@
         </el-dialog>
         <!-- 新增 -->
         <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
-           <el-form :model="addTable">
+          <el-form :model="addTable">
             <el-form-item label="角色名称:" :label-width="formLabelWidth">
               <el-col :span="16">
-                  <el-input v-model="addTable.roleName" auto-complete="off" el></el-input>
+                <el-input v-model="addTable.roleName" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="角色代码:" :label-width="formLabelWidth">
               <el-col :span="16">
-                  <el-input v-model="addTable.roleCode" auto-complete="off" el></el-input>
+                <el-input v-model="addTable.roleCode" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="角色描述:" :label-width="formLabelWidth">
               <el-col :span="16">
-                  <el-input v-model="addTable.remark" auto-complete="off" el></el-input>
+                <el-input v-model="addTable.remark" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
             <el-form-item label="角色类别:" :label-width="formLabelWidth">
@@ -106,30 +106,30 @@
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth">
               <el-row :gutter="20">
-              <template v-if="addTable.roleType === '1'||addTable.roleType === '1,2'||addTable.roleType === '1,3'||addTable.roleType === '1,2,3'">
-                <el-col :span="5">
-               <el-select v-model="addTable.purview" clearable placeholder="请选择1">
-                  <el-option label="产品推广" value="1"></el-option>
-                  <el-option label="版本升级" value="2"></el-option>
-                </el-select>
-                </el-col>
-              </template>
-              <template v-if="addTable.roleType === '2'||addTable.roleType === '1,2'||addTable.roleType === '2,3'||addTable.roleType === '1,2,3'">
-                <el-col :span="5">
-               <el-select v-model="addTable.purview" clearable placeholder="请选择2">
-                  <el-option label="产品推广" value="1"></el-option>
-                  <el-option label="版本升级" value="2"></el-option>
-                </el-select>
-                </el-col>
-              </template>
-              <template v-if="addTable.roleType === '3'||addTable.roleType === '1,3'||addTable.roleType === '2,3'||addTable.roleType === '1,2,3'">
-                <el-col :span="5">
-               <el-select v-model="addTable.purview" clearable placeholder="请选择3">
-                  <el-option label="产品推广" value="1"></el-option>
-                  <el-option label="版本升级" value="2"></el-option>
-                </el-select>
-                </el-col>
-              </template>
+                <template v-if="addTable.roleType === '1'||addTable.roleType === '1,2'||addTable.roleType === '1,3'||addTable.roleType === '1,2,3'">
+                  <el-col :span="5">
+                    <el-select v-model="addTable.purview" clearable placeholder="请选择1">
+                      <el-option label="产品推广" value="1"></el-option>
+                      <el-option label="版本升级" value="2"></el-option>
+                    </el-select>
+                  </el-col>
+                </template>
+                <template v-if="addTable.roleType === '2'||addTable.roleType === '1,2'||addTable.roleType === '2,3'||addTable.roleType === '1,2,3'">
+                  <el-col :span="5">
+                    <el-select v-model="addTable.purview" clearable placeholder="请选择2">
+                      <el-option label="产品推广" value="1"></el-option>
+                      <el-option label="版本升级" value="2"></el-option>
+                    </el-select>
+                  </el-col>
+                </template>
+                <template v-if="addTable.roleType === '3'||addTable.roleType === '1,3'||addTable.roleType === '2,3'||addTable.roleType === '1,2,3'">
+                  <el-col :span="5">
+                    <el-select v-model="addTable.purview" clearable placeholder="请选择3">
+                      <el-option label="产品推广" value="1"></el-option>
+                      <el-option label="版本升级" value="2"></el-option>
+                    </el-select>
+                  </el-col>
+                </template>
               </el-row>
             </el-form-item>
           </el-form>
@@ -179,7 +179,7 @@ export default {
   },
   data() {
     return {
-      formInline:{valueSS:''},
+      formInline: { valueSS: '' },
       currentPage: 1, //分页初始页码
       pagesize: 5, //分页初始显示条数
       tableData: [], //列表数据
@@ -187,17 +187,17 @@ export default {
       editTableRoot: {},
       addTable: {
         //新增单个数据
-        "roleId": 1,
-        "roleCode": "",
-        "roleName": "",
-        "remark": "",
-        "deptId": null,
-        "deptName": null,
-        "menuIdList": null,
-        "deptIdList": null,
-        "createTime": "2018-07-02 16:58:57",
-        "roleType": "1",
-        "roleTypelist": ["医生端"]
+        roleId: 1,
+        roleCode: '',
+        roleName: '',
+        remark: '',
+        deptId: null,
+        deptName: null,
+        menuIdList: null,
+        deptIdList: null,
+        createTime: '2018-07-02 16:58:57',
+        roleType: '1',
+        roleTypelist: ['医生端']
       }, //新增单个数据
       dialogCheckVisible: false, //查看
       dialogEditVisible: false, //修改
@@ -207,8 +207,8 @@ export default {
     }
   },
   methods: {
-    colType(){
-        console.log(JSON.stringify(this.editTable.roleTypelist))
+    colType() {
+      console.log(JSON.stringify(this.editTable.roleTypelist))
     },
     handleSizeChange: function(size) {
       this.pagesize = size
@@ -227,17 +227,17 @@ export default {
     _doAdd() {
       this.tableData.push(this.addTable)
       this.addTable = {
-        "roleId": 1,
-        "roleCode": "",
-        "roleName": "",
-        "remark": "",
-        "deptId": null,
-        "deptName": null,
-        "menuIdList": null,
-        "deptIdList": null,
-        "createTime": "2018-07-02 16:58:57",
-        "roleType": "1",
-        "roleTypelist": ["医生端"]
+        roleId: 1,
+        roleCode: '',
+        roleName: '',
+        remark: '',
+        deptId: null,
+        deptName: null,
+        menuIdList: null,
+        deptIdList: null,
+        createTime: '2018-07-02 16:58:57',
+        roleType: '1',
+        roleTypelist: ['医生端']
       }
       this.dialogAddVisible = false
       this.$message({
@@ -247,18 +247,19 @@ export default {
     },
     //取消新增
     _doAddCancel() {
-      this.addTable = {//重置新增数据为空
-        "roleId": 1,
-        "roleCode": "",
-        "roleName": "",
-        "remark": "",
-        "deptId": null,
-        "deptName": null,
-        "menuIdList": null,
-        "deptIdList": null,
-        "createTime": "2018-07-02 16:58:57",
-        "roleType": "1",
-        "roleTypelist": ["医生端"]
+      this.addTable = {
+        //重置新增数据为空
+        roleId: 1,
+        roleCode: '',
+        roleName: '',
+        remark: '',
+        deptId: null,
+        deptName: null,
+        menuIdList: null,
+        deptIdList: null,
+        createTime: '2018-07-02 16:58:57',
+        roleType: '1',
+        roleTypelist: ['医生端']
       }
       this.dialogAddVisible = false
       this.$message({
@@ -268,10 +269,9 @@ export default {
     },
     // 修改
     handleEdit(index, row) {
-      
-      this.inde = index+(this.currentPage-1)*this.pagesize//计算分页后列表下标
-      this.editTableRoot = JSON.parse(JSON.stringify(row))//深拷贝出原始数据
-      this.editTable = row//复制单列数据
+      this.inde = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
+      this.editTableRoot = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
+      this.editTable = row //复制单列数据
       this.dialogEditVisible = true
       console.log(this.editTable)
       console.log(this.editTable.roleType)
@@ -286,7 +286,7 @@ export default {
     },
     //取消修改
     _doCancel() {
-      this.tableData.splice(this.inde, 1, this.editTableRoot)//删除修改的数据并替换为原始数据
+      this.tableData.splice(this.inde, 1, this.editTableRoot) //删除修改的数据并替换为原始数据
       this.dialogEditVisible = false
       this.$message({
         type: 'warning',
@@ -305,8 +305,11 @@ export default {
           this.$message({
             type: 'success',
             message: '删除成功!'
-          });
-          this.tableData.splice(index+(this.currentPage-1)*this.pagesize, 1) //删除
+          })
+          this.tableData.splice(
+            index + (this.currentPage - 1) * this.pagesize,
+            1
+          ) //删除
         })
         .catch(() => {
           this.$message({
@@ -349,10 +352,10 @@ export default {
 .dot {
   width: 100%;
 }
-.el-select{
+.el-select {
   width: 100%;
 }
-.minwidth{
+.minwidth {
   min-width: 200px;
 }
 </style>

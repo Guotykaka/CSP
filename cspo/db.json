@@ -975,9 +975,9 @@
     "serviceIntroduce": "%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E",
     "serviceId": "8ab2b2f56381c35a016381c35a400000",
     "serviceSort": 1,
-    "roleNames": ["医生角色","运营人员","医生主任"],
+    "roleNames": ["医生角色", "运营人员", "医生主任"],
     "createDate": "2018-05-21 16:14:13"
-  },{
+  }, {
     "serviceType": "ITEM_PLATFORM_SERVICE",
     "serviceDesc": "平台服务-电话报告解读服务",
     "itemType": "ITEM_SERVICE_TYPE",
@@ -993,7 +993,7 @@
     "serviceIntroduce": "%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E",
     "serviceId": "8ab2b2f56381c35a016381c35a400000",
     "serviceSort": 1,
-    "roleNames": ["医生角色","运营人员","医生主任"],
+    "roleNames": ["医生角色", "运营人员", "医生主任"],
     "createDate": "2018-05-21 16:14:13"
   }, {
     "serviceType": "ITEM_PLATFORM_SERVICE",
@@ -1011,7 +1011,7 @@
     "serviceIntroduce": "%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E",
     "serviceId": "8ab2b2f563822d260163822d26fd0000",
     "serviceSort": 2,
-    "roleNames": ["医生角色","健管师","医生主任"],
+    "roleNames": ["医生角色", "健管师", "医生主任"],
     "createDate": "2018-05-21 18:09:47"
   }],
   "yiyuanting": [{
@@ -1030,7 +1030,7 @@
     "AbnormalKeywords": "乳腺增生，乳腺囊性增生，乳腺轻度增生，",
     "goodsCopywriting": "你好，我查出来窦行心动过缓，不齐。我的体检报告上说我窦性频率次小于60次  每分，和我最近工作很忙，平时不怎么运动有关吗？想咨询一下医生窦性心动过缓 会引起什么后果呢？一元听",
     "createDate": "2018-05-21"
-  },{
+  }, {
     "goodCode": 4231231,
     "firstType": "服务",
     "secondType": "一元听",
@@ -1062,6 +1062,208 @@
     "AbnormalKeywords": "乳腺增生，乳腺囊性增生，乳腺轻度增生，",
     "goodsCopywriting": "你好，我查出来窦行心动过缓，不齐。我的体检报告上说我窦性频率次小于60次  每分，和我最近工作很忙，平时不怎么运动有关吗？想咨询一下医生窦性心动过缓 会引起什么后果呢？一元听",
     "createDate": "2018-05-21"
+  }],
+  "message_template1": [{
+    "messageTemplateName": "测试009",
+    "messageTemplateState": 0,
+    "updateDate": "2018-06-27 11:35:16",
+    "messageTemplateContent": "重复",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "10cf504279bb11e88a1a000c29466fd7",
+    "createDate": "2018-06-27 11:35:16"
+  }, {
+    "messageTemplateName": "test011",
+    "messageTemplateState": 0,
+    "updateDate": "2018-06-22 10:57:38",
+    "messageTemplateContent": "test011",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "fb1e1edc75c711e88a1a000c29466fd7",
+    "createDate": "2018-06-22 10:57:38"
+  }, {
+    "messageTemplateName": "测试0013",
+    "messageTemplateState": 0,
+    "updateDate": "2018-05-29 16:18:07",
+    "messageTemplateContent": "测试0013",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "011f6992631911e8879f000c29637456",
+    "createDate": "2018-05-29 16:18:07"
+  }, {
+    "messageTemplateName": "测试0011",
+    "messageTemplateState": 0,
+    "updateDate": "2018-05-29 16:16:34",
+    "messageTemplateContent": "测试0012",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "ca0bb4a6631811e8879f000c29637456",
+    "createDate": "2018-05-29 16:16:34"
+  }, {
+    "messageTemplateName": "测试009",
+    "messageTemplateState": 0,
+    "updateDate": "2018-06-27 11:53:38",
+    "messageTemplateContent": "测试010",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "bd5a580c631811e8879f000c29637456",
+    "createDate": "2018-05-29 16:16:13"
+  }, {
+    "messageTemplateName": "测试009",
+    "messageTemplateState": 0,
+    "updateDate": "2018-05-29 16:15:59",
+    "messageTemplateContent": "测试009",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "b5365a2c631811e8879f000c29637456",
+    "createDate": "2018-05-29 16:15:59"
+  }, {
+    "messageTemplateName": "电话报告解读下单成功，发短信给医生模板",
+    "messageTemplateState": 0,
+    "updateDate": "2018-06-28 10:09:29",
+    "messageTemplateContent": "【掌上体检健康管理服务平台】医生您好，您有一份新的电话服务订单，请登录http://www.zstj.com/denglu(连接地址待定) 查看并服务。",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "03015fea624c11e8879f000c29637456",
+    "createDate": "2018-05-28 15:50:44"
+  }, {
+    "messageTemplateName": "医生提现申请通过，发短信给医生模板",
+    "messageTemplateState": 0,
+    "updateDate": "2018-06-27 11:55:57",
+    "messageTemplateContent": "【掌上体检】医生您好，您提交的提现申请已经审核通过了，预计会在三个工作日左右转账到您提现的账号内。",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "f43991bc624b11e8879f000c29637456",
+    "createDate": "2018-05-28 15:50:19"
+  }, {
+    "messageTemplateName": "医生提现申请拒绝，发短信给医生模板",
+    "messageTemplateState": 0,
+    "updateDate": "2018-06-22 11:43:10",
+    "messageTemplateContent": "【掌上体检】医生您好，您提交的提现申请已经被拒绝了，请登录您的个人中心查看原因，给您带来不便深感抱歉！",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "e8c087a0624b11e8879f000c29637456",
+    "createDate": "2018-05-28 15:50:00"
+  }, {
+    "messageTemplateName": "用户退款拒绝，发短信给客户模板",
+    "messageTemplateState": 0,
+    "updateDate": "2018-06-22 11:42:12",
+    "messageTemplateContent": "【掌上体检】尊敬的客户您好，您提交的退款已经被拒绝，请登录掌上体检APP查看拒绝原因，给您带来不便深感抱歉！",
+    "messageTemplateType": 0,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "d89c4b48624b11e8879f000c29637456",
+    "createDate": "2018-05-28 15:49:33"
+  }],
+  "message_template2": [{
+    "messageTemplateName": "234",
+    "messageTemplateState": 0,
+    "updateDate": "2018-04-10 17:05:34",
+    "messageTemplateContent": "234",
+    "messageTemplateType": 1,
+    "updateUser": "1",
+    "createUser": "1",
+    "messageTemplateId": "7343b0ba3c9e11e8a05e000c29637456",
+    "createDate": "2018-04-10 17:05:34"
+  }, {
+    "messageTemplateName": "手机模板11",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 13:34:53",
+    "messageTemplateContent": "手机模板11内容",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "2e24f0b833dc11e886f2000c29637456",
+    "createDate": "2018-03-30 13:34:53"
+  }, {
+    "messageTemplateName": "手机模板10",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 13:34:43",
+    "messageTemplateContent": "手机模板10内容",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "286ffa0033dc11e886f2000c29637456",
+    "createDate": "2018-03-30 13:34:43"
+  }, {
+    "messageTemplateName": "手机模板9",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 13:34:26",
+    "messageTemplateContent": "手机模板内容9",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "1de421ce33dc11e886f2000c29637456",
+    "createDate": "2018-03-30 13:34:26"
+  }, {
+    "messageTemplateName": "手机模板8",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 13:34:04",
+    "messageTemplateContent": "手机模板8内容",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "10d7a16833dc11e886f2000c29637456",
+    "createDate": "2018-03-30 13:34:04"
+  }, {
+    "messageTemplateName": "手机模板6",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 13:33:30",
+    "messageTemplateContent": "手机模板6内容",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "fd09120c33db11e886f2000c29637456",
+    "createDate": "2018-03-30 13:33:30"
+  }, {
+    "messageTemplateName": "手机模板5",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 13:33:14",
+    "messageTemplateContent": "手机模板5内容",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "f361876633db11e886f2000c29637456",
+    "createDate": "2018-03-30 13:33:14"
+  }, {
+    "messageTemplateName": "手机模板444",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 13:30:05",
+    "messageTemplateContent": "手机模板4内容444",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "7c6e58d233db11e886f2000c29637456",
+    "createDate": "2018-03-30 13:29:55"
+  }, {
+    "messageTemplateName": "手机模板3",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 10:30:56",
+    "messageTemplateContent": "手机模板3",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "7d998ccc33c211e886f2000c29637456",
+    "createDate": "2018-03-30 10:30:56"
+  }, {
+    "messageTemplateName": "手机模板11",
+    "messageTemplateState": 0,
+    "updateDate": "2018-03-30 13:31:53",
+    "messageTemplateContent": "手机模板1内容1",
+    "messageTemplateType": 1,
+    "updateUser": "admin",
+    "createUser": "admin",
+    "messageTemplateId": "222",
+    "createDate": "2018-03-29 14:09:20"
   }],
   "queryInsLeaveWordAnswerList": {
     "code": 1,
@@ -1121,8 +1323,7 @@
   "listServiceDict": {
     "code": 1,
     "msg": "操作成功",
-    "data": [
-      {
+    "data": [{
         "dictId": 10,
         "dictCode": "8ab2b2f563822d260163822d26fd0000",
         "dictName": "图文咨询"
@@ -1142,8 +1343,7 @@
       "pageSize": 10,
       "totalPage": 14,
       "currPage": 1,
-      "list": [
-        {
+      "list": [{
           "itemNameString": "图文咨询",
           "totalPrice": "0.01",
           "doctorNameString": "huihui",
@@ -1304,8 +1504,7 @@
       "pageSize": 10,
       "totalPage": 15,
       "currPage": 1,
-      "list": [
-        {
+      "list": [{
           "realName": "3888",
           "itemName": "图文咨询",
           "createTime": "2018-07-11 11:50:19",
@@ -1467,69 +1666,66 @@
         "orderTime": "2018-07-11 11:45:15",
         "updateTime": "2018-07-11 11:45:31"
       },
-      "cspOrderInfoList": [
-        {
-          "serviceType": 1,
-          "customerAge": 25,
-          "orderChangeList": [
-            {
-              "ORDER_CODE": "20180711114515281599_01",
-              "CREATE_TIME": "2018-07-11 11:49:52",
-              "TRADE_STATUS": 3
-            },
-            {
-              "ORDER_CODE": "20180711114515281599_01",
-              "CREATE_TIME": "2018-07-11 11:47:36",
-              "TRADE_STATUS": 8
-            },
-            {
-              "ORDER_CODE": "20180711114515281599_01",
-              "CREATE_TIME": "2018-07-11 11:47:08",
-              "TRADE_STATUS": 4
-            },
-            {
-              "ORDER_CODE": "20180711114515281599_01",
-              "CREATE_TIME": "2018-07-11 11:45:31",
-              "TRADE_STATUS": 2
-            },
-            {
-              "ORDER_CODE": "20180711114515281599_01",
-              "CREATE_TIME": "2018-07-11 11:45:15",
-              "TRADE_STATUS": 0
-            }
-          ],
-          "totalPrice": 0.009999999776482582,
-          "mobile": null,
-          "customerSex": 1,
-          "orderStatus": 3,
-          "tradeCode": "20180711114515281599_01",
-          "insOrderRefundId": "2c8080aa646f3ff2016487732a2c0052",
-          "checkUnitCode": null,
-          "customerImgs": null,
-          "customerDesc": "ing咨询lol你",
-          "customerName": "你可以",
-          "workNo": null,
-          "itemName": "图文咨询",
-          "insOrderRefundEntity": {
-            "insOrderRefundId": "2c8080aa646f3ff2016487732a2c0052",
-            "refundCode": "20180711114708501531",
-            "cspOrderId": "2c8080aa646f3ff201648771701a004f",
-            "refundAmount": 0.01,
-            "refundStatus": 3,
-            "refuseReason": "hfghfgh",
-            "approvalTime": null,
-            "approvalUserId": null,
-            "refundSource": null,
-            "refundReason": "好哦有觉悟需要",
-            "refundRemark": "线上退款",
-            "createTime": "2018-07-11 11:47:08",
-            "updateTime": "2018-07-11 11:47:36"
+      "cspOrderInfoList": [{
+        "serviceType": 1,
+        "customerAge": 25,
+        "orderChangeList": [{
+            "ORDER_CODE": "20180711114515281599_01",
+            "CREATE_TIME": "2018-07-11 11:49:52",
+            "TRADE_STATUS": 3
           },
-          "institutionName": "上海天意达公司",
-          "name": "huihui",
-          "refundCode": "20180711114708501531"
-        }
-      ]
+          {
+            "ORDER_CODE": "20180711114515281599_01",
+            "CREATE_TIME": "2018-07-11 11:47:36",
+            "TRADE_STATUS": 8
+          },
+          {
+            "ORDER_CODE": "20180711114515281599_01",
+            "CREATE_TIME": "2018-07-11 11:47:08",
+            "TRADE_STATUS": 4
+          },
+          {
+            "ORDER_CODE": "20180711114515281599_01",
+            "CREATE_TIME": "2018-07-11 11:45:31",
+            "TRADE_STATUS": 2
+          },
+          {
+            "ORDER_CODE": "20180711114515281599_01",
+            "CREATE_TIME": "2018-07-11 11:45:15",
+            "TRADE_STATUS": 0
+          }
+        ],
+        "totalPrice": 0.009999999776482582,
+        "mobile": null,
+        "customerSex": 1,
+        "orderStatus": 3,
+        "tradeCode": "20180711114515281599_01",
+        "insOrderRefundId": "2c8080aa646f3ff2016487732a2c0052",
+        "checkUnitCode": null,
+        "customerImgs": null,
+        "customerDesc": "ing咨询lol你",
+        "customerName": "你可以",
+        "workNo": null,
+        "itemName": "图文咨询",
+        "insOrderRefundEntity": {
+          "insOrderRefundId": "2c8080aa646f3ff2016487732a2c0052",
+          "refundCode": "20180711114708501531",
+          "cspOrderId": "2c8080aa646f3ff201648771701a004f",
+          "refundAmount": 0.01,
+          "refundStatus": 3,
+          "refuseReason": "hfghfgh",
+          "approvalTime": null,
+          "approvalUserId": null,
+          "refundSource": null,
+          "refundReason": "好哦有觉悟需要",
+          "refundRemark": "线上退款",
+          "createTime": "2018-07-11 11:47:08",
+          "updateTime": "2018-07-11 11:47:36"
+        },
+        "institutionName": "上海天意达公司",
+        "name": "huihui",
+        "refundCode": "20180711114708501531"
+      }]
     }
   },
   "getRefundDetail": {
