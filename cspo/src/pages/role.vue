@@ -36,10 +36,10 @@
             </el-form-item>
             <el-form-item label="角色类别:" :label-width="formLabelWidth">
               <template>
-                <el-checkbox-group v-model="editTable.roleTypelist">
-                  <el-checkbox label="运营端" @change="colType()"></el-checkbox>
-                  <el-checkbox label="医生端" @change="colType()"></el-checkbox>
-                  <el-checkbox label="企业端" @change="colType()"></el-checkbox>
+                <el-checkbox-group v-model="editTable.roleType">
+                  <el-checkbox label="运营端"  @change="colType()"></el-checkbox>
+                  <el-checkbox label="医生端"  @change="colType()"></el-checkbox>
+                  <el-checkbox label="企业端"  @change="colType()"></el-checkbox>
                 </el-checkbox-group>
               </template>
             </el-form-item>
@@ -172,6 +172,7 @@
 
 <script>
 import { getUserlistData } from '@/api/getData.js'
+import { getRoleList2 } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -179,6 +180,8 @@ export default {
   },
   data() {
     return {
+      dateNw: Date.parse(new Date()),
+      params: { timespan : this.dateNw, },
       formInline: { valueSS: '' },
       currentPage: 1, //分页初始页码
       pagesize: 5, //分页初始显示条数
@@ -208,7 +211,7 @@ export default {
   },
   methods: {
     colType() {
-      console.log(JSON.stringify(this.editTable.roleTypelist))
+      console.log(JSON.stringify(this.editTable.roleType))
     },
     handleSizeChange: function(size) {
       this.pagesize = size
@@ -276,6 +279,9 @@ export default {
       console.log(this.editTable)
       console.log(this.editTable.roleType)
       console.log(typeof(this.editTable.roleType))
+      this.editTable.roleType = this.editTable.roleType.split(',')
+      console.log(this.editTable.roleType)
+      console.log(typeof(this.editTable.roleType))
     },
     //确定修改
     _doHandleEdit() {
@@ -284,6 +290,7 @@ export default {
         type: 'success',
         message: '修改成功!'
       })
+      console.log(this.editTable.roleType)
     },
     //取消修改
     _doCancel() {
@@ -331,9 +338,11 @@ export default {
         this.tableData = this.tableData.concat(response.data.data)
         // console.log(JSON.stringify(this.tableData))
       })
+      // getRoleList2(params)
     }
   },
   created: function() {
+    
     this.getRoleList()
   }
 }
