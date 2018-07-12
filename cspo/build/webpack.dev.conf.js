@@ -21,6 +21,8 @@ var report_label = appData.report_label//获取报告标签的本地数据
 var institution = appData.institution//获取机构列表本地数据
 var service_info = appData.service_info//获取服务管理本地数据
 var yiyuanting = appData.yiyuanting//获取一元厅本地数据
+var message_template1 = appData.message_template1//短信模板
+var message_template2 = appData.message_template2//手机推送模板
 var queryInsLeaveWordList = appData.queryInsLeaveWordList//获取个人中心聊天数据
 var queryInsLeaveWordAnswerList = appData.queryInsLeaveWordAnswerList//查看个人中心聊天数据
 
@@ -110,6 +112,18 @@ before(app) {
     res.json({
       errno: 0,
       data: yiyuanting
+    });
+  });
+  app.post('/api/message_template1', function (req, res) { // 短信模板
+    res.json({
+      errno: 0,
+      data: message_template1
+    });
+  });
+  app.post('/api/message_template2', function (req, res) { // 手机推送模板
+    res.json({
+      errno: 0,
+      data: message_template2
     });
   });
   app.post('/api/queryInsLeaveWordList', function (req, res) { //

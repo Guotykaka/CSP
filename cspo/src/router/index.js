@@ -9,10 +9,13 @@ const manage = () => import('@/pages/manage.vue')//管理页面
 const main = () => import('@/pages/main.vue')//控制台
 const announcement = () => import('@/pages/announcement.vue')//系统公告
 const msgList = () => import('@/pages/msgList.vue')//消息列表
+//系统管理
 const notice = () => import('@/pages/notice.vue')//公告管理
 const role = () => import('@/pages/role.vue')//角色管理
 // const dept = () => import('@/pages/dept.vue')//部门管理
 const user = () => import('@/pages/user.vue')//用户管理
+const message_template = () => import('@/pages/message_template.vue')//消息模板
+//机构业务
 const institution = () => import('@/pages/institution.vue')//机构列表
 const medicine_group = () => import('@/pages/medicine_group.vue')//医学分组
 const report_label = () => import('@/pages/report_label.vue')//报告标签
@@ -83,6 +86,11 @@ export default new Router({
           path: '/user',
           component: user,
           meta: ["系统管理", "用户管理"],//用户管理
+        },
+        {
+          path: '/message_template',
+          component: message_template,
+          meta: ["系统管理", "消息模板"],//消息模板
         },
         {
           path: '/institution',
