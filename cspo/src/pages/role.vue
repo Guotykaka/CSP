@@ -97,10 +97,10 @@
             </el-form-item>
             <el-form-item label="角色类别:" :label-width="formLabelWidth">
               <template>
-                <el-checkbox-group v-model="addTable.roleTypelist">
-                  <el-checkbox label="运营端" @change="colType()"></el-checkbox>
-                  <el-checkbox label="医生端" @change="colType()"></el-checkbox>
-                  <el-checkbox label="企业端" @change="colType()"></el-checkbox>
+                <el-checkbox-group v-model="addTable.roleType">
+                  <el-checkbox label="运营端" value = '0' @change="colType()"></el-checkbox>
+                  <el-checkbox label="医生端" key = 0 @change="colType()"></el-checkbox>
+                  <el-checkbox label="企业端" key = 0 @change="colType()"></el-checkbox>
                 </el-checkbox-group>
               </template>
             </el-form-item>
@@ -275,6 +275,7 @@ export default {
       this.dialogEditVisible = true
       console.log(this.editTable)
       console.log(this.editTable.roleType)
+      console.log(typeof(this.editTable.roleType))
     },
     //确定修改
     _doHandleEdit() {
@@ -320,25 +321,15 @@ export default {
     },
     //获取用户列表
     getRoleList() {
-      this.$http.post('http://localhost:8080/api/roleList').then(response => {
+
+      var date = Date.parse( new Date())
+      var params = {
+            "timespan": date
+        }
+      this.$http.post('http://172.0.0.41:8117/cspo/sys/role/listWithNoParam',params).then(response => {
         this.tableData = []
         this.tableData = this.tableData.concat(response.data.data)
-        // response.data.data.forEach(item => {
-        //   const tableData = {}
-        //   tableData.username = item.username
-        //   tableData.email = item.email
-        //   tableData.deptName = item.deptName
-        //   tableData.deptId = item.deptId
-        //   tableData.mobile = item.mobile
-        //   tableData.userId = item.userId
-        //   tableData.status = item.status
-        //   tableData.roleIdList = item.roleIdList
-        //   tableData.createTime = item.createTime
-        //   tableData.userType = item.userType
-        //   tableData.checkList = item.checkList
-        //   tableData.password = item.password
-        //   this.tableData.push(tableData)
-        // })
+        // console.log(JSON.stringify(this.tableData))
       })
     }
   },
