@@ -100,6 +100,18 @@ before(app) {
       data: institution
     });
   });
+  app.post('/api/service_info', function (req, res) { // 机构列表
+    res.json({
+      errno: 0,
+      data: service_info
+    });
+  });
+  app.post('/api/yiyuanting', function (req, res) { // 一元听
+    res.json({
+      errno: 0,
+      data: yiyuanting
+    });
+  });
   app.post('/api/queryInsLeaveWordList', function (req, res) { //
     res.json(queryInsLeaveWordList);
   });
