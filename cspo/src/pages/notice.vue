@@ -510,6 +510,20 @@ export default {
         //   this.tableData.push(tableData)
         // })
       })
+      var date = Date.parse( new Date())
+      var params = {
+            "currentPage": 1,
+            "noticeOs": 0,
+            "noticeStatus": "string",
+            "noticeTitleQuery": "string",
+            "pageSize": 30,
+            "selectedNoticeTypeQuery": "string",
+            "timespan": date
+        }
+      this.$http.post('http://172.0.0.41:8117/cspo/sys/notice/list').then(response => {
+        this.tableData2 = []
+        this.tableData2 = this.tableData2.concat(response.data.data)
+      })
     }
   },
   created: function() {

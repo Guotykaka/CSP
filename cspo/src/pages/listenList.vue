@@ -92,7 +92,7 @@
         <el-form :model="editTable_YYT">
           <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input v-model="editTable_YYT.goodsName" prop auto-complete="off" el></el-input>
+              <el-input v-model="editTable_YYT.goodsName" prop auto-complete="off" el readonly></el-input>
             </el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="绑定医生"  :label-width="formLabelWidth2">
@@ -400,9 +400,9 @@ export default {
         "secondType": "一元听",
         "goodsName": "",
         "goodsWords": "",
-        "goodsStatus": 0,
+        "goodsStatus": 1,
         "goodsPrice": 1,
-        "audioStatus": 1,
+        "audioStatus": 0,
         "serviceStatus": 1,
         "YYTgoods": 43,
         "YYTstatus": 1,
@@ -461,7 +461,13 @@ export default {
    
     // 删除提示
     deleteMessage(index, row) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      if (row.goodsStatus === 0) {
+        this.$message({
+            type: 'error',
+            message: '请先将商品下架！'
+          })
+      } else {
+        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -479,10 +485,13 @@ export default {
         })
         .catch(() => {
           this.$message({
-            type: 'warning ',
+            type: 'warning',
             message: '已取消删除'
           })
         })
+      }
+      
+  
     },
 
     // 一元厅下架
@@ -575,7 +584,7 @@ export default {
         "secondType": "一元听",
         "goodsName": "",
         "goodsWords": "",
-        "goodsStatus": 0,
+        "goodsStatus": 1,
         "goodsPrice": 1,
         "audioStatus": 1,
         "serviceStatus": 1,
@@ -600,7 +609,7 @@ export default {
         "secondType": "一元听",
         "goodsName": "",
         "goodsWords": "",
-        "goodsStatus": 0,
+        "goodsStatus": 1,
         "goodsPrice": 1,
         "audioStatus": 1,
         "serviceStatus": 1,
