@@ -262,6 +262,7 @@ import headerTop from '@/components/headTop.vue';
 import report from '@/components/report.vue';
 import { mapGetters } from "vuex";
 
+import {getListOrderRefund} from "@/api/api.js";
 
 
 export default {
@@ -2854,6 +2855,29 @@ export default {
 
 
   created(){
+
+
+    getListOrderRefund({
+      currentPage: 1,
+      customerMobile: "",
+      customerName: "",
+      doctorName: "",
+      endTime: "",
+      institutionName: "",
+      pageSize: 10,
+      refundStatus: 1,
+      serviceId: "",
+      startTime: "",
+      timespan: "44",
+      tradeCode: ""
+    }).then(res => {
+
+      console.log(res)
+
+
+    }).catch(err => {
+
+    })
 
 
 

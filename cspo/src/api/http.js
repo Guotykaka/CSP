@@ -1,5 +1,4 @@
 import axios from 'axios';
-import qs from 'qs';
 axios.defaults.baseURL="/Api";
 
 export function get(url, params) {
@@ -17,11 +16,7 @@ export function get(url, params) {
 
 export function post(url, data,) {
   return new Promise((resolve, reject) => {
-    axios.post(url, qs.stringify(data), {
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        }
-      }
+    axios.post(url, data
     ).then(res => {
       resolve(res.data)
     }).catch(err => {

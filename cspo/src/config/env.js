@@ -14,7 +14,7 @@ let baseImgPath;
 let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = 'http://172.0.0.42:8116/cspo';
+  baseUrl = 'http://172.0.0.41:8117/cspo/';
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';
@@ -27,6 +27,8 @@ export {
   baseImgPath
 }
 
+
+
 /*个人中心*/
 export const API_QUERY_INSLEAVE_WORDLIST = localUrl+'queryInsLeaveWordList';//获取聊天数据
 export const API_QUERY_INSLEAVE_WORD_ANSWER_LIST = localUrl+'queryInsLeaveWordAnswerList';//查看回复数据
@@ -36,4 +38,7 @@ export const API_TRADE_LIST = localUrl+'tradeList';//主订单列表
 export const API_CSP_ORDER_LIST = localUrl+'cspOrderList';//子订单列表
 export const API_trade_INFO = localUrl+'tradeInfo';//主订单详情
 export const API_GET_REFUND_DETAIL = localUrl+'getRefundDetail';//退款详情
+
+
+export const API_GET_LIST_ORDER_REFUND = baseUrl+'ins/orderRefund/listOrderRefund';//退款列表
 
