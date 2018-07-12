@@ -196,7 +196,6 @@
 <script>
 
   import headerTop from '@/components/headTop.vue';
-  import {mapGetters} from "vuex";
   import {api} from "@/api/api"
 
   export default {
@@ -388,7 +387,8 @@
         // this.customerDetail = val;
 
         // window.scrollTo(0, 0);
-        this.$router.push({name: 'orderDetail', params: {id: val.tradeCode}})
+
+        this.$router.push({name: 'orderDetail', params: {val: val}})
         /*        $.ajax({
                   type: "POST",
                   url: baseURL + "csp/trade/tradeInfo",
@@ -409,11 +409,12 @@
 
       //子订单详情
       _showStatusSonBox: function (val) {
-        this.showStatusSon = true;
+        this.$router.push({name: 'orderSonDetail', params: {val: val}})
+/*        this.showStatusSon = true;
         this.showStatus = false;
         this.customerSonDetail = val;
-        window.scrollTo(0, 0);
-        $.ajax({
+        window.scrollTo(0, 0);*/
+/*        $.ajax({
           type: "POST",
           url: baseURL + "csp/trade/cspOrderInfo",
           contentType: "application/json",
@@ -426,7 +427,7 @@
               alert(res.msg);
             }
           }
-        });
+        });*/
       },
       checkedTrue: function (val) {
         vm.checkedId = val

@@ -31,6 +31,8 @@ var tradeList = appData.tradeList//主订单列表
 var cspOrderList = appData.cspOrderList//子订单列表
 var tradeInfo = appData.tradeInfo//主订单详情
 var getRefundDetail = appData.getRefundDetail//退款详情
+var cspOrderInfo = appData.cspOrderInfo//子订单详情图文咨询
+var cspOrderInfo1 = appData.cspOrderInfo1//子订单详情电话报告解读
 
 
 const HOST = process.env.HOST
@@ -146,6 +148,12 @@ before(app) {
   });
   app.post('/api/getRefundDetail', function (req, res) { // 机构列表
     res.json(getRefundDetail);
+  });
+  app.post('/api/cspOrderInfo', function (req, res) { // 机构列表
+    res.json(cspOrderInfo);
+  });
+  app.post('/api/cspOrderInfo1', function (req, res) { // 机构列表
+    res.json(cspOrderInfo1);
   });
 },
 

@@ -4,25 +4,25 @@
     <div class="page-container">
       <!--订单排头-->
       <el-card :body-style="cardStyle">
-        <div>订单编号：<span class="color3">{{cspTradeInfoEntity.tradeCode}}</span></div>
-        <div>客户名称：<span class="color3">{{customerDetail.customerName}}</span></div>
-        <div>注册手机号：<span class="color3">{{customerDetail.mobile}}</span></div>
-        <div>下单时间：<span class="color3">{{cspTradeInfoEntity.orderTime}}</span></div>
-        <div>订单金额：<span class="color3">￥{{cspTradeInfoEntity.totalPrice | fixedTwo}}</span></div>
+        <div>订单编号：<span class="color3">{{deatilSon.tradeCode}}</span></div>
+        <div>客户名称：<span class="color3">{{deatilSon.customerName}}</span></div>
+        <div>注册手机号：<span class="color3">{{deatilSon.mobile}}</span></div>
+        <div>下单时间：<span class="color3">{{deatilSon.createTime}}</span></div>
+        <div>订单金额：<span class="color3">￥{{deatilSon.totalPrice | fixedTwo}}</span></div>
       </el-card>
       <!--订单状态-->
       <div class="stautsStyle">
         <el-card :body-style="cardStyle">
-          <div v-show="cspTradeInfoEntity.tradeStatus==0" class="colorStatus">订单状态：
+          <div v-show="deatilSon.tradeStatus==0" class="colorStatus">订单状态：
             <span class="WarningStyle">待付款</span>
           </div>
-          <div v-show="cspTradeInfoEntity.tradeStatus==1" class="colorStatus">订单状态：
+          <div v-show="deatilSon.tradeStatus==1" class="colorStatus">订单状态：
             <span class="InfoStyle">已取消</span>
           </div>
-          <div v-show="cspTradeInfoEntity.tradeStatus==2" class="colorStatus">订单状态：
+          <div v-show="deatilSon.tradeStatus==2" class="colorStatus">订单状态：
             <span class="SuccessStyle">已付款</span>
           </div>
-          <div v-show="cspTradeInfoEntity.tradeStatus==3" class="colorStatus">订单状态：
+          <div v-show="deatilSon.tradeStatus==3" class="colorStatus">订单状态：
             <span class="blueStyle">已完成</span>
           </div>
         </el-card>
@@ -34,111 +34,127 @@
             <span class="colorStatus">支付记录</span>
           </div>
           <div>支付方式：
-            <span class="color3" v-if="cspTradeInfoEntity.payChannel==1">支付宝</span>
-            <span class="color3" v-if="cspTradeInfoEntity.payChannel==2">微信</span>
-            <span class="color3" v-if="cspTradeInfoEntity.payChannel==3">银行卡</span>
+            <span class="color3" v-if="deatilSon.payChannel==1">支付宝</span>
+            <span class="color3" v-if="deatilSon.payChannel==2">微信</span>
+            <span class="color3" v-if="deatilSon.payChannel==3">银行卡</span>
           </div>
-          <div>支付时间：<span class="color3">{{cspTradeInfoEntity.paymentTime}}</span></div>
-          <div>支付流水号：<span class="color3">{{cspTradeInfoEntity.thirdTradeNo}}</span></div>
-          <div>订单金额：<span class="color3">￥{{cspTradeInfoEntity.totalPrice}}</span></div>
-          <div>优惠金额：<span class="color3">￥{{cspTradeInfoEntity.discountAmount | fixedTwo}}</span></div>
-          <div>支付金额：<span class="color3">￥{{cspTradeInfoEntity.totalPrice | fixedTwo}}</span></div>
+          <div>支付时间：<span class="color3">{{deatilSon.paymentTime}}</span></div>
+          <div>支付流水号：<span class="color3">{{deatilSon.thirdTradeNo}}</span></div>
+          <div>订单金额：<span class="color3">￥{{deatilSon.totalPrice | fixedTwo}}</span></div>
+          <div>优惠金额：<span class="color3">￥{{deatilSon.discountAmount | fixedTwo}}</span></div>
+          <div>支付金额：<span class="color3">￥{{deatilSon.totalPrice | fixedTwo}}</span></div>
         </el-card>
       </div>
       <!--订单信息-->
-      <div class="stautsStyle" v-for="(item,index) in cspOrderInfoList" :key="index">
+      <div class="stautsStyle">
         <!--电话报告解读-->
-        <el-card class="box-card" :body-style="payStyle" v-if="item.serviceType===1">
+        <el-card class="box-card" :body-style="payStyle" v-if="deatilSon.serviceType===2">
           <div slot="header" class="header-style">
             <span class="colorStatus">订单信息</span>
-            <div v-if="item.orderStatus==0">订单状态：
+            <div v-if="deatilSon.orderStatus==0">订单状态：
               <el-tag type="warning">待付款</el-tag>
             </div>
-            <div v-if="item.orderStatus==1">订单状态：
+            <div v-if="deatilSon.orderStatus==1">订单状态：
               <el-tag type="info">已取消</el-tag>
             </div>
-            <div v-if="item.orderStatus==2">订单状态：
+            <div v-if="deatilSon.orderStatus==2">订单状态：
               <el-tag type="success">已付款</el-tag>
-              <div v-if="customerDetail" class="serverCss">订单服务状态：
-                <el-tag>{{customerDetail.orderServiceStatusString}}</el-tag>
+              <div v-if="customerSonDetail" class="serverCss">订单服务状态：
+                <el-tag class="DangerStyle" v-if="customerSonDetail.orderServiceStatus==0">待服务</el-tag>
+                <el-tag class="WarningStyle" v-if="customerSonDetail.orderServiceStatus==1">客户忙待联系</el-tag>
+                <el-tag class="blueStyle" v-if="customerSonDetail.orderServiceStatus==2">服务中</el-tag>
+                <el-tag class="SuccessStyle" v-if="customerSonDetail.orderServiceStatus==3">已完成</el-tag>
+                <el-tag class="InfoStyle" v-if="customerSonDetail.orderServiceStatus==4">已失效</el-tag>
               </div>
             </div>
-            <div v-if="item.orderStatus==3">订单状态：
+            <div v-if="deatilSon.orderStatus==3">订单状态：
               <el-tag type="success">已完成</el-tag>
-              <div v-if="customerDetail" class="serverCss">订单服务状态：
-                <el-tag>{{customerDetail.orderServiceStatusString}}</el-tag>
+              <div v-if="customerSonDetail" class="serverCss">订单服务状态：
+                <el-tag class="DangerStyle" v-if="customerSonDetail.orderServiceStatus==0">待服务</el-tag>
+                <el-tag class="WarningStyle" v-if="customerSonDetail.orderServiceStatus==1">客户忙待联系</el-tag>
+                <el-tag class="blueStyle" v-if="customerSonDetail.orderServiceStatus==2">服务中</el-tag>
+                <el-tag class="SuccessStyle" v-if="customerSonDetail.orderServiceStatus==3">已完成</el-tag>
+                <el-tag class="InfoStyle" v-if="customerSonDetail.orderServiceStatus==4">已失效</el-tag>
               </div>
             </div>
           </div>
-          <div>订单编号：<span class="color3">{{item.tradeCode}}</span></div>
-          <div>服务名称：<span class="color3">{{item.itemName}}</span></div>
-          <div>服务机构：<span class="color3">{{item.institutionName}}</span></div>
-          <div>服务医生：<span class="color3">{{item.name}}</span></div>
-          <div>接听电话：<span class="color3">{{item.mobile}}</span></div>
-          <div class="header-style serverCss">体检报告：<span class="color3">{{customerDetail.customerName}}</span><span
-            class="color3">{{customerDetail.orderTime}}</span>
-            <span class="targetChange" @click="showReportFn(item)">查看详情</span>
+          <div>订单编号：<span class="color3">{{deatilSon.tradeCode}}</span></div>
+          <div>服务名称：<span class="color3">{{deatilSon.itemName}}</span></div>
+          <div>服务机构：<span class="color3">{{deatilSon.institutionName}}</span></div>
+          <div>服务医生：<span class="color3">{{deatilSon.name}}</span></div>
+          <div>接听电话：<span class="color3">{{deatilSon.mobile}}</span></div>
+          <div class="header-style serverCss">体检报告：<span class="color3">{{customerSonDetail.name}}</span><span
+            class="color3">{{customerSonDetail.createTime}}</span>
+            <span class="targetChange" @click="showReportFn(deatilSon)">查看详情</span>
           </div>
-          <div>订单金额：<span class="color3">￥{{item.totalPrice | fixedTwo}}</span></div>
-          <div>结算信息：<span class="color3">商品售价：￥{{item.totalPrice | fixedTwo}}</span></div>
+          <div>订单金额：<span class="color3">￥{{deatilSon.totalPrice | fixedTwo}}</span></div>
+          <div>结算信息：<span class="color3">商品售价：￥{{deatilSon.totalPrice | fixedTwo}}</span></div>
         </el-card>
         <!--图文咨询-->
         <el-card class="box-card" :body-style="payStyle" v-else>
           <div slot="header" class="header-style">
             <span class="colorStatus">订单信息</span>
-            <div v-if="item.orderStatus==0">订单状态：
+            <div v-if="deatilSon.orderStatus==0">订单状态：
               <el-tag type="warning">待付款</el-tag>
             </div>
-            <div v-if="item.orderStatus==1">订单状态：
+            <div v-if="deatilSon.orderStatus==1">订单状态：
               <el-tag type="info">已取消</el-tag>
             </div>
-            <div v-if="item.orderStatus==2">订单状态：
+            <div v-if="deatilSon.orderStatus==2">订单状态：
               <el-tag type="success">已付款</el-tag>
-              <div v-if="customerDetail" class="serverCss">订单服务状态：
-                <el-tag>{{customerDetail.orderServiceStatusString}}</el-tag>
+              <div v-if="customerSonDetail" class="serverCss">订单服务状态：
+                <el-tag class="DangerStyle" v-if="customerSonDetail.orderServiceStatus==0">待服务</el-tag>
+                <el-tag class="WarningStyle" v-if="customerSonDetail.orderServiceStatus==1">客户忙待联系</el-tag>
+                <el-tag class="blueStyle" v-if="customerSonDetail.orderServiceStatus==2">服务中</el-tag>
+                <el-tag class="SuccessStyle" v-if="customerSonDetail.orderServiceStatus==3">已完成</el-tag>
+                <el-tag class="InfoStyle" v-if="customerSonDetail.orderServiceStatus==4">已失效</el-tag>
               </div>
             </div>
-            <div v-if="item.orderStatus==3">订单状态：
+            <div v-if="deatilSon.orderStatus==3">订单状态：
               <el-tag type="success">已完成</el-tag>
-              <div v-if="customerDetail" class="serverCss">订单服务状态：
-                <el-tag type="success">{{customerDetail.orderServiceStatusString}}</el-tag>
+              <div v-if="customerSonDetail" class="serverCss">订单服务状态：
+                <el-tag class="DangerStyle" v-if="customerSonDetail.orderServiceStatus==0">待服务</el-tag>
+                <el-tag class="WarningStyle" v-if="customerSonDetail.orderServiceStatus==1">客户忙待联系</el-tag>
+                <el-tag class="blueStyle" v-if="customerSonDetail.orderServiceStatus==2">服务中</el-tag>
+                <el-tag class="SuccessStyle" v-if="customerSonDetail.orderServiceStatus==3">已完成</el-tag>
+                <el-tag class="InfoStyle" v-if="customerSonDetail.orderServiceStatus==4">已失效</el-tag>
               </div>
             </div>
           </div>
-          <div>订单编号：<span class="color3">{{item.tradeCode}}</span></div>
-          <div>服务名称：<span class="color3">{{item.itemName}}</span></div>
-          <div>服务机构：<span class="color3">{{item.institutionName}}</span></div>
-          <div>服务医生：<span class="color3">{{item.name}}</span></div>
-          <div>咨询人：<span class="color3">{{item.customerName}}</span></div>
+          <div>订单编号：<span class="color3">{{deatilSon.tradeCode}}</span></div>
+          <div>服务名称：<span class="color3">{{deatilSon.itemName}}</span></div>
+          <div>服务机构：<span class="color3">{{deatilSon.institutionName}}</span></div>
+          <div>服务医生：<span class="color3">{{deatilSon.name}}</span></div>
+          <div>咨询人：<span class="color3">{{deatilSon.customerName}}</span></div>
           <div>性别：
-            <span class="color3" v-if="item.customerSex===2">女</span>
+            <span class="color3" v-if="deatilSon.customerSex===2">女</span>
             <span class="color3" v-else>男</span></div>
-          <div>年龄：<span class="color3">{{item.customerAge}}</span></div>
-          <div>描述：<span class="color3">{{item.customerDesc}}</span></div>
+          <div>年龄：<span class="color3">{{deatilSon.customerAge}}</span></div>
+          <div>描述：<span class="color3">{{deatilSon.customerDesc}}</span></div>
           <div class="imgStyle">图片：
-            <ul id="layer-photos-demo" @click="photoShow(item.customerImgs)">
-              <li v-for="(value,ind) in capitalize(item.customerImgs)" style="float:left">
+            <ul id="layer-photos-demo" @click="photoShow(deatilSon.customerImgs)">
+              <li v-for="(value,ind) in capitalize(deatilSon.customerImgs)" style="float:left">
                 <img style="width:20px;height:20px;margin-right:5px;background-color:#ee55ee;" layer-pid="ind"
                      layer-src="value" :src="value" alt="">
               </li>
             </ul>
           </div>
-          <div>订单金额：<span v-if="item.totalPrice">￥{{item.totalPrice | fixedTwo}}</span></div>
-          <div>结算信息：<span v-if="item.totalPrice">商品售价：￥{{item.totalPrice | fixedTwo}}</span></div>
+          <div>订单金额：<span v-if="deatilSon.totalPrice">￥{{deatilSon.totalPrice | fixedTwo}}</span></div>
+          <div>结算信息：<span v-if="deatilSon.totalPrice">商品售价：￥{{deatilSon.totalPrice | fixedTwo}}</span></div>
         </el-card>
         <!--退款信息-->
-        <el-card class="box-card" :body-style="payStyle" v-if="item.refundCode">
+        <el-card class="box-card" :body-style="payStyle" v-if="deatilSon.insOrderRefundEntity">
           <div slot="header"><span class="colorStatus">退款信息</span></div>
           <div>退款编号：
-            <div class="color3 serverCss">{{item.refundCode}}
-              <span class="targetChange" @click="_goDetail(item)">查看详情</span>
+            <div class="color3 serverCss">{{deatilSon.insOrderRefundEntity.refundCode}}
+              <span class="targetChange" @click="_goDetail(deatilSon)">查看详情</span>
             </div>
           </div>
         </el-card>
         <!--订单变更记录-->
-        <el-card class="box-card" :body-style="payStyle" v-if="item.refundCode">
+        <el-card class="box-card" :body-style="payStyle">
           <div slot="header"><span class="colorStatus">订单变更记录</span></div>
-          <div v-for="(itemChange,index2) in item.orderChangeList" :key="index2">
+          <div v-for="(itemChange,index2) in deatilSon.orderChangeList" :key="index2">
             {{itemChange.CREATE_TIME}}
             <span class="color3 ml20" v-if="itemChange.TRADE_STATUS===0">待付款</span>
             <span class="color3 ml20" v-if="itemChange.TRADE_STATUS===1">已取消</span>
@@ -159,9 +175,9 @@
       <el-dialog title="体检报告" :visible.sync="isShowReport" width="90%" custom-class="self-dialog">
         <report :reportData="reportData"></report>
       </el-dialog>
-      <!--退款详情 dialog-->
-      <el-dialog title="退款详情" :visible.sync="isRefundDetail" width="80%" custom-class="self-dialog">
-        <refundDetail :refundDetail="refundDetail" :customerDetail="customerDetail"></refundDetail>
+      <!--退款详情-->
+      <el-dialog style="height:100%;" lock-scroll="true" title="退款详情" :visible.sync="isRefundDetail" width="80%" custom-class="self-dialog">
+        <refundDetail :refundDetail="refundDetail" :customerDetail="customerSonDetail"></refundDetail>
       </el-dialog>
     </div>
   </div>
@@ -2683,34 +2699,38 @@
           width: '80%',
           background: 'red'
         },
-        cspTradeInfoEntity: {},//主订单--订单详情
-        cspOrderInfoList: [],//主订单--订单信息列
-        customerDetail: {},//主订单带过来的信息
+        deatilSon: {},//子订单--订单详情
+        customerSonDetail: {},//子订单带过来的信息
         refundDetail:{},
-        checkId: null,//子订单ID
-        checkedId: null,//主订单ID
+        checkedId: null,//子订单ID
         isShowReport:false,//是否显示体检报告
         isRefundDetail:false,//退款详情是否显示
       }
     },
     created() {
-      this.customerDetail = this.$route.params.val;
-      this.checkedId = this.$route.params.val.tradeCode;
+      this.customerSonDetail = this.$route.params.val;
+      this.checkedId = this.$route.params.val.orderCode;
       this.getDetail();
       console.log(this.$route.params.val)
     },
     methods: {
       getDetail() {
         let data = this.checkedId;
-        console.log(data)
-        api.tradeInfo(data).then((res) => {
+        console.log(data);
+        api.cspOrderInfo1(data).then((res) => {
           if (res.code === 1) {
-            this.cspTradeInfoEntity = res.data.cspTradeInfoEntity;
-            this.cspOrderInfoList = res.data.cspOrderInfoList;
+            this.deatilSon = res.data;
           } else {
             alert(res.msg);
           }
         })
+/*        api.cspOrderInfo1(data).then((res) => {
+          if (res.code === 1) {
+            this.deatilSon = res.data;
+          } else {
+            alert(res.msg);
+          }
+        })*/
       },
       capitalize: function (value) {
         if (value) {
@@ -2724,14 +2744,13 @@
       //点击显示体检报告详情
       showReportFn(){
         this.isShowReport=true;
+
         console.log(this.isShowReport)
       },
-      //点击显示体检报告详情
+      //点击显示退款详情
       _goDetail(val){
         this.refundDetail=val;
         this.isRefundDetail=true;
-        console.log(this.isRefundDetail)
-        console.log(this.refundDetail)
       }
     },
     filters: {
