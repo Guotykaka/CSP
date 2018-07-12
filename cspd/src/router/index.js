@@ -20,6 +20,8 @@ const imgText_consult = () => import('@/pages/imgText_consult.vue')//图为咨�
 const indetification = () => import('@/pages/identification.vue')//认证详情
 const server_setting = () => import('@/pages/server_setting.vue')//服务设置
 const call_doctor = () => import('@/pages/callDoctor.vue')//服务设置
+const baseInfo = () => import('@/pages/baseInfo.vue')//医生基本信息  未认证就进这个页面
+const doApply = () => import('@/pages/do_apply.vue')//医生去认证
 
 Vue.use(Router)
 
@@ -82,6 +84,16 @@ export default new Router({
           path: '/call_doctor',
           component: call_doctor,//服务设置
           meta: ["服务管理","联系医助"],
+        },
+        {
+          path: '/baseInfo',
+          component: baseInfo,//基本信息 医生没认证就进这个页面
+          meta: ["服务管理","基本信息"],
+        },
+        {
+          path: '/doApply',
+          component: doApply,//医生操作认证
+          meta: ["医生认证"],
         },
       ]
     }
