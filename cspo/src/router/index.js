@@ -31,6 +31,9 @@ const indentList = () => import('@/pages/identificationList.vue')//认证列表
 
 //订单管理
 const refundsList = () => import('@/pages/refundsList.vue')//退款列表
+const refundsInfo = () => import('@/pages/refundsInfo.vue')//退款详情
+
+
 const orderList = () => import('@/pages/orderList.vue')//订单列表
 const orderDetail = () => import('@/pages/orderDetail.vue')//订单详情
 
@@ -141,6 +144,12 @@ export default new Router({
           path: '/refundsList',
           component: refundsList,//订单管理 退款列表
           meta: ["订单管理", "退款列表"],
+        },
+        {
+          path: '/refundsInfo/:id',
+          name:'refundsInfo',
+          component: refundsInfo,//订单管理 退款详情
+          meta: ["订单管理", "退款详情"],
         },
         {
           path: '/orderList',
