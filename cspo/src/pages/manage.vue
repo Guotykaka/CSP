@@ -78,7 +78,10 @@
           return this.$route.path.replace('/', '');
         }
       },
-
+      created(){
+        var data = new Date();
+        console.log(data.getTime())
+      },
       methods:{
         ...mapMutations([
           'setInstitutionArr', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`

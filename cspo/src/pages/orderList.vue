@@ -196,7 +196,7 @@
 <script>
 
   import headerTop from '@/components/headTop.vue';
-  import {api} from "@/api/api"
+  import {listServiceDict,tradeList,api} from "@/api/api"
 
   export default {
     data() {
@@ -214,6 +214,7 @@
           institutionName: '',//string 机构名称
           startTime: '',
           endTime: '',
+          timespan:''
         },
         listServiceDict: [],//服务名称
         rangeTime: null,
@@ -345,8 +346,10 @@
       },
       //获取主订单列表
       _getDatalist: function () {
+        let getDate = new Date();
+        this.searchParams.timespan = getDate.getTime().toString();
         let data = this.searchParams;
-        api.tradeList(data).then((res) => {
+        tradeList(data).then((res) => {
           if (res.code === 1) {
             this.tradeList = res.data.list;
             this.pages1.totalCount = res.data.totalCount;
@@ -369,16 +372,20 @@
         })
       },
       handleSizeChange1(val) {
-        console.log(`每页 ${val} 条`);
+        this.searchParams.pageSize = val;
+        this._getDatalist();
       },
       handleCurrentChange1(val) {
-        console.log(`当前页: ${val}`);
+        this.searchParams.currentpage=val;
+        this._getDatalist();
       },
       handleSizeChange2(val) {
-        console.log(`每页 ${val} 条`);
+        this.searchParams.pageSize = val;
+        this._getDataSonlist();
       },
       handleCurrentChange2(val) {
-        console.log(`当前页: ${val}`);
+        this.searchParams.currentpage=val;
+        this._getDataSonlist();
       },
       //主订单详情
       _showStatusBox: function (val) {

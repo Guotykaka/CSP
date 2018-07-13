@@ -24,7 +24,7 @@
 
 <script>
   //引入login的方法
-  import {login} from "@/api/api.js";
+  import {login,captcha} from "@/api/api.js";
 
   export default {
       data:function () {
@@ -32,30 +32,40 @@
 
           //登录参数
           loginParams:{
-            username:"",
-            password:"",
-            captcha:""//验证码
+            captcha: "",
+            codeKey: "",
+            password: "",
+            timespan: "",
+            username: ""
           },
-          imgUrl:"http://172.0.0.42:8116/cspo/captcha.jpg?"+new Date()
+          timeString:'',
+          imgUrl:''
         }
       },
-
-
+    created(){
+        this.refreshImg();
+    },
       methods:{
         doLogin:function () {
-          this.$router.push("notice")
 
-          /*var params=this.loginParams;
+          var params=this.loginParams;
           login(params).then(res => {
-            this.$router.push("notice")
+            if(res.code===1){
+              this.$router.push("notice")
+            }else{
+              this.$alert(res.msg)
+            }
           }).catch(err => {
 
-          })*/
+          })
         },
 
         //刷新验证码
         refreshImg:function () {
-          this.imgUrl="http://172.0.0.42:8116/cspo/captcha.jpg?"+new Date()
+          var params = new Date();
+          this.loginParams.codeKey = params.getTime().toString();
+          this.loginParams.timespan = params.getTime().toString();
+          this.imgUrl = "http://172.0.0.41:8117/cspo/sys/user/captcha.jpg/"+this.loginParams.codeKey
         }
       }
 
