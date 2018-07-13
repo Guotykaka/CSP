@@ -38,10 +38,7 @@
         </el-row>
 
         <!--table 表单开始-->
-        <el-table
-          :data="doctorList"
-          border
-          style="width: 100%">
+        <el-table :data="doctorList" border style="width: 100%">
           <el-table-column prop="name" label="用户名"></el-table-column>
           <el-table-column prop="mobile" label="手机号"></el-table-column>
           <el-table-column prop="username" label="用户账号"></el-table-column>
@@ -78,12 +75,8 @@
           <div class="">
 
             <!--table 表单开始-->
-            <el-table
-              :data="benefitData.list"
-              border
-              :row-class-name="tableRowClassName"
-              style="width: 100%">
-              <el-table-column type="index" label="序号"  width="80"></el-table-column>
+            <el-table :data="benefitData.list" border :row-class-name="tableRowClassName" style="width: 100%">
+              <el-table-column type="index" label="序号" width="80"></el-table-column>
               <el-table-column prop="proportions" label="分成比例"></el-table-column>
               <el-table-column prop="takeEffectTime" label="生效时间"></el-table-column>
               <el-table-column prop="createTime" label="设置时间"></el-table-column>
@@ -99,7 +92,6 @@
             <!--table 表单结束-->
           </div>
         </el-card>
-
 
         <div class="btn-row">
           <el-button size="small" type="primary" @click="backFn">返回</el-button>
@@ -168,7 +160,7 @@
                 <input type="checkbox" checked disabled>{{item.serviceName}}
               </label>
             </div>
-            <span v-else  class="title-note">暂未设置</span>
+            <span v-else class="title-note">暂未设置</span>
           </el-col>
         </el-row>
         <div class="btn-row">
@@ -184,11 +176,7 @@
           </el-col>
           <el-col :span="8">
             <el-select v-model="addINfo.roleId" clearable placeholder="请选择角色">
-              <el-option
-                v-for="item in getDoctorRolesList"
-                :key="item.roleId"
-                :label="item.roleName"
-                :value="item.roleId">
+              <el-option v-for="item in getDoctorRolesList" :key="item.roleId" :label="item.roleName" :value="item.roleId">
               </el-option>
             </el-select>
           </el-col>
@@ -200,11 +188,7 @@
           </el-col>
           <el-col :span="8">
             <el-select v-model="addINfo.institutionId" clearable placeholder="请选择机构">
-              <el-option
-                v-for="item in getInstitutionArr"
-                :key="item.institutionId"
-                :label="item.institutionName"
-                :value="item.institutionId">
+              <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId">
               </el-option>
             </el-select>
           </el-col>
@@ -292,11 +276,7 @@
           </el-col>
           <el-col :span="8">
             <el-select v-model="editorINfo.roleId" clearable placeholder="请选择角色">
-              <el-option
-                v-for="item in getDoctorRolesList"
-                :key="item.roleId"
-                :label="item.roleName"
-                :value="item.roleId">
+              <el-option v-for="item in getDoctorRolesList" :key="item.roleId" :label="item.roleName" :value="item.roleId">
               </el-option>
             </el-select>
           </el-col>
@@ -308,11 +288,7 @@
           </el-col>
           <el-col :span="8">
             <el-select v-model="editorINfo.institutionId" clearable placeholder="请选择机构">
-              <el-option
-                v-for="item in getInstitutionArr"
-                :key="item.institutionId"
-                :label="item.institutionName"
-                :value="item.institutionId">
+              <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId">
               </el-option>
             </el-select>
           </el-col>
@@ -327,7 +303,7 @@
           </el-col>
         </el-row>
         <div class="btn-row">
-          <el-button size="small" type="primary" @click="_upDataEditorDoctor">确定</el-button>
+          <el-button size="small" type="primary" @click="_upDataEditorDoctor()">确定</el-button>
           <el-button size="small" type="primary" @click="closeDialog('editorINfo')">取消</el-button>
         </div>
       </el-dialog>
@@ -361,9 +337,9 @@
           </el-col>
           <el-col :span="18">
             平台：&nbsp;机构：&nbsp;医生&nbsp;&nbsp;=&nbsp;&nbsp;
-            <input type="number" class="input-benefit el-input__inner" v-model="benefitRate.platformRate"/>：&nbsp;
-            <input type="number" class="input-benefit el-input__inner" v-model="benefitRate.institutionRate"/>：&nbsp;
-            <input type="number" class="input-benefit el-input__inner" v-model="benefitRate.doctorRate"/>
+            <input type="number" class="input-benefit el-input__inner" v-model="benefitRate.platformRate" />：&nbsp;
+            <input type="number" class="input-benefit el-input__inner" v-model="benefitRate.institutionRate" />：&nbsp;
+            <input type="number" class="input-benefit el-input__inner" v-model="benefitRate.doctorRate" />
           </el-col>
         </el-row>
         <el-row :gutter="20" class="m_b_15">
@@ -371,10 +347,7 @@
             <strong class="title-note">生效时间：</strong>
           </el-col>
           <el-col :span="18">
-            <el-date-picker
-              v-model="addBenefitParam.takeEffectTime"
-              type="date"
-              placeholder="选择日期">
+            <el-date-picker v-model="addBenefitParam.takeEffectTime" type="date" placeholder="选择日期">
             </el-date-picker>
           </el-col>
         </el-row>
@@ -396,7 +369,7 @@ import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
 
 //引入getDoctorList的方法
-import { getDoctorList } from "@/api/api.js";
+import { getDoctorList,postDoctorSave } from "@/api/api.js";
 
 export default {
   data(){
@@ -608,6 +581,7 @@ export default {
       this.editorINfo.mobile=item.mobile;//手机号
       this.editorINfo.username=item.username;//用户账号
       this.editorINfo.sort=item.sort;//排序
+      this.editorINfo.userId=item.userId;//排序
       this.editorINfo.doctorServices=item.doctorServices;//医生的服务
     },
 
@@ -616,6 +590,28 @@ export default {
     _upDataEditorDoctor:function(){
       console.log(this.editorINfo);
       this.editorINfo.isShowDialog=false;
+       let params2 = {
+                "email": "",
+                "insDoctorId": "",
+                "insServiceSettingIds": [
+                  "string"
+                ],
+                "insServiceSettingNames": [
+                  "string"
+                ],
+                "institutionId": this.editorINfo.institutionId,
+                "mobile": this.editorINfo.mobile,
+                "name": this.editorINfo.name,
+                "password": "string",
+                "roleId": this.editorINfo.roleId,
+                "sort": this.editorINfo.sort,
+                "status": 0,
+                "userId": this.editorINfo.userId,
+                "username": this.editorINfo.username
+                  }
+      postDoctorSave(params2)
+      this.init()
+
     },
 
 
@@ -708,16 +704,35 @@ export default {
 
         });
       console.log(item)
-    }
+    },
+    //获取医生列表
+    init() {
+      let date = Date.parse( new Date())
+      let params = {
+            "currentPage": 1,
+            "institutionId": "",
+            "mobile": "",
+            "name": "",
+            "pageSize": 20,
+            "roleId": "",
+            timespan : date
+        }
+     
+      getDoctorList(params).then(response => {
+        this.doctorList = []
+        this.doctorList = response.data.list
+      })
+      
+    },
 
   },
+  
 
-
-  created(){
+  created: function(){
 
     this.$nextTick(function () {
 
-      getDoctorList()
+      this.init()
 
     })
 
@@ -738,16 +753,43 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .el-select{display: block}
-  .el-input{margin-bottom: 15px;}
-  .el-button--mini{padding: 7px 10px}
-  .title-note{line-height: 40px;}
-  .btn-row{text-align:center;padding-top: 20px;}
-  .service-label-box{padding-top: 12px;line-height: 18px;}
-  .service-label{padding: 0 5px 0 3px}
-  .service-label input[type='checkbox']{margin:3px 3px 0 0;display:inline-block;vertical-align: top;}
-  .input-benefit{display: inline-block;width: 100px}
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button{-webkit-appearance: none;}
-  input[type="number"]{-moz-appearance: textfield;}
+.el-select {
+  display: block;
+}
+.el-input {
+  margin-bottom: 15px;
+}
+.el-button--mini {
+  padding: 7px 10px;
+}
+.title-note {
+  line-height: 40px;
+}
+.btn-row {
+  text-align: center;
+  padding-top: 20px;
+}
+.service-label-box {
+  padding-top: 12px;
+  line-height: 18px;
+}
+.service-label {
+  padding: 0 5px 0 3px;
+}
+.service-label input[type='checkbox'] {
+  margin: 3px 3px 0 0;
+  display: inline-block;
+  vertical-align: top;
+}
+.input-benefit {
+  display: inline-block;
+  width: 100px;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+input[type='number'] {
+  -moz-appearance: textfield;
+}
 </style>

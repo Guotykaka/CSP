@@ -42,5 +42,16 @@ export const API_CSP_ORDER_INFO1 = localUrl+'cspOrderInfo1';//子订单详情
 export const API_GET_REFUND_DETAIL = localUrl+'getRefundDetail';//退款详情
 
 
+//系统管理
+export const API_POST_LIST_WITH_NOPARAM = baseUrl+'sys/role/listWithNoParam';//角色列表
+export const API_POST_SAVE_ROLE = baseUrl+'sys/role/save';//新增角色
+export const API_POST_UPDATE_ROLE = baseUrl+'sys/role/update';//修改角色
+export const API_POST_DELETE_ROLE = baseUrl+'sys/role/delete';//删除角色
+//机构业务
+//商品管理
+//医生管理
+export const API_POST_LIST_DOCTOR = baseUrl+'sys/doctor/doctorList';//医生列表
+export const API_POST_SAVE_DOCTOR = baseUrl+'sys/doctor/doctorSave';//修改医生信息
+//订单管理
 export const API_GET_LIST_ORDER_REFUND = baseUrl+'ins/orderRefund/listOrderRefund';//退款列表
 

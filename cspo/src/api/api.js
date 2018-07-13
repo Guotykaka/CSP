@@ -8,11 +8,31 @@ import * as urls from '@/config/env.js'
 export function login(data) {
   return post(baseUrl+'/sys/login',data);
 }
-
-//获取医生列表
-export function getDoctorList(data) {
-  return post(baseUrl+'/sys/doctor/doctorList',data);
+//系统管理
+//角色列表
+export function getListWithNoParam(params){//获取列表
+  return post(urls.API_POST_LIST_WITH_NOPARAM,params)
 }
+export function PostSaveRole(params){//新增角色
+  return post(urls.API_POST_SAVE_ROLE,params)
+}
+export function PostUpdateRole(params){//修改角色
+  return post(urls.API_POST_UPDATE_ROLE,params)
+}
+export function PostDeleteRole(params){//删除角色
+  return post(urls.API_POST_DELETE_ROLE,params)
+}
+//医生管理
+//获取医生列表
+export function getDoctorList(params) {
+  return post(urls.API_POST_LIST_DOCTOR,params);
+}
+//修改医生信息
+export function postDoctorSave(params) {
+  return post(urls.API_POST_SAVE_DOCTOR,params);
+}
+
+
 
 //退款列表
 export function getListOrderRefund(params){
