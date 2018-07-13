@@ -45,13 +45,12 @@ export const api ={
   getRefundDetail(data){
     return post(urls.API_GET_REFUND_DETAIL,data);//查看回复数据
   },
-
-
-
-
-
-
-
+  cspOrderInfo(data){
+    return post(urls.API_CSP_ORDER_INFO,data);//查看回复数据
+  },
+  cspOrderInfo1(data){
+    return post(urls.API_CSP_ORDER_INFO1,data);//查看回复数据
+  }
 }
 
 
