@@ -118,6 +118,56 @@ import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
 import {getListOrderRefund ,ERR_OK} from "@/api/api.js";
 
+/* 1处理url 加上timespan   url += appendTimeSpan(url);
+
+
+   2 生成一个authString
+
+    var authString = getBasicAuthHandler(url, data);
+
+     var getBasicAuthHandler = function () {
+    var httpUrl = arguments[0];
+    var postData = arguments[1];
+    var sign = getHttpAuthSignHandler(httpUrl, postData);
+    var safeStr = unescape(encodeURIComponent(config.AppKey + ':' + sign));
+    var btoaCode = btoa(safeStr);
+    btoaCode = 'Basic ' + btoaCode;
+    return btoaCode;
+  };
+
+
+
+ function appendTimeSpan (url) {
+  var timespan = Math.round(new Date().getTime() / 1000);
+  if (url.indexOf('?') == -1) {
+    timespan = '?timespan=' + timespan;
+  }
+  else {
+    timespan = '&timespan=' + timespan;
+  }
+  return timespan;
+};
+
+
+
+function getBasicAuthHandler () {
+  var httpUrl = arguments[0];
+  var postData = arguments[1];
+  var sign = getHttpAuthSignHandler(httpUrl, postData);
+  var safeStr = unescape(encodeURIComponent(config.AppKey + ':' + sign));
+  var btoaCode = btoa(safeStr);
+  btoaCode = 'Basic ' + btoaCode;
+  return btoaCode;
+};
+
+
+
+
+
+*/
+
+
+
 
 export default {
   data() {
@@ -261,10 +311,6 @@ export default {
     }
 
   }
-
-
-
-
 
 }
 </script>
