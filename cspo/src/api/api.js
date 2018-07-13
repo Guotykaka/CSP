@@ -1,12 +1,15 @@
-import {get,post} from "./http.js";
+import {get,post,getOne} from "./http.js";
 
 import {baseUrl,baseImgPath} from "../config/env";
 import * as urls from '@/config/env.js'
 
+export const ERR_OK = 1;
+
+
 
 //登录
-export function login(data) {
-  return post(baseUrl+'/sys/login',data);
+export function login(params){
+  return post(urls.API_LOGIN,params)
 }
 //系统管理
 //角色列表
@@ -32,13 +35,27 @@ export function postDoctorSave(params) {
   return post(urls.API_POST_SAVE_DOCTOR,params);
 }
 
-
-
+//获取所有机构列表
+export function getListAllInstitution(params){
+  return post(urls.API_GET_LIST_ALL_INSTITUTION,params)
+}
 //退款列表
 export function getListOrderRefund(params){
   return post(urls.API_GET_LIST_ORDER_REFUND,params)
 }
 
+//订单列表词典
+export function listServiceDict(params){
+  return post(urls.API_LIST_SERVICE_dict,params)
+}
+//主订单列表
+export function tradeList(params){
+  return post(urls.API_TRADE_LIST,params)
+}
+//登录验证码
+export function captcha(params){
+  return getOne(urls.API_CAPTCHA,params)
+}
 
 
 export const api ={
