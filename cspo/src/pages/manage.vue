@@ -61,7 +61,13 @@
 
 <script>
 
-    export default {
+
+  import { mapMutations } from 'vuex'
+  import { getListAllInstitution } from "@/api/api.js";
+
+
+
+  export default {
       data:function () {
         return{
 
@@ -74,11 +80,40 @@
       },
 
       methods:{
-        //点击nav执行方法
-        jumpLink:function (item) {
-          this.$router.push(item)
+        ...mapMutations([
+          'setInstitutionArr', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
+        ]),
+
+
+
+        //获取机构列表
+        getInstitution(){
+          getListAllInstitution({}).then(res => {
+
+
+            this.setInstitutionArr(res.data);
+
+
+
+            console.log(res)
+          }).catch(err => {
+
+          })
         }
-      }
+      },
+
+    created(){
+
+      this.getInstitution()
+
+    }
+
+
+
+
+
+
+
     }
 
 </script>

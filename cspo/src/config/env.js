@@ -44,3 +44,5 @@ export const API_GET_REFUND_DETAIL = localUrl+'getRefundDetail';//退款详情
 
 export const API_GET_LIST_ORDER_REFUND = baseUrl+'ins/orderRefund/listOrderRefund';//退款列表
 
+export const API_GET_LIST_ALL_INSTITUTION = baseUrl+'ins/institution/listAllInstitution';//机构列表
+

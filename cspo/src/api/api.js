@@ -3,6 +3,9 @@ import {get,post} from "./http.js";
 import {baseUrl,baseImgPath} from "../config/env";
 import * as urls from '@/config/env.js'
 
+export const ERR_OK = 1;
+
+
 
 //登录
 export function login(data) {
@@ -14,6 +17,10 @@ export function getDoctorList(data) {
   return post(baseUrl+'/sys/doctor/doctorList',data);
 }
 
+//获取所有机构列表
+export function getListAllInstitution(params){
+  return post(urls.API_GET_LIST_ALL_INSTITUTION,params)
+}
 //退款列表
 export function getListOrderRefund(params){
   return post(urls.API_GET_LIST_ORDER_REFUND,params)

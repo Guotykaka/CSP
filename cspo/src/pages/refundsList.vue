@@ -23,13 +23,21 @@
         </el-form-item>
 
         <el-form-item label="机构">
-          <el-select v-model="searchParams.institutionName" clearable placeholder="请选择所属机构">
-            <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId"></el-option>
-          </el-select>
+          <el-autocomplete
+            popper-class="my-autocomplete"
+            v-model="searchParams.institutionName"
+            :fetch-suggestions="querySearch"
+            placeholder="请输入内容"
+            @select="handleSelect">
+            <template slot-scope="{ item }">
+              <div class="name">{{ item.institutionName }}</div>
+            </template>
+          </el-autocomplete>
+
         </el-form-item>
         <el-form-item label="服务名称">
-          <el-select v-model="searchParams.institutionId" clearable placeholder="请选择所属机构">
-            <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId"></el-option>
+          <el-select v-model="searchParams.serviceId" clearable placeholder="请选择服务">
+            <el-option v-for="item in serviceList" :key="item.dictId" :label="item.dictName" :value="item.dictCode"></el-option>
           </el-select>
         </el-form-item>
 
@@ -46,18 +54,18 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" @click="_doSearch">查询</el-button>
-          <el-button type="primary" @click="_doSearch">清空</el-button>
-          <el-button type="primary" @click="_doSearch">导出Excel</el-button>
+          <el-button type="primary" @click="doSearch">查询</el-button>
+          <el-button type="primary" @click="reset">清空</el-button>
+          <el-button type="primary" @click="exportExcel">导出Excel</el-button>
         </el-form-item>
       </el-form>
       <!--tab nav-->
       <el-tabs v-model="tabIndex">
         <el-tab-pane label="全部" name="null"></el-tab-pane>
-        <el-tab-pane label="待处理" name="1"></el-tab-pane>
-        <el-tab-pane label="退款中" name="2"></el-tab-pane>
-        <el-tab-pane label="退款成功" name="3"></el-tab-pane>
-        <el-tab-pane label="退款失败" name="4"></el-tab-pane>
+        <el-tab-pane label="待处理" name="0"></el-tab-pane>
+        <el-tab-pane label="退款中" name="1"></el-tab-pane>
+        <el-tab-pane label="退款成功" name="2"></el-tab-pane>
+        <el-tab-pane label="退款失败" name="3"></el-tab-pane>
       </el-tabs>
 
       <!--table 表单开始-->
@@ -78,21 +86,26 @@
 
         <el-table-column prop="authenticationStatus" label="退款状态" width="100">
           <template slot-scope="scope">
-            <el-tag type="info" v-if="scope.row.refundStatus===1">待处理</el-tag>
-            <el-tag type="success" v-if="scope.row.refundStatus===2">退款中</el-tag>
-            <el-tag type="warning" v-if="scope.row.refundStatus===3">退款成功</el-tag>
-            <el-tag type="danger" v-if="scope.row.refundStatus===4">退款失败</el-tag>
+            <el-tag type="warning" v-if="scope.row.refundStatus===0">待处理</el-tag>
+            <el-tag type="success" v-if="scope.row.refundStatus===1">退款中</el-tag>
+            <el-tag type="success" v-if="scope.row.refundStatus===2">退款成功</el-tag>
+            <el-tag type="danger" v-if="scope.row.refundStatus===3">退款失败</el-tag>
           </template>
         </el-table-column>
 
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button v-if="scope.row.refundStatus==0" size="mini" type="primary" @click="_checkDetail(scope.row)">审核</el-button>
-            <el-button v-if="scope.row.refundStatus==1 || scope.row.refundStatus==2 || scope.row.refundStatus==3" size="mini" type="primary" @click="_checkDetail(scope.row)">查看</el-button>
+            <el-button v-if="scope.row.refundStatus==0" size="mini" type="primary" @click="checkDetail(scope.row)">审核</el-button>
+            <el-button v-if="scope.row.refundStatus==1 || scope.row.refundStatus==2 || scope.row.refundStatus==3" size="mini" type="primary" @click="checkDetail(scope.row)">查看</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!--table 表单结束-->
+
+      <div class="self-page-container">
+        <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.page" :page-sizes="[10,20]" :page-size="searchParams.limit" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
+        </el-pagination>
+      </div>
     </div>
   </div>
 
@@ -103,37 +116,35 @@
 
 import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
-import {getListOrderRefund} from "@/api/api.js";
+import {getListOrderRefund ,ERR_OK} from "@/api/api.js";
 
 
 export default {
   data() {
     return {
       //报告详情数据
-
+      totalCount:0,
       tabIndex:'null',//状态index
-
       rangeTime:"",//时间range
       searchParams: {
         customerMobile: "",//手机号
         customerName: "",//姓名
         doctorName: "",//医生姓名
-        startTime: "",
-        endTime: "",
         institutionName: "",//机构名称
-        limit: 10,
+        pageSize: 10,
         page: 1,
         serviceId: "",//服务名称的id
-        refundStatus: "",//服务状态
+        refundStatus:null,//服务状态
         tradeCode: ""//订单号
       },
 
       //退款列表
-      refuseList:[
-        {allDiscountAmount: 0,approvalTime: null, checkUnitCode: null, createTime: "2018-07-06 17:20:17", cspOrderId: "2c8080aa6468a07e01646ee4055d00b5", discountAmount: 0, doctorName: "左丽红-河南省直三院", goodsAmount: 0.01, goodsName: "图文咨询", healthDoctorName: null, insOrderRefundId: "2c8080aa6468a07e01646ee45e9100b8", institutionName: "河南省直三院", orderCode: "20180706171954132971_01", payChannel: 1, refundAmount: 0.01, refundCode: "20180706172017134613", refundReason: "啦啦啦啦啦啦啦啦", refundRemark: "线上退款", refundStatus: 3, refuseReason: "kkkk ", thirdTradeNo: "2018070621001004540558476804", totalPrice: 0.01, tradeCode: "20180706171954132971", userName: "左丽红", userPhone: "17740877130", workNo: null},
-        {allDiscountAmount: 0,approvalTime: null, checkUnitCode: null, createTime: "2018-07-06 17:20:17", cspOrderId: "2c8080aa6468a07e01646ee4055d00b5", discountAmount: 0, doctorName: "左丽红-河南省直三院", goodsAmount: 0.01, goodsName: "图文咨询", healthDoctorName: null, insOrderRefundId: "2c8080aa6468a07e01646ee45e9100b8", institutionName: "河南省直三院", orderCode: "20180706171954132971_01", payChannel: 1, refundAmount: 0.01, refundCode: "20180706172017134613", refundReason: "啦啦啦啦啦啦啦啦", refundRemark: "线上退款", refundStatus: 3, refuseReason: "kkkk ", thirdTradeNo: "2018070621001004540558476804", totalPrice: 0.01, tradeCode: "20180706171954132971", userName: "左丽红", userPhone: "17740877130", workNo: null},
-      ],
-
+      refuseList:[],
+      //服务名称列表
+      serviceList:[
+        {"dictId":10,"dictCode":"8ab2b2f563822d260163822d26fd0000","dictName":"图文咨询"},
+        {"dictId":20,"dictCode":"8ab2b2f56381c35a016381c35a400000","dictName":"电话报告解读"}
+      ]
     }
   },
 
@@ -146,70 +157,108 @@ export default {
   },
 
   methods:{
+
+    //自带搜索组件选中
+    handleSelect(item) {
+      this.searchParams.institutionName=item.institutionName
+    },
+
+    //自带搜索组件搜索
+    querySearch(queryString, cb) {
+      var institutions = this.getInstitutionArr;
+      var results = queryString ? institutions.filter(this.createFilter(queryString)) : institutions;
+      cb(results);
+    },
+    createFilter(queryString) {
+      return (restaurant) => {
+        return (restaurant.institutionName.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+      };
+    },
+
     //搜索
-    _doSearch(){
+    doSearch(){
+      this.searchParams.page=1;
+      this.getRefuseList();
+    },
+
+    //重置
+    reset(){
+      this.searchParams.customerMobile="";
+      this.searchParams.customerName="";
+      this.searchParams.doctorName="";
+      this.searchParams.institutionName="";
+      this.searchParams.serviceId="";
+      this.searchParams.tradeCode="";
+      this.rangeTime="";
+    },
+
+    //导出表格
+    exportExcel(){
 
     },
 
     //点击查看
-    _checkDetail: function (item) {
-
+    checkDetail: function (item) {
       var reportId=123;
-      this.$router.push({ name: 'refundsInfo', params: { reportId }})
+      this.$router.push({ path: `/refundsInfo/${reportId}`})
+    },
 
+    //获取列表数据
+    getRefuseList(){
+      var params={
+        currentPage: this.searchParams.page,
+        customerMobile:this.searchParams.customerMobile,
+        customerName:this.searchParams.customerName,
+        doctorName: this.searchParams.customerName,
+        institutionName: this.searchParams.institutionName,
+        pageSize: this.searchParams.pageSize,
+        refundStatus:this.searchParams.refundStatus,
+        serviceId:this.searchParams.serviceId,
+        startTime:this.rangeTime ? this.rangeTime[0] :"",
+        endTime:this.rangeTime ? this.rangeTime[1] :"",
+        timespan: "44",
+        tradeCode: this.searchParams.tradeCode
+      };
 
-     /* this.showStatus = 2;
-      this.orderInfo = item;
-
-      this.payList.length=0;
-      this.payList.push({
-        thirdTradeNo:item.thirdTradeNo,//流水号
-        refundAmount:item.refundAmount,//付款价格
-        allDiscountAmount:item.allDiscountAmount,//优惠金额
-        totalPrice:item.totalPrice,//订单总价
-      })*/
-
+      getListOrderRefund(params).then(res => {
+        if(res.code===ERR_OK){
+          this.refuseList=res.data.list;
+          this.totalCount=res.data.totalCount;
+        }else{
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      }).catch(err => {
+        this.$alert(err.msg, '提示', {
+          confirmButtonText: '确定',
+        })
+      })
 
     },
 
+    handleSizeChange(val){
+      this.searchParams.pageSize=val;
+      this.getRefuseList()
+    },
 
-
-
-
-
-
-
-
+    handleCurrentChange(val){
+      this.searchParams.page=val;
+      this.getRefuseList()
+    }
 
   },
 
 
   created(){
-
-
-    getListOrderRefund({
-      currentPage: 1,
-      customerMobile: "",
-      customerName: "",
-      doctorName: "",
-      endTime: "",
-      institutionName: "",
-      pageSize: 10,
-      refundStatus: 1,
-      serviceId: "",
-      startTime: "",
-      timespan: "44",
-      tradeCode: ""
-    }).then(res => {
-
-      console.log(res)
-
-
-    }).catch(err => {
-
-    })
-
-
+    this.getRefuseList();
+  },
+  watch:{
+    tabIndex(newVal){
+      this.searchParams.refundStatus=newVal;
+      this.searchParams.page=1;
+      this.getRefuseList();
+    }
 
   }
 
@@ -226,6 +275,5 @@ export default {
   .text-danger{color:#F56C6C}
   .text.item{line-height: 24px;font-size: 14px;color:#666;margin-bottom: 10px}
   .status-text{line-height: 24px;font-size: 14px;color: #555;margin-bottom: 10px}
-
   .showReportBtn{color:#409EFF;cursor: pointer;font-weight: bold;font-size: 14px;}
 </style>
