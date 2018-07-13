@@ -33,16 +33,36 @@ export {
 export const API_QUERY_INSLEAVE_WORDLIST = localUrl+'queryInsLeaveWordList';//获取聊天数据
 export const API_QUERY_INSLEAVE_WORD_ANSWER_LIST = localUrl+'queryInsLeaveWordAnswerList';//查看回复数据
 /*订单列表*/
-export const API_LIST_SERVICE_dict = localUrl+'listServiceDict';//订单列表词典
-export const API_TRADE_LIST = localUrl+'tradeList';//主订单列表
-export const API_CSP_ORDER_LIST = localUrl+'cspOrderList';//子订单列表
-export const API_trade_INFO = localUrl+'tradeInfo';//主订单详情
-export const API_CSP_ORDER_INFO = localUrl+'cspOrderInfo';//子订单详情
-export const API_CSP_ORDER_INFO1 = localUrl+'cspOrderInfo1';//子订单详情
+/*export const API_LIST_SERVICE_dict = localUrl+'listServiceDict';//订单列表词典
+export const API_TRADE_LIST = localUrl+'tradeList';//主订单列表*/
+// export const API_CSP_ORDER_LIST = localUrl+'cspOrderList';//子订单列表
+// export const API_trade_INFO = localUrl+'tradeInfo';//主订单详情
+// export const API_CSP_ORDER_INFO = localUrl+'cspOrderInfo';//子订单详情
+// export const API_CSP_ORDER_INFO1 = localUrl+'cspOrderInfo1';//子订单详情
 export const API_GET_REFUND_DETAIL = localUrl+'getRefundDetail';//退款详情
 
 
+//系统管理
+export const API_POST_LIST_WITH_NOPARAM = baseUrl+'sys/role/listWithNoParam';//角色列表
+export const API_POST_SAVE_ROLE = baseUrl+'sys/role/save';//新增角色
+export const API_POST_UPDATE_ROLE = baseUrl+'sys/role/update';//修改角色
+export const API_POST_DELETE_ROLE = baseUrl+'sys/role/delete';//删除角色
+//机构业务
+//商品管理
+//医生管理
+export const API_POST_LIST_DOCTOR = baseUrl+'sys/doctor/doctorList';//医生列表
+export const API_POST_SAVE_DOCTOR = baseUrl+'sys/doctor/doctorSave';//修改医生信息
+//订单管理
 export const API_GET_LIST_ORDER_REFUND = baseUrl+'ins/orderRefund/listOrderRefund';//退款列表
 
 export const API_GET_LIST_ALL_INSTITUTION = baseUrl+'ins/institution/listAllInstitution';//机构列表
 
+
+export const API_LIST_SERVICE_dict = baseUrl+'ins/orderRefund/listOrderRefund';//订单列表词典
+export const API_TRADE_LIST = baseUrl+'csp/trade/tradeList';//主订单列表
+export const API_TRADE_INFO = baseUrl+'csp/trade/tradeInfo';//主订单详情
+export const API_CSP_ORDER_LIST = baseUrl+'csp/trade/cspOrderList';//子订单列表
+export const API_CSP_ORDER_INFO = baseUrl+'csp/trade/cspOrderInfo';//子订单详情
+
+
+export const API_LOGIN = baseUrl+'sys/user/login';//登录

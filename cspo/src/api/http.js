@@ -3,9 +3,17 @@ axios.defaults.baseURL="/Api";
 
 export function get(url, params) {
   return new Promise((resolve, reject) => {
-    axios.get(url, {
-      params: params
-    }).then(res => {
+    axios.get(url,params).then(res => {
+      resolve(res.data)
+    }).catch(err => {
+      reject(err)
+    })
+  })
+}
+//get请求传一个参数
+export function getOne(url, params) {
+  return new Promise((resolve, reject) => {
+    axios.get(url+"/"+params).then(res => {
       resolve(res.data)
     }).catch(err => {
       reject(err)
@@ -18,7 +26,8 @@ export function post(url, data,) {
     ).then(res => {
       resolve(res.data)
     }).catch(err => {
-      reject(err)
+      // reject(err)
+      alert(1)
     })
   })
 }

@@ -158,7 +158,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10,30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </template>
           </el-col>
@@ -171,8 +171,7 @@
 
 
 <script>
-import { getUserlistData } from '@/api/getData.js'
-import { getRoleList2 } from '@/api/api.js'
+import { getListWithNoParam,PostUpdateRole,PostDeleteRole,PostSaveRole } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -184,13 +183,13 @@ export default {
       params: { timespan : this.dateNw, },
       formInline: { valueSS: '' },
       currentPage: 1, //分页初始页码
-      pagesize: 5, //分页初始显示条数
+      pagesize: 30, //分页初始显示条数
       tableData: [], //列表数据
       editTable: {}, //修改单个数据
       editTableRoot: {},
       addTable: {
         //新增单个数据
-        roleId: 1,
+        // roleId: 1,
         roleCode: '',
         roleName: '',
         remark: '',
@@ -229,8 +228,43 @@ export default {
     // 确定新增
     _doAdd() {
       this.tableData.push(this.addTable)
-      this.addTable = {
-        roleId: 1,
+     
+        let date = Date.parse( new Date())
+        let params = {
+              "deptId": this.addTable.deptId,
+              "deptIdList": [
+                0
+              ],
+              "deptName": "string",
+              "menuTypeListDTO": [
+                {
+                  "menuIdList": [
+                    0
+                  ],
+                  "roleType": this.addTable.roleType,
+                  "timespan": date
+                }
+              ],
+              "remark": this.addTable.remark,
+              "roleCode": this.addTable.roleCode,
+              // "roleId": this.addTable.roleId,
+              "roleName": this.addTable.roleName,
+              
+          }
+        PostSaveRole(params).then(response => {
+              this.$message({
+                    type: 'success',
+                    message: '新增成功!'
+                  })
+                  this.getRoleList()
+                  }).catch(err => {
+                    this.$message({
+                          type: 'error',
+                          message: err
+                        })
+                  })
+        this.addTable = {
+        // roleId: 1,
         roleCode: '',
         roleName: '',
         remark: '',
@@ -243,10 +277,7 @@ export default {
         roleTypelist: ['医生端']
       }
       this.dialogAddVisible = false
-      this.$message({
-        type: 'success',
-        message: '新增角色成功!'
-      })
+      
     },
     //取消新增
     _doAddCancel() {
@@ -276,21 +307,50 @@ export default {
       this.editTableRoot = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
       this.editTable = row //复制单列数据
       this.dialogEditVisible = true
-      console.log(this.editTable)
-      console.log(this.editTable.roleType)
-      console.log(typeof(this.editTable.roleType))
-      this.editTable.roleType = this.editTable.roleType.split(',')
-      console.log(this.editTable.roleType)
-      console.log(typeof(this.editTable.roleType))
+      // console.log(this.editTable)
+      // console.log(this.editTable.roleType)
+      // console.log(typeof(this.editTable.roleType))
+      // this.editTable.roleType = this.editTable.roleType.split(',')
+      // console.log(this.editTable.roleType)
+      // console.log(typeof(this.editTable.roleType))
     },
     //确定修改
     _doHandleEdit() {
-      this.dialogEditVisible = false
-      this.$message({
-        type: 'success',
-        message: '修改成功!'
-      })
-      console.log(this.editTable.roleType)
+      // console.log(JSON.stringify(this.editTable))
+        let date = Date.parse( new Date())
+        let params = {
+              "deptId": this.editTable.deptId,
+              "deptIdList": [
+                0
+              ],
+              "deptName": "string",
+              "menuTypeListDTO": [
+                {
+                  "menuIdList": [
+                    0
+                  ],
+                  "roleType": this.editTable.roleType,
+                  "timespan": date
+                }
+              ],
+              "remark": this.editTable.remark,
+              "roleCode": this.editTable.roleCode,
+              "roleId": this.editTable.roleId,
+              "roleName": this.editTable.roleName,
+          }
+        PostUpdateRole(params).then(response => {
+              this.$message({
+                    type: 'success',
+                    message: '修改成功!'
+                  })
+                  }).catch(err => {
+                    this.$message({
+                          type: 'error',
+                          message: err
+                        })
+                  })
+        this.dialogEditVisible = false
+      
     },
     //取消修改
     _doCancel() {
@@ -310,10 +370,22 @@ export default {
         center: true
       })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
+        let date = Date.parse( new Date())
+        let params = {
+              "ids": [this.tableData[index].roleId],
+              "timespan": date
+          }
+        PostDeleteRole(params).then(response => {
+              this.$message({
+                    type: 'success',
+                    message: '删除成功!'
+                  })
+                  }).catch(err => {
+                    this.$message({
+                          type: 'error',
+                          message: err
+                        })
+                  })
           this.tableData.splice(
             index + (this.currentPage - 1) * this.pagesize,
             1
@@ -328,17 +400,14 @@ export default {
     },
     //获取用户列表
     getRoleList() {
-
-      var date = Date.parse( new Date())
-      var params = {
-            "timespan": date
+      let date = Date.parse( new Date())
+      let params = {
+            timespan : date
         }
-      this.$http.post('http://172.0.0.41:8117/cspo/sys/role/listWithNoParam',params).then(response => {
+      getListWithNoParam(params).then(response => {
         this.tableData = []
-        this.tableData = this.tableData.concat(response.data.data)
-        // console.log(JSON.stringify(this.tableData))
+        this.tableData = response.data
       })
-      // getRoleList2(params)
     }
   },
   created: function() {
