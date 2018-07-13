@@ -35,10 +35,10 @@ export const API_QUERY_INSLEAVE_WORD_ANSWER_LIST = localUrl+'queryInsLeaveWordAn
 /*订单列表*/
 /*export const API_LIST_SERVICE_dict = localUrl+'listServiceDict';//订单列表词典
 export const API_TRADE_LIST = localUrl+'tradeList';//主订单列表*/
-export const API_CSP_ORDER_LIST = localUrl+'cspOrderList';//子订单列表
-export const API_trade_INFO = localUrl+'tradeInfo';//主订单详情
-export const API_CSP_ORDER_INFO = localUrl+'cspOrderInfo';//子订单详情
-export const API_CSP_ORDER_INFO1 = localUrl+'cspOrderInfo1';//子订单详情
+// export const API_CSP_ORDER_LIST = localUrl+'cspOrderList';//子订单列表
+// export const API_trade_INFO = localUrl+'tradeInfo';//主订单详情
+// export const API_CSP_ORDER_INFO = localUrl+'cspOrderInfo';//子订单详情
+// export const API_CSP_ORDER_INFO1 = localUrl+'cspOrderInfo1';//子订单详情
 export const API_GET_REFUND_DETAIL = localUrl+'getRefundDetail';//退款详情
 
 
@@ -61,7 +61,9 @@ export const API_GET_LIST_ALL_INSTITUTION = baseUrl+'ins/institution/listAllInst
 
 export const API_LIST_SERVICE_dict = baseUrl+'ins/orderRefund/listOrderRefund';//订单列表词典
 export const API_TRADE_LIST = baseUrl+'csp/trade/tradeList';//主订单列表
-
+export const API_TRADE_INFO = baseUrl+'csp/trade/tradeInfo';//主订单详情
+export const API_CSP_ORDER_LIST = baseUrl+'csp/trade/cspOrderList';//子订单列表
+export const API_CSP_ORDER_INFO = baseUrl+'csp/trade/cspOrderInfo';//子订单详情
 
 
 export const API_LOGIN = baseUrl+'sys/user/login';//登录

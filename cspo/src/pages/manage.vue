@@ -80,7 +80,7 @@
       },
       created(){
         var data = new Date();
-        console.log(data.getTime())
+
       },
       methods:{
         ...mapMutations([
@@ -98,7 +98,7 @@
 
 
 
-            console.log(res)
+
           }).catch(err => {
 
           })
