@@ -36,19 +36,30 @@
         </el-form-item>
 
         <el-form-item label="服务名称">
-          <el-select v-model="searchParams.itemId" placeholder="请选择服务名称">
+          <el-select filterable  v-model="searchParams.itemId" placeholder="请选择服务名称">
             <el-option
-              v-for="(item,index) in listServiceDict"
+              v-for="(item,index) in listServiceDictList"
               :key="index"
-              :label="item.dictName"
+              :label="item.institutionName"
               :value="item.dictCode"
             ></el-option>
           </el-select>
         </el-form-item>
 
         <el-form-item label="服务机构">
-          <el-input v-model="searchParams.institutionName" placeholder="请输入服务机构"></el-input>
+          <el-select filterable  v-model="searchParams.institutionName" placeholder="请输入服务机构">
+            <el-option
+              v-for="(item,index) in institutionArr"
+              :key="index"
+              :label="item.institutionName"
+              :value="item.dictCode"
+            ></el-option>
+          </el-select>
         </el-form-item>
+
+<!--        <el-form-item filterable label="服务机构">
+          <el-input v-model="searchParams.institutionName" placeholder="请输入服务机构"></el-input>
+        </el-form-item>-->
 
         <el-form-item label="时间">
           <el-date-picker
@@ -87,8 +98,8 @@
             <el-table-column prop="doctorNameString" label="服务医生"></el-table-column>
             <el-table-column label="订单状态">
               <template slot-scope="scope">
-                <el-tag type="info" size="medium" v-show="scope.row.tradeStatus===0">待付款</el-tag>
-                <el-tag type="warning" size="medium" v-show="scope.row.tradeStatus===1">已取消</el-tag>
+                <el-tag type="warning" size="medium" v-show="scope.row.tradeStatus===0">待付款</el-tag>
+                <el-tag type="info" size="medium" v-show="scope.row.tradeStatus===1">已取消</el-tag>
                 <el-tag type="success" size="medium" v-show="scope.row.tradeStatus===2">已付款</el-tag>
                 <el-tag size="medium" v-show="scope.row.tradeStatus===3">已完成</el-tag>
               </template>
@@ -196,7 +207,8 @@
 <script>
 
   import headerTop from '@/components/headTop.vue';
-  import {listServiceDict,tradeList,api} from "@/api/api"
+  import {listServiceDict,tradeList,api,ERR_OK} from "@/api/api"
+  import {mapState} from 'vuex'
 
   export default {
     data() {
@@ -213,10 +225,9 @@
           itemId: null,//string	服务id
           institutionName: '',//string 机构名称
           startTime: '',
-          endTime: '',
-          timespan:''
+          endTime: ''
         },
-        listServiceDict: [],//服务名称
+        listServiceDictList: [],//服务名称
         rangeTime: null,
         activeName: "first",
         tradeList: [],
@@ -234,8 +245,11 @@
       }
     },
     created() {
-      this._listServiceDict();
       this._getDatalist();
+    },
+    mounted(){
+
+      this._listServiceDict();
     },
     methods: {
       //获取时间
@@ -247,10 +261,12 @@
       },
       //服务名称选择
       _listServiceDict: function () {
-        let data = '';
-        api.listServiceDict(data).then((res) => {
-          if (res.code === 1) {
-            this.listServiceDict = res.data;
+        let data = '',
+        that = this;
+        listServiceDict(data).then((res) => {
+          console.log(res)
+          if (res.code === ERR_OK) {
+            that.listServiceDictList = res.data;
           } else {
             alert(res.msg);
           }
@@ -347,16 +363,16 @@
       //获取主订单列表
       _getDatalist: function () {
         let getDate = new Date();
-        this.searchParams.timespan = getDate.getTime().toString();
+        // this.searchParams.timespan = getDate.getTime().toString();
         let data = this.searchParams;
         tradeList(data).then((res) => {
-          if (res.code === 1) {
+          if (res.code === ERR_OK) {
             this.tradeList = res.data.list;
             this.pages1.totalCount = res.data.totalCount;
             this.pages1.currentpage = res.data.currPage;
             this.pages1.pageSize = res.data.pageSize
           } else {
-
+            this.$alert(res.msg)
           }
         })
       },
@@ -656,7 +672,12 @@
 
     components: {
       headerTop
-    }
+    },
+    computed: {
+      ...mapState({
+        institutionArr: state => state.institutionArr
+      })
+    },
   }
 </script>
 

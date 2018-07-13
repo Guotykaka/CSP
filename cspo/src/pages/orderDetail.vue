@@ -136,7 +136,7 @@
           </div>
         </el-card>
         <!--订单变更记录-->
-        <el-card class="box-card" :body-style="payStyle" v-if="item.refundCode">
+        <el-card class="box-card" :body-style="payStyle">
           <div slot="header"><span class="colorStatus">订单变更记录</span></div>
           <div v-for="(itemChange,index2) in item.orderChangeList" :key="index2">
             {{itemChange.CREATE_TIME}}
@@ -169,7 +169,7 @@
 
 <script>
   import headerTop from '@/components/headTop.vue'
-  import {api} from "@/api/api"
+  import {tradeInfo,ERR_OK} from "@/api/api"
   import report from '@/components/report.vue';
   import refundDetail from '@/components/refundDetail.vue';
 
@@ -2694,17 +2694,21 @@
       }
     },
     created() {
+
+
+    },
+    activated(){
       this.customerDetail = this.$route.params.val;
       this.checkedId = this.$route.params.val.tradeCode;
       this.getDetail();
-      console.log(this.$route.params.val)
     },
     methods: {
       getDetail() {
-        let data = this.checkedId;
-        console.log(data)
-        api.tradeInfo(data).then((res) => {
-          if (res.code === 1) {
+        let data = {
+          tradeCode:this.checkedId
+        };
+        tradeInfo(data).then((res) => {
+          if (res.code === ERR_OK) {
             this.cspTradeInfoEntity = res.data.cspTradeInfoEntity;
             this.cspOrderInfoList = res.data.cspOrderInfoList;
           } else {

@@ -5,7 +5,10 @@ import * as urls from '@/config/env.js'
 
 export const ERR_OK = 1;
 
-
+let timeString=function(){
+  var getDate = new Date();
+  return getDate.getTime().toString()
+}
 
 //登录
 export function login(params){
@@ -49,14 +52,28 @@ export function listServiceDict(params){
   return post(urls.API_LIST_SERVICE_dict,params)
 }
 //主订单列表
-export function tradeList(params){
-  return post(urls.API_TRADE_LIST,params)
-}
-//登录验证码
-export function captcha(params){
-  return getOne(urls.API_CAPTCHA,params)
+export function tradeList(params) {
+  params.timespan = timeString();
+  return post(urls.API_TRADE_LIST, params)
 }
 
+//主订单详情
+export function tradeInfo(params) {
+  params.timespan = timeString();
+  return post(urls.API_TRADE_INFO, params)
+}
+
+//子订单列表
+export function cspOrderList(params) {
+  params.timespan = timeString();
+  return post(urls.API_CSP_ORDER_LIST, params)
+}
+
+//子订单详情
+export function cspOrderInfo(params) {
+  params.timespan = timeString();
+  return post(urls.API_CSP_ORDER_INFO, params)
+}
 
 export const api ={
   /*个人中心*/

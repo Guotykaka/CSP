@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import "@/asset/style/common.less"
 import "@/asset/style/mixin.less"
+import {getStore} from '@/config/mUtils.js'
 
 
 const login = () => import('@/pages/login.vue')//登录
@@ -46,7 +47,7 @@ const goMyself = () => import('@/pages/goMyself.vue')//个人中心
 
 Vue.use(Router)
 
-export default new Router({
+let router =  new Router({
   routes: [
     {
       path: '/login',
@@ -182,4 +183,6 @@ export default new Router({
       ]
     },
   ]
-})
+});
+
+export default router;

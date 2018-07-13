@@ -24,7 +24,7 @@
 
 <script>
   //引入login的方法
-  import {login,captcha} from "@/api/api.js";
+  import {login,ERR_OK} from "@/api/api.js";
 
   export default {
       data:function () {
@@ -50,7 +50,7 @@
 
           var params=this.loginParams;
           login(params).then(res => {
-            if(res.code===1){
+            if(res.code===ERR_OK){
               this.$router.push("notice")
             }else{
               this.$alert(res.msg)
@@ -68,9 +68,6 @@
           this.imgUrl = "http://172.0.0.41:8117/cspo/sys/user/captcha.jpg/"+this.loginParams.codeKey
         }
       }
-
-
-
     }
 </script>
 
