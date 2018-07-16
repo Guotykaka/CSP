@@ -1,14 +1,10 @@
-import {get,post,getOne} from "./http.js";
 
-import {baseUrl,baseImgPath} from "../config/env";
+import {get,post} from "./http.js";
 import * as urls from '@/config/env.js'
+import {baseUrl,baseImgPath} from "../config/env";
+
 
 export const ERR_OK = 1;
-
-let timeString=function(){
-  var getDate = new Date();
-  return getDate.getTime().toString()
-}
 
 //登录
 export function login(params){
