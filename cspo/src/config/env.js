@@ -43,6 +43,7 @@ export const API_GET_REFUND_DETAIL = localUrl+'getRefundDetail';//退款详情
 
 
 //系统管理
+export const API_POST_LIST_USER = baseUrl+'sys/user/list';//用户列表
 export const API_POST_LIST_WITH_NOPARAM = baseUrl+'sys/role/listWithNoParam';//角色列表
 export const API_POST_SAVE_ROLE = baseUrl+'sys/role/save';//新增角色
 export const API_POST_UPDATE_ROLE = baseUrl+'sys/role/update';//修改角色

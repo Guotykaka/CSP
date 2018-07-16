@@ -6,11 +6,21 @@
         
       <el-row :gutter="20" class="m_b_15">
         <el-col :span="6" class="minwidth">
-          <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
+          <el-input v-model="searchParams.username" placeholder="用户名" @keyup.enter.native="doSearche()"></el-input>
         </el-col>
+        <!-- <el-col :span="6" class="minwidth">
+          <el-checkbox-group v-model="searchParams.username">
+                  <el-checkbox v-for="item in roleList" :label="item.roleName">{{item.roleId}}</el-checkbox>
+                </el-checkbox-group>
+        </el-col> -->
+        <!-- <el-col :span="6" class="minwidth">
+          <el-checkbox-group  :value="mpb.roleId" v-for="mpb in roleList" :key="mpb.roleId" v-model="searchParams.username" class="checkgroup" >
+            <el-checkbox :label="mpb.roleName" @change="checkinlist"></el-checkbox>
+          </el-checkbox-group>
+        </el-col> -->
        
         <el-col :span="6" class="minwidth">
-          <el-button type="primary">查询</el-button>
+          <el-button type="primary" @click="doSearche()">查询</el-button>
           <el-button type="primary" @click="handleAdd()">新增</el-button>
         </el-col>
       </el-row>
@@ -46,27 +56,17 @@
             </el-form-item>
             <el-form-item label="角色:" :label-width="formLabelWidth">
               <template>
-                <el-checkbox-group v-model="editTable.checkList">
-                  <el-checkbox label="医生角色"></el-checkbox>
-                  <el-checkbox label="运营人员"></el-checkbox>
-                  <el-checkbox label="健管师"></el-checkbox>
-                  <el-checkbox label="医生主任"></el-checkbox>
-                  <br>
-
-                  <el-checkbox label="产品"></el-checkbox>
-                  <el-checkbox label="邵勇-角色"></el-checkbox>
-                  <el-checkbox label="sai医生角色"></el-checkbox>
-                  <el-checkbox label="媒体号"></el-checkbox>
-                  <br>
-                  <el-checkbox label="内容编辑"></el-checkbox>
-                  <el-checkbox label="市场部"></el-checkbox>
+                <el-col :span="16">
+                <el-checkbox-group v-model="editTable.roleIdList" :change="chanbox()">
+                  <el-checkbox v-for="item in roleList" :label="item.roleId">{{item.roleName}}</el-checkbox>
                 </el-checkbox-group>
+                </el-col>
               </template>
             </el-form-item>
             <el-form-item label="状态:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-radio v-model="editTable.userType" label="0">禁用</el-radio>
-                <el-radio v-model="editTable.userType" label="1">正常</el-radio>
+                <el-radio v-model="editTable.status" label="0">禁用</el-radio>
+                <el-radio v-model="editTable.status" label="1">正常</el-radio>
               </template>
             </el-form-item>
           </el-form>
@@ -120,8 +120,8 @@
             </el-form-item>
             <el-form-item label="状态:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-radio v-model="selectTable.userType" label="0" onclick="return false">禁用</el-radio>
-                <el-radio v-model="selectTable.userType" label="1" onclick="return false">正常</el-radio>
+                <el-radio v-model="selectTable.status" label="0" onclick="return false">禁用</el-radio>
+                <el-radio v-model="selectTable.status" label="1" onclick="return false">正常</el-radio>
               </template>
             </el-form-item>
           </el-form>
@@ -200,8 +200,8 @@
             <el-table-column align="center" label="状态">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.userType === '1'">正常</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.userType === '0'">禁用</el-tag>
+                  <el-tag size="medium" type="success" v-if="scope.row.userType === 1">正常</el-tag>
+                  <el-tag size="medium" type="danger" v-if="scope.row.userType === 0">禁用</el-tag>
                 </div>
               </template>
             </el-table-column>
@@ -234,7 +234,7 @@
 
 
 <script>
-import { getUserlistData } from '@/api/getData.js'
+import { getUserList,getListWithNoParam } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -242,10 +242,11 @@ export default {
   },
   data() {
     return {
-      formInline:{valueSS:''},
+      searchParams:{username:''},
       currentPage: 1, //分页初始页码
       pagesize: 5, //分页初始显示条数
       tableData: [], //列表数据
+      roleList: [], //角色数据
       selectTable: {}, //查看单个数据
       editTable: {}, //修改单个数据
       editTableRoot: {},
@@ -272,6 +273,20 @@ export default {
     }
   },
   methods: {
+    doSearche(){
+      let date = Date.parse( new Date())
+      let params = {
+            "currentPage": 1,
+            "pageSize": 10,
+            "userType": "",
+            "username": this.searchParams.username,
+            "timespan" : date
+        }
+      getUserList(params).then(response => {
+        this.tableData = []
+        this.tableData = response.data.list
+      })
+    },
     handleSizeChange: function(size) {
       this.pagesize = size
       console.log(`每页 ${size} 条`)
@@ -335,12 +350,31 @@ export default {
       this.selectTable = row
       this.dialogCheckVisible = true
     },
+    getRoleList() {
+      let date = Date.parse( new Date())
+      let params = {
+            timespan : date
+        }
+      getListWithNoParam(params).then(response => {
+        this.roleList = []
+        this.roleList = response.data
+      })
+    },
+    chanbox(){
+      console.log(this.editTable.roleIdList)
+    },
     // 修改
     handleEdit(index, row) {
+      this.getRoleList() 
       this.inde = index+(this.currentPage-1)*this.pagesize//计算分页后列表下标
+      row.status=String(row.status)
+      // console.log(typeof(row.roleIdList))
+      row.roleIdList= [null]
       this.editTableRoot = JSON.parse(JSON.stringify(row))//深拷贝出原始数据
       this.editTable = row//复制单列数据
       this.dialogEditVisible = true
+      // console.log(this.editTable.roleIdList)
+      console.log(typeof(this.editTable.roleIdList))
     },
     //确定修改
     _doHandleEdit() {
@@ -405,31 +439,23 @@ export default {
         })
     },
     //获取用户列表
-    getUserList() {
-      this.$http.post('http://localhost:8080/api/userList').then(response => {
+    getUser() {
+      let date = Date.parse( new Date())
+      let params = {
+            "currentPage": 1,
+            "pageSize": 10,
+            "userType": "",
+            "username": "",
+            "timespan" : date
+        }
+      getUserList(params).then(response => {
         this.tableData = []
-        // this.tableData = this.tableData.concat(response.data.data)
-        response.data.data.forEach(item => {
-          const tableData = {}
-          tableData.username = item.username
-          tableData.email = item.email
-          tableData.deptName = item.deptName
-          tableData.deptId = item.deptId
-          tableData.mobile = item.mobile
-          tableData.userId = item.userId
-          tableData.status = item.status
-          tableData.roleIdList = item.roleIdList
-          tableData.createTime = item.createTime
-          tableData.userType = item.userType
-          tableData.checkList = item.checkList
-          tableData.password = item.password
-          this.tableData.push(tableData)
-        })
+        this.tableData = response.data.list
       })
-    }
+    },
   },
   created: function() {
-    this.getUserList()
+    this.getUser()
   }
 }
 </script>
@@ -437,5 +463,8 @@ export default {
 <style lang="less" scoped>
 .minwidth{
   min-width: 200px;
+}
+.el-checkbox {
+    margin-left: 20px;
 }
 </style>

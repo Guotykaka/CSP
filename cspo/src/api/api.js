@@ -15,6 +15,10 @@ export function login(params){
   return post(urls.API_LOGIN,params)
 }
 //系统管理
+//用户列表API_POST_LIST_USER
+export function getUserList(params){//获取列表
+  return post(urls.API_POST_LIST_USER,params)
+}
 //角色列表
 export function getListWithNoParam(params){//获取列表
   return post(urls.API_POST_LIST_WITH_NOPARAM,params)
