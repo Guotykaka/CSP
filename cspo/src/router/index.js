@@ -38,6 +38,7 @@ const refundsInfo = () => import('@/pages/refundsInfo.vue')//退款详情
 const orderList = () => import('@/pages/orderList.vue')//订单列表
 const orderDetail = () => import('@/pages/orderDetail.vue')//主订单详情
 const orderSonDetail = () => import('@/pages/orderSonDetail.vue')//子订单详情
+const refundDetail = () => import('@/components/refundDetail.vue')//订单详情---退款详情
 
 //财务管理
 const withdrawList = () => import('@/pages/withdrawList.vue')//提现列表
@@ -167,8 +168,14 @@ let router =  new Router({
         {
           path: '/orderList/orderSonDetail',
           name:'orderSonDetail',
-          component: orderSonDetail,//订单管理 订单列表
+          component: orderSonDetail,//子订单管理 订单列表
           meta: ["订单管理", "订单列表","订单详情"],
+        },
+        {
+          path: '/orderList/refundDetail',
+          name:'refundDetail',
+          component: refundDetail,//订单管理 订单列表
+          meta: ["订单管理", "订单列表","退款详情"],
         },
         {
           path: '/withdrawList',

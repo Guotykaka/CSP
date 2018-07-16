@@ -160,9 +160,9 @@
         <report :reportData="reportData"></report>
       </el-dialog>
       <!--退款详情 dialog-->
-      <el-dialog title="退款详情" :visible.sync="isRefundDetail" width="80%" custom-class="self-dialog">
-        <refundDetail :refundDetail="refundDetail" :customerDetail="customerDetail"></refundDetail>
-      </el-dialog>
+      <!--<el-dialog title="退款详情" :visible.sync="isRefundDetail" width="80%" custom-class="self-dialog">-->
+        <!--<refundDetail :refundDetail="refundDetail" :customerDetail="customerDetail"></refundDetail>-->
+      <!--</el-dialog>-->
     </div>
   </div>
 </template>
@@ -171,14 +171,13 @@
   import headerTop from '@/components/headTop.vue'
   import {tradeInfo,ERR_OK} from "@/api/api"
   import report from '@/components/report.vue';
-  import refundDetail from '@/components/refundDetail.vue';
+  // import refundDetail from '@/components/refundDetail.vue';
 
   export default {
     name: "orderDetail",
     components: {
       headerTop,
-      report,
-      refundDetail
+      report
     },
     data() {
       return {
@@ -2730,12 +2729,14 @@
         this.isShowReport=true;
         console.log(this.isShowReport)
       },
-      //点击显示体检报告详情
+      //点击显示退款详情
       _goDetail(val){
-        this.refundDetail=val;
-        this.isRefundDetail=true;
-        console.log(this.isRefundDetail)
-        console.log(this.refundDetail)
+/*        this.refundDetail=val;
+        this.isRefundDetail=true;*/
+        console.log(this.customerDetail)
+        this.$store.dispatch('getRefundDetail',val);
+        this.$store.dispatch('getCustomerDetail',this.customerDetail);
+        this.$router.push({name: 'refundDetail'})
       }
     },
     filters: {

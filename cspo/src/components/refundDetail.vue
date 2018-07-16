@@ -1,5 +1,6 @@
 <template>
   <div class="refundDeatil">
+    <header-top></header-top>
     <div class="page-container">
       <!--订单状态-->
       <div class="stautsStyle">
@@ -20,8 +21,8 @@
             </div>
           </div>
           <div v-show="refundDetail.insOrderRefundEntity.refundStatus===2" class="colorStatus">
-            <div>退款状态：<span class="SuccessStyle">退款成功</span></div>
-            <div><span>退款成功</span></div>
+            <!--<div>退款状态：<span class="SuccessStyle">退款成功</span></div>-->
+            <!--<div><span>退款成功</span></div>-->
             <span style="float:left">退款状态：</span>
             <div class="SuccessStyle" style="float:left">
               <span style="display: block;">退款成功</span>
@@ -132,6 +133,13 @@
           </div>
         </el-card>
       </div>
+      <div class="reBtn">
+        <el-button type="primary" @click="returnBlack">返回</el-button>
+      </div>
+      <!--体检报告详情 dialog-->
+      <el-dialog title="体检报告" :visible.sync="isShowReport" width="90%" custom-class="self-dialog">
+        <report :reportData="reportData"></report>
+      </el-dialog>
     </div>
   </div>
 </template>
@@ -140,6 +148,7 @@
   import headerTop from '@/components/headTop.vue'
   import {api} from "@/api/api"
   import report from '@/components/report.vue';
+  import {mapState} from 'vuex'
 
   export default {
     name: "orderDetail",
@@ -2654,23 +2663,12 @@
         checkId: null,//子订单ID
         checkedId: null,//主订单ID
         isShowReport:false,//是否显示体检报告
-        getRefundDetail:{}
-      }
-    },
-    props:{
-      refundDetail:{
-        type:Object,
-        default:{}
-      },
-      customerDetail:{
-        type:Object,
-        default:{}
+        getRefundDetail:{},
       }
     },
     created() {
+      // this.refundDetail = this.$route.params.val;
       this.getDetail();
-      console.log(this.customerDetail)
-      console.log('this.customerDetail')
     },
     methods: {
       getDetail() {
@@ -2697,7 +2695,6 @@
       showReportFn(){
         this.isShowReport=true;
 
-        console.log(this.isShowReport)
       }
     },
     filters: {
@@ -2708,17 +2705,20 @@
         }
         return value
       }
-    }
+    },
+    computed: {
+      ...mapState({
+        refundDetail:state=>state.refundDetail,//退款详情---订单信息
+        customerDetail:state=>state.customerDetail,//订单列表信息
+      })
+    },
   }
 </script>
 <style scoped lang="less">
   .refundDeatil {
     color: #999;
     font-size: 14px;
-    height: 600px;
-    .page-container{
-      height:calc(100% - 30px);
-    }
+    height:100%;
     .stautsStyle {
       .colorStatus {
         color: #409EFF;

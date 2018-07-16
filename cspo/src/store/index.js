@@ -19,6 +19,8 @@ const state = {
 
   //机构列表信息
   institutionArr:[],
+  refundDetail:{},//退款列表订单信息
+  customerDetail:{},//订单列表信息
 }
 
 
@@ -46,8 +48,9 @@ const getters={
   //获取未读消息数
   getUnReadCount(state){
     return state.unReadMsgCount
-  }
-
+  },
+  refundDetail:state=>state.refundDetail,//退款详情---订单信息
+  customerDetail:state=>state.customerDetail,//订单列表信息
 }
 
 
@@ -77,14 +80,32 @@ const mutations = {
   //设置未读消息数
   setUnReadCount(state,countNum){
     state.unReadMsgCount=countNum;
-  }
+  },
+
+  //退款详情--订单信息
+  refundDetail(state,val){
+    state.refundDetail = val;
+  },
+
+  //订单列表信息
+  customerDetail(state,val){
+    state.customerDetail = val;
+  },
 }
 
-
+const actions = {
+  getRefundDetail({commit},val){
+    commit('refundDetail',val)
+  },
+  getCustomerDetail({commit},val){
+    commit('customerDetail',val)
+  }
+}
 
 export default new Vuex.Store({
   state,
   mutations,
-  getters
+  getters,
+  actions
 
 })
