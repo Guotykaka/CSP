@@ -18,8 +18,7 @@ export function login(params){
 //用户列表API_POST_LIST_USER
 export function getUserList(params){//获取列表
   return post(urls.API_POST_LIST_USER,params)
-}
-export function postUserUpdate(params){//保存用户
+}export function postUserUpdate(params){//保存用户
   return post(urls.API_POST_UPDATE_USER,params)
 }
 export function postUserSave(params){//新增用户

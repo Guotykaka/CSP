@@ -42,7 +42,6 @@ export const API_POST_UPDATE_USER = baseUrl+'sys/user/update';//保存用户
 export const API_POST_SAVE_USER = baseUrl+'sys/user/save';//新增用户
 export const API_POST_DELETE_USER = baseUrl+'sys/user/delete';//删除用户
 export const API_POST_PASSWORD_USER = baseUrl+'sys/doctor/resetPassword';//修改用户密码
-
 export const API_POST_LIST_WITH_NOPARAM = baseUrl+'sys/role/listWithNoParam';//角色列表
 export const API_POST_LIST_ROLE = baseUrl+'sys/role/list';//角色列表
 export const API_POST_SAVE_ROLE = baseUrl+'sys/role/save';//新增角色
