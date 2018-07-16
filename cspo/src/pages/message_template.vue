@@ -8,10 +8,10 @@
                         <el-header height="30">
                             <el-row :gutter="20" class="m_b_15">
                                 <el-col :span="6" class="minwidth">
-                                    <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
+                                    <el-input v-model="searchParams.username" placeholder="用户名" @keyup.enter.native="doSearche()"></el-input>
                                 </el-col>
                                 <el-col :span="6" class="minwidth">
-                                    <el-button type="primary">查询</el-button>
+                                    <el-button type="primary" @click="doSearche()">查询</el-button>
                                     <el-button type="primary" @click="handleAdd()">新增</el-button>
                                 </el-col>
                             </el-row>
@@ -87,10 +87,10 @@
                         <el-header height="30">
                             <el-row :gutter="20" class="m_b_15">
                                 <el-col :span="6" class="minwidth">
-                                    <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
+                                    <el-input v-model="searchParams2.username" placeholder="用户名" @keyup.enter.native="doSearche2()"></el-input>
                                 </el-col>
                                 <el-col :span="6" class="minwidth">
-                                    <el-button type="primary">查询</el-button>
+                                    <el-button type="primary" @click="doSearche2()">查询</el-button>
                                     <el-button type="primary" @click="handleAdd2()">新增</el-button>
                                 </el-col>
                             </el-row>
@@ -169,7 +169,7 @@
 </template>
 
 <script>
-import { getUserlistData } from '@/api/getData.js'
+import { PostTemplateList,PostTemplateUpdate,PostTemplateSave } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -178,8 +178,10 @@ export default {
   data() {
     return {
       activeName: 'first',
-      formInline: { valueSS: '' },
+      searchParams: { username: '' },
+      searchParams2: { username: '' },
       currentPage: 1, //分页初始页码
+      totalCount: 0,
       pagesize: 30, //分页初始显示条数
       tableData: [], //短信模板数据
       tableData2: [], //手机推送模板数据
@@ -201,15 +203,11 @@ export default {
       }, //新增单个数据
       addTable2: {
         //新增单个数据
-        messageTemplateName: '',
-        messageTemplateState: 0,
-        updateDate: '2018-06-27 11:35:16',
-        messageTemplateContent: '',
-        messageTemplateType: 1,
-        updateUser: 'admin',
-        createUser: 'admin',
-        messageTemplateId: '',
-        createDate: '2018-06-27 11:35:16'
+        "messageTemplateContent": "",
+        "messageTemplateName": "",
+        "messageTemplateState": 0,
+        "messageTemplateType": 1,
+        "userId": 0
       }, //新增单个数据
       dialogCheckVisible: false, //查看
       dialogEditVisible: false, //编辑
@@ -219,10 +217,38 @@ export default {
       inde: null, //index flag
       inde2: null, //index flag
       formLabelWidth: '120px',
-      formLabelWidth2: '140px',
+      formLabelWidth2: '140px'
     }
   },
   methods: {
+    doSearche() {
+      let date = Date.parse(new Date())
+      let params = {
+        currentPage: 1,
+        pageSize: 1000,
+        timespan: date,
+        messageTemplateName: this.searchParams.username,
+        messageTemplateType: '0'
+      }
+      PostTemplateList(params).then(response => {
+        this.tableData = []
+        this.tableData = response.data.list
+      })
+    },
+    doSearche2() {
+      let date = Date.parse(new Date())
+      let params = {
+        currentPage: 1,
+        pageSize: 1000,
+        timespan: date,
+        messageTemplateName: this.searchParams2.username,
+        messageTemplateType: '1'
+      }
+      PostTemplateList(params).then(response => {
+        this.tableData2 = []
+        this.tableData2 = response.data.list
+      })
+    },
     handleSizeChange: function(size) {
       this.pagesize = size
       console.log(`每页 ${size} 条`)
@@ -242,6 +268,23 @@ export default {
     },
     // 确定新增
     _doAdd2() {
+        
+        let params = {
+        messageTemplateContent: this.tableData2.messageTemplateName,
+        messageTemplateName: this.tableData2.messageTemplateName,
+        messageTemplateState: this.tableData2.messageTemplateState,
+        messageTemplateType: this.tableData2.messageTemplateType,
+        userId: 0
+      }
+      PostTemplateSave(params).then(response => {
+          if (response.msg=="操作成功") {
+              this.$alart(response.msg)
+          } else {
+              this.$alart(response.msg)
+              _doCancel()
+          }
+        
+      })
       this.tableData2.push(this.addTable2)
       this.addTable2 = {
         messageTemplateName: '',
@@ -336,14 +379,43 @@ export default {
     },
     //确定编辑
     _doHandleEdit() {
-      this.dialogEditVisible = false
-      this.$message({
-        type: 'success',
-        message: '编辑成功!'
+      let params = {
+        messageTemplateContent: this.editTable.messageTemplateName,
+        messageTemplateName: this.editTable.messageTemplateName,
+        messageTemplateState: this.editTable.messageTemplateState,
+        messageTemplateType: this.editTable.messageTemplateType,
+        userId: this.editTable.userId
+      }
+      PostTemplateUpdate(params).then(response => {
+        //   if (response.msg=="操作成功") {
+        //       this.$alart(response.msg)
+        //   } else {
+        //       this.$alart(response.msg)
+        //       _doCancel()
+        //   }
+        this.$alart(response.msg)
+        
       })
+      this.dialogEditVisible = false
     },
     //确定编辑
     _doHandleEdit2() {
+        let params = {
+        messageTemplateContent: this.editTable2.messageTemplateName,
+        messageTemplateName: this.editTable2.messageTemplateName,
+        messageTemplateState: this.editTable2.messageTemplateState,
+        messageTemplateType: this.editTable2.messageTemplateType,
+        userId: this.editTable2.userId
+      }
+      PostTemplateUpdate(params).then(response => {
+          if (response.msg=="操作成功") {
+              this.$alart(response.msg)
+          } else {
+              this.$alart(response.msg)
+              _doCancel2()
+          }
+        
+      })
       this.dialogEditVisible2 = false
       this.$message({
         type: 'success',
@@ -420,18 +492,28 @@ export default {
     },
     //获取消息模板列表
     getMessageTemplateList() {
-      this.$http
-        .post('http://localhost:8080/api/message_template1')
-        .then(response => {
-          this.tableData = []
-          this.tableData = this.tableData.concat(response.data.data)
-        })
-      this.$http
-        .post('http://localhost:8080/api/message_template2')
-        .then(response => {
-          this.tableData2 = []
-          this.tableData2 = this.tableData2.concat(response.data.data)
-        })
+      let params = {
+        currentPage: 1,
+        pageSize: 1000,
+        messageTemplateName: '',
+        messageTemplateType: '0'
+      }
+      let params2 = {
+        currentPage: 1,
+        pageSize: 1000,
+        messageTemplateName: '',
+        messageTemplateType: '1'
+      }
+      PostTemplateList(params).then(response => {
+        this.tableData = []
+        this.tableData = response.data.list
+        this.totalCount = response.totalCount
+      })
+      PostTemplateList(params2).then(response => {
+        this.tableData2 = []
+        this.tableData2 = response.data.list
+        this.totalCount = response.totalCount
+      })
     }
   },
   created: function() {

@@ -242,7 +242,7 @@ export default {
       searchParams: { username: '', },
       totalCount:0,
       currentPage: 1, //分页初始页码
-      pagesize: 30, //分页初始显示条数
+      pagesize: 10, //分页初始显示条数
       tableData: [], //列表数据
       roleList: [], //角色数据
       selectTable: {}, //查看单个数据

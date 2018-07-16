@@ -15,6 +15,10 @@ export function login(params){
   return post(urls.API_LOGIN,params)
 }
 //系统管理
+//公告列表
+export function getNoticeList(params){//获取公告列表
+  return post(urls.API_POST_LIST_NOTICE,params)
+}
 //用户列表API_POST_LIST_USER
 export function getUserList(params){//获取列表
   return post(urls.API_POST_LIST_USER,params)
@@ -46,6 +50,16 @@ export function PostUpdateRole(params){//修改角色
 }
 export function PostDeleteRole(params){//删除角色
   return post(urls.API_POST_DELETE_ROLE,params)
+}
+//消息模板
+export function PostTemplateList(params){//获取列表
+  return post(urls.API_POST_LIST_TEMPLATE,params)
+}
+export function PostTemplateUpdate(params){//修改
+  return post(urls.API_POST_UPDATE_TEMPLATE,params)
+}
+export function PostTemplateSave(params){//新增
+  return post(urls.API_POST_SAVE_TEMPLATE,params)
 }
 //医生管理
 //获取医生列表

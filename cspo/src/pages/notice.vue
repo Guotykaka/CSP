@@ -223,7 +223,7 @@
 
 
 <script>
-import { getUserlistData } from '@/api/getData.js'
+import { getNoticeList } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -294,6 +294,7 @@ export default {
       },
       currentPage: 1, //分页初始页码
       pagesize: 30, //分页初始显示条数
+      totalCount: 0,
       tableData: [], //列表数据
       selectTable: {}, //查看单个数据
       editTable: {}, //修改单个数据
@@ -489,45 +490,30 @@ export default {
         })
     },
     //获取用户列表
-    getNoticeList() {
-      this.$http.post('http://localhost:8080/api/noticeList').then(response => {
+    getList() {
+      let date = Date.parse(new Date())
+      let params = {
+        currentPage: 1,
+        endTime: '',
+        noticeOs: 0,
+        noticeStatus: '',
+        noticeTitleQuery: '',
+        pageSize: 1000,
+        selectedNoticeTypeQuery: '',
+        startTime: '',
+        timespan: date,
+        userName: ''
+      }
+      getNoticeList(params).then(response => {
         this.tableData = []
-        this.tableData = this.tableData.concat(response.data.data)
-        // response.data.data.forEach(item => {
-        //   const tableData = {}
-        //   tableData.username = item.username
-        //   tableData.email = item.email
-        //   tableData.deptName = item.deptName
-        //   tableData.deptId = item.deptId
-        //   tableData.mobile = item.mobile
-        //   tableData.userId = item.userId
-        //   tableData.status = item.status
-        //   tableData.roleIdList = item.roleIdList
-        //   tableData.createTime = item.createTime
-        //   tableData.userType = item.userType
-        //   tableData.checkList = item.checkList
-        //   tableData.password = item.password
-        //   this.tableData.push(tableData)
-        // })
-      })
-      var date = Date.parse( new Date())
-      var params = {
-            "currentPage": 1,
-            "noticeOs": 0,
-            "noticeStatus": "string",
-            "noticeTitleQuery": "string",
-            "pageSize": 30,
-            "selectedNoticeTypeQuery": "string",
-            "timespan": date
-        }
-      this.$http.post('http://172.0.0.41:8117/cspo/sys/notice/list').then(response => {
-        this.tableData2 = []
-        this.tableData2 = this.tableData2.concat(response.data.data)
+        this.tableData = response
+        console.log(response,"tableData")
+        this.totalCount = response.totalCount
       })
     }
   },
   created: function() {
-    this.getNoticeList()
+    this.getList()
   }
 }
 </script>

@@ -43,6 +43,7 @@ export const API_GET_REFUND_DETAIL = localUrl+'getRefundDetail';//退款详情
 
 
 //系统管理
+export const API_POST_LIST_NOTICE = baseUrl+'sys/notice/list';//公告列表
 export const API_POST_LIST_USER = baseUrl+'sys/user/list';//用户列表
 export const API_POST_UPDATE_USER = baseUrl+'sys/user/update';//保存用户
 export const API_POST_SAVE_USER = baseUrl+'sys/user/save';//新增用户
@@ -54,6 +55,10 @@ export const API_POST_LIST_ROLE = baseUrl+'sys/role/list';//角色列表
 export const API_POST_SAVE_ROLE = baseUrl+'sys/role/save';//新增角色
 export const API_POST_UPDATE_ROLE = baseUrl+'sys/role/update';//修改角色
 export const API_POST_DELETE_ROLE = baseUrl+'sys/role/delete';//删除角色
+
+export const API_POST_LIST_TEMPLATE = baseUrl+'bd/template/list';//消息模板列表
+export const API_POST_UPDATE_TEMPLATE = baseUrl+'bd/template/update';//修改
+export const API_POST_SAVE_TEMPLATE = baseUrl+'bd/template/save';//新增
 //机构业务
 //商品管理
 //医生管理
