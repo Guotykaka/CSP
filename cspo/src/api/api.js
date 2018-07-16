@@ -94,15 +94,37 @@ export function cspOrderInfo(params) {
   return post(urls.API_CSP_ORDER_INFO, params)
 }
 
-export const api ={
-  /*个人中心*/
-  queryInsLeaveWordList(data){
-    return post(urls.API_QUERY_INSLEAVE_WORDLIST,data);//获取聊天数据
-  },
-  queryInsLeaveWordAnswerList(data){
-    return post(urls.API_QUERY_INSLEAVE_WORD_ANSWER_LIST,data);//查看回复数据
-  },
+//退款详情
+export function getRefundDetail(params) {
+  params.timespan = timeString();
+  return post(urls.API_INS_GET_REFUNDDETAIL, params)
 }
+
+//体检报告详情
+export function reportDetail(params) {
+  return post(urls.API_CSP_REPORT_DETAIL, params)
+}
+
+/*个人中心*/
+//分页查询所有留言
+export function queryInsLeaveWordList(params) {
+  return post(urls.API_QUERY_INS_LEAVE_WORDLIST, params)
+}
+
+//回复所有留言
+export function saveInsLeaveWordAnswer(params) {
+  return post(urls.API_SAVE_INS_LEAVE_WORDANSWER, params)
+}
+
+//展开查看当前留言回复记录
+export function queryInsLeaveWordAnswerList(params) {
+  return post(urls.API_QUERY_INS_LEAVE_WORDANSWERLIST, params)
+}
+//关闭当前留言
+export function closeInsLeaveWordAnswer(params) {
+  return post(urls.API_CLOSE_INS_LEAVE_WORDANSWER, params)
+}
+
 
 
 

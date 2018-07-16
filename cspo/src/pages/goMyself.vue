@@ -118,7 +118,7 @@
 <script>
   import headerTop from '@/components/headTop.vue';
   import {mapGetters} from "vuex";
-  import {api} from '@/api/api';
+  import {ERR_OK, queryInsLeaveWordList, saveInsLeaveWordAnswer, queryInsLeaveWordAnswerList, closeInsLeaveWordAnswer} from '@/api/api';
   import {localUrl} from "@/config/env.js"
 
   export default {
@@ -219,28 +219,23 @@
           }
           let parms = {
             "answerContent": value,
-            "answerUserId": vm.createUserId,
+            "answerUserId": that.createUserId,
             "insLeaveWordId": val,
             "parentId": parernId
           };
-          //POST /ins/insleaveword/saveInsLeaveWordAnswer
-          /*          $.ajax({
-                      type: "POST",
-                      url: baseURL + "ins/insleavewordanswer/saveInsLeaveWordAnswer",
-                      contentType: "application/json",
-                      dataType: "json",
-                      data: JSON.stringify(parms),
-                      success: function (res) {
-                        if (res.code === 1) {
-                          alert(res.msg, function () {
-                          });
-                          vm._getQueryInsLeaveWordList()
-                          vm.checkId = null;
-                        } else {
-                          alert(res.msg);
-                        }
-                      }
-                    });*/
+          saveInsLeaveWordAnswer(parms).then((res)=>{
+            if (res.code === ERR_OK) {
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
+              that._getQueryInsLeaveWordList()
+              that.checkId = null;
+            } else {
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
+            }
+          })
           this.$message({
             type: 'success',
             message: '回复成功'
@@ -259,9 +254,8 @@
         this.checkId = index;
         this.showList = true;
         var _this = this;
-        api.queryInsLeaveWordAnswerList(params).then((res) => {
-          console.log(res)
-          if (res.code === 1) {
+        queryInsLeaveWordAnswerList(params).then((res) => {
+          if (res.code === ERR_OK) {
             _this.insLeaveAnswerlist = res.data;
             if (_this.insLeaveAnswerlist.length > 0) {
               var count = _this.insLeaveAnswerlist.length - 1;
@@ -270,29 +264,11 @@
               _this.checkCreatId = val.createUserId;
             }
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
-        /*        $.ajax({
-                  type: "POST",
-                  url: baseURL + "/ins/insleavewordanswer/queryInsLeaveWordAnswerList",
-                  data: val.insLeaveWordId,
-                  contentType: "application/json",
-                  dataType: "json",
-                  success: function (res) {
-                    if (res.code === 1) {
-                      _this.insLeaveAnswerlist = res.data;
-                      if(_this.insLeaveAnswerlist.length>0){
-                        var count = _this.insLeaveAnswerlist.length-1;
-                        _this.checkCreatId = _this.insLeaveAnswerlist[count].answerUserId;
-                      }else{
-                        _this.checkCreatId = val.createUserId;
-                      }
-                    } else {
-                      alert(res.msg);
-                    }
-                  }
-                });*/
       },
       //收起
       eventHiddenList: function () {
@@ -309,21 +285,27 @@
           "limit": this.searchParams.pageSize,
           "page": this.searchParams.currentPage
         };
-        api.queryInsLeaveWordList(parms).then((res) => {
+        queryInsLeaveWordList(parms).then((res) => {
           if (res.code === 1) {
             this.insLeaveDetail = res.data.list;
             this.total = res.data.page.totalCount;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
       /*分页*/
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
+        this.searchParams.pageSize = val;
+        this._getQueryInsLeaveWordList()
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+        this.searchParams.currentPage = val;
+        this._getQueryInsLeaveWordList();
       }
     }
   }
