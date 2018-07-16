@@ -52,7 +52,11 @@ export const API_POST_DELETE_ROLE = baseUrl+'sys/role/delete';//删除角色
 export const API_POST_LIST_TEMPLATE = baseUrl+'bd/template/list';//消息模板列表
 export const API_POST_UPDATE_TEMPLATE = baseUrl+'bd/template/update';//修改
 export const API_POST_SAVE_TEMPLATE = baseUrl+'bd/template/save';//新增
+export const API_POST_DELETE_TEMPLATE = baseUrl+'bd/template/delete';//删除
+
 //机构业务
+export const API_POST_LIST_INSTITUTION = baseUrl+'ins/institution/list';//机构业务列表
+export const API_POST_SAVE_INSTITUTION = baseUrl+'ins/institution/save';//消息模板列表
 //商品管理
 //医生管理
 export const API_POST_LIST_DOCTOR = baseUrl+'sys/doctor/doctorList';//医生列表

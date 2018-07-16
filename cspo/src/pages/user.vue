@@ -392,11 +392,11 @@ export default {
     _doHandleEdit() {
       let params = {
         deptId: this.editTable.deptId,
-        deptName: this.editTable.deptName,
+        // deptName: this.editTable.deptName,
         email: this.editTable.email,
         mobile: this.editTable.mobile,
-        password: this.editTable.password,
-        roleIdList: this.editTable.roleIdList,
+        password: "123456",
+        roleIdList: ["29",],
         status: this.editTable.status,
         userId: this.editTable.userId,
         userType: this.editTable.userType,
@@ -404,7 +404,12 @@ export default {
         salt: this.editTable.salt
       }
       postUserUpdate(params).then(response => {
-        this.$alert(response.msg)
+        if (response.code == 1) {
+          this.$alert('修改成功!')
+          this.getUser()
+        } else {
+          this.$alert(response.msg)
+        }
       })
       this.dialogEditVisible = false
       // this.getUser()
