@@ -57,10 +57,6 @@
           </el-select>
         </el-form-item>
 
-<!--        <el-form-item filterable label="服务机构">
-          <el-input v-model="searchParams.institutionName" placeholder="请输入服务机构"></el-input>
-        </el-form-item>-->
-
         <el-form-item label="时间">
           <el-date-picker
             v-model="rangeTime"
@@ -151,8 +147,8 @@
             <el-table-column prop="name" label="服务医生"></el-table-column>
             <el-table-column prop="orderStatus" label="订单状态">
               <template slot-scope="scope">
-                <el-tag size="medium" type="info" v-show="scope.row.orderStatus===0">待付款</el-tag>
-                <el-tag size="medium" type="warning" v-show="scope.row.orderStatus===1">已取消</el-tag>
+                <el-tag size="medium" type="warning" v-show="scope.row.orderStatus===0">待付款</el-tag>
+                <el-tag size="medium" type="info" v-show="scope.row.orderStatus===1">已取消</el-tag>
                 <el-tag size="medium" type="success" v-show="scope.row.orderStatus===2">已付款</el-tag>
                 <el-tag size="medium" v-show="scope.row.orderStatus===3">已完成</el-tag>
               </template>
@@ -207,7 +203,7 @@
 <script>
 
   import headerTop from '@/components/headTop.vue';
-  import {listServiceDict,tradeList,api,ERR_OK} from "@/api/api"
+  import {listServiceDict,tradeList,ERR_OK,cspOrderList} from "@/api/api"
   import {mapState} from 'vuex'
 
   export default {
@@ -268,7 +264,9 @@
           if (res.code === ERR_OK) {
             that.listServiceDictList = res.data;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
@@ -351,11 +349,35 @@
         this.rangeTime = null;
       },
       //列表切换
-      handleClick(tab, event) {
+      handleClick(tab) {
         if (tab.name === 'first') {
+          this.searchParams = {
+            currentPage: 1,//当前页是第几页
+            pageSize: 10,//当前页面展示多少条记录
+            tradeStatus: '',//string 订单状态 0待付款 1已取消 2已付款 3已完成
+            realName: '',//string	用户真实姓名
+            mobile: '',//string 用户注册手机号
+            tradeCode: '',//string 交易号
+            orderServiceStatus: '',//int 订单服务状态（0待服务 1客户忙待联系 2服务中 3已完成 4已失效）
+            name: '',//string	医生姓名
+            itemId: '',//string	服务id
+            institutionName: ''//string 机构名称
+          };
           this._getDatalist();
           this.listShowTab = true;
         } else if (tab.name === 'second') {
+          this.searchParams = {
+            currentPage: 1,//当前页是第几页
+            pageSize: 10,//当前页面展示多少条记录
+            tradeStatus: '',//string 订单状态 0待付款 1已取消 2已付款 3已完成
+            realName: '',//string	用户真实姓名
+            mobile: '',//string 用户注册手机号
+            tradeCode: '',//string 交易号
+            orderServiceStatus: '',//int 订单服务状态（0待服务 1客户忙待联系 2服务中 3已完成 4已失效）
+            name: '',//string	医生姓名
+            itemId: '',//string	服务id
+            institutionName: ''//string 机构名称
+          };
           this._getDataSonlist();
           this.listShowTab = false;
         }
@@ -372,18 +394,25 @@
             this.pages1.currentpage = res.data.currPage;
             this.pages1.pageSize = res.data.pageSize
           } else {
-            this.$alert(res.msg)
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
       //获取子订单列表
       _getDataSonlist: function () {
         let data = this.searchParams;
-        api.cspOrderList(data).then((res) => {
-          if (res.code === 1) {
+        cspOrderList(data).then((res) => {
+          if (res.code === ERR_OK) {
             this.cspOrderList = res.data.list;
+            this.pages2.totalCount = res.data.totalCount;
+            this.pages2.currentpage = res.data.currPage;
+            this.pages2.pageSize = res.data.pageSize
           } else {
-
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
@@ -392,7 +421,7 @@
         this._getDatalist();
       },
       handleCurrentChange1(val) {
-        this.searchParams.currentpage=val;
+        this.searchParams.currentPage=val;
         this._getDatalist();
       },
       handleSizeChange2(val) {
@@ -400,7 +429,7 @@
         this._getDataSonlist();
       },
       handleCurrentChange2(val) {
-        this.searchParams.currentpage=val;
+        this.searchParams.currentPage=val;
         this._getDataSonlist();
       },
       //主订单详情
