@@ -25,6 +25,7 @@
 <script>
   //引入login的方法
   import {login,ERR_OK} from "@/api/api.js";
+  import {setStore} from "@/config/mUtils.js";
 
   export default {
       data:function () {
@@ -35,7 +36,6 @@
             captcha: "",
             codeKey: "",
             password: "",
-            timespan: "",
             username: ""
           },
           timeString:'',
@@ -51,6 +51,7 @@
           var params=this.loginParams;
           login(params).then(res => {
             if(res.code===ERR_OK){
+                setStore('userMesage',res.data);
               this.$router.push("notice")
             }else{
               this.$alert(res.msg)

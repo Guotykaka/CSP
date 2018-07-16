@@ -163,13 +163,13 @@ let router =  new Router({
           path: '/orderList/orderDetail',
           name:'orderDetail',
           component: orderDetail,//订单管理 订单列表
-          meta: ["订单管理", "订单列表","订单详情"],
+          meta: ["订单管理", "主订单列表","订单详情"],
         },
         {
           path: '/orderList/orderSonDetail',
           name:'orderSonDetail',
           component: orderSonDetail,//子订单管理 订单列表
-          meta: ["订单管理", "订单列表","订单详情"],
+          meta: ["订单管理", "子订单列表","订单详情"],
         },
         {
           path: '/orderList/refundDetail',
