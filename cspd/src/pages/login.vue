@@ -23,8 +23,9 @@
 </template>
 
 <script>
-  //引入login的方法
-  import {login} from "../api/getData.js";
+  import {login,ERR_OK} from "@/api/api.js";
+  import {setStore} from "@/config/mUtils.js";
+  import {baseUrl} from "@/config/env";
 
   export default {
       data:function () {
@@ -36,16 +37,28 @@
             password:"",
             captcha:""//验证码
           },
-          // imgUrl:"http://172.0.0.42:8115/cspd/captcha.jpg?"+Math.random()
           imgUrl:''
         }
       },
-
-
+      created(){
+        this.refreshImg();
+      },
       methods:{
         doLogin:function () {
+          var params=this.loginParams;
+          login(params).then(res => {
+            if(res.code===ERR_OK){
+              setStore('userMesage',res.data);
+              this.$router.push("doctor_index")
+            }else{
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
+            }
+          }).catch(err => {
 
-          this.$router.push("doctor_index")
+          });
+          this.$router.push("")
 /*          login(this.loginParams).then((res) => {
             console.log(res);
             this.$router.push("manage")
@@ -57,7 +70,11 @@
 
         //刷新验证码
         refreshImg:function () {
-          this.imgUrl="http://172.0.0.42:8115/cspd/captcha.jpg?"+Math.random()
+          var params = new Date();
+          // this.loginParams.codeKey = params.getTime().toString();
+          this.loginParams.timespan = params.getTime().toString();
+          this.imgUrl = baseUrl+"doctor/captcha.jpg/?"+this.loginParams.timespan
+
         }
       }
 

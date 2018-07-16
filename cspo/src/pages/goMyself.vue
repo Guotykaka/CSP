@@ -117,9 +117,15 @@
 </template>
 <script>
   import headerTop from '@/components/headTop.vue';
-  import {mapGetters} from "vuex";
-  import {ERR_OK, queryInsLeaveWordList, saveInsLeaveWordAnswer, queryInsLeaveWordAnswerList, closeInsLeaveWordAnswer} from '@/api/api';
+  import {
+    ERR_OK,
+    queryInsLeaveWordList,
+    saveInsLeaveWordAnswer,
+    queryInsLeaveWordAnswerList,
+    closeInsLeaveWordAnswer
+  } from '@/api/api';
   import {localUrl} from "@/config/env.js"
+  import {getStore} from "@/config/mUtils.js"
 
   export default {
     name: 'goMyself',
@@ -128,20 +134,7 @@
     },
     data() {
       return {
-        userInfo: {
-          "userId": 1,
-          "username": "admin",
-          "password": "969d28606deb2d5b498f19b1f142ae7534a3998d30ee4eddd2227c1970892498",
-          "salt": "CbLYM3dU4zAdxBaGnWfW",
-          "email": "250893328@qq.com",
-          "mobile": "13764009077",
-          "status": 1,
-          "roleIdList": null,
-          "createTime": "2016-11-11 11:11:11",
-          "deptId": 1,
-          "deptName": null,
-          "userType": 0
-        },
+        userMessage: {},//用户信息
         options: [
           {
             value: '1',
@@ -174,32 +167,29 @@
         creatName: null,//留言人
         checkCreatId: null,//验证createuserId
         selStatus: '',//留言状态
-        userMessage: null//用户信息
       }
     },
     created() {
-      this.createUserId = localStorage.getItem('adminId');
-      this.userMessage = this.userInfo;
+      this.userMessage = JSON.parse(getStore('userMesage'));
+      this.createUserId = this.userMessage.userId;
       this._getQueryInsLeaveWordList();
     },
     methods: {
       //关闭
       closeList: function (val) {
-        /*       $.ajax({
-                 type: "POST",
-                 url: baseURL + "ins/insleavewordanswer/closeInsLeaveWordAnswer",
-                 data: val,
-                 dataType: "json",
-                 contentType: "application/json",
-                 success: function (res) {
-                   if (res.code === 1) {
-                     vm._getQueryInsLeaveWordList();
-                     vm.checkId = null;
-                   } else {
-                     alert(res.msg);
-                   }
-                 }
-               });*/
+        let data = {
+          id:val
+        }
+        closeInsLeaveWordAnswer(data).then((res)=>{
+          if (res.code === ERR_OK) {
+            this._getQueryInsLeaveWordList();
+            this.checkId = null;
+          } else {
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        })
       },
       //回复
       replyList: function (val) {
@@ -223,7 +213,8 @@
             "insLeaveWordId": val,
             "parentId": parernId
           };
-          saveInsLeaveWordAnswer(parms).then((res)=>{
+
+          saveInsLeaveWordAnswer(parms).then((res) => {
             if (res.code === ERR_OK) {
               this.$alert(res.msg, '提示', {
                 confirmButtonText: '确定',
@@ -236,10 +227,6 @@
               })
             }
           })
-          this.$message({
-            type: 'success',
-            message: '回复成功'
-          });
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -250,7 +237,9 @@
       //展开
       evnetShowList: function (val, index) {
         this.replayMain = true;
-        var params = val.insLeaveWordId;
+        var params = {
+          "id": val.insLeaveWordId
+        }
         this.checkId = index;
         this.showList = true;
         var _this = this;
@@ -282,13 +271,13 @@
           "leaveWordStatus": this.selStatus,
           "toRoleId": 12,
           "leaveWordTitle": this.creatName,
-          "limit": this.searchParams.pageSize,
-          "page": this.searchParams.currentPage
+          "pageSize": this.searchParams.pageSize,
+          "currentPage": this.searchParams.currentPage
         };
         queryInsLeaveWordList(parms).then((res) => {
           if (res.code === 1) {
             this.insLeaveDetail = res.data.list;
-            this.total = res.data.page.totalCount;
+            this.total = res.data.totalCount;
           } else {
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',
@@ -370,8 +359,8 @@
           color: #333;
           margin-left: 10px;
         }
-        .message-body{
-          margin-bottom:10px;
+        .message-body {
+          margin-bottom: 10px;
         }
         .detail-title {
           background-color: #e8e8e8;
@@ -379,8 +368,8 @@
           display: flex;
           justify-content: space-between;
           padding: 0 20px;
-          span{
-            margin-left:10px;
+          span {
+            margin-left: 10px;
           }
           .text-red {
             color: #f2a498;
@@ -395,8 +384,8 @@
           }
           li {
             color: #999;
-            height:40px;
-            line-height:40px;
+            height: 40px;
+            line-height: 40px;
           }
         }
 

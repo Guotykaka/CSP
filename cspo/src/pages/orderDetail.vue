@@ -223,7 +223,9 @@
             this.cspTradeInfoEntity = res.data.cspTradeInfoEntity;
             this.cspOrderInfoList = res.data.cspOrderInfoList;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
