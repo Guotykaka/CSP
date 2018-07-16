@@ -19,9 +19,24 @@ export function login(params){
 export function getUserList(params){//获取列表
   return post(urls.API_POST_LIST_USER,params)
 }
+export function postUserUpdate(params){//保存用户
+  return post(urls.API_POST_UPDATE_USER,params)
+}
+export function postUserSave(params){//新增用户
+  return post(urls.API_POST_SAVE_USER,params)
+}
+export function postUserDelete(params){//删除用户
+  return post(urls.API_POST_DELETE_USER,params)
+}
+export function postDoctorResetPassword(params){//重置密码
+  return post(urls.API_POST_PASSWORD_USER,params)
+}
 //角色列表
 export function getListWithNoParam(params){//获取列表
   return post(urls.API_POST_LIST_WITH_NOPARAM,params)
+}
+export function getListRole(params){//获取列表
+  return post(urls.API_POST_LIST_ROLE,params)
 }
 export function PostSaveRole(params){//新增角色
   return post(urls.API_POST_SAVE_ROLE,params)
