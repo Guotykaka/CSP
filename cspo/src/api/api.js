@@ -18,7 +18,8 @@ export function login(params){
 //用户列表API_POST_LIST_USER
 export function getUserList(params){//获取列表
   return post(urls.API_POST_LIST_USER,params)
-}export function postUserUpdate(params){//保存用户
+}
+export function postUserUpdate(params){//保存用户
   return post(urls.API_POST_UPDATE_USER,params)
 }
 export function postUserSave(params){//新增用户
@@ -77,25 +78,21 @@ export function tradeList(params) {
 
 //主订单详情
 export function tradeInfo(params) {
-  params.timespan = timeString();
   return post(urls.API_TRADE_INFO, params)
 }
 
 //子订单列表
 export function cspOrderList(params) {
-  params.timespan = timeString();
   return post(urls.API_CSP_ORDER_LIST, params)
 }
 
 //子订单详情
 export function cspOrderInfo(params) {
-  params.timespan = timeString();
   return post(urls.API_CSP_ORDER_INFO, params)
 }
 
 //退款详情
 export function getRefundDetail(params) {
-  params.timespan = timeString();
   return post(urls.API_INS_GET_REFUNDDETAIL, params)
 }
 
