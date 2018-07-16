@@ -28,6 +28,7 @@ const listenList = () => import('@/pages/listenList.vue')//服务管理
 
 //医生管理
 const doctorList = () => import('@/pages/doctorList.vue')//医生列表
+const benefitList = () => import('@/pages/benefitList.vue')//分成比例
 const indentList = () => import('@/pages/identificationList.vue')//认证列表
 
 //订单管理
@@ -137,6 +138,11 @@ let router =  new Router({
           path: '/doctorList',
           component: doctorList,//医生管理 医生列表
           meta: ["医生管理", "医生列表"],
+        },
+        {
+          path: '/benefitList/:id',
+          component: benefitList,//医生管理 医生列表
+          meta: ["医生管理", "医生列表","分成比例"],
         },
         {
           path: '/indentList',

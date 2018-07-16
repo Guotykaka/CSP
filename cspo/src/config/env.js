@@ -15,6 +15,7 @@ let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
   baseUrl = 'http://172.0.0.41:8117/cspo/';
+  //baseUrl = 'http://10.50.50.117:8117/cspo/';
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';
@@ -52,9 +53,16 @@ export const API_POST_DELETE_ROLE = baseUrl+'sys/role/delete';//删除角色
 //商品管理
 //医生管理
 export const API_POST_LIST_DOCTOR = baseUrl+'sys/doctor/doctorList';//医生列表
-export const API_POST_SAVE_DOCTOR = baseUrl+'sys/doctor/doctorSave';//修改医生信息
+export const API_POST_DOCTOR_UPDATE = baseUrl+'sys/doctor/doctorUpdate';//编辑医生信息
+export const API_POST_SERVICE_DICT = baseUrl+'sys/doctor/serviceDict';//所有服务
+export const API_POST_SAVE_SERVICE_SET = baseUrl+'sys/doctor/saveServiceSet';//设置服务权限
+export const API_POST_REST_PASSWORD = baseUrl+'sys/doctor/resetPassword';//重置密码
+export const API_POST_DOCTOR_SAVE = baseUrl+'sys/doctor/doctorSave';//新增医生
+
+
 //订单管理
 export const API_GET_LIST_ORDER_REFUND = baseUrl+'ins/orderRefund/listOrderRefund';//退款列表
+export const API_GET_LIST_ORDER_CHANGE_R = baseUrl+'ins/orderRefund/listOrderChangeRecord';//退款订单变更
 
 export const API_GET_LIST_ALL_INSTITUTION = baseUrl+'ins/institution/listAllInstitution';//机构列表
 

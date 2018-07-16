@@ -32,14 +32,34 @@ export function PostUpdateRole(params){//修改角色
 export function PostDeleteRole(params){//删除角色
   return post(urls.API_POST_DELETE_ROLE,params)
 }
+
 //医生管理
 //获取医生列表
 export function getDoctorList(params) {
   return post(urls.API_POST_LIST_DOCTOR,params);
 }
-//修改医生信息
-export function postDoctorSave(params) {
-  return post(urls.API_POST_SAVE_DOCTOR,params);
+//编辑医生信息
+export function updataDoctorEditor(params) {
+  return post(urls.API_POST_DOCTOR_UPDATE,params);
+}
+//获取所有服务包含状态
+export function getAllService(params) {
+  return post(urls.API_POST_SERVICE_DICT,params);
+}
+
+//设置服务权限
+export function setService(params) {
+  return post(urls.API_POST_SAVE_SERVICE_SET,params);
+}
+
+//设置服务权限
+export function restPassword(params) {
+  return post(urls.API_POST_REST_PASSWORD,params);
+}
+
+//新增医生
+export function addDoctor(params) {
+  return post(urls.API_POST_DOCTOR_SAVE,params);
 }
 
 //获取所有机构列表
@@ -49,6 +69,10 @@ export function getListAllInstitution(params){
 //退款列表
 export function getListOrderRefund(params){
   return post(urls.API_GET_LIST_ORDER_REFUND,params)
+}
+
+export function getOrderChangeRecord(params){
+  return post(urls.API_GET_LIST_ORDER_CHANGE_R,params)
 }
 
 //订单列表词典
