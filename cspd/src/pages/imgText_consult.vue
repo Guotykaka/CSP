@@ -44,17 +44,17 @@
         <div class="msgLeftBox">
           <el-tabs v-model="activeName" @tab-click="handleClick" stretch class="msgleft-head">
             <el-tab-pane label="待服务" name="first">
-              <tableMain @detailShow="detailShow" @_getChatDetail="_getChatDetail" :orderList="orderList"
+              <tableMain @detailShow="detailShow" @getChatDetail="_getChatDetail" :orderList="orderList"
                          :Current="selCurrent"></tableMain>
             </el-tab-pane>
             <el-tab-pane label="服务中" name="second">
-              <tableMain @detailShow="detailShow" @_getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
+              <tableMain @detailShow="detailShow" @getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
             </el-tab-pane>
             <el-tab-pane label="已完成" name="third">
-              <tableMain @detailShow="detailShow" @_getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
+              <tableMain @detailShow="detailShow" @getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
             </el-tab-pane>
             <el-tab-pane label="已失效" name="fourth">
-              <tableMain @detailShow="detailShow" @_getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
+              <tableMain @detailShow="detailShow" @getChatDetail="_getChatDetail" :orderList="orderList"></tableMain>
             </el-tab-pane>
           </el-tabs>
           <div class="pageDetail">
@@ -71,7 +71,7 @@
               :total="totalcount">
             </el-pagination>
             <div v-if="!orderList||orderList.list<=0"
-                 style="font-size: 6px; position: absolute; bottom: 0px;width:100%;background-color:#fff;margin:0 auto;text-align:center;">
+                 class="tipMsg">
               暂无数据
             </div>
           </div>
@@ -99,12 +99,10 @@
                 <div style="display: block;">
                   <ul @click="showTitleImgs(chatCircleMsg.tradeDetailId)" :id="'img'+chatCircleMsg.tradeDetailId">
                     <li>
-                      <!--<img  :src="item.sendMsg" alt="" class="img-msg" style="margin-top:10px;">-->
                       <img :src="value" v-for="(value,ind) in compileCode(chatCircleMsg.customerImgs)" :key="ind"
                            alt="" class="img-msg" style="margin-top:10px;">
                     </li>
                   </ul>
-                  <!--<img :src="value" alt="" class="img-msg" v-for ="(value,ind) in compileCode(chatCircleMsg.customerImgs)" :key = "ind">-->
                 </div>
               </div>
             </div>
@@ -125,7 +123,6 @@
                             <img :src="item.sendMsg" alt="" class="img-msg" style="margin-top:10px;">
                           </li>
                         </ul>
-                        <!--<img v-else :src="item.sendMsg" alt="" class="img-msg" style="margin-top:10px;">-->
                       </div>
                       <span class="minCirclefr"></span>
                     </div>
@@ -142,13 +139,10 @@
                         <span v-if="item.msgType===1||item.msgType===3">{{item.sendMsg}}</span>
                         <ul v-if="item.msgType===2" @click="showImgs(index)" :id="'img'+index">
                           <li>
-                            <!--<img  :src="item.sendMsg" alt="" class="img-msg" style="margin-top:10px;">-->
                             <img :src="ite" v-for="(ite,i) in compileCode(item.sendMsg)" :key="i" alt=""
                                  class="img-msg" style="margin-top:10px;">
-
                           </li>
                         </ul>
-                        <!--<img v-else :src="ite" v-for ="(ite,i) in compileCode(item.sendMsg)" :key = "i" alt="" class="img-msg" style="margin-top:10px;">-->
                       </div>
                       <span class="minCirclefl"></span>
                     </div>
@@ -161,9 +155,16 @@
         <div class="chat-input">
           <div class="input-header">
             <!--<span class="text-left fl" @click="_showText">常用语</span>-->
-            <!--<span type="file" class="text-left fl">添加图片</span>-->
-            <label for="file" id="uploadLogo" class="text-left fl">添加图片</label>
-            <input type="file" v-show="false" id="file" @change="change" multiple="" accept="image/*">
+            <el-upload
+              class="upload-demo"
+              :action="upImgurl"
+              :on-remove="handleRemove"
+              ref="clearfile"
+              :show-file-list="false"
+              :on-success="handleSuccess"
+              :limit="1">
+              <el-button size="mini" type="primary">添加图片</el-button>
+            </el-upload>
             <span class="text-right fr" v-if="searchParams.orderServiceStatus==2||searchParams.orderServiceStatus==3"
                   @click="getcomment" :class="{reStyle:msgTypeCount>=3}">服务结束，邀请客户确认</span>
           </div>
@@ -173,12 +174,10 @@
             </ul>
           </div>
           <div class="text-image">
-            <!--<img for="file" :src="chatImg" class="com_fi">-->
             <div class="addImgBox" v-if="showLogo" style="padding:10px;">
               <div class="addImg">
                 <div>
                   <img :src="chatImg" class="img-logo-cicle" style="width: 80px;height:80px;box-sizing: border-box;">
-                  <!--<span class="addIcon" v-else>+</span>-->
                 </div>
                 <!--删除按钮-->
                 <span class="delIcon" id="deleteLogo" v-if="showLogo" @click="delLogo">-</span>
@@ -190,7 +189,7 @@
           </div>
           <div class="btn-main">
             <div class="btn-text">ctrl+Enter&nbsp;可直接提交发送</div>
-            <div class="btn-up" @keyup.ctrl.enter="_upTextSend" @click="_upTextSend">发送</div>
+            <el-button type="success" size="mini" @keyup.ctrl.enter="_upTextSend" @click="_upTextSend">发送</el-button>
           </div>
         </div>
       </div>
@@ -200,8 +199,8 @@
 
 <script>
   import headerTop from "@/components/headTop.vue"
+  import {API_UPLOAD} from '@/config/env.js'
   import tableMain from "@/pages/imgText_consult/tablemain.vue"
-  import {localUrl} from "@/config/env.js"
   import {getStore} from "@/config/mUtils.js"
   import {
     ERR_OK,
@@ -224,15 +223,14 @@
     },
     data() {
       return {
+        upImgurl:'',
         activeName: 'first',
         currentPage4: 1,
         totalcount: null,
         showText: false,
         dialogImageUrl: '',
         dialogVisible: false,
-        userInfo:{},//用户信息
-
-
+        userInfo: {},//用户信息
         uptext: [
           {msg: '你好'},
           {msg: '我现在忙,等下和你联系'},
@@ -273,76 +271,26 @@
       }
     },
     created() {
+      this.upImgurl = API_UPLOAD
       this.userInfo = JSON.parse(getStore('userMesage'));
       this.receiverId = this.userInfo.userId;
-      this.searchParams.providerServiceUserId = this.userInfo.userId;
+      this.searchParams.providerServiceUserId = this.userInfo.insDoctorId;
       this.avatar = localStorage.getItem("avatar");
       this._getOrderNumber();
       this._getOrderList();
     },
-    /*    mounted: function () {
-          $(function () {
-            new AjaxUpload('#uploadLogo', {
-              action: baseURL + "ins/insConsultChat/upload",
-              name: 'file',
-              autoSubmit: true,
-              responseType: "json",
-              onSubmit: function (file, extension) {
-                // if(vm.config.type == null){
-                //     alert("云存储配置未配置");
-                //     return false;
-                // }
-                if (!(extension && /^(jpg|jpeg|png|gif)$/.test(extension.toLowerCase()))) {
-                  alert('只支持jpg、png、gif格式的图片！');
-                  return false;
-                }
-              },
-              onComplete: function (file, r) {
-                if (r.code === 1) {
-                  vm.chatImg = r.data.src;
-                  vm.showLogo = true;
-                  vm.msgType = 2;
-                  // alert(r.url);
-                  // vm.reload();
-
-                } else {
-                  alert(r.msg);
-                }
-              }
-            });
-          });
-          layui.use(['element', 'layedit'], function () {
-            var element = layui.element,
-              layedit = layui.layedit; //导航的hover效果、二级菜单等功能，需要依赖element模块
-            element.on('tab(demo)', function (data) {
-              vm.selCurrent = null;
-              console.log(data.index);
-              if (data.index == 0) {
-                vm.searchParams.orderServiceStatus = data.index
-              } else {
-                vm.searchParams.orderServiceStatus = data.index + 1;
-              }
-              vm._getOrderList();
-
-            });
-            layedit.set({
-              uploadImage: {
-                url: '',//接口url,
-                type: ''//默认post
-              }
-            });
-            layedit.build('demo', {
-              height: 180,
-              tool: [
-                'link',
-                'unlink',
-                'face',
-                'image'
-              ]
-            });
-          });
-        },*/
     methods: {
+      //上传图片
+      handleRemove(file, fileList) {
+        this.$refs.clearfile.clearFiles();
+        this.chatImg=null;
+      },
+      handleSuccess(file,fileList) {
+        this.msgType = 2;
+        this.$refs.clearfile.clearFiles();
+        this.showLogo=true;
+        this.chatImg=file.data.src;
+      },
       //列表每页显示多少条
       handleSizeChange(val) {
         this.searchParams.pageSize = val;
@@ -359,32 +307,11 @@
       handleClick(tab) {
         this.selCurrent = null;
         if (tab.index == 0) {
-          this.searchParams.orderServiceStatus = tab.index
+          this.searchParams.orderServiceStatus = +tab.index
         } else {
-          this.searchParams.orderServiceStatus = tab.index + 1;
+          this.searchParams.orderServiceStatus = +tab.index + 1;
         }
         this._getOrderList();
-      },
-
-      change: function (e) {
-        var src, url = window.URL || window.webkitURL || window.mozURL,
-          files = e.target.files,
-          btnImage = files[0];
-        if (!btnImage) {
-          alert('请选择您要上传的图片！');
-          return;
-        }
-        var size = btnImage.size / 1024,
-          ext = {},
-          extName = btnImage.name.split('.').pop();
-        if (ext[extName]) {
-          alert('请选择您要上传的图片！');
-          return;
-        }
-        if (size > 800) {
-          alert('请上传800kb以内图片');
-          return;
-        }
       },
       //常用语显示列表
       _showText: function () {
@@ -411,7 +338,8 @@
               "msgType": this.msgType,// 1文本，2图片
               "receiverId": this.cspCustomId, //接收用户ID ,
               "sendMsg": this.showMsg,// 发送内容 ,
-              "senderId": this.receiverId//发送用户ID
+              "senderId": this.receiverId,//发送用户ID
+              "userId": this.receiverId,//发送用户ID
             };
           } else {
             params = {
@@ -419,11 +347,14 @@
               "msgType": this.msgType,// 1文本，2图片
               "receiverId": this.cspCustomId, //接收用户ID ,
               "sendMsg": this.chatImg,// 发送内容 ,
-              "senderId": this.receiverId//发送用户ID
+              "senderId": this.receiverId,//发送用户ID
+              "userId": this.receiverId,//发送用户ID
             };
           }
           if (params.sendMsg === '' || !params.sendMsg) {
-            alert('不能发送空白消息')
+            this.$alert('不能发送空白消息', '提示', {
+              confirmButtonText: '确定',
+            })
           } else if (that.docubleClik) {
             that.docubleClik = false;
             sendToCustomer(params).then((res) => {
@@ -436,17 +367,25 @@
                 this._getOrderNumber()
               } else {
                 that.docubleClik = true;
-                alert(res.msg)
+                this.$alert(res.msg, '提示', {
+                  confirmButtonText: '确定',
+                })
               }
             })
           }
         } else if (this.searchParams.orderServiceStatus !== 3 && this.searchParams.orderServiceStatus !== 4) {
-          alert('请选择聊天对象');
+          this.$alert('请选择聊天对象', '提示', {
+            confirmButtonText: '确定',
+          });
           return;
         } else if (this.searchParams.orderServiceStatus === 3) {
-          alert('咨询状态已完成,不能发送消息');
+          this.$alert('咨询状态已完成,不能发送消息', '提示', {
+            confirmButtonText: '确定',
+          })
         } else if (this.searchParams.orderServiceStatus === 4) {
-          alert('咨询状态已失效,不能发送消息');
+          this.$alert('咨询状态已失效,不能发送消息', '提示', {
+            confirmButtonText: '确定',
+          })
         }
       },
       //获取相应订单的聊天详情
@@ -467,7 +406,9 @@
             if (res.code === ERR_OK) {
               this._getMsgCount();
             } else {
-              alert(res.msg);
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
             }
           })
         }
@@ -479,7 +420,9 @@
           if (res.code === ERR_OK) {
             this.commonStatus = res.data;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
@@ -488,8 +431,8 @@
         let that = this;
         let params = {
           "cspOrderId": this.cspOrderId,
-          "limit": 1000,
-          "page": 1,
+          "pageSize": 1000,
+          "currentPage": 1,
           "senderId": this.receiverId,
           "receiverId": this.cspCustomId
         };
@@ -497,19 +440,23 @@
           if (res.code === ERR_OK) {
             that.chatList = res.data.list;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         });
       },
       //获取顶部统计数量
       _getOrderNumber: function () {
-        let params = {insDoctorId:this.searchParams.providerServiceUserId},
+        let params = {insDoctorId: this.searchParams.providerServiceUserId},
           that = this;
         getOrderNumber(params).then((res) => {
           if (res.code === ERR_OK) {
             that.orderNumber = res.data;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         });
         this._getMsgCount();
@@ -525,20 +472,23 @@
           "receiverId": this.receiverId
         };
 
-        let that = this,
-          url = localUrl + 'countUnReadMsgByOrderStatus';
+        let that = this;
         countUnReadMsgByOrderStatus(paramsZ).then((res) => {
           if (res.code === ERR_OK) {
             that.orderServiceStatusZ = res.data;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         });
         countUnReadMsgByOrderStatus(paramsT).then((res) => {
           if (res.code === ERR_OK) {
             that.orderServiceStatusT = res.data;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         });
       },
@@ -559,14 +509,16 @@
             if (res.data && res.data.totalCount) {
               that.totalcount = res.data.totalCount;
             } else {
-              totalcount = 1;
+              that.totalcount = 1;
             }
           } else {
-            alert(res.msg)
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
-      //信息展示
+      //详细信息展示
       detailShow: function (val) {
         this.maskShow = !this.maskShow;
         this.tradeDetailId = val.tradeDetailId;
@@ -577,7 +529,9 @@
               this.detailText = res.data;
               this.updataeTradeDetail = res.data.remark;
             } else {
-              alert(res.msg)
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
             }
           })
         }
@@ -598,13 +552,16 @@
           if (res.code === ERR_OK) {
             vm.detailText = res.data;
           } else {
-            alert(res.msg)
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
       delLogo: function () {
-        vm.chatLogo = null;
-        vm.showLogo = false;
+        this.chatLogo = null;
+        this.showLogo = false;
+        this.handleRemove();
       },
       //求评价
       getcomment: function () {
@@ -614,24 +571,30 @@
             "msgType": 3,// 1文本，2图片3评价
             "receiverId": this.cspCustomId, //接收用户ID ,
             "sendMsg": '服务结束，邀请客户确认',// 发送内容 ,
-            "senderId": this.receiverId//发送用户ID
+            "senderId": this.receiverId,//发送用户ID
+            "userId": this.receiverId,//发送用户ID
           };
           if (this.commonStatus.insOrderCommentId) {
-            alert('订单已经完成')
+            this.$alert('订单已经完成', '提示', {
+              confirmButtonText: '确定',
+            })
           } else if (this.msgTypeCount >= 3) {
             return;
-          }
-          else {
+          } else {
             sendToCustomer(params).then((res) => {
               if (res.code === ERR_OK) {
                 this.queryInsConsultChatList();
               } else {
-                alert(res.msg)
+                this.$alert(res.msg, '提示', {
+                  confirmButtonText: '确定',
+                })
               }
             })
           }
         } else {
-          alert('请选择聊天对象')
+          this.$alert('请选择聊天对象', '提示', {
+            confirmButtonText: '确定',
+          })
           return;
         }
       },
@@ -693,6 +656,9 @@
 </script>
 
 <style scoped lang="less">
+  .upload-demo{
+    display:inline-block;
+  }
   .imgtext-main {
     border-radius: 5px;
     border: 1px solid #e5e5e5;
@@ -719,6 +685,15 @@
         bottom: 5px;
         left: 0;
         right: 0;
+        .tipMsg {
+          font-size: 6px;
+          position: absolute;
+          bottom: 0px;
+          width: 100%;
+          background-color: #fff;
+          margin: 0 auto;
+          text-align: center;
+        }
       }
       .table-content {
         height: calc(100% - 42px);
@@ -853,7 +828,7 @@
 
   .chat-box {
     /*height: 576px;*/
-    height: 100%;
+    height: calc(100% - 20px);
     overflow: hidden;
   }
 
@@ -1017,15 +992,6 @@
       float: left;
       margin-right: 10px;
     }
-    .btn-up {
-      background-color: #4fb136;
-      color: #fff;
-      padding: 5px 10px;
-      float: left;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
   }
 
   .text-image {

@@ -55,6 +55,20 @@ export const API_POST_UPDATE_TEMPLATE = baseUrl+'bd/template/update';//修改
 export const API_POST_SAVE_TEMPLATE = baseUrl+'bd/template/save';//新增
 export const API_POST_DELETE_TEMPLATE = baseUrl+'bd/template/delete';//删除
 
+//菜单管理
+
+export const API_POST_MENU_DELETE = baseUrl+'sys/menu/delete';//删除菜单
+export const API_POST_MENU_GETLEFTNAV = baseUrl+'sys/menu/getLeftNav';//删除菜单
+export const API_POST_MENU_GETMENULIST = baseUrl+'sys/menu/getMenuList';//获取所有菜单列表
+export const API_POST_MENU_BYCATEGORY = baseUrl+'sys/menu/getMenuListByCategory';//获取所有菜单列表
+export const API_POST_MENU_MENUBYCATEGORY = baseUrl+'sys/menu/getSysMenuByCategory';//选择菜单(添加、修改菜单)
+export const API_POST_MENU_GETSYSMENUBYID = baseUrl+'sys/menu/getSysMenuById';//获取菜单信息
+export const API_POST_MENU_LISTBYCATEGORY = baseUrl+'sys/menu/listByCategory';//根据角色类别加载菜单信息
+export const API_POST_MENU_SAVE = baseUrl+'sys/menu/save';//保存菜单信息
+export const API_POST_MENU_UPDATE = baseUrl+'sys/menu/update';//修改菜单
+
+
+
 //机构业务
 export const API_POST_LIST_INSTITUTION = baseUrl+'ins/institution/list';//机构业务列表
 export const API_POST_SAVE_INSTITUTION = baseUrl+'ins/institution/save';//消息模板列表

@@ -16,6 +16,7 @@ const role = () => import('@/pages/role.vue')//角色管理
 // const dept = () => import('@/pages/dept.vue')//部门管理
 const user = () => import('@/pages/user.vue')//用户管理
 const message_template = () => import('@/pages/message_template.vue')//消息模板
+const menuList = () => import('@/pages/menuList.vue')//菜单管理
 //机构业务
 const institution = () => import('@/pages/institution.vue')//机构列表
 const medicine_group = () => import('@/pages/medicine_group.vue')//医学分组
@@ -98,6 +99,11 @@ let router =  new Router({
           path: '/message_template',
           component: message_template,
           meta: ["系统管理", "消息模板"],//消息模板
+        },
+        {
+          path: '/menuList',
+          component: menuList,
+          meta: ["系统管理", "菜单管理"],//菜单管理
         },
         {
           path: '/institution',

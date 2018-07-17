@@ -16,6 +16,7 @@
             <!-- <el-menu-item index="dept">部门管理</el-menu-item> -->
             <el-menu-item index="user"><i class="el-icon-bell nav-t-icon"></i>用户管理</el-menu-item>
             <el-menu-item index="message_template"><i class="el-icon-message nav-t-icon"></i>消息模板</el-menu-item>
+            <el-menu-item index="menuList"><i class="el-icon-menu nav-t-icon"></i>菜单管理</el-menu-item>
           </el-submenu>
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-setting nav-t-icon"></i>机构业务</template>

@@ -9,7 +9,6 @@ Vue.use(Vuex)
 
 const state = {
   isLoading:false,//缓冲
-  navTitle:'首页',//导航栏文字
   detailShow:null,//系统公告详情
   msgList:{data:null},//消息列表数据
 };
@@ -17,7 +16,6 @@ const state = {
 
 const getters={
   isLoading:state => state.isLoading,//缓冲
-  navTitle:state=> state.navTitle,
   detailShow:state=> state.detailShow,//系统公告详情
   msgList:state=> state.msgList,//系统公告详情
 };
