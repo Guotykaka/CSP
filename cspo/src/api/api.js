@@ -68,6 +68,36 @@ export function PostInstitutionList(params){//删除
 export function PostInstitutionSave(params){//新增
   return post(urls.API_POST_SAVE_INSTITUTION,params)
 }
+//菜单管理
+export function Menudelete(params){//删除菜单
+  return post(urls.API_POST_MENU_DELETE,params)
+}
+export function getLeftNav(params){//删除菜单
+  return post(urls.API_POST_MENU_GETLEFTNAV,params)
+}
+export function getMenuList(params){//获取所有菜单列表
+  return post(urls.API_POST_MENU_GETMENULIST,params)
+}
+export function getMenuListByCategory(params){//获取所有菜单列表
+  return post(urls.API_POST_MENU_BYCATEGORY,params)
+}
+export function getSysMenuByCategory(params){//选择菜单(添加、修改菜单)
+  return post(urls.API_POST_MENU_MENUBYCATEGORY,params)
+}
+export function getSysMenuById(params){//获取菜单信息
+  return post(urls.API_POST_MENU_GETSYSMENUBYID,params)
+}
+export function listByCategory(params){//根据角色类别加载菜单信息
+  return post(urls.API_POST_MENU_LISTBYCATEGORY,params)
+}
+export function Menusave(params){//保存菜单信息
+  return post(urls.API_POST_MENU_SAVE,params)
+}
+export function MenuUpdate(params){//修改菜单
+  return post(urls.API_POST_MENU_UPDATE,params)
+}
+
+
 //医生管理
 //获取医生列表
 export function getDoctorList(params) {

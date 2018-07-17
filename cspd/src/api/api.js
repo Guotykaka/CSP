@@ -51,17 +51,29 @@ export function updateTradeDetail(params) {
   return post(urls.API_UPDATE_TRADE_DETAIL, params)
 }
 
-/*个人中心*/
+/*联系医助/留言板*/
 
-// export function login(params) {
-//   return post(urls.API_LOGIN, params)
-// }
+//关闭留言
+export function closeInsLeaveWordAnswer(params) {
+  return post(urls.API_INS_CLOSE_LEAVE_WORD_ANSWER, params)
+}
 
-/*服务管理*/
-// export function login(params) {
-//   return post(urls.API_LOGIN, params)
-// }
-
+//展开查看当前留言所有回复记录
+export function queryInsLeaveWordAnswerList(params) {
+  return post(urls.API_INS_QUERY_LEAVE_WORD_ANSWER_LIST, params)
+}
+//分页查询所有留言
+export function queryInsLeaveWordList(params) {
+  return post(urls.API_INS_QUERY_LEAVE_WORD_LIST, params)
+}
+//添加留言
+export function saveInsLeaveWord(params) {
+  return post(urls.API_INS_SAVE_LEAVE_WORD, params)
+}
+//回复留言
+export function saveInsLeaveWordAnswer(params) {
+  return post(urls.API_INS_SAVE_LEAVE_WORD_ANSWER, params)
+}
 
 //个人账户
 

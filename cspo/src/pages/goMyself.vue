@@ -68,23 +68,25 @@
                   </li>
                 </ul>
                 <!--回复内容-->
-                <div class="re-circle" v-if="checkId==index" v-for="(item1,index1) in insLeaveAnswerlist"
-                     :key="index1">
-                  <span class="res-title">回复</span>
-                  <div class="resCircle">
-                    <span class="res-main">{{item1.answerContent}}</span>
-                    <ul class="res-sign">
-                      <li>
-                        <span class="text-sblack">回复人:</span>
-                        <span>{{item1.answerUserName}}</span>
-                      </li>
-                      <li>
-                        <span class="text-sblack">回复时间:</span>
-                        <span>{{item1.createTime}}</span>
-                      </li>
-                    </ul>
+                <transition-group name="fade" tag="div">
+                  <div class="re-circle" v-if="checkId==index" v-for="(item1,index1) in insLeaveAnswerlist"
+                       :key="index1">
+                    <span class="res-title">回复</span>
+                    <div class="resCircle">
+                      <span class="res-main">{{item1.answerContent}}</span>
+                      <ul class="res-sign">
+                        <li>
+                          <span class="text-sblack">回复人:</span>
+                          <span>{{item1.answerUserName}}</span>
+                        </li>
+                        <li>
+                          <span class="text-sblack">回复时间:</span>
+                          <span>{{item1.createTime}}</span>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </div>
+                </transition-group>
                 <ul class="event-btn" v-if="checkId!==index">
                   <li @click="evnetShowList(item,index)">展开<b class="iconfont icon-xiangs-copy"></b></li>
                 </ul>
@@ -100,6 +102,7 @@
           </ul>
           <div class="pageS">
             <el-pagination
+              v-if="insLeaveDetail.length>0"
               @size-change="handleSizeChange"
               @current-change="handleCurrentChange"
               :current-page="searchParams.currentPage"
@@ -109,6 +112,7 @@
               layout="total, sizes, prev, pager, next, jumper"
               :total="total">
             </el-pagination>
+            <span v-else class="text-hui">暂无数据</span>
           </div>
         </div>
       </div>
@@ -178,9 +182,9 @@
       //关闭
       closeList: function (val) {
         let data = {
-          id:val
+          id: val
         }
-        closeInsLeaveWordAnswer(data).then((res)=>{
+        closeInsLeaveWordAnswer(data).then((res) => {
           if (res.code === ERR_OK) {
             this._getQueryInsLeaveWordList();
             this.checkId = null;
@@ -275,7 +279,7 @@
           "currentPage": this.searchParams.currentPage
         };
         queryInsLeaveWordList(parms).then((res) => {
-          if (res.code === 1) {
+          if (res.code === ERR_OK) {
             this.insLeaveDetail = res.data.list;
             this.total = res.data.totalCount;
           } else {
@@ -372,18 +376,21 @@
             margin-left: 10px;
           }
           .text-red {
-            color: #f2a498;
+            color: #F56C6C;
           }
 
           .text-green {
-            color: #4dc44e;
+            color: #67C23A;
           }
 
           .text-hui {
-            color: #999;
+            color: #909399;
+          }
+          .text-blue {
+            color: #409EFF;
           }
           li {
-            color: #999;
+            color: #909399;
             height: 40px;
             line-height: 40px;
           }
@@ -463,6 +470,12 @@
     .pageS {
       text-align: center;
       margin-top: 20px;
+    }
+    .fadeBox {
+      display: block;
+    }
+    .fade-move {
+      transition: all 3s;
     }
   }
 </style>
