@@ -58,6 +58,16 @@ export function PostTemplateUpdate(params){//修改
 export function PostTemplateSave(params){//新增
   return post(urls.API_POST_SAVE_TEMPLATE,params)
 }
+export function PostTemplateDelete(params){//删除
+  return post(urls.API_POST_DELETE_TEMPLATE,params)
+}
+//机构管理
+export function PostInstitutionList(params){//删除
+  return post(urls.API_POST_LIST_INSTITUTION,params)
+}
+export function PostInstitutionSave(params){//新增
+  return post(urls.API_POST_SAVE_INSTITUTION,params)
+}
 //医生管理
 //获取医生列表
 export function getDoctorList(params) {

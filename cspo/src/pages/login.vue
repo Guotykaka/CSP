@@ -11,10 +11,10 @@
           <el-input type="password" v-model="loginParams.password" placeholder="请输入密码"></el-input>
         </li>
         <li class="m_b_20">
-          <el-input type="text" v-model="loginParams.captcha" placeholder="请输入验证码" style="width: 190px"></el-input>
+          <el-input type="text" v-model="loginParams.captcha" placeholder="请输入验证码" style="width: 190px"   @keyup.enter.native="doLogin()"></el-input>
           <img :src="imgUrl" class="captcha-img" @click="refreshImg"/>
         </li>
-        <button class="full-btn" @click="doLogin"  @keyup.enter.native="doLogin()">登录</button>
+        <button class="full-btn" @click="doLogin">登录</button>
       </ul>
     </div>
   </div>
