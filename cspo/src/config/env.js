@@ -14,8 +14,8 @@ let baseImgPath;
 let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = 'http://172.0.0.41:8117/cspo/';
-  //baseUrl = 'http://10.50.50.117:8117/cspo/';
+  //baseUrl = 'http://172.0.0.41:8117/cspo/';
+  baseUrl = 'http://10.50.50.117:8117/cspo/';
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';
@@ -59,6 +59,7 @@ export const API_POST_DELETE_TEMPLATE = baseUrl+'bd/template/delete';//删除
 export const API_POST_LIST_INSTITUTION = baseUrl+'ins/institution/list';//机构业务列表
 export const API_POST_SAVE_INSTITUTION = baseUrl+'ins/institution/save';//消息模板列表
 //商品管理
+
 //医生管理
 export const API_POST_LIST_DOCTOR = baseUrl+'sys/doctor/doctorList';//医生列表
 export const API_POST_DOCTOR_UPDATE = baseUrl+'sys/doctor/doctorUpdate';//编辑医生信息
@@ -66,6 +67,23 @@ export const API_POST_SERVICE_DICT = baseUrl+'sys/doctor/serviceDict';//所有�
 export const API_POST_SAVE_SERVICE_SET = baseUrl+'sys/doctor/saveServiceSet';//设置服务权限
 export const API_POST_REST_PASSWORD = baseUrl+'sys/doctor/resetPassword';//重置密码
 export const API_POST_DOCTOR_SAVE = baseUrl+'sys/doctor/doctorSave';//新增医生
+export const API_POST_INSPROPORTION_LIST = baseUrl+'sys/doctor/listGetInsProportionsByPage';//分成比例列表
+export const API_POST_SAVE_INSPROPORTIONS = baseUrl+'sys/doctor/saveInsProportions';//新增分成项
+export const API_POST_DELETE_INSPROPORTIONSENTITY = baseUrl+'sys/doctor/deleteInsProportionsEntity';//删除分成比例项
+
+export const API_POST_DOCTOR_APPLY_LIST = baseUrl+'sys/doctorApply/doctorApplyList';//医生认证列表
+export const API_POST_QUERY_DOCTOR_INFO = baseUrl+'sys/doctorApply/queryDoctorApplyInfo';//查询医生详情
+export const API_POST_CHANGE_DOCTOR_STATUS = baseUrl+'sys/doctorApply/changeDoctorStatus';//同意或拒绝医生认证
+
+
+//财务管理
+export const API_POST_LIST_ACCOUNT_RECORD = baseUrl+'ins/withdraw/listAccountRecord';//提现列表
+
+
+
+
+
+
 
 
 //订单管理

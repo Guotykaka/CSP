@@ -2,19 +2,15 @@
   <div class="page-wrapper">
     <header-top></header-top>
     <div class="page-container">
-
       <el-form :inline="true" :model="searchParams" class="demo-form-inline">
         <el-form-item label="申请人">
           <el-input placeholder="申请人"></el-input>
         </el-form-item>
-
-
         <el-form-item label="机构">
           <el-select v-model="searchParams.institutionName" clearable placeholder="请选择所属机构">
             <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId"></el-option>
           </el-select>
         </el-form-item>
-
 
         <el-form-item label="时间">
           <el-date-picker
@@ -31,7 +27,7 @@
         <el-form-item>
           <el-button type="primary" @click="doSearch">查询</el-button>
           <el-button type="primary" @click="_resetParams">清空</el-button>
-          <el-button type="primary" @click="_exportAccountRecord">导出Excel</el-button>
+          <el-button type="primary" >导出Excel</el-button>
         </el-form-item>
       </el-form>
 
@@ -93,8 +89,7 @@
 
 import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
-
-
+import {getAccountRecord ,ERR_OK} from "@/api/api.js";
 
 export default {
   data() {
@@ -116,22 +111,17 @@ export default {
       rangeTime:"",//时间区间
 
       searchParams:{
-        page:1,//页码
-        limit: 10,//
-        username: "",
-        institutionId:"",//机构id
-        startTime: "",
+        currentPage: 1,
         endTime: "",
-        status: 0//状态 0 1 2
+        institutionId: "",
+        institutionName: "",
+        pageSize: 10,
+        startTime: "",
+        status:0,
+        username: ""
       },
       //获取的列表数据
-      dataList:[
-        {insAccountRecordId:"2c8080aa64688e870164691a605b000b",username:"saitest2",createTime:"2018-07-05 14:21:33",institutionName:"包头中心医院",disburse:666.0,insDoctorAccountId:"2c8080aa641bf4cd01641bf4cd7e0000",type:2,status:0,refuseReason:null,insDoctorId:"2c8080aa641bf4cd01641bf4cd7e0000"},
-        {insAccountRecordId:"2c8080aa64688e870164690cdd540009",username:"左丽红-河南省直三院",createTime:"2018-07-05 14:06:48",institutionName:"河南省直三院",disburse:500.0,insDoctorAccountId:"2c8080aa641bf4cd01641c05b0c90005",type:2,status:0,refuseReason:null,insDoctorId:"2c8080aa641bf4cd01641c05b0c90005"},
-        {insAccountRecordId:"2c8080aa644ac03301644ac0eff70003",username:"saitest2",createTime:"2018-06-29 16:55:15",institutionName:"包头中心医院",disburse:666.0,insDoctorAccountId:"2c8080aa641bf4cd01641bf4cd7e0000",type:2,status:1,refuseReason:"这是拒绝理由",insDoctorId:"2c8080aa641bf4cd01641bf4cd7e0000"},
-        {insAccountRecordId:"2c8080aa644ac03301644ac0eff70003",username:"saitest2",createTime:"2018-06-29 16:55:15",institutionName:"包头中心医院",disburse:666.0,insDoctorAccountId:"2c8080aa641bf4cd01641bf4cd7e0000",type:2,status:2,refuseReason:"这是拒绝理由",insDoctorId:"2c8080aa641bf4cd01641bf4cd7e0000"},
-
-      ],
+      dataList:[],
 
 
   }
@@ -155,70 +145,48 @@ export default {
 
     //重置搜索条件
     _resetParams:function () {
-      this.searchParams={
-        page:1,//页码
-        limit:10,//
-        username: "",
-        institutionId:"",//机构id
-        startTime: "",
-        endTime: "",
-        status: 0//状态 0 1 2
-      };
-      this._getData();
+
     },
 
 
 
     //获取列表数据
-    _getData:function () {
-     /* $.ajax({
-        type: "POST",
-        url: baseURL + "ins/withdraw/listAccountRecord",
-        contentType: "application/json",
-        data: JSON.stringify(this.searchParams),
-        success: function(res){
-          if(res.code === 1){
-            vm.dataList=res.data.list;
-            vm._initPage(res.data.page.totalCount);
-          }else{
-            alert(res.msg);
-          }
-        }
-      });*/
-    },
+    getListData:function () {
+      if(this.rangeTime){
+        this.searchParams.startTime=this.rangeTime[0];
+        this.searchParams.endTime=this.rangeTime[1];
+      }else{
+        this.searchParams.startTime="";
+        this.searchParams.endTime="";
+      }
 
-
-    //导出提现记录
-    _exportAccountRecord:function () {
       var params={
-        username:this.searchParams.username,
-        institutionId:this.searchParams.institutionId,
-        startTime:this.searchParams.startTime,
+        currentPage:this.searchParams.currentPage,
         endTime:this.searchParams.endTime,
-        status: this.searchParams.status
+        institutionId: this.searchParams.institutionId,
+        pageSize:this.searchParams.pageSize,
+        startTime:this.searchParams.startTime,
+        status:this.tabIndex,
+        username:this.searchParams.username
       };
-      var paramString =
-        'username='+params.username+
-        '&institutionId='+params.institutionId+
-        '&startTime='+params.startTime+
-        '&endTime='+params.endTime+
-        '&status='+params.status;
-      var url = baseURL + "ins/withdraw/exportAccountRecord?" + paramString;
-      window.open(url);
-      /*            $.ajax({
-                      type: "POST",
-                      url: baseURL + "ins/withdraw/exportAccountRecord",
-                      contentType: "application/json",
-                      data: JSON.stringify(params),
-                      success: function(res){
-                          if(res.code === 1){
-                              alert('成功导出到桌面了');
-                          }else{
-                              alert(res.msg);
-                          }
-                      }
-                  });*/
+
+      getAccountRecord(params).then(res => {
+        if(res.code===ERR_OK){
+          this.dataList=res.data.list;
+          this.totalCount=res.data.totalCount;
+        }else{
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      }).catch(err => {
+        this.$alert(err.msg, '提示', {
+          confirmButtonText: '确定',
+        })
+      })
+
     },
+
 
 
 
@@ -245,62 +213,6 @@ export default {
 
 
 
-      /*if(state ===1){
-        layer.prompt({
-          formType: 2,
-          value: '请填写拒绝理由',
-          title: '请填写拒绝理由',
-          area: ['400px', '200px'] //自定义文本域宽高
-        }, function(value, index, elem){
-
-          var parms={
-            insAccountRecordId:item.insAccountRecordId,
-            insDoctorId:item.insDoctorId,
-            status:state,
-            reason:value
-          };
-          $.ajax({
-            type: "POST",
-            url: baseURL+"ins/withdraw/updateApplyStatus",
-            contentType: "application/json",
-            data: JSON.stringify(parms),
-            success: function(res){
-              if(res.code === 1){
-                alert("操作成功",function () {
-                  vm._getData();
-                })
-              }else{
-                alert(res.msg);
-              }
-            }
-          });
-          layer.close(index);
-        });
-      }else {
-        confirm("确定通过吗",function () {
-          var parms={
-            insAccountRecordId:item.insAccountRecordId,
-            insDoctorId:item.insDoctorId,
-            status:state,
-            reason:""
-          };
-          $.ajax({
-            type: "POST",
-            url: baseURL+"ins/withdraw/updateApplyStatus",
-            contentType: "application/json",
-            data: JSON.stringify(parms),
-            success: function(res){
-              if(res.code === 1){
-                alert("操作成功",function () {
-                  vm._getData();
-                })
-              }else{
-                alert(res.msg);
-              }
-            }
-          });
-        })
-      }*/
     },
 
 
@@ -331,8 +243,19 @@ export default {
 
 
   created(){
+    this.getListData()
+
+  },
 
 
+
+  watch:{
+
+
+    tabIndex(val){
+      this.searchParams.currentPage=1;
+      this.getListData();
+    }
 
   }
 

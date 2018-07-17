@@ -149,7 +149,7 @@
         </el-table>
       </el-card>
       <div class="btn-row" style="text-align: center">
-        <el-button size="small" type="primary">返回</el-button>
+        <el-button size="small" type="primary" @click="backFn">返回</el-button>
       </div>
 
 
@@ -2769,7 +2769,6 @@ export default {
       var params = {
         orderCode:this.$route.params.id
       };
-
       getOrderChangeRecord(params).then(res => {
         if(res.code===ERR_OK){
           this.orderChangeList=res.data;
@@ -2783,13 +2782,14 @@ export default {
       })
     },
 
-
+    backFn(){
+      window.history.go(-1);
+    }
   },
 
   created(){
     this.setPayList();
     this.getOrderChanges();
-
   },
 
 }
@@ -2801,8 +2801,5 @@ export default {
   .text-danger{color:#F56C6C}
   .text.item{line-height: 24px;font-size: 14px;color:#666;margin-bottom: 10px}
   .status-text{line-height: 24px;font-size: 14px;color: #555;margin-bottom: 10px}
-
   .showReportBtn{color:#409EFF;cursor: pointer;font-weight: bold;font-size: 14px;}
-
-
 </style>

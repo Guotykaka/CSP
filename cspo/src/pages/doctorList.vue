@@ -3,7 +3,6 @@
     <header-top></header-top>
     <div class="page-container">
 
-
       <!--操作行-->
       <el-form :inline="true" :model="searchParams" class="demo-form-inline">
         <el-form-item label="姓名">
@@ -19,7 +18,6 @@
             <el-option v-for="item in getDoctorRolesList" :key="item.roleId" :label="item.roleName" :value="item.roleId"></el-option>
           </el-select>
         </el-form-item>
-
 
         <el-form-item label="机构">
           <el-autocomplete
@@ -70,8 +68,6 @@
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
         </el-pagination>
       </div>
-
-
 
       <!--医生详情弹窗-->
       <el-dialog title="详细信息" :visible.sync="detailINfo.isShowDialog">
@@ -163,10 +159,17 @@
             <strong class="title-note">所属机构：</strong>
           </el-col>
           <el-col :span="8">
-            <el-select v-model="addINfo.institutionId" clearable placeholder="请选择机构">
-              <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId">
-              </el-option>
-            </el-select>
+
+            <el-autocomplete class="auto-select"
+              popper-class="my-autocomplete"
+              v-model="addINfo.institutionName"
+              :fetch-suggestions="querySearch"
+              placeholder="请输入内容"
+              @select="handleSelectAdd">
+              <template slot-scope="{ item }">
+                <div class="name">{{ item.institutionName }}</div>
+              </template>
+              </el-autocomplete>
           </el-col>
         </el-row>
 
@@ -318,6 +321,9 @@ import { mapGetters } from "vuex";
 //引入getDoctorList的方法
 import { getDoctorList,updataDoctorEditor,getAllService,setService,restPassword,addDoctor,ERR_OK} from "@/api/api.js";
 
+
+var mbTest = /^(13|14|15|18|17)[0-9]{9}$/;
+
 export default {
   data(){
     return{
@@ -360,11 +366,12 @@ export default {
       addINfo:{
         isShowDialog:false,//是否显示dialog
         institutionId: "",
+        institutionName: "",
         mobile: "",
         name: "",//用户姓名
         password: "",
         roleId: "",
-        sort: "2",
+        sort: "1",
         username: ""//用户账号
       },
 
@@ -399,6 +406,11 @@ export default {
     handleSelect(item) {
       this.searchParams.institutionName=item.institutionName;
       this.searchParams.institutionId=item.institutionId
+    },
+
+    handleSelectAdd(item) {
+      this.addINfo.institutionName=item.institutionName;
+      this.addINfo.institutionId=item.institutionId
     },
 
     //自带搜索组件搜索
@@ -469,25 +481,71 @@ export default {
     //点击确定增加医生
     _upDataAddDoctor:function(){
       var params={
-        institutionId: "",
-        mobile: "",
-        name: "",
-        password: "",
-        roleId: 4,
-        sort: "2",
-        username: ""//用户账号
+        institutionId:this.addINfo.institutionId,
+        mobile:this.addINfo.mobile,
+        name: this.addINfo.name,
+        password:this.addINfo.password,
+        roleId:this.addINfo.roleId,
+        sort:this.addINfo.sort,
+        username: this.addINfo.username//用户账号
       };
 
+      if(!params.roleId){
+        this.$alert("请选择角色", '提示', {
+          confirmButtonText: '确定',
+        });
+        return;
+      }
+      if(!params.institutionId){
+        this.$alert("请选择机构", '提示', {
+          confirmButtonText: '确定',
+        });
+        return;
+      }
+      if(!params.name){
+        this.$alert("请输入用户姓名", '提示', {
+          confirmButtonText: '确定',
+        });
+        return;
+      }
+      if(!params.mobile){
+        this.$alert("请输入手机号", '提示', {
+          confirmButtonText: '确定',
+        });
+        return;
+      }
+      if(!mbTest.test(params.mobile)){
+        this.$alert("手机号格式不正确", '提示', {
+          confirmButtonText: '确定',
+        });
+        return;
+      }
+      if(!params.username){
+        this.$alert("请输入用户账号", '提示', {
+          confirmButtonText: '确定',
+        });
+        return;
+      }
+      if(!params.password){
+        this.$alert("请输入用户密码", '提示', {
+          confirmButtonText: '确定',
+        });
+        return;
+      }
+      if(!params.sort){
+        this.$alert("请输入排序", '提示', {
+          confirmButtonText: '确定',
+        });
+        return;
+      }
       addDoctor(params).then(res => {
         if(res.code===ERR_OK){
-          this.editorINfo.isShowDialog=false;
-          /*this.$alert('保存成功', '提示', {
-            confirmButtonText: '确定',
-            callback: action => {
-              this.getDoctorListsFn();
-            }
-          },)*/
-
+          this.$message({
+            message: '操作成功',
+            type: 'success'
+          });
+          this.addINfo.isShowDialog=false;
+          this.getDoctorListsFn();
         }else{
           this.$alert(res.msg, '提示', {
             confirmButtonText: '确定',
@@ -602,10 +660,6 @@ export default {
           confirmButtonText: '确定',
         })
       })
-
-
-
-
     },
 
 
@@ -636,11 +690,12 @@ export default {
       };
       setService(params).then(res => {
         if(res.code===ERR_OK){
+          this.limitedSetting.isShowDialog=false;
           this.$message({
             message: '操作成功',
             type: 'success'
           });
-
+          this.getDoctorListsFn();
         }else{
           this.$alert(res.msg, '提示', {
             confirmButtonText: '确定',
@@ -653,19 +708,11 @@ export default {
       })
     },
 
-
-
-
-
-    //点击分成比例
+    //点击分成比例跳转
     _benefit_setting:function (item) {
-      var id=item.insDoctorId;
-
-      this.$router.push({ path: `/benefitList/${id}`})
-
-
+      var id=item.insDoctorId,userId=item.userId;
+      this.$router.push({ path: `/benefitList/${id}/${userId}`})
     },
-
 
     //点击重置密码
     _resetPassword:function (item) {
@@ -689,48 +736,13 @@ export default {
               })
             })
           })
-          .catch(_ => {
-            this.$alert(err.msg, '提示', {
-              confirmButtonText: '确定',
-            })
-          });
-    },
-
-    //显示分成比例dialog
-    showDialogBenefit(){
-      this.benefitData.isShowDialog=true;
-    },
-
-
-    //增加分成比例
-    _addBenefiItem(){
-
-
-      console.log(this.benefitRate)
-
 
     },
-
-    //删除分成
-    _deleteBenefit(item){
-      this.$confirm('确定要删除吗？')
-        .then(_ => {
-
-        })
-        .catch(_ => {
-
-        });
-      console.log(item)
-    }
-
 
   },
 
 
   created: function(){
-
-
-
     this.getDoctorListsFn()
   },
 
@@ -742,6 +754,15 @@ export default {
 
   computed:{
     ...mapGetters(['getDoctorRolesList','getInstitutionArr'])
+  },
+
+  watch:{
+    'searchParams.institutionName'(newVal){
+      if(!newVal){
+        this.searchParams.institutionId="";
+      }
+    }
+
   }
 
 
@@ -758,9 +779,8 @@ export default {
   .service-label {padding: 0 5px 0 3px;}
   .service-label input[type='checkbox'] {margin: 3px 3px 0 0;display: inline-block;vertical-align: top;}
   .input-benefit {display: inline-block;width: 100px;}
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-  }
+  input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
+
   input[type='number'] {-moz-appearance: textfield;}
+  .auto-select{width: 100%}
 </style>

@@ -140,8 +140,8 @@ let router =  new Router({
           meta: ["医生管理", "医生列表"],
         },
         {
-          path: '/benefitList/:id',
-          component: benefitList,//医生管理 医生列表
+          path: '/benefitList/:id/:userId',
+          component: benefitList,//分成比例
           meta: ["医生管理", "医生列表","分成比例"],
         },
         {

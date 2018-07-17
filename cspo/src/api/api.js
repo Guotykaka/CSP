@@ -96,6 +96,50 @@ export function restPassword(params) {
 export function addDoctor(params) {
   return post(urls.API_POST_DOCTOR_SAVE,params);
 }
+//获取分成列表
+export function getInsProportionsList(params) {
+  return post(urls.API_POST_INSPROPORTION_LIST,params);
+}
+//新增分成项
+export function addProportionItem(params) {
+  return post(urls.API_POST_SAVE_INSPROPORTIONS,params);
+}
+//删除分成项
+export function deleteProportionItem(params) {
+  return post(urls.API_POST_DELETE_INSPROPORTIONSENTITY,params);
+}
+
+
+//获取认证医生列表
+export function getDoctorApplyList(params) {
+  return post(urls.API_POST_DOCTOR_APPLY_LIST,params);
+}
+
+//查询医生详情
+export function queryDoctorInfo(params) {
+  return post(urls.API_POST_QUERY_DOCTOR_INFO,params);
+}
+
+//改变医生认证状态  同意或拒绝
+export function changeDoctorStatus(params) {
+  return post(urls.API_POST_CHANGE_DOCTOR_STATUS,params);
+}
+
+
+//财务管理
+export function getAccountRecord(params) {
+  return post(urls.API_POST_LIST_ACCOUNT_RECORD,params);
+}
+
+
+
+
+
+
+
+
+
+
 
 //获取所有机构列表
 export function getListAllInstitution(params){
