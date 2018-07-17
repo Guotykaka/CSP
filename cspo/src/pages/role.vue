@@ -6,11 +6,11 @@
 
         <el-row :gutter="20" class="m_b_15">
           <el-col :span="6" class="minwidth">
-            <el-input v-model="formInline.valueSS" placeholder="用户名"></el-input>
+            <el-input v-model="searchParams.roleName" placeholder="用户名" @keyup.enter.native="doSearche()"></el-input>
           </el-col>
 
           <el-col :span="6" class="minwidth">
-            <el-button type="primary">查询</el-button>
+            <el-button type="primary" @click="doSearche()">查询</el-button>
             <el-button type="primary" @click="handleAdd()">新增</el-button>
           </el-col>
         </el-row>
@@ -171,7 +171,7 @@
 
 
 <script>
-import { getListWithNoParam,PostUpdateRole,PostDeleteRole,PostSaveRole } from '@/api/api.js'
+import { getListWithNoParam,PostUpdateRole,PostDeleteRole,PostSaveRole,getListRole } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -179,6 +179,7 @@ export default {
   },
   data() {
     return {
+      searchParams: { roleName: '', },
       dateNw: Date.parse(new Date()),
       params: { timespan : this.dateNw, },
       formInline: { valueSS: '' },
@@ -209,6 +210,19 @@ export default {
     }
   },
   methods: {
+    doSearche() {
+      let date = Date.parse(new Date())
+      let params = {
+        currentPage: 1,
+        pageSize: 1000,
+        roleName: this.searchParams.roleName,
+        timespan: date
+      }
+      getListRole(params).then(response => {
+        this.tableData = []
+        this.tableData = response.data.list
+      })
+    },
     colType() {
       console.log(JSON.stringify(this.editTable.roleType))
     },
@@ -227,7 +241,6 @@ export default {
     },
     // 确定新增
     _doAdd() {
-      this.tableData.push(this.addTable)
      
         let date = Date.parse( new Date())
         let params = {
@@ -252,17 +265,12 @@ export default {
               
           }
         PostSaveRole(params).then(response => {
-              this.$message({
-                    type: 'success',
-                    message: '新增成功!'
-                  })
+                  this.$alert(response.msg)
                   this.getRoleList()
                   }).catch(err => {
-                    this.$message({
-                          type: 'error',
-                          message: err
-                        })
+                    this.$alert(err)
                   })
+        this.tableData.push(this.addTable)
         this.addTable = {
         // roleId: 1,
         roleCode: '',
@@ -372,19 +380,13 @@ export default {
         .then(() => {
         let date = Date.parse( new Date())
         let params = {
-              "ids": [this.tableData[index].roleId],
+              "ids": [row.roleId],
               "timespan": date
           }
         PostDeleteRole(params).then(response => {
-              this.$message({
-                    type: 'success',
-                    message: '删除成功!'
-                  })
+              this.$alert(response.msg)
                   }).catch(err => {
-                    this.$message({
-                          type: 'error',
-                          message: err
-                        })
+                   this.$alert(err)
                   })
           this.tableData.splice(
             index + (this.currentPage - 1) * this.pagesize,

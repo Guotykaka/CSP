@@ -117,9 +117,15 @@
 </template>
 <script>
   import headerTop from '@/components/headTop.vue';
-  import {mapGetters} from "vuex";
-  import {api} from '@/api/api';
+  import {
+    ERR_OK,
+    queryInsLeaveWordList,
+    saveInsLeaveWordAnswer,
+    queryInsLeaveWordAnswerList,
+    closeInsLeaveWordAnswer
+  } from '@/api/api';
   import {localUrl} from "@/config/env.js"
+  import {getStore} from "@/config/mUtils.js"
 
   export default {
     name: 'goMyself',
@@ -128,20 +134,7 @@
     },
     data() {
       return {
-        userInfo: {
-          "userId": 1,
-          "username": "admin",
-          "password": "969d28606deb2d5b498f19b1f142ae7534a3998d30ee4eddd2227c1970892498",
-          "salt": "CbLYM3dU4zAdxBaGnWfW",
-          "email": "250893328@qq.com",
-          "mobile": "13764009077",
-          "status": 1,
-          "roleIdList": null,
-          "createTime": "2016-11-11 11:11:11",
-          "deptId": 1,
-          "deptName": null,
-          "userType": 0
-        },
+        userMessage: {},//用户信息
         options: [
           {
             value: '1',
@@ -174,32 +167,29 @@
         creatName: null,//留言人
         checkCreatId: null,//验证createuserId
         selStatus: '',//留言状态
-        userMessage: null//用户信息
       }
     },
     created() {
-      this.createUserId = localStorage.getItem('adminId');
-      this.userMessage = this.userInfo;
+      this.userMessage = JSON.parse(getStore('userMesage'));
+      this.createUserId = this.userMessage.userId;
       this._getQueryInsLeaveWordList();
     },
     methods: {
       //关闭
       closeList: function (val) {
-        /*       $.ajax({
-                 type: "POST",
-                 url: baseURL + "ins/insleavewordanswer/closeInsLeaveWordAnswer",
-                 data: val,
-                 dataType: "json",
-                 contentType: "application/json",
-                 success: function (res) {
-                   if (res.code === 1) {
-                     vm._getQueryInsLeaveWordList();
-                     vm.checkId = null;
-                   } else {
-                     alert(res.msg);
-                   }
-                 }
-               });*/
+        let data = {
+          id:val
+        }
+        closeInsLeaveWordAnswer(data).then((res)=>{
+          if (res.code === ERR_OK) {
+            this._getQueryInsLeaveWordList();
+            this.checkId = null;
+          } else {
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        })
       },
       //回复
       replyList: function (val) {
@@ -219,32 +209,24 @@
           }
           let parms = {
             "answerContent": value,
-            "answerUserId": vm.createUserId,
+            "answerUserId": that.createUserId,
             "insLeaveWordId": val,
             "parentId": parernId
           };
-          //POST /ins/insleaveword/saveInsLeaveWordAnswer
-          /*          $.ajax({
-                      type: "POST",
-                      url: baseURL + "ins/insleavewordanswer/saveInsLeaveWordAnswer",
-                      contentType: "application/json",
-                      dataType: "json",
-                      data: JSON.stringify(parms),
-                      success: function (res) {
-                        if (res.code === 1) {
-                          alert(res.msg, function () {
-                          });
-                          vm._getQueryInsLeaveWordList()
-                          vm.checkId = null;
-                        } else {
-                          alert(res.msg);
-                        }
-                      }
-                    });*/
-          this.$message({
-            type: 'success',
-            message: '回复成功'
-          });
+
+          saveInsLeaveWordAnswer(parms).then((res) => {
+            if (res.code === ERR_OK) {
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
+              that._getQueryInsLeaveWordList()
+              that.checkId = null;
+            } else {
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
+            }
+          })
         }).catch(() => {
           this.$message({
             type: 'info',
@@ -255,13 +237,14 @@
       //展开
       evnetShowList: function (val, index) {
         this.replayMain = true;
-        var params = val.insLeaveWordId;
+        var params = {
+          "id": val.insLeaveWordId
+        }
         this.checkId = index;
         this.showList = true;
         var _this = this;
-        api.queryInsLeaveWordAnswerList(params).then((res) => {
-          console.log(res)
-          if (res.code === 1) {
+        queryInsLeaveWordAnswerList(params).then((res) => {
+          if (res.code === ERR_OK) {
             _this.insLeaveAnswerlist = res.data;
             if (_this.insLeaveAnswerlist.length > 0) {
               var count = _this.insLeaveAnswerlist.length - 1;
@@ -270,29 +253,11 @@
               _this.checkCreatId = val.createUserId;
             }
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
-        /*        $.ajax({
-                  type: "POST",
-                  url: baseURL + "/ins/insleavewordanswer/queryInsLeaveWordAnswerList",
-                  data: val.insLeaveWordId,
-                  contentType: "application/json",
-                  dataType: "json",
-                  success: function (res) {
-                    if (res.code === 1) {
-                      _this.insLeaveAnswerlist = res.data;
-                      if(_this.insLeaveAnswerlist.length>0){
-                        var count = _this.insLeaveAnswerlist.length-1;
-                        _this.checkCreatId = _this.insLeaveAnswerlist[count].answerUserId;
-                      }else{
-                        _this.checkCreatId = val.createUserId;
-                      }
-                    } else {
-                      alert(res.msg);
-                    }
-                  }
-                });*/
       },
       //收起
       eventHiddenList: function () {
@@ -306,24 +271,30 @@
           "leaveWordStatus": this.selStatus,
           "toRoleId": 12,
           "leaveWordTitle": this.creatName,
-          "limit": this.searchParams.pageSize,
-          "page": this.searchParams.currentPage
+          "pageSize": this.searchParams.pageSize,
+          "currentPage": this.searchParams.currentPage
         };
-        api.queryInsLeaveWordList(parms).then((res) => {
+        queryInsLeaveWordList(parms).then((res) => {
           if (res.code === 1) {
             this.insLeaveDetail = res.data.list;
-            this.total = res.data.page.totalCount;
+            this.total = res.data.totalCount;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         })
       },
       /*分页*/
       handleSizeChange(val) {
         console.log(`每页 ${val} 条`);
+        this.searchParams.pageSize = val;
+        this._getQueryInsLeaveWordList()
       },
       handleCurrentChange(val) {
         console.log(`当前页: ${val}`);
+        this.searchParams.currentPage = val;
+        this._getQueryInsLeaveWordList();
       }
     }
   }
@@ -388,8 +359,8 @@
           color: #333;
           margin-left: 10px;
         }
-        .message-body{
-          margin-bottom:10px;
+        .message-body {
+          margin-bottom: 10px;
         }
         .detail-title {
           background-color: #e8e8e8;
@@ -397,8 +368,8 @@
           display: flex;
           justify-content: space-between;
           padding: 0 20px;
-          span{
-            margin-left:10px;
+          span {
+            margin-left: 10px;
           }
           .text-red {
             color: #f2a498;
@@ -413,8 +384,8 @@
           }
           li {
             color: #999;
-            height:40px;
-            line-height:40px;
+            height: 40px;
+            line-height: 40px;
           }
         }
 

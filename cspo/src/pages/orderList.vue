@@ -241,11 +241,10 @@
       }
     },
     created() {
-      this._getDatalist();
-    },
-    mounted(){
-
       this._listServiceDict();
+    },
+    activated(){
+      this._getDatalist();
     },
     methods: {
       //获取时间
@@ -257,10 +256,9 @@
       },
       //服务名称选择
       _listServiceDict: function () {
-        let data = '',
+        let data = {},
         that = this;
         listServiceDict(data).then((res) => {
-          console.log(res)
           if (res.code === ERR_OK) {
             that.listServiceDictList = res.data;
           } else {
@@ -311,6 +309,23 @@
           '&institutionName=' + params.institutionName +
           '&startTime=' + params.startTime +
           '&endTime=' + params.endTime;
+
+        //GET /cspo/csp/trade/exportTradeList
+        let data={
+          "endTime": "string",
+          "institutionName": "string",
+          "itemId": "string",
+          "mobile": params.mobile,
+          "name": "string",
+          "orderCode": "string",
+          "orderServiceStatus": 0,
+          "realName": params.realName,
+          "startTime": "string",
+          "tradeCode": params.tradeCode,
+          "tradeStatus": params.tradeStatus,
+          "type": params.type
+        }
+
         var url = baseURL + "csp/trade/exportTradeList?" + paramString;
         // if (params.tradeStatus) {
         // url = url + "&tradeStatus=" + params.tradeStatus;
@@ -384,8 +399,6 @@
       },
       //获取主订单列表
       _getDatalist: function () {
-        let getDate = new Date();
-        // this.searchParams.timespan = getDate.getTime().toString();
         let data = this.searchParams;
         tradeList(data).then((res) => {
           if (res.code === ERR_OK) {

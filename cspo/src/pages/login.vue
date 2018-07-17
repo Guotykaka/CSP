@@ -14,7 +14,7 @@
           <el-input type="text" v-model="loginParams.captcha" placeholder="请输入验证码" style="width: 190px"></el-input>
           <img :src="imgUrl" class="captcha-img" @click="refreshImg"/>
         </li>
-        <button class="full-btn" @click="doLogin">登录</button>
+        <button class="full-btn" @click="doLogin"  @keyup.enter.native="doLogin()">登录</button>
       </ul>
     </div>
   </div>
@@ -25,6 +25,7 @@
 <script>
   //引入login的方法
   import {login,ERR_OK} from "@/api/api.js";
+  import {setStore} from "@/config/mUtils.js";
 
   export default {
       data:function () {
@@ -35,7 +36,6 @@
             captcha: "",
             codeKey: "",
             password: "",
-            timespan: "",
             username: ""
           },
           timeString:'',
@@ -51,6 +51,7 @@
           var params=this.loginParams;
           login(params).then(res => {
             if(res.code===ERR_OK){
+                setStore('userMesage',res.data);
               this.$router.push("notice")
             }else{
               this.$alert(res.msg)

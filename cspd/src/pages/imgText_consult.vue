@@ -202,7 +202,19 @@
   import headerTop from "@/components/headTop.vue"
   import tableMain from "@/pages/imgText_consult/tablemain.vue"
   import {localUrl} from "@/config/env.js"
-  import {api} from '@/api/api';
+  import {getStore} from "@/config/mUtils.js"
+  import {
+    ERR_OK,
+    sendToCustomer,
+    updateToInRead,
+    queryOrderComment,
+    queryInsConsultChatList,
+    getOrderNumber,
+    countUnReadMsgByOrderStatus,
+    imgTextList,
+    queryTradeDetail,
+    updateTradeDetail
+  } from '@/api/api';
   import {storeManager} from '@/api/util.js';
 
   export default {
@@ -218,6 +230,7 @@
         showText: false,
         dialogImageUrl: '',
         dialogVisible: false,
+        userInfo:{},//用户信息
 
 
         uptext: [
@@ -260,8 +273,9 @@
       }
     },
     created() {
-      this.searchParams.providerServiceUserId = localStorage.getItem("insDoctorId");
-      this.receiverId = localStorage.getItem("userId");
+      this.userInfo = JSON.parse(getStore('userMesage'));
+      this.receiverId = this.userInfo.userId;
+      this.searchParams.providerServiceUserId = this.userInfo.userId;
       this.avatar = localStorage.getItem("avatar");
       this._getOrderNumber();
       this._getOrderList();
@@ -329,12 +343,19 @@
           });
         },*/
     methods: {
+      //列表每页显示多少条
       handleSizeChange(val) {
+        this.searchParams.pageSize = val;
+        this._getOrderList();
         console.log(`每页 ${val} 条`);
       },
+      //列表跳转第几页
       handleCurrentChange(val) {
+        this.searchParams.currentPage = val;
+        this._getOrderList();
         console.log(`当前页: ${val}`);
       },
+      //tab栏切换
       handleClick(tab) {
         this.selCurrent = null;
         if (tab.index == 0) {
@@ -348,7 +369,7 @@
       change: function (e) {
         var src, url = window.URL || window.webkitURL || window.mozURL,
           files = e.target.files,
-        btnImage = files[0];
+          btnImage = files[0];
         if (!btnImage) {
           alert('请选择您要上传的图片！');
           return;
@@ -405,29 +426,19 @@
             alert('不能发送空白消息')
           } else if (that.docubleClik) {
             that.docubleClik = false;
-            /*            $.ajax({
-                          type: "POST",
-                          url: baseURL + "ins/insConsultChat/sendToCustomer",
-                          data: JSON.stringify(params),
-                          contentType: "application/json",
-                          success: function (res) {
-                            if (res.code === 1) {
-                              // vm.orderList = res.data;
-                              // vm._initPage(res.data.totalCount);
-                              vm.showMsg = '';
-                              vm.chatImg = null;
-                              vm.showLogo = false;
-                              that.docubleClik = true;
-                              console.log(res.data);
-                              vm.queryInsConsultChatList();
-                              vm._getOrderNumber()
-                              // $('chating-list').scrollTo(0,9999)
-                            } else {
-                              that.docubleClik = true;
-                              alert(res.msg)
-                            }
-                          }
-                        });*/
+            sendToCustomer(params).then((res) => {
+              if (res.code === ERR_OK) {
+                this.showMsg = '';
+                this.chatImg = null;
+                this.showLogo = false;
+                that.docubleClik = true;
+                this.queryInsConsultChatList();
+                this._getOrderNumber()
+              } else {
+                that.docubleClik = true;
+                alert(res.msg)
+              }
+            })
           }
         } else if (this.searchParams.orderServiceStatus !== 3 && this.searchParams.orderServiceStatus !== 4) {
           alert('请选择聊天对象');
@@ -440,7 +451,6 @@
       },
       //获取相应订单的聊天详情
       _getChatDetail: function (item, index) {
-        console.log(item)
         this.chatCircle = true;
         this.chatCircleMsg = item;
         this.chatCircleMsgShow = true;
@@ -453,40 +463,27 @@
         this.queryInsConsultChatList();
         //将该客户发给当前医生的未读消息全部更新为已读
         if (item.unReadCount !== '0') {
-          /*          $.ajax({
-                      type: "POST",
-                      url: baseURL + "ins/imgtextconsultion/updateToInRead",
-                      data: params,
-                      dataType: "json",
-                      success: function (res) {
-                        if (res.code === 1) {
-                          vm._getMsgCount();
-                        } else {
-                          alert(res.msg);
-                        }
-                      }
-                    });*/
+          updateToInRead(params).then((res) => {
+            if (res.code === ERR_OK) {
+              this._getMsgCount();
+            } else {
+              alert(res.msg);
+            }
+          })
         }
         //查看客户评价服务状态cspOrderId
         var par = {
           "cspOrderId": item.cspOrderId
         }
-        /*        $.ajax({
-                  type: "POST",
-                  url: baseURL + "ins/insConsultChat/queryOrderComment",
-                  data: JSON.stringify(par),
-                  dataType: "json",
-                  contentType: "application/json",
-                  success: function (res) {
-                    if (res.code === 1) {
-                      vm.commonStatus = res.data;
-                    } else {
-                      alert(res.msg);
-                    }
-                  }
-                });*/
+        queryOrderComment(par).then((res) => {
+          if (res.code === ERR_OK) {
+            this.commonStatus = res.data;
+          } else {
+            alert(res.msg);
+          }
+        })
       },
-      //聊天记录分页查询GET /ins/insConsultChat/queryInsConsultChatList
+      //聊天记录分页查询
       queryInsConsultChatList() {
         let that = this;
         let params = {
@@ -496,27 +493,23 @@
           "senderId": this.receiverId,
           "receiverId": this.cspCustomId
         };
-        let url = localUrl + 'queryInsConsultChatList';
-        api.queryInsConsultChatList(url, params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            that.chatList = data.data.list;
+        queryInsConsultChatList(params).then((res) => {
+          if (res.code === ERR_OK) {
+            that.chatList = res.data.list;
           } else {
-            alert(data.msg);
+            alert(res.msg);
           }
         });
       },
       //获取顶部统计数量
       _getOrderNumber: function () {
-        let params = this.searchParams.providerServiceUserId,
-          that = this,
-          url = localUrl + 'getOrderNumber';
-        api.getOrderNumber(url, params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            that.orderNumber = data.data;
+        let params = {insDoctorId:this.searchParams.providerServiceUserId},
+          that = this;
+        getOrderNumber(params).then((res) => {
+          if (res.code === ERR_OK) {
+            that.orderNumber = res.data;
           } else {
-            alert(data.msg);
+            alert(res.msg);
           }
         });
         this._getMsgCount();
@@ -534,20 +527,18 @@
 
         let that = this,
           url = localUrl + 'countUnReadMsgByOrderStatus';
-        api.countUnReadMsgByOrderStatus(url, paramsZ).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            that.orderServiceStatusZ = data.data;
+        countUnReadMsgByOrderStatus(paramsZ).then((res) => {
+          if (res.code === ERR_OK) {
+            that.orderServiceStatusZ = res.data;
           } else {
-            alert(data.msg);
+            alert(res.msg);
           }
         });
-        api.countUnReadMsgByOrderStatus(url, paramsT).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            that.orderServiceStatusT = data.data;
+        countUnReadMsgByOrderStatus(paramsT).then((res) => {
+          if (res.code === ERR_OK) {
+            that.orderServiceStatusT = res.data;
           } else {
-            alert(data.msg);
+            alert(res.msg);
           }
         });
       },
@@ -561,20 +552,17 @@
           "pageSize": this.searchParams.pageSize
         };
         this.chatCircleMsgShow = false;
-        let url = localUrl + 'list',
-          that = this;
-        api.list(url, params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            that.orderList = data.data;
-            if (data.data && data.data.totalCount) {
-              that.totalcount = data.data.totalCount;
+        let that = this;
+        imgTextList(params).then((res) => {
+          if (res.code === ERR_OK) {
+            that.orderList = res.data;
+            if (res.data && res.data.totalCount) {
+              that.totalcount = res.data.totalCount;
             } else {
               totalcount = 1;
             }
-            // vm._initPage(totalcount);
           } else {
-            alert(data.msg)
+            alert(res.msg)
           }
         })
       },
@@ -583,15 +571,13 @@
         this.maskShow = !this.maskShow;
         this.tradeDetailId = val.tradeDetailId;
         if (this.maskShow) {
-          let params = {"tradeDetailId": val.tradeDetailId}
-            , url = localUrl + 'queryTradeDetail';
-          api.queryTradeDetail(url, params).then((res) => {
-            let data = res.data;
-            if (data.code === 1) {
-              this.detailText = data.data;
-              this.updataeTradeDetail = data.data.remark;
+          let params = {"tradeDetailId": val.tradeDetailId};
+          queryTradeDetail(params).then((res) => {
+            if (res.code === ERR_OK) {
+              this.detailText = res.data;
+              this.updataeTradeDetail = res.data.remark;
             } else {
-              alert(data.msg)
+              alert(res.msg)
             }
           })
         }
@@ -608,21 +594,13 @@
           "tradeDetailId": this.tradeDetailId,
           "remark": this.updataeTradeDetail
         };
-        // $.ajax({
-        //   type: "POST",
-        //   url: baseURL + "ins/imgtextconsultion/updateTradeDetail",
-        //   data: JSON.stringify(params),
-        //   contentType: "application/json",
-        //   dataType: "json",
-        //   success: function (res) {
-        //     if (res.code === 1) {
-        //       vm.detailText = res.data;
-        //       console.log(res.data)
-        //     } else {
-        //       alert(res.msg)
-        //     }
-        //   }
-        // });
+        updateTradeDetail(params).then((res) => {
+          if (res.code === ERR_OK) {
+            vm.detailText = res.data;
+          } else {
+            alert(res.msg)
+          }
+        })
       },
       delLogo: function () {
         vm.chatLogo = null;
@@ -644,19 +622,13 @@
             return;
           }
           else {
-            // $.ajax({
-            //   type: "POST",
-            //   url: baseURL + "ins/insConsultChat/sendToCustomer",
-            //   data: JSON.stringify(params),
-            //   contentType: "application/json",
-            //   success: function (res) {
-            //     if (res.code === 1) {
-            //       vm.queryInsConsultChatList();
-            //     } else {
-            //       alert(res.msg)
-            //     }
-            //   }
-            // });
+            sendToCustomer(params).then((res) => {
+              if (res.code === ERR_OK) {
+                this.queryInsConsultChatList();
+              } else {
+                alert(res.msg)
+              }
+            })
           }
         } else {
           alert('请选择聊天对象')
