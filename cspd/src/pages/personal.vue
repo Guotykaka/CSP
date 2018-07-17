@@ -20,8 +20,8 @@
     </el-card>
 
 
-    <el-tabs v-model="activeName">
-      <el-tab-pane label="我要提现" name="first">
+    <el-tabs v-model="tabIndex">
+      <el-tab-pane label="我要提现" name="1">
 
         <el-row :gutter="20" style="margin-bottom: 10px">
           <el-col :span="6" class="title-note">
@@ -29,7 +29,7 @@
           </el-col>
           <el-col :span="18">
             <p class="col-text">
-              <span class="blue-text">￥0.04</span>未满500元不支持提现
+              <span class="blue-text">￥{{accountINfo.balance}}</span>未满500元不支持提现
             </p>
           </el-col>
         </el-row>
@@ -52,7 +52,7 @@
 
 
       </el-tab-pane>
-      <el-tab-pane label="提现记录" name="second">
+      <el-tab-pane label="提现记录" name="2">
         <!--table 表单开始-->
         <el-table
           :data="withdrawList"
@@ -80,7 +80,7 @@
 
       </el-tab-pane>
 
-      <el-tab-pane label="订单记录" name="third">
+      <el-tab-pane label="订单记录" name="3">
         <el-table
           :data="orderList"
           border
@@ -117,8 +117,14 @@
 
 <script>
 
+
+
+  import {ERR_OK, getAccountInfo } from '@/api/api';
+  import {getStore} from "@/config/mUtils.js";
+
+
+
   export default {
-    name:'personal',
     data() {
       return {
 
@@ -132,7 +138,7 @@
 
 
 
-        activeName: 'first',
+        tabIndex: '1',
         //账户
         accountINfo: {
           balance: '100',//余额
@@ -186,6 +192,53 @@
     methods: {
 
 
+
+
+
+      //医生个人信息
+
+
+      getPersonAccountInfo(){
+
+
+
+        var params={
+          userId:JSON.parse(getStore("userMesage")).userId
+        };
+
+        getAccountInfo(params).then(res => {
+
+          if(res.code===ERR_OK){
+            this.accountINfo.balance=res.data.balance;//余额
+            this.accountINfo.sumEarnings=res.data.incomeTotal;//总收益
+            this.accountINfo.withdrawDeposit=res.data.disburseTotal;//提现
+
+          }else{
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        }).catch(err => {
+
+        });
+
+
+      },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       withdrawHandSize(){
 
       },
@@ -220,6 +273,31 @@
     computed: {
 
     },
+
+
+    created(){
+
+      this.getPersonAccountInfo()
+
+
+    },
+
+
+    watch:{
+
+
+      tabIndex(val){
+
+        if(val==="2"){
+
+
+
+        }
+
+
+
+      }
+    }
 
   }
 </script>

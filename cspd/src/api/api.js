@@ -63,10 +63,11 @@ export function updateTradeDetail(params) {
 // }
 
 
+//个人账户
 
-
-
-
+export function getAccountInfo(params) {
+  return post(urls.API_GET_DOCTOR_ACCOUNT_INFO, params)
+}
 
 
 
