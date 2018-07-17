@@ -12,97 +12,142 @@
           <el-tab-pane label="运营端">
             <el-table
               ref="singleTable"
-              :data="menuList"
+              :data="formatDataa"
               highlight-current-row
-              :default-sort = "{prop: 'orderNum'}"
+              :default-sort="{prop: 'orderNum'}"
               @current-change="handleCurrentChange"
               style="width: 100%">
               <el-table-column type="expand">
                 <template slot-scope="props">
-                  <!--<el-table-->
-                    <!--ref="singleTable"-->
-                    <!--:data="menuList"-->
-                    <!--:show-header="false"-->
-                    <!--highlight-current-row-->
-                    <!--:default-sort = "{prop: 'orderNum'}"-->
-                    <!--@current-change="handleCurrentChange"-->
-                    <!--style="width: 100%">-->
-                    <!--<el-table-column type="expand">-->
-                      <!--<template slot-scope="props">-->
-                        <!--ggggg-->
-                      <!--</template>-->
-                    <!--</el-table-column>-->
+                  <el-table
+                    ref="singleTable"
+                    :data="props.row.list"
+                    highlight-current-row
+                    :default-sort="{prop: 'orderNum'}"
+                    @current-change="handleCurrentChange"
+                    style="width: 100%">
+                    <el-table-column type="expand">
+                      <template slot-scope="props">
+                        <el-table
+                          ref="singleTable"
+                          :data="props.row.list"
+                          highlight-current-row
+                          :default-sort="{prop: 'orderNum'}"
+                          @current-change="handleCurrentChange"
+                          style="width: 100%">
+                          <el-table-column
+                            type="index"
+                            width="50">
+                          </el-table-column>
 
-                    <!--<el-table-column-->
-                      <!--property="menuId"-->
-                      <!--label="ID"-->
-                      <!--width="120">-->
-                    <!--</el-table-column>-->
+                          <el-table-column
+                            property="menuId"
+                            label="ID"
+                            width="120">
+                          </el-table-column>
 
-                    <!--<el-table-column-->
-                      <!--property="name"-->
-                      <!--label="菜单名称"-->
-                      <!--width="120">-->
-                    <!--</el-table-column>-->
+                          <el-table-column
+                            property="name"
+                            label="菜单名称"
+                            width="120">
+                          </el-table-column>
 
-                    <!--<el-table-column-->
-                      <!--property="parentName"-->
-                      <!--label="上级菜单"-->
-                      <!--width="120">-->
-                    <!--</el-table-column>-->
+                          <el-table-column
+                            property="parentName"
+                            label="上级菜单"
+                            width="120">
+                          </el-table-column>
 
-                    <!--<el-table-column-->
-                      <!--property="icon"-->
-                      <!--label="图标">-->
-                    <!--</el-table-column>-->
+                          <el-table-column
+                            property="icon"
+                            label="图标">
+                            <template slot-scope="scope">
+                              <i :class="scope.row.icon"></i>
+                            </template>
+                          </el-table-column>
 
-                    <!--<el-table-column-->
-                      <!--property="type"-->
-                      <!--label="类型">-->
-                      <!--<template slot-scope="scope">-->
-                        <!--<el-tag v-if="scope.row.type===0">目录</el-tag>-->
-                        <!--<el-tag v-if="scope.row.type===1" type="success">菜单</el-tag>-->
-                        <!--<el-tag v-if="scope.row.type===2" type="warning">按钮</el-tag>-->
-                      <!--</template>-->
-                    <!--</el-table-column>-->
+                          <el-table-column
+                            property="type"
+                            label="类型">
+                            <template slot-scope="scope">
+                              <el-tag v-if="scope.row.type===0">目录</el-tag>
+                              <el-tag v-if="scope.row.type===1" type="success">菜单</el-tag>
+                              <el-tag v-if="scope.row.type===2" type="warning">按钮</el-tag>
+                            </template>
+                          </el-table-column>
 
-                    <!--<el-table-column-->
-                      <!--property="orderNum"-->
-                      <!--label="排序">-->
-                    <!--</el-table-column>-->
-                    <!--<el-table-column-->
-                      <!--property="url"-->
-                      <!--label="菜单URL">-->
-                    <!--</el-table-column>-->
+                          <el-table-column
+                            property="orderNum"
+                            label="排序">
+                          </el-table-column>
+                          <el-table-column
+                            property="url"
+                            label="菜单URL">
+                          </el-table-column>
 
-                    <!--<el-table-column-->
-                      <!--property="perms"-->
-                      <!--label="授权标识">-->
-                    <!--</el-table-column>-->
-                  <!--</el-table>-->
-<!--                  <el-form label-position="left" inline class="demo-table-expand">
-                    <el-form-item label="商品名称">
-                      <span>{{ props.row.name }}</span>
-                    </el-form-item>
-                    <el-form-item label="所属店铺">
-                      <span>{{ props.row.shop }}</span>
-                    </el-form-item>
-                    <el-form-item label="商品 ID">
-                      <span>{{ props.row.id }}</span>
-                    </el-form-item>
-                    <el-form-item label="店铺 ID">
-                      <span>{{ props.row.shopId }}</span>
-                    </el-form-item>
-                    <el-form-item label="商品分类">
-                      <span>{{ props.row.category }}</span>
-                    </el-form-item>
-                    <el-form-item label="店铺地址">
-                      <span>{{ props.row.address }}</span>
-                    </el-form-item>
-                    <el-form-item label="商品描述">
-                      <span>{{ props.row.desc }}</span>
-                    </el-form-item>
-                  </el-form>-->
+                          <el-table-column
+                            property="perms"
+                            label="授权标识">
+                          </el-table-column>
+                        </el-table>
+                      </template>
+                    </el-table-column>
+
+                    <el-table-column
+                      type="index"
+                      width="50">
+                    </el-table-column>
+
+                    <el-table-column
+                      property="menuId"
+                      label="ID"
+                      width="120">
+                    </el-table-column>
+
+                    <el-table-column
+                      property="name"
+                      label="菜单名称"
+                      width="120">
+                    </el-table-column>
+
+                    <el-table-column
+                      property="parentName"
+                      label="上级菜单"
+                      width="120">
+                    </el-table-column>
+
+                    <el-table-column
+                      property="icon"
+                      label="图标">
+                      <template slot-scope="scope">
+                        <i :class="scope.row.icon"></i>
+                      </template>
+                    </el-table-column>
+
+                    <el-table-column
+                      property="type"
+                      label="类型">
+                      <template slot-scope="scope">
+                        <el-tag v-if="scope.row.type===0">目录</el-tag>
+                        <el-tag v-if="scope.row.type===1" type="success">菜单</el-tag>
+                        <el-tag v-if="scope.row.type===2" type="warning">按钮</el-tag>
+                      </template>
+                    </el-table-column>
+
+                    <el-table-column
+                      property="orderNum"
+                      label="排序">
+                    </el-table-column>
+                    <el-table-column
+                      property="url"
+                      label="菜单URL">
+                    </el-table-column>
+
+                    <el-table-column
+                      property="perms"
+                      label="授权标识">
+                    </el-table-column>
+                  </el-table>
                 </template>
               </el-table-column>
 
@@ -187,45 +232,77 @@
     data() {
       return {
         currentRow: null,
-        menuList:[],//所有菜单
+        menuList: [],//所有菜单
+        formatDataa: []
       }
     },
-    created(){
+    created() {
       this.getMenuList();
+    },
+    activated() {
+
+      console.log(this.formatData)
     },
     methods: {
       //选中一行
       handleCurrentChange(val) {
         this.currentRow = val;
       },
-      getMenuList(){
-        let params ={};
-        getMenuList(params).then((res)=>{
-          if(res.code===ERR_OK){
+      getMenuList() {
+        let params = {};
+        getMenuList(params).then((res) => {
+          if (res.code === ERR_OK) {
             this.menuList = res.data;
-          }else{
+
+          } else {
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',
             })
           }
         })
       },
-      add(){
+      add() {
 
       },
-      update(){
+      update() {
 
       },
-      del(){
+      del() {
 
+      }
+    },
+    watch: {
+      formatData(val) {
+        let arr = [];
+        val.forEach((value, index) => {
+          if (value.parentId === 0) {
+            arr.push(value)
+          }
+        })
+        console.log(arr)
+        this.formatDataa = arr
+      }
+    },
+    computed: {
+      formatData() {
+        let that = this;
+        this.menuList.forEach((val, index) => {
+          val.list = []
+          that.menuList.forEach((v, i) => {
+            if (v.parentId === val.menuId) {
+              val.list.push(v)
+            }
+          });
+        })
+        return this.menuList
       }
     },
   }
 </script>
 <style lang="less" scoped>
-.menu{
-  .table-style{
-    margin-top:20px;
+  .menu {
+    .table-style {
+      margin-top: 20px;
+    }
   }
-}
 </style>
