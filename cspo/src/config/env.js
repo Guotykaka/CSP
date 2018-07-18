@@ -1,5 +1,7 @@
 // import {localUrl} from "../../../cspd/src/config/env";
 
+import {getDictListByType} from "../api/api";
+
 /**
  * 配置编译环境和线上环境之间的切换
  *
@@ -14,8 +16,8 @@ let baseImgPath;
 let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = 'http://172.0.0.41:8117/cspo/';
-  //baseUrl = 'http://10.50.50.117:8117/cspo/';
+  // baseUrl = 'http://172.0.0.41:8117/cspo/';
+  baseUrl = 'http://10.50.50.121:8117/cspo/';
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';
@@ -68,6 +70,17 @@ export const API_POST_MENU_GETSYSMENUBYID = baseUrl+'sys/menu/getSysMenuById';//
 export const API_POST_MENU_LISTBYCATEGORY = baseUrl+'sys/menu/listByCategory';//根据角色类别加载菜单信息
 export const API_POST_MENU_SAVE = baseUrl+'sys/menu/save';//保存菜单信息
 export const API_POST_MENU_UPDATE = baseUrl+'sys/menu/update';//修改菜单
+
+//数据字典
+
+export const API_GET_DICTLISTBY_TYPE = baseUrl+'sys/dict/getDictListByType';//根据type获取字典列表
+/*系统常量*/
+export const API_POST_DELETE_DICTIONARY = baseUrl+'sys/dictionary/deleteDictionary';//删除字典列表数据
+export const API_POST_GETDICTIONARY_BY_KEY = baseUrl+'sys/dictionary/getDictionaryByKey';//根据key获取字典列表数据详情
+export const API_POST_GETDICTIONARY_INFO = baseUrl+'sys/dictionary/getDictionaryInfo';//获取字典列表数据详情
+/*GET请求*/
+export const API_GET_LIST_DICTIONARY = baseUrl+'sys/dictionary/listDictionary';//获取字典列表数据
+export const API_POST_SAVE_OR_UPDATAE_DICTIONARY = baseUrl+'sys/dictionary/saveOrUpdateDictionary';//获取字典列表数据
 
 
 

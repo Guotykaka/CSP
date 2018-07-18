@@ -692,7 +692,7 @@
       },
       //获取字典数据
       getdictionaryData(){
-       let typeParams = {
+        let typeParams = {
           type:'MENU_TYPE'
         };
         //获取菜单类别
