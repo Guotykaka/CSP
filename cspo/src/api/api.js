@@ -19,6 +19,9 @@ export function getNoticeList(params){//获取公告列表
 export function getUserList(params){//获取列表
   return post(urls.API_POST_LIST_USER,params)
 }
+export function getUserInfo(params){//查看
+  return post(urls.API_POST_INFO_USER,params)
+}
 export function postUserUpdate(params){//保存用户
   return post(urls.API_POST_UPDATE_USER,params)
 }
@@ -67,6 +70,22 @@ export function PostInstitutionList(params){//删除
 }
 export function PostInstitutionSave(params){//新增
   return post(urls.API_POST_SAVE_INSTITUTION,params)
+}
+//服务管理
+export function GetListenList(params){//一元听列表
+  return post(urls.API_GET_LIST_LISTEN,params)
+}
+export function PostListenUpdate(params){//一元听编辑
+  return post(urls.API_GET_UPDATE_LISTEN,params)
+}
+export function PostListenStatus(params){//一元听修改状态
+  return post(urls.API_GET_STATUS_LISTEN,params)
+}
+export function PostListenSave(params){//一元听新增
+  return post(urls.API_GET_SAVE_LISTEN,params)
+}
+export function PostListenDoc(params){//一元听绑定医生列表
+  return post(urls.API_GET_DOCLIST_LISTEN,params)
 }
 //菜单管理
 export function Menudelete(params){//删除菜单

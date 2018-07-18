@@ -3,133 +3,141 @@
     <header-top></header-top>
     <div class="page-container">
 
-      
+      <!-- <el-form ref="form" label-width="80px" :inline="true">
+        <el-form-item label="">
+          <input id="fileSelect" name="fileSelect" @change="update()" ref="inputer"  type="file"/>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="fileupdate()">上传</el-button>
+        </el-form-item>
+      </el-form> -->
 
       <!-- 一元听商品管理页面 -->
-        <el-header height="30">
-          <!-- 操作行-->
-          <el-row :gutter="20">
-            <el-col :span="6">
-              <el-input v-model="formInline.valueBT" placeholder="服务名称" clearable></el-input>
-            </el-col>
-            <el-col :span="6">
-              <el-select v-model="formInline.valueLX" clearable placeholder="请选择角色">
-                <el-option v-for="item in RoleData" :key="item.roleId" :label="item.roleName" :value="item.roleId">
-                </el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="6">
-              <el-button type="primary">搜索</el-button>
-            </el-col>
-          </el-row>
-          <!--一元听新增按钮-->
-          <el-row class="m_b_15">
-            <el-button type="primary" @click="handleAdd_YYT()">新增</el-button>
-          </el-row>
+      <el-header height="30">
+        <!-- 操作行-->
+        <el-row :gutter="20">
+          <el-col :span="6">
+            <el-input v-model="formInline.valueBT" placeholder="服务名称" clearable></el-input>
+          </el-col>
+          <el-col :span="6">
+            <el-select v-model="formInline.valueLX" clearable placeholder="请选择角色">
+              <el-option v-for="item in RoleData" :key="item.roleId" :label="item.roleName" :value="item.roleId">
+              </el-option>
+            </el-select>
+          </el-col>
+          <el-col :span="6">
+            <el-button type="primary">搜索</el-button>
+          </el-col>
+        </el-row>
+        <!--一元听新增按钮-->
+        <el-row class="m_b_15">
+          <el-button type="primary" @click="handleAdd_YYT()">新增</el-button>
+        </el-row>
 
-        </el-header>
+      </el-header>
 
-        <el-main>
-          <el-table :data="tableData_YYT.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column show-overflow-tooltip align="center" prop="goodCode" label="商品编号"></el-table-column>
-            <el-table-column show-overflow-tooltip align="center" prop="firstType" label="商品一级分类"></el-table-column>
-            <el-table-column show-overflow-tooltip align="center" prop="secondType" label="商品二级分类"></el-table-column>
-            <el-table-column show-overflow-tooltip align="center" prop="goodsName" label="商品名称"></el-table-column>
-            <el-table-column show-overflow-tooltip align="center" prop="goodsCopywriting" label="商品文案" min-width="100%"></el-table-column>
-            <el-table-column align="center" label="商品状态" width="100">
-              <template slot-scope="scope">
-                <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.goodsStatus === 1">下架</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.goodsStatus === 0">上架</el-tag>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="YYTgoods" label="绑定商品"></el-table-column>
-            <el-table-column align="center" label="建议价格">
-              <template slot-scope="scope">
-                <p>￥{{ scope.row.goodsPrice}}</p>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="createDate" label="音频" width="100">
-              <template slot-scope="scope">
-                <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.audioStatus === 1">已添加</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.audioStatus === 0">未添加</el-tag>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column show-overflow-tooltip align="center" prop="createDate" label="创建时间"></el-table-column>
-            <el-table-column align="center" label="操作" width="220">
-                <template slot-scope="scope">
-                  <el-button size="mini" type="danger" v-if="scope.row.goodsStatus === 1" @click="FalseStatus_YYT(scope.$index, scope.row)">上架</el-button>
-                  <el-button size="mini" type="success" v-if="scope.row.goodsStatus === 0" @click="TrueStatus_YYT(scope.$index, scope.row)">下架</el-button>
-                  <el-button size="mini" type="primary" @click="handleEdit_YYT(scope.$index, scope.row)">编辑</el-button>
-                  <el-button size="mini" type="danger" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
-                  
-                </template>
-            </el-table-column>
-          </el-table>
-        </el-main>
+      <el-main>
+        <el-table :data="tableData_YYT.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
+          <el-table-column show-overflow-tooltip align="center" prop="voiceProductCode" label="商品编号"></el-table-column>
+          <!-- <el-table-column show-overflow-tooltip align="center" prop="firstType" label="商品一级分类"></el-table-column> -->
+          <!-- <el-table-column show-overflow-tooltip align="center" prop="secondType" label="商品二级分类"></el-table-column> -->
+          <el-table-column show-overflow-tooltip align="center" prop="voiceProductName" label="商品名称"></el-table-column>
+          <el-table-column show-overflow-tooltip align="center" prop="paperWork" label="商品文案" min-width="100%"></el-table-column>
+          <el-table-column align="center" label="商品状态" width="100">
+            <template slot-scope="scope">
+              <div slot="reference" class="name-wrapper">
+                <el-tag size="medium" type="success" v-if="scope.row.status === 2">下架</el-tag>
+                <el-tag size="medium" type="danger" v-if="scope.row.status === 1">上架</el-tag>
+              </div>
+            </template>
+          </el-table-column>
+          <!-- <el-table-column align="center" prop="YYTgoods" label="绑定商品"></el-table-column> -->
+          <el-table-column align="center" label="建议价格">
+            <template slot-scope="scope">
+              <p>￥1</p>
+              <!-- <p>￥{{ scope.row.goodsPrice}}</p> -->
+            </template>
+          </el-table-column>
+          <el-table-column align="center" prop="createDate" label="音频" width="100">
+            <template slot-scope="scope">
+              <p>{{scope.row.voiceProductUrl}}</p>
+              <!-- <div slot="reference" class="name-wrapper">
+                  <el-tag size="medium" type="success">{{scope.row.voiceProductUrl}}</el-tag>
+                  <el-tag size="medium" type="danger" v-if="scope.row.status  === 0">未添加</el-tag>
+                </div> -->
+            </template>
+          </el-table-column>
+          <el-table-column show-overflow-tooltip align="center" prop="createTime" label="创建时间"></el-table-column>
+          <el-table-column align="center" label="操作" width="220">
+            <template slot-scope="scope">
+              <el-button size="mini" type="danger" v-if="scope.row.status === 2" @click="FalseStatus_YYT(scope.$index, scope.row)">上架</el-button>
+              <el-button size="mini" type="success" v-if="scope.row.status === 1" @click="TrueStatus_YYT(scope.$index, scope.row)">下架</el-button>
+              <el-button size="mini" type="primary" @click="handleEdit_YYT(scope.$index, scope.row)">编辑</el-button>
+              <el-button size="mini" type="danger" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
 
-        <el-footer height="30px">
-          <el-row style="margin-top: 2%;">
-            <el-col :span="24" :offset="8">
-              <template>
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length">
-                </el-pagination>
-              </template>
-            </el-col>
-          </el-row>
-        </el-footer>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-main>
 
+      <el-footer height="30px">
+        <el-row style="margin-top: 2%;">
+          <el-col :span="24" :offset="8">
+            <template>
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length">
+              </el-pagination>
+            </template>
+          </el-col>
+        </el-row>
+      </el-footer>
 
-
-     
-    
       <!-- 一元听编辑弹窗 -->
       <el-dialog title="编辑" :visible.sync="dialogEditVisible_YYT" width=40%>
 
         <el-form :model="editTable_YYT">
           <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input v-model="editTable_YYT.goodsName" prop auto-complete="off" el readonly></el-input>
+              <el-input v-model="editTable_YYT.voiceProductName" prop auto-complete="off" el readonly></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item class="is-required2" label="绑定医生"  :label-width="formLabelWidth2">
+          <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2">
             <template slot-scope="scope">
-            <el-col :span="16">
-              <el-select v-model="editTable_YYT.doctor" clearable placeholder="请绑定医生">
-                <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-col>
+              <el-col :span="16">
+                <el-select v-model="editTable_YYT.name" clearable placeholder="请绑定医生">
+                  <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-col>
             </template>
           </el-form-item>
           <el-form-item class="is-required2" label="商品文件" :label-width="formLabelWidth2">
             <el-col :span="3">
-              <el-upload class="upload-demo" action="editTable_YYT.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
-              </el-upload>
+              <el-form-item v-show="false" v-model="upyunUrl">
+                <input id="fileSelect" name="fileSelect" @change="update()" ref="inputer" type="file" />
+                <audio v-bind:src="upyunUrl" controls="controls" id="audio_duration" ref="audior">{{upyunUrl}}</audio>
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="success" @click="OpenfileSelect()">选择文件</el-button>
+                <el-button size="small" type="primary" @click="fileupdate()" class="m_l_0">确定上传</el-button>
+              </el-form-item>
             </el-col>
           </el-form-item>
-          
           <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input v-model="editTable_YYT.AbnormalKeywords"></el-input>
+              <el-input v-model="editTable_YYT.abnormalKeyWord "></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="相关指标" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input v-model="editTable_YYT.AbnormalKeywords"></el-input>
+              <el-input v-model="editTable_YYT.relevantContent"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="editTable_YYT.goodsCopywriting"></el-input>
+              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="editTable_YYT.paperWork"></el-input>
             </el-col>
             <el-col :span="4" class="wordsnum">50字内</el-col>
-            
+
           </el-form-item>
         </el-form>
 
@@ -141,46 +149,50 @@
 
       <!-- 一元听新增弹窗 -->
       <el-dialog title="新增" :visible.sync="dialogAddVisible_YYT" width=40%>
-       <el-form :model="addTable_YYT">
+        <el-form :model="addTable_YYT">
           <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input v-model="addTable_YYT.goodsName" prop auto-complete="off" el></el-input>
+              <el-input v-model="addTable_YYT.voiceProductName" prop auto-complete="off" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item class="is-required2" label="绑定医生"  :label-width="formLabelWidth2">
+          <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2">
             <template slot-scope="scope">
-            <el-col :span="16">
-              <el-select v-model="addTable_YYT.doctor" clearable placeholder="请绑定医生">
-                <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-col>
+              <el-col :span="16">
+                <el-select v-model="addTable_YYT.name" clearable placeholder="请绑定医生">
+                  <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
+              </el-col>
             </template>
           </el-form-item>
           <el-form-item class="is-required2" label="商品文件" :label-width="formLabelWidth2">
             <el-col :span="3">
-              <el-upload class="upload-demo" action="addTable_YYT.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
-              </el-upload>
+              <el-form-item v-show="false" v-model="upyunUrl">
+                <input id="fileSelect" name="fileSelect" @change="update()" ref="inputer" type="file" />
+                <audio v-bind:src="upyunUrl" controls="controls" id="audio_duration" ref="audior">{{upyunUrl}}</audio>
+              </el-form-item>
+              <el-form-item>
+                <el-button size="small" type="success" @click="OpenfileSelect()">选择文件</el-button>
+                <el-button size="small" type="primary" @click="fileupdate()" class="m_l_0">确定上传</el-button>
+              </el-form-item>
             </el-col>
           </el-form-item>
-          
           <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input v-model="addTable_YYT.AbnormalKeywords"></el-input>
+              <el-input v-model="addTable_YYT.abnormalKeyWord "></el-input>
             </el-col>
           </el-form-item>
           <el-form-item label="相关指标" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input v-model="addTable_YYT.AbnormalKeywords"></el-input>
+              <el-input v-model="addTable_YYT.relevantContent"></el-input>
             </el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="addTable_YYT.goodsCopywriting"></el-input>
+              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="addTable_YYT.paperWork"></el-input>
             </el-col>
             <el-col :span="4" class="wordsnum">50字内</el-col>
+
           </el-form-item>
         </el-form>
 
@@ -194,9 +206,9 @@
 
 </template>
 
-
 <script>
-import { getUserlistData } from '@/api/getData.js'
+import { b64hamcsha1, HexMD5, MD5 } from '@/api/hash'
+import { GetListenList, PostListenUpdate,PostListenStatus,PostListenSave,PostListenDoc } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -204,8 +216,11 @@ export default {
   },
   data() {
     return {
-      
+      upyunUrl: '', //又拍云url
+      AudioDuration: null, //音频时长
+      fileList: [],
       dialogVisible: true,
+      Doclist: [],
       RoleData: [
         {
           roleId: 4,
@@ -340,22 +355,28 @@ export default {
           roleType: '1,0'
         }
       ],
-      DoctorData: [{
+      DoctorData: [
+        {
           value: 1,
           label: '赵医生'
-        }, {
+        },
+        {
           value: 2,
           label: '钱医生'
-        }, {
+        },
+        {
           value: 3,
           label: '孙医生'
-        }, {
+        },
+        {
           value: 4,
           label: '李医生'
-        }, {
+        },
+        {
           value: 5,
           label: '周医生'
-        }],
+        }
+      ],
       formInline: {
         optionsLX: [
           {
@@ -381,7 +402,7 @@ export default {
             label: '已撤销'
           }
         ],
-       
+
         valueBT: '',
         valueCJR: '',
         valueLX: '',
@@ -390,26 +411,21 @@ export default {
         valueJS: ''
       },
       currentPage: 1, //分页初始页码
-      pagesize: 30, //分页初始显示条数
+      pagesize: 10, //分页初始显示条数
       tableData_YYT: [], //一元厅列表数据
       editTable_YYT: {}, //编辑一元厅单个数据
       editTableRoot_YYT: {},
       addTable_YYT: {
-        "goodCode": 4231231,
-        "firstType": "服务",
-        "secondType": "一元听",
-        "goodsName": "",
-        "goodsWords": "",
-        "goodsStatus": 1,
-        "goodsPrice": 1,
-        "audioStatus": 0,
-        "serviceStatus": 1,
-        "YYTgoods": 43,
-        "YYTstatus": 1,
-        "doctor": 2,
-        "AbnormalKeywords": "",
-        "goodsCopywriting": "",
-        "createDate": "2018-05-21"
+        "abnormalKeyWord": "",
+        "insDoctorId": "",
+        "paperWork": "",
+        "relevantContent": "",
+        "status": 2,
+        "voiceCategory": "",
+        "voiceLabel": "",
+        "voiceProductName": "",
+        "voiceProductUrl": "",
+        "voiceTime": 0
       }, //一元听新增单个数据
       dialogEditVisible_YYT: false, //一元厅编辑
       dialogAddVisible_YYT: false, //一元厅新增
@@ -421,6 +437,9 @@ export default {
   },
   methods: {
     // 上传方法
+    submitUpload() {
+      this.$refs.upload.submit()
+    },
     handleRemove(file, fileList) {
       console.log(file, fileList)
     },
@@ -458,40 +477,37 @@ export default {
       console.log(`当前页: ${currentPage}`)
     },
 
-   
     // 删除提示
     deleteMessage(index, row) {
       if (row.goodsStatus === 0) {
         this.$message({
-            type: 'error',
-            message: '请先将商品下架！'
-          })
+          type: 'error',
+          message: '请先将商品下架！'
+        })
       } else {
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        center: true
-      })
-        .then(() => {
-          this.$message({
-            type: 'success',
-            message: '删除成功!'
-          })
-          this.tableData_YYT.splice(
-            index + (this.currentPage - 1) * this.pagesize,
-            1
-          ) //删除
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+          center: true
         })
-        .catch(() => {
-          this.$message({
-            type: 'warning',
-            message: '已取消删除'
+          .then(() => {
+            this.$message({
+              type: 'success',
+              message: '删除成功!'
+            })
+            this.tableData_YYT.splice(
+              index + (this.currentPage - 1) * this.pagesize,
+              1
+            ) //删除
           })
-        })
+          .catch(() => {
+            this.$message({
+              type: 'warning',
+              message: '已取消删除'
+            })
+          })
       }
-      
-  
     },
 
     // 一元厅下架
@@ -503,13 +519,19 @@ export default {
         center: true
       })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '已下架!'
+          let params = {
+            "status": "2",
+            "voiceProductId": row.voiceProductId
+          }
+          PostListenStatus(params).then(response => {
+            if (response.code = 1) {
+              this.$alert('已下架!')
+              this.getList()
+            } else {
+              $alert(response.msg)
+              this.getList()
+            }
           })
-          this.tableData_YYT[
-            index + (this.currentPage - 1) * this.pagesize
-          ].goodsStatus = 1 //更改发布状态
         })
         .catch(() => {
           this.$message({
@@ -527,13 +549,19 @@ export default {
         center: true
       })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '已上架!'
+          let params = {
+            "status": "1",
+            "voiceProductId": row.voiceProductId
+          }
+          PostListenStatus(params).then(response => {
+            if (response.code = 1) {
+              this.$alert('已上架!')
+              this.getList()
+            } else {
+              $alert(response.msg)
+              this.getList()
+            }
           })
-          this.tableData_YYT[
-            index + (this.currentPage - 1) * this.pagesize
-          ].goodsStatus = 0 //更改发布状态
         })
         .catch(() => {
           this.$message({
@@ -542,10 +570,6 @@ export default {
           })
         })
     },
-    //一元厅商品管理页面
-    GoodsMan() {
-      this.GoodsManVisible = true
-    },
     // 一元厅编辑
     handleEdit_YYT(index, row) {
       this.inde_YYT = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
@@ -553,10 +577,15 @@ export default {
       this.editTable_YYT = row //复制单列数据
       this.dialogEditVisible_YYT = true
     },
+    OpenfileSelect() {
+      //隐藏input框 点击按钮触发input的点击事件
+      let myfile = this.$refs.inputer
+      myfile.click()
+    },
     // 一元厅取消编辑
     _doCancel_YYT() {
-      this.tableData_YYT.splice(this.inde_YYT, 1, this.editTableRoot_YYT) //删除编辑的数据并替换为原始数据
       this.dialogEditVisible_YYT = false
+      this.getList()
       this.$message({
         type: 'warning',
         message: '取消编辑'
@@ -564,11 +593,23 @@ export default {
     },
     // 一元厅确定编辑
     _doHandleEdit_YYT() {
-      this.dialogEditVisible_YYT = false
-      this.$message({
-        type: 'success',
-        message: '编辑成功!'
+      this.AudioDuration = this.getTime()
+      let params = {
+        "abnormalKeyWord": this.editTable_YYT.abnormalKeyWord,
+        "insDoctorId": "1",
+        "paperWork": this.editTable_YYT.paperWork,
+        "relevantContent": this.editTable_YYT.relevantContent,
+        "voiceCategory": this.editTable_YYT.voiceCategory,
+        "voiceLabel": this.editTable_YYT.voiceLabel,
+        "voiceProductId": this.editTable_YYT.voiceProductId,
+        "voiceProductUrl": this.upyunUrl,
+        "voiceTime": this.AudioDuration
+      }
+      PostListenUpdate(params).then(response => {
+        this.$alert(response.msg)
+        this.getList()
       })
+      this.dialogEditVisible_YYT = false
     },
     // 一元厅新增
     handleAdd_YYT() {
@@ -576,24 +617,37 @@ export default {
     },
     // 一元厅确定新增
     _doAdd_YYT() {
-      this.tableData_YYT.push(this.addTable_YYT)
+      this.AudioDuration = this.getTime()
+      let params = {
+        "abnormalKeyWord": this.addTable_YYT.abnormalKeyWord,
+        "insDoctorId": "1",
+        "paperWork": this.addTable_YYT.paperWork,
+        "relevantContent": this.addTable_YYT.relevantContent,
+        "voiceCategory": this.addTable_YYT.voiceCategory,
+        "voiceLabel": this.addTable_YYT.voiceLabel,
+        "voiceProductId": this.addTable_YYT.voiceProductId,
+        "voiceProductUrl": this.upyunUrl,
+        "voiceTime": this.AudioDuration,
+        "status": 2,
+        "voiceProductName": this.addTable_YYT.voiceProductName,
+        
+      }
+      PostListenSave(params).then(response => {
+        this.$alert(response.msg)
+        this.getList()
+      })
       this.dialogAddVisible_YYT = false
       this.addTable_YYT = {
-        "goodCode": 4231231,
-        "firstType": "服务",
-        "secondType": "一元听",
-        "goodsName": "",
-        "goodsWords": "",
-        "goodsStatus": 1,
-        "goodsPrice": 1,
-        "audioStatus": 1,
-        "serviceStatus": 1,
-        "YYTgoods": 43,
-        "YYTstatus": 1,
-        "doctor": 2,
-        "AbnormalKeywords": "",
-        "goodsCopywriting": "",
-        "createDate": "2018-05-21"
+        "abnormalKeyWord": "",
+        "insDoctorId": "",
+        "paperWork": "",
+        "relevantContent": "",
+        "status": 2,
+        "voiceCategory": "",
+        "voiceLabel": "",
+        "voiceProductName": "",
+        "voiceProductUrl": "",
+        "voiceTime": 0
       }
       this.$message({
         type: 'success',
@@ -602,47 +656,148 @@ export default {
     },
     // 一元厅取消新增
     _doAddCancel_YYT() {
+      this.dialogAddVisible_YYT = false
       this.addTable_YYT = {
         //重置新增数据为空
-        "goodCode": 4231231,
-        "firstType": "服务",
-        "secondType": "一元听",
-        "goodsName": "",
-        "goodsWords": "",
-        "goodsStatus": 1,
-        "goodsPrice": 1,
-        "audioStatus": 1,
-        "serviceStatus": 1,
-        "YYTgoods": 43,
-        "YYTstatus": 1,
-        "doctor": 2,
-        "AbnormalKeywords": "",
-        "goodsCopywriting": "",
-        "createDate": "2018-05-21"
+        "abnormalKeyWord": "",
+        "insDoctorId": "",
+        "paperWork": "",
+        "relevantContent": "",
+        "status": 2,
+        "voiceCategory": "",
+        "voiceLabel": "",
+        "voiceProductName": "",
+        "voiceProductUrl": "",
+        "voiceTime": 0
       }
-      this.dialogAddVisible_YYT = false
+      this.getList()
       this.$message({
         type: 'warning',
         message: '取消新增'
       })
     },
+    //获取绑定医生列表
+    getDocList(){
+      PostListenDoc().then(response => {
+        this.Doclist = []
+        this.Doclist = response.data.list
+      })
+    },
     //获取一元听列表
-    getListenList() {
-      this.$http
-        .post('http://localhost:8080/api/yiyuanting')
-        .then(response => {
-          this.tableData_YYT = []
-          this.tableData_YYT = this.tableData_YYT.concat(response.data.data)
-          // response.data.data.forEach(item => {
-          //   const tableData = {}
-          //   tableData.username = item.username
-          //   this.tableDataYYT.push(tableData)
-          // })
+    getList() {
+      let params = {
+        currentPage: 1,
+        pageSize: 1000,
+        voiceProductCode: '',
+        voiceProductName: ''
+      }
+      GetListenList(params).then(response => {
+        this.tableData_YYT = []
+        this.tableData_YYT = response.data.list
+        this.totalCount = response.data.totalCount
+      })
+    },
+    getTime() {
+      //获取音频时长
+      let audio = this.$refs.audior
+      let spam = setTimeout(function() {
+        var duration = audio.duration
+        if (isNaN(duration)) {
+          getTime()
+        } else {
+          return audio.duration
+        }
+      }, 10)
+      return spam
+    },
+    // audiotime() {
+    //   //获取音频时长
+
+    //   let myAudio = this.$refs.audior
+
+    //   if (myAudio != null) {
+    //     var duration
+    //     let AudioDur
+    //     myAudio.load()
+    //     console.log(myAudio.duration, 'myAudio.duration')
+
+    //     myAudio.oncanplay = function() {
+    //       // console.log(myAudio.duration,"myAudio.duration",);
+    //       AudioDur = myAudio.duration
+    //     }
+    //     console.log(AudioDur)
+    //   }
+    // },
+    update() {
+      //上传
+      let inputDOM = this.$refs.inputer
+      // 通过DOM取文件数据
+      this.file = inputDOM.files[0]
+      if (inputDOM.files[0] === undefined) {
+        this.fileName = ''
+        this.fileSize = ''
+        this.fileType = ''
+      } else {
+        this.fileName = this.file.name
+        //kb
+        if (this.file.size / 1024 < 1000) {
+          this.fileSize = (this.file.size / 1024).toFixed(2) + 'kb'
+        } else if (this.file.size / 1024 > 1000) {
+          this.fileSize = (this.file.size / 1024 / 1024).toFixed(2) + 'MB'
+        }
+        this.fileType = this.file.type
+      }
+    },
+    //上传按钮的事件axios
+    fileupdate() {
+      let inputDOM = this.$refs.inputer
+      // 通过DOM取文件数据
+      var bucketname = 'zhangshangtijian' //服务名
+      var username = 'hztest' //操作员账号
+      var password = 'a1234567' //操作员密码
+      var save_key = '/csp/audio/{year}{mon}{day}/{filename}{.suffix}'
+      var policy = btoa(
+        JSON.stringify({
+          bucket: bucketname,
+          'save-key': save_key,
+          expiration: parseInt(Date.parse(new Date()) + 3600)
         })
+      )
+      var signature =
+        'UPYUN ' +
+        username +
+        ':' +
+        b64hamcsha1(
+          HexMD5.MD5(password).toString(HexMD5.enc.Hex),
+          'POST&/' + bucketname + '&' + policy
+        )
+      var url = 'http://v0.api.upyun.com/' + bucketname
+      var file = inputDOM.files[0]
+      var formData = new FormData()
+      formData.append('file', file)
+      formData.append('policy', policy)
+      formData.append('authorization', signature)
+      this.$http.post(url, formData).then(response => {
+        if ((response.code = 200)) {
+          this.upyunUrl =
+            'http://zhangshangtijian.b0.upaiyun.com' + response.data.url //返回地址
+          console.log(this.upyunUrl, 'this.upyunUrl1')
+
+          this.$alert('上传成功')
+        } else {
+          this.$alert(response.msg)
+        }
+      })
     }
   },
   created: function() {
-    this.getListenList()
+    this.getList()
+    this.getDocList()
+    PostListenDoc().then(response => {
+        this.Doclist = []
+        this.Doclist = response.data.list
+        console.log(response)
+      })
   }
 }
 </script>
@@ -670,12 +825,14 @@ export default {
 }
 // .el-form-item {margin-bottom: 0}
 // .el-checkbox+.el-checkbox{margin: 0}
-.wordsnum{
-    height: 117px;
-    /* vertical-align: middle; */
-    text-align: center;
-    line-height: 117px;
-
+.wordsnum {
+  height: 117px;
+  /* vertical-align: middle; */
+  text-align: center;
+  line-height: 117px;
+}
+.m_l_0 {
+  margin-left: 0;
 }
 </style>
 <style lang="less">
@@ -683,7 +840,7 @@ export default {
   &.is-required2 {
     .el-form-item__label {
       &:after {
-        content: "*";
+        content: '*';
         color: #f56c6c;
         margin-left: 4px;
       }

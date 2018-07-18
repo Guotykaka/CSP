@@ -40,6 +40,8 @@ export const API_CLOSE_INS_LEAVE_WORDANSWER = baseUrl+'ins/insleavewordanswer/cl
 //系统管理
 export const API_POST_LIST_NOTICE = baseUrl+'sys/notice/list';//公告列表
 export const API_POST_LIST_USER = baseUrl+'sys/user/list';//用户列表
+export const API_POST_INFO_USER = baseUrl+'sys/user/info';//查看用户
+
 export const API_POST_UPDATE_USER = baseUrl+'sys/user/update';//保存用户
 export const API_POST_SAVE_USER = baseUrl+'sys/user/save';//新增用户
 export const API_POST_DELETE_USER = baseUrl+'sys/user/delete';//删除用户
@@ -73,6 +75,11 @@ export const API_POST_MENU_UPDATE = baseUrl+'sys/menu/update';//修改菜单
 export const API_POST_LIST_INSTITUTION = baseUrl+'ins/institution/list';//机构业务列表
 export const API_POST_SAVE_INSTITUTION = baseUrl+'ins/institution/save';//消息模板列表
 //商品管理
+export const API_GET_LIST_LISTEN = baseUrl+'CspVoiceProduct/CspVoiceProductget';//一元听列表
+export const API_GET_UPDATE_LISTEN = baseUrl+'CspVoiceProduct/CspVoiceProductupdate';//一元听编辑
+export const API_GET_STATUS_LISTEN = baseUrl+'CspVoiceProduct/Statusupdate';//一元听修改状态
+export const API_GET_SAVE_LISTEN = baseUrl+'CspVoiceProduct/saveCspVoiceProduct';//一元听新增
+export const API_GET_DOCLIST_LISTEN = baseUrl+'CspVoiceProduct/CspQueryDoctorOne';//一元听绑定医生列表
 
 //医生管理
 export const API_POST_LIST_DOCTOR = baseUrl+'sys/doctor/doctorList';//医生列表
