@@ -13,8 +13,8 @@
         </p>
         <p class="status-text">请您在进行同意或者拒绝操作前，尽量充分于买家沟通达成一致，避免误解</p>
         <div class="btn-row" style="text-align: right">
-          <el-button size="small" type="primary" @click="_doBack">同意</el-button>
-          <el-button size="small" type="danger" @click="_doBack">拒绝</el-button>
+          <el-button size="small" type="primary" @click="agreeApply">同意</el-button>
+          <el-button size="small" type="danger" @click="refuseApply">拒绝</el-button>
         </div>
       </el-card>
 
@@ -25,7 +25,7 @@
         </p>
         <p class="status-text">运营已同意退款，款还未打到客户账上</p>
         <div class="btn-row" style="text-align: right">
-          <el-button size="small" type="primary" @click="_doBack">退款</el-button>
+          <el-button size="small" type="primary">退款</el-button>
         </div>
       </el-card>
 
@@ -135,16 +135,21 @@
           <el-table-column prop="CREATE_TIME" label="变更时间"></el-table-column>
           <el-table-column prop="TRADE_STATUS" label="变更状态" width="100">
             <template slot-scope="scope">
-              <el-tag type="info" v-if="scope.row.TRADE_STATUS===1">待处理</el-tag>
-              <el-tag type="success" v-if="scope.row.TRADE_STATUS===2">退款中</el-tag>
-              <el-tag type="warning" v-if="scope.row.TRADE_STATUS===3">退款成功</el-tag>
-              <el-tag type="danger" v-if="scope.row.TRADE_STATUS===4">退款失败</el-tag>
+              <el-tag type="warning" v-if="scope.row.TRADE_STATUS===0">待付款</el-tag>
+              <el-tag type="danger" v-if="scope.row.TRADE_STATUS===1">已取消</el-tag>
+              <el-tag type="success" v-if="scope.row.TRADE_STATUS===2">已付款</el-tag>
+              <el-tag type="success" v-if="scope.row.TRADE_STATUS===3">已完成</el-tag>
+              <el-tag type="warning" v-if="scope.row.TRADE_STATUS===4">退款待处理</el-tag>
+              <el-tag type="warning" v-if="scope.row.TRADE_STATUS===5">退款中</el-tag>
+              <el-tag type="success" v-if="scope.row.TRADE_STATUS===6">退款成功</el-tag>
+              <el-tag type="danger" v-if="scope.row.TRADE_STATUS===7">退款关闭</el-tag>
+              <el-tag type="danger" v-if="scope.row.TRADE_STATUS===8">退款拒绝</el-tag>
             </template>
           </el-table-column>
         </el-table>
       </el-card>
       <div class="btn-row" style="text-align: center">
-        <el-button size="small" type="primary" @click="_doBack">返回</el-button>
+        <el-button size="small" type="primary" @click="backFn">返回</el-button>
       </div>
 
 
@@ -159,22 +164,16 @@
   </div>
 
 </template>
-
-
 <script>
-
 import headerTop from '@/components/headTop.vue';
 import report from '@/components/report.vue';
 import { mapGetters } from "vuex";
-
-import {getListOrderRefund} from "@/api/api.js";
-
-
+import { getOrderChangeRecord,ERR_OK } from "@/api/api.js";
 export default {
   data() {
     return {
+      orderCode:"",
       //报告详情数据
-
       reportData: {
         "CustomerName": "魏秀琴",
         "CheckUnitName": "SQLServer中间库",
@@ -2659,48 +2658,13 @@ export default {
           }
         ]
       },
-
       isShowReport:false,//是否显示体检报告
 
-
-
-      rangeTime:"",//时间range
-      searchParams: {
-        customerMobile: "",//手机号
-        customerName: "",//姓名
-        doctorName: "",//医生姓名
-        startTime: "",
-        endTime: "",
-        institutionName: "",//机构名称
-        limit: 10,
-        page: 1,
-        serviceId: "",//服务名称的id
-        refundStatus: "",//服务状态
-        tradeCode: ""//订单号
-      },
-
-      //退款列表
-      refuseList:[
-        {allDiscountAmount: 0,approvalTime: null, checkUnitCode: null, createTime: "2018-07-06 17:20:17", cspOrderId: "2c8080aa6468a07e01646ee4055d00b5", discountAmount: 0, doctorName: "左丽红-河南省直三院", goodsAmount: 0.01, goodsName: "图文咨询", healthDoctorName: null, insOrderRefundId: "2c8080aa6468a07e01646ee45e9100b8", institutionName: "河南省直三院", orderCode: "20180706171954132971_01", payChannel: 1, refundAmount: 0.01, refundCode: "20180706172017134613", refundReason: "啦啦啦啦啦啦啦啦", refundRemark: "线上退款", refundStatus: 3, refuseReason: "kkkk ", thirdTradeNo: "2018070621001004540558476804", totalPrice: 0.01, tradeCode: "20180706171954132971", userName: "左丽红", userPhone: "17740877130", workNo: null},
-        {allDiscountAmount: 0,approvalTime: null, checkUnitCode: null, createTime: "2018-07-06 17:20:17", cspOrderId: "2c8080aa6468a07e01646ee4055d00b5", discountAmount: 0, doctorName: "左丽红-河南省直三院", goodsAmount: 0.01, goodsName: "图文咨询", healthDoctorName: null, insOrderRefundId: "2c8080aa6468a07e01646ee45e9100b8", institutionName: "河南省直三院", orderCode: "20180706171954132971_01", payChannel: 1, refundAmount: 0.01, refundCode: "20180706172017134613", refundReason: "啦啦啦啦啦啦啦啦", refundRemark: "线上退款", refundStatus: 3, refuseReason: "kkkk ", thirdTradeNo: "2018070621001004540558476804", totalPrice: 0.01, tradeCode: "20180706171954132971", userName: "左丽红", userPhone: "17740877130", workNo: null},
-      ],
-
-      //订单详情
-      orderInfo:{},
-
       //订单变更记录
-      orderChangeList: [
-        {ORDER_CODE:"20180706171604780814_01",CREATE_TIME:"2018-07-06 17:19:00",TRADE_STATUS:3},
-        {ORDER_CODE:"20180706171604780814_01",CREATE_TIME:"2018-07-06 17:18:33",TRADE_STATUS:8},
-        {ORDER_CODE:"20180706171604780814_01",CREATE_TIME:"2018-07-06 17:18:20",TRADE_STATUS:4},
-        {ORDER_CODE:"20180706171604780814_01",CREATE_TIME:"2018-07-06 17:17:40",TRADE_STATUS:2},
-        {ORDER_CODE:"20180706171604780814_01",CREATE_TIME:"2018-07-06 17:16:04",TRADE_STATUS:0}
-      ],
+      orderChangeList: [],
+
       //支付记录
-
       payList:[]
-
-
     }
   },
 
@@ -2710,85 +2674,123 @@ export default {
   },
 
   computed:{
-    ...mapGetters(['getInstitutionArr'])
+    ...mapGetters({orderInfo: 'getRefuseInfo'}),
   },
 
   methods:{
-    //搜索
-    _doSearch(){
-
-    },
-
-    //点击查看
-    _checkDetail: function (item) {
-      this.showStatus = 2;
-      this.orderInfo = item;
-
-      this.payList.length=0;
-      this.payList.push({
-        thirdTradeNo:item.thirdTradeNo,//流水号
-        refundAmount:item.refundAmount,//付款价格
-        allDiscountAmount:item.allDiscountAmount,//优惠金额
-        totalPrice:item.totalPrice,//订单总价
-      })
-
-      //获取订单变更列表数据
-      //this.getOrderChanges(item.orderCode);
-    },
-
-    //点击返回
-    _doBack: function () {
-      this.showStatus = 1;
+    setPayList(){
+      var obj={
+        thirdTradeNo:this.orderInfo.thirdTradeNo,
+        refundAmount:this.orderInfo.refundAmount,
+        allDiscountAmount: this.orderInfo.allDiscountAmount,
+        totalPrice:this.orderInfo.totalPrice
+      };
+      this.payList[0]=obj;
     },
 
     //点击显示体检报告详情
     showReportFn(){
       this.isShowReport=true;
-
       console.log(this.isShowReport)
+    },
+
+
+    //同意申请
+    agreeApply: function (item) {
+      confirm("确定同意退款？", function () {
+        var parms = {
+          payType: item.payChannel,//支付方式
+          refundCode: item.refundCode,
+          refundType: 2,
+          tradeCode: item.tradeCode
+        };
+        $.ajax({
+          type: "post",
+          url: basePayUrl + "api/trade/orderRefund",
+          contentType: "application/json",
+          data: JSON.stringify(parms),
+          success: function (res) {
+            if (res.code === 1) {
+              alert(res.msg,function () {
+                vm.showStatus = 1;
+                vm.searchParams.refundStatus="";
+                vm._getDatalist();
+              });
+            } else {
+              alert(res.msg,function () {
+                vm._doBack();
+              });
+            }
+          }
+        })
+      })
+    },
+
+    //拒绝申请
+    refuseApply: function (item) {
+      layer.prompt({
+        formType: 2,
+        value: '',
+        title: '请填写拒绝理由',
+        area: ['400px', '200px'] //自定义文本域宽高
+      }, function (value, index, elem) {
+        if (!value) {
+          alert("拒绝理由不能为空");
+          return
+        }
+        var ids = [];
+        ids.push(item.insOrderRefundId);
+        var parms = {
+          insOrderRefundIds: ids,
+          refundStatus: 3,
+          refuseReason: value
+        };
+        $.ajax({
+          type: "POST",
+          url: baseURL + "ins/orderRefund/updateOrderRefundStatus",
+          contentType: "application/json",
+          data: JSON.stringify(parms),
+          success: function (res) {
+            if (res.code === 1) {
+              alert(res.msg, function () {
+                vm.showStatus = 1;
+                vm._getDatalist();
+              });
+            } else {
+              alert(res.msg);
+            }
+          }
+        });
+        layer.close(index);
+      });
+    },
+    //获取订单变更列表
+    getOrderChanges: function () {
+      var params = {
+        orderCode:this.$route.params.id
+      };
+      getOrderChangeRecord(params).then(res => {
+        if(res.code===ERR_OK){
+          this.orderChangeList=res.data;
+        }else{
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      }).catch(err => {
+
+      })
+    },
+
+    backFn(){
+      window.history.go(-1);
     }
-
-
-
-
-
-
-
   },
 
-
   created(){
-
-
-    getListOrderRefund({
-      currentPage: 1,
-      customerMobile: "",
-      customerName: "",
-      doctorName: "",
-      endTime: "",
-      institutionName: "",
-      pageSize: 10,
-      refundStatus: 1,
-      serviceId: "",
-      startTime: "",
-      timespan: "44",
-      tradeCode: ""
-    }).then(res => {
-
-      console.log(res)
-
-
-    }).catch(err => {
-
-    })
-
-
-
-  }
-
-
-
-
+    this.setPayList();
+    this.getOrderChanges();
+  },
 
 }
 </script>
@@ -2799,8 +2801,5 @@ export default {
   .text-danger{color:#F56C6C}
   .text.item{line-height: 24px;font-size: 14px;color:#666;margin-bottom: 10px}
   .status-text{line-height: 24px;font-size: 14px;color: #555;margin-bottom: 10px}
-
   .showReportBtn{color:#409EFF;cursor: pointer;font-weight: bold;font-size: 14px;}
-
-
 </style>

@@ -119,6 +119,10 @@ import { mapGetters } from "vuex";
 import {getListOrderRefund ,ERR_OK} from "@/api/api.js";
 
 
+import { mapMutations } from 'vuex'
+
+
+
 export default {
   data() {
     return {
@@ -157,6 +161,13 @@ export default {
   },
 
   methods:{
+
+    ...mapMutations([
+      'setRefuseInfo',
+    ]),
+
+
+
 
     //自带搜索组件选中
     handleSelect(item) {
@@ -199,7 +210,8 @@ export default {
 
     //点击查看
     checkDetail: function (item) {
-      var reportId=123;
+      this.setRefuseInfo(item);
+      var reportId=item.orderCode;
       this.$router.push({ path: `/refundsInfo/${reportId}`})
     },
 
@@ -216,7 +228,7 @@ export default {
         serviceId:this.searchParams.serviceId,
         startTime:this.rangeTime ? this.rangeTime[0] :"",
         endTime:this.rangeTime ? this.rangeTime[1] :"",
-        timespan: "44",
+       //timespan: "44",
         tradeCode: this.searchParams.tradeCode
       };
 

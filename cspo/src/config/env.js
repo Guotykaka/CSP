@@ -15,6 +15,7 @@ let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
   baseUrl = 'http://172.0.0.41:8117/cspo/';
+  //baseUrl = 'http://10.50.50.117:8117/cspo/';
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';
@@ -56,6 +57,20 @@ export const API_POST_UPDATE_TEMPLATE = baseUrl+'bd/template/update';//修改
 export const API_POST_SAVE_TEMPLATE = baseUrl+'bd/template/save';//新增
 export const API_POST_DELETE_TEMPLATE = baseUrl+'bd/template/delete';//删除
 
+//菜单管理
+
+export const API_POST_MENU_DELETE = baseUrl+'sys/menu/delete';//删除菜单
+export const API_POST_MENU_GETLEFTNAV = baseUrl+'sys/menu/getLeftNav';//删除菜单
+export const API_POST_MENU_GETMENULIST = baseUrl+'sys/menu/getMenuList';//获取所有菜单列表
+export const API_POST_MENU_BYCATEGORY = baseUrl+'sys/menu/getMenuListByCategory';//获取所有菜单列表
+export const API_POST_MENU_MENUBYCATEGORY = baseUrl+'sys/menu/getSysMenuByCategory';//选择菜单(添加、修改菜单)
+export const API_POST_MENU_GETSYSMENUBYID = baseUrl+'sys/menu/getSysMenuById';//获取菜单信息
+export const API_POST_MENU_LISTBYCATEGORY = baseUrl+'sys/menu/listByCategory';//根据角色类别加载菜单信息
+export const API_POST_MENU_SAVE = baseUrl+'sys/menu/save';//保存菜单信息
+export const API_POST_MENU_UPDATE = baseUrl+'sys/menu/update';//修改菜单
+
+
+
 //机构业务
 export const API_POST_LIST_INSTITUTION = baseUrl+'ins/institution/list';//机构业务列表
 export const API_POST_SAVE_INSTITUTION = baseUrl+'ins/institution/save';//消息模板列表
@@ -65,11 +80,36 @@ export const API_GET_UPDATE_LISTEN = baseUrl+'CspVoiceProduct/CspVoiceProductupd
 export const API_GET_STATUS_LISTEN = baseUrl+'CspVoiceProduct/Statusupdate';//一元听修改状态
 export const API_GET_SAVE_LISTEN = baseUrl+'CspVoiceProduct/saveCspVoiceProduct';//一元听新增
 export const API_GET_DOCLIST_LISTEN = baseUrl+'CspVoiceProduct/CspQueryDoctorOne';//一元听绑定医生列表
+
 //医生管理
 export const API_POST_LIST_DOCTOR = baseUrl+'sys/doctor/doctorList';//医生列表
-export const API_POST_SAVE_DOCTOR = baseUrl+'sys/doctor/doctorSave';//修改医生信息
+export const API_POST_DOCTOR_UPDATE = baseUrl+'sys/doctor/doctorUpdate';//编辑医生信息
+export const API_POST_SERVICE_DICT = baseUrl+'sys/doctor/serviceDict';//所有服务
+export const API_POST_SAVE_SERVICE_SET = baseUrl+'sys/doctor/saveServiceSet';//设置服务权限
+export const API_POST_REST_PASSWORD = baseUrl+'sys/doctor/resetPassword';//重置密码
+export const API_POST_DOCTOR_SAVE = baseUrl+'sys/doctor/doctorSave';//新增医生
+export const API_POST_INSPROPORTION_LIST = baseUrl+'sys/doctor/listGetInsProportionsByPage';//分成比例列表
+export const API_POST_SAVE_INSPROPORTIONS = baseUrl+'sys/doctor/saveInsProportions';//新增分成项
+export const API_POST_DELETE_INSPROPORTIONSENTITY = baseUrl+'sys/doctor/deleteInsProportionsEntity';//删除分成比例项
+
+export const API_POST_DOCTOR_APPLY_LIST = baseUrl+'sys/doctorApply/doctorApplyList';//医生认证列表
+export const API_POST_QUERY_DOCTOR_INFO = baseUrl+'sys/doctorApply/queryDoctorApplyInfo';//查询医生详情
+export const API_POST_CHANGE_DOCTOR_STATUS = baseUrl+'sys/doctorApply/changeDoctorStatus';//同意或拒绝医生认证
+
+
+//财务管理
+export const API_POST_LIST_ACCOUNT_RECORD = baseUrl+'ins/withdraw/listAccountRecord';//提现列表
+
+
+
+
+
+
+
+
 //订单管理
 export const API_GET_LIST_ORDER_REFUND = baseUrl+'ins/orderRefund/listOrderRefund';//退款列表
+export const API_GET_LIST_ORDER_CHANGE_R = baseUrl+'ins/orderRefund/listOrderChangeRecord';//退款订单变更
 
 export const API_GET_LIST_ALL_INSTITUTION = baseUrl+'ins/institution/listAllInstitution';//机构列表
 

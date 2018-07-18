@@ -47,7 +47,15 @@
         doLogin:function () {
           var params=this.loginParams;
           login(params).then(res => {
+
             if(res.code===ERR_OK){
+
+
+
+              console.log(res)
+
+              return
+
               setStore('userMesage',res.data);
               this.$router.push("doctor_index")
             }else{

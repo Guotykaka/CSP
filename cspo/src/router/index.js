@@ -16,6 +16,8 @@ const role = () => import('@/pages/role.vue')//角色管理
 // const dept = () => import('@/pages/dept.vue')//部门管理
 const user = () => import('@/pages/user.vue')//用户管理
 const message_template = () => import('@/pages/message_template.vue')//消息模板
+const menuList = () => import('@/pages/menuList.vue')//菜单管理
+const menuList1 = () => import('@/pages/menuList1.vue')//菜单管理
 //机构业务
 const institution = () => import('@/pages/institution.vue')//机构列表
 const medicine_group = () => import('@/pages/medicine_group.vue')//医学分组
@@ -28,6 +30,7 @@ const listenList = () => import('@/pages/listenList.vue')//服务管理
 
 //医生管理
 const doctorList = () => import('@/pages/doctorList.vue')//医生列表
+const benefitList = () => import('@/pages/benefitList.vue')//分成比例
 const indentList = () => import('@/pages/identificationList.vue')//认证列表
 
 //订单管理
@@ -99,6 +102,16 @@ let router =  new Router({
           meta: ["系统管理", "消息模板"],//消息模板
         },
         {
+          path: '/menuList',
+          component: menuList,
+          meta: ["系统管理", "菜单管理"],//菜单管理
+        },
+        {
+          path: '/menuList1',
+          component: menuList1,
+          meta: ["系统管理", "菜单管理"],//菜单管理
+        },
+        {
           path: '/institution',
           component: institution,
           meta: ["机构业务", "机构列表"],//机构列表
@@ -137,6 +150,11 @@ let router =  new Router({
           path: '/doctorList',
           component: doctorList,//医生管理 医生列表
           meta: ["医生管理", "医生列表"],
+        },
+        {
+          path: '/benefitList/:id/:userId',
+          component: benefitList,//分成比例
+          meta: ["医生管理", "医生列表","分成比例"],
         },
         {
           path: '/indentList',

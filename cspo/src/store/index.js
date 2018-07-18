@@ -21,6 +21,12 @@ const state = {
   institutionArr:[],
   refundDetail:{},//退款列表订单信息
   customerDetail:{},//订单列表信息
+
+
+  refuseOrderInfo:{},//退款订单详情
+
+
+
 }
 
 
@@ -51,6 +57,13 @@ const getters={
   },
   refundDetail:state=>state.refundDetail,//退款详情---订单信息
   customerDetail:state=>state.customerDetail,//订单列表信息
+
+  //获取退款订单详情
+  getRefuseInfo(state){
+    return state.refuseOrderInfo;
+  }
+
+
 }
 
 
@@ -80,6 +93,11 @@ const mutations = {
   //设置未读消息数
   setUnReadCount(state,countNum){
     state.unReadMsgCount=countNum;
+  },
+
+  //设置退款详情
+  setRefuseInfo(state,info){
+    state.refuseOrderInfo=info;
   },
 
   //退款详情--订单信息

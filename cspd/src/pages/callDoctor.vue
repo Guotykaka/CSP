@@ -20,18 +20,15 @@
       </div>
       <div class="message-deatil">
         <ul>
-          <li class="detail-li"
-              v-for="(item,index) in insLeaveDetail" :key="index">
-            <div class="detail-title">
-              <ul>
-                <li v-if="item.leaveWordStatus==1">状态:<span class="text-red">待回复</span></li>
-                <li v-if="item.leaveWordStatus==2">状态:<span class="text-red">已回复</span></li>
-                <li v-if="item.leaveWordStatus==3">状态:<span class="text-red">已关闭</span></li>
-                <li>留言人:<span class="text-black">{{item.createUserName}}</span></li>
-                <li>联系方式:<span class="text-black">{{item.mobile}}</span></li>
-                <li>留言时间:<span class="text-black">{{item.createTime}}</span></li>
-              </ul>
-            </div>
+          <li class="detail-li" v-for="(item,index) in insLeaveDetail" :key="item.insLeaveWordId">
+            <ul class="detail-title">
+              <li v-if="item.leaveWordStatus==1">状态:<span class="text-red">待回复</span></li>
+              <li v-if="item.leaveWordStatus==2">状态:<span class="text-green">已回复</span></li>
+              <li v-if="item.leaveWordStatus==3">状态:<span class="text-hui">已关闭</span></li>
+              <li>留言人:<span class="text-black">{{item.createUserName}}</span></li>
+              <li>联系方式:<span class="text-black">{{item.mobile}}</span></li>
+              <li>留言时间:<span class="text-black">{{item.createTime}}</span></li>
+            </ul>
             <div class="detail-main">
               <ul class="text-detail">
                 <li>
@@ -45,22 +42,24 @@
               </ul>
 
               <!--回复内容-->
-              <div class="re-circle" v-if="checkId==index" v-for="(item1,index1) in insLeaveAnswerlist" :key="index1">
-                <span class="res-title">回复</span>
-                <div class="resCircle">
-                  <span class="res-main">{{item1.answerContent}}</span>
-                  <ul class="res-sign">
-                    <li>
-                      <span class="text-sblack">回复人:</span>
-                      <span>{{item1.answerUserName}}</span>
-                    </li>
-                    <li>
-                      <span class="text-sblack">回复时间:</span>
-                      <span>{{item1.createTime}}</span>
-                    </li>
-                  </ul>
+              <transition-group name="fade" tag="div">
+                <div class="re-circle" v-if="checkId==index" v-for="(item1,index1) in insLeaveAnswerlist" :key="index1">
+                  <span class="res-title">回复</span>
+                  <div class="resCircle">
+                    <span class="res-main">{{item1.answerContent}}</span>
+                    <ul class="res-sign">
+                      <li>
+                        <span class="text-sblack">回复人:</span>
+                        <span>{{item1.answerUserName}}</span>
+                      </li>
+                      <li>
+                        <span class="text-sblack">回复时间:</span>
+                        <span>{{item1.createTime}}</span>
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
+              </transition-group>
               <ul class="event-btn" v-if="checkId!==index">
                 <li @click="evnetShowList(item,index)">展开<b class="iconfont icon-xiangs-copy"></b></li>
               </ul>
@@ -74,10 +73,21 @@
             </div>
           </li>
         </ul>
+        <div class="pageS">
+          <el-pagination
+            v-if="insLeaveDetail.length>0"
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="searchParams.currentPage"
+            :page-sizes="[10, 20, 30, 50]"
+            :page-size="searchParams.pageSize"
+            background
+            layout="total, sizes, prev, pager, next, jumper"
+            :total="total">
+          </el-pagination>
+          <span v-else class="text-hui">暂无数据</span>
+        </div>
       </div>
-      <!--分页-->
-      <div id="selPage"
-           style="font-size: 6px; position: absolute; bottom: 0px;width:100%;background-color:#fff;margin:0 auto;text-align:right;"></div>
     </div>
   </div>
 </template>
@@ -85,7 +95,16 @@
 <script>
   import headerTop from "@/components/headTop.vue"
   import {localUrl} from "@/config/env.js"
-  import {api} from '@/api/api';
+  import {getStore} from "@/config/mUtils.js"
+  import {
+    ERR_OK,
+    api,
+    closeInsLeaveWordAnswer,
+    queryInsLeaveWordAnswerList,
+    queryInsLeaveWordList,
+    saveInsLeaveWord,
+    saveInsLeaveWordAnswer,
+  } from '@/api/api';
 
   export default {
     name: 'call_doctor',
@@ -96,6 +115,7 @@
       return {
         showList: false,
         replayMain: false,
+        userInfo:{},//用户信息
         searchParams: {
           currentPage: 1,//页码
           pageSize: 10,//
@@ -124,76 +144,71 @@
       }
     },
     created() {
-      this.$store.state.navTitle = ''
-      this.createUserId = localStorage.getItem('userId');
-      this.insDoctorId = localStorage.getItem('insDoctorId');
+      this.userInfo = JSON.parse(getStore('userMesage'));
+      this.createUserId = this.userInfo.userId;
+      this.insDoctorId = this.userInfo.insDoctorId;
       this._getQueryInsLeaveWordList();
     },
     methods: {
       //关闭
       closeList: function (val) {
-        var _this = this;
-        /*       $.ajax({
-                 type: "POST",
-                 url: baseURL + "ins/insleaveword/closeInsLeaveWordAnswer",
-                 data: val,
-                 contentType: "application/json",
-                 dataType: "json",
-                 success: function (res) {
-                   if (res.code === 1) {
-                     vm._getQueryInsLeaveWordList();
-                     vm.checkId = null;
-                   } else {
-                     alert(res.msg);
-                   }
-                 }
-               });*/
+        let _this = this,
+         params = {
+          insLeaveWordId:val
+        }
+        closeInsLeaveWordAnswer(params).then((res)=>{
+          if (res.code === ERR_OK) {
+            this._getQueryInsLeaveWordList();
+            this.checkId = null;
+          } else {
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        })
       },
       //回复
       replyList: function (val) {
         // this.refuseBox=true;
-        layer.prompt({
-          formType: 2,
-          value: '',
-          title: '请填写回复内容',
-          area: ['400px', '200px'] //自定义文本域宽高
-        }, function (value, index, elem) {
-          if (value == '') {
-            alert("回复内容不能为空");
-            return
-          }
+        let that = this;
+        this.$prompt('请填写回复内容', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          inputType: 'textarea',
+          customClass: 're-msg'
+        }).then(({value}) => {
           var parernId = null;
-          if (vm.insLeaveAnswerlist.length > 0) {
-            var count = vm.insLeaveAnswerlist.length - 1;
-            parernId = vm.insLeaveAnswerlist[count].insLeaveWordAnswerId;
+          if (that.insLeaveAnswerlist.length > 0) {
+            var count = that.insLeaveAnswerlist.length - 1;
+            parernId = that.insLeaveAnswerlist[count].insLeaveWordAnswerId;
           } else {
             parernId = val;
           }
-          var parms = {
+          let parms = {
             "answerContent": value,
-            "answerUserId": vm.createUserId,
+            "answerUserId": that.createUserId,
             "insLeaveWordId": val,
             "parentId": parernId
           };
-          /*          $.ajax({
-                      type: "POST",
-                      url: baseURL + "ins/insleaveword/saveInsLeaveWordAnswer",
-                      contentType: "application/json",
-                      dataType: "json",
-                      data: JSON.stringify(parms),
-                      success: function (res) {
-                        if (res.code === 1) {
-                          alert(res.msg, function () {
 
-                          });
-                          vm._getQueryInsLeaveWordList();
-                          vm.checkId = null;
-                        } else {
-                          alert(res.msg);
-                        }
-                      }
-                    });*/
-          layer.close(index);
+          saveInsLeaveWordAnswer(parms).then((res) => {
+            if (res.code === ERR_OK) {
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
+              that._getQueryInsLeaveWordList()
+              that.checkId = null;
+            } else {
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
+            }
+          })
+        }).catch(() => {
+          this.$message({
+            type: 'info',
+            message: '取消输入'
+          });
         });
       },
       //展开
@@ -202,11 +217,13 @@
         this.checkId = index;
         this.showList = true;
         let _this = this,
-          params = val.insLeaveWordId;
-        api.queryInsLeaveWordAnswerList(params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            _this.insLeaveAnswerlist = data.data;
+          params = {
+            insLeaveWordId:val.insLeaveWordId
+          };
+
+        queryInsLeaveWordAnswerList(params).then((res) => {
+          if (res.code === ERR_OK) {
+            _this.insLeaveAnswerlist = res.data;
             if (_this.insLeaveAnswerlist.length > 0) {
               var count = _this.insLeaveAnswerlist.length - 1;
               _this.checkCreatId = _this.insLeaveAnswerlist[count].answerUserId;
@@ -214,7 +231,9 @@
               _this.checkCreatId = val.createUserId;
             }
           } else {
-            alert(data.msg);
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         });
         this.resList = this.insLeaveAnswerlist;
@@ -226,38 +245,18 @@
         this.showList = false;
         this.checkId = null
       },
-      //分页
-      _initPage: function (val) {
-        layui.use('laypage', function () {
-          var laypage = layui.laypage;
-          //完整功能
-          laypage.render({
-            elem: 'selPage'
-            , limit: vm.searchParams.pageSize
-            , count: val//总页数 //数据总数，从服务端得到
-            , groups: 1
-            , layout: ['count', 'prev', 'page', 'next', 'limit', 'skip']
-            , limits: [10, 20, 30, 40, 50]
-            , curr: vm.searchParams.currentPage
-            , jump: function (obj, first) {
-              vm.searchParams.currentPage = obj.curr;
-              vm.searchParams.pageSize = obj.limit;
-              //首次不执行
-              if (!first) {
-                vm._getQueryInsLeaveWordList();
-              }
-            }
-          });
-        });
-      },
       //填写留言信息
       getSaveInsLeaveWord: function () {
         this.eventHiddenList();
         if (this.leaveWordTitle == '') {
-          alert('请填写留言标题');
+          this.$alert('请填写留言标题', '提示', {
+            confirmButtonText: '确定',
+          })
           return;
         } else if (this.leaveWordContent == '') {
-          alert('请填写留言内容');
+          this.$alert('请填写留言内容', '提示', {
+            confirmButtonText: '确定',
+          })
           return;
         }
         if (this.clickAgain) {
@@ -269,26 +268,20 @@
             "leaveWordStatus": 1
           };
           this.clickAgain = false;
-/*          $.ajax({
-            type: "POST",
-            url: baseURL + "ins/insleaveword/saveInsLeaveWord",
-            data: JSON.stringify(params),
-            contentType: "application/json",
-            dataType: "json",
-            success: function (res) {
-              if (res.code === 1) {
-                console.log(res.data);
-                vm.leaveWordContent = '';
-                vm.leaveWordTitle = '';
-                vm.clickAgain = true;
-                vm._getQueryInsLeaveWordList();
-              } else {
-                alert(res.msg)
-              }
+          saveInsLeaveWord(params).then((res)=>{
+            if (res.code === ERR_OK) {
+              this.leaveWordContent = '';
+              this.leaveWordTitle = '';
+              this.clickAgain = true;
+              this._getQueryInsLeaveWordList();
+            } else {
+              this.$alert(res.msg, '提示', {
+                confirmButtonText: '确定',
+              })
             }
-          });*/
+          })
         } else {
-          return;
+          return
         }
       },
       //请求所有留言
@@ -297,19 +290,28 @@
           "createUserId": this.createUserId,
           // "leaveWordStatus": 1,//信息状态待回复1 ,2已回复,3已关闭
           "leaveWordTitle": '',
-          "limit": this.searchParams.pageSize,
-          "page": this.searchParams.currentPage
+          "pageSize": this.searchParams.pageSize,
+          "currentPage": this.searchParams.currentPage
         };
-        api.queryInsLeaveWordList(params).then((res)=>{
-          let data = res.data;
-          if (data.code === 1) {
-            this.insLeaveDetail = data.data.list;
-            this.insLeavePage = data.data.page;
-            this._initPage(data.data.page.totalCount)
+        queryInsLeaveWordList(params).then((res) => {
+          if (res.code === ERR_OK) {
+            this.insLeaveDetail = res.data.list;
+            this.total = res.data.totalCount;
           } else {
-            alert(data.msg)
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           }
         });
+      },
+      /*分页*/
+      handleSizeChange(val) {
+        this.searchParams.pageSize = val;
+        this._getQueryInsLeaveWordList()
+      },
+      handleCurrentChange(val) {
+        this.searchParams.currentPage = val;
+        this._getQueryInsLeaveWordList();
       }
     },
     watch: {
@@ -326,257 +328,184 @@
 <style scoped lang="less">
   .call_doctor {
     line-height: 32px;
-    .detail-li {
+    .main-message {
       overflow: hidden;
-      border: 1px solid #e5e5e5;
-      border-radius: 5px;
+      position: relative;
+      padding-bottom: 60px;
+      font-size: 14px;
+      .main-header {
+        margin-top: 20px;
+        padding: 0 20px;
+        height: 34px;
+        overflow: hidden;
+        .msg-title {
+          font-size: 16px;
+          font-weight: 700;
+          color: #333;
+          float: left;
+          padding: 0 10px;
+          border-bottom: 2px solid #2186f6;
+
+        }
+      }
     }
-  }
-
-  .header-message {
-    background-color: #00a7d0;
-    border-radius: 5px 5px 0 0;
-    padding: 0 20px 20px;
-  }
-
-  .login-header {
-    text-align: left;
-    color: #333;
-    height: 40px;
-    line-height: 40px;
-  }
-
-  .login-message {
-    ul {
+    /*添加留言*/
+    .addMsg {
+      border-top: 1px solid #e5e5e5;
+      padding: 0 20px 56px;
       overflow: hidden;
-    }
-    li {
-      float: left;
-      text-align: center;
-      margin-right: 30px;
-    }
-    img {
-      width: 96px;
-      height: 96px;
-      box-sizing: border-box;
-      border-radius: 50%;
-      vertical-align: center;
-    }
-  }
-
-  .list-message {
-    display: flex;
-    li {
-      flex: 1;
-      span {
+      position: relative;
+      font-size: 14px;
+      .addInput {
+        width: 50%;
+        line-height: 40px;
         display: block;
-        height: 32px;
-        line-height: 32px;
+        margin-bottom: 30px;
+        margin-top: 30px;
+      }
+      .addTextarea {
+        width: 50%;
+        display: block;
+      }
+
+      .btnAdd {
+        width: 120px;
+        height: 40px;
+        padding: 0 10px;
+        line-height: 40px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        float: right;
+        margin-top: 20px;
+        color: #fff;
+        position: absolute;
+        bottom: 0;
+        right: 50%;
       }
     }
-    li:nth-of-type(1) span {
-      text-align: right;
-    }
-    li:nth-of-type(2) span {
-      text-align: left;
-    }
-  }
-
-  .main-message {
-    overflow: hidden;
-    position: relative;
-    padding-bottom: 60px;
-    font-size: 14px;
-  }
-
-  .main-header {
-    margin-top: 20px;
-    padding: 0 20px;
-    line-height: 32px;
-    height: 34px;
-    overflow: hidden;
-    span {
-      float: left;
-      padding: 0 10px;
-      border-bottom: 2px solid #2186f6;
-    }
-    span:nth-of-type(1) {
-      font-size: 20px;
-      color: #666;
-      font-weight: 700;
-    }
-  }
-
-  .search-message {
-    margin-top: 20px;
-    padding: 0 20px;
-    overflow: hidden;
-    .add-style {
-      list-style-type: none;
-    }
-  }
-
-  .add-style li {
-    float: left;
-    margin-right: 20px;
-    height: 30px;
-    line-height: 30px;
-  }
-
-  .add-style li:nth-of-type(2n) input,
-  .add-style li:nth-of-type(2n) select {
-    width: 150px;
-    height: 30px;
-    line-height: 30px;
-  }
-
-  .btn-search {
-    width: 80px;
-    height: 30px;
-    background-color: #e5e5e5;
-    border-radius: 5px;
-    border: none;
-  }
-
-  .text-red {
-    color: #f2a498;
-    font-weight: 700;
-  }
-
-  .text-black {
-    color: #333;
-    font-weight: 700;
-  }
-
-  .text-sblack {
-    color: #999;
-  }
-
-  .message-deatil {
-    margin-top: 20px;
-    overflow: hidden;
-  }
-
-  .detail-title {
-    border-bottom: 1px solid #e5e5e5;
-    ul {
-      background-color: #e8e8e8;
-      border-radius: 5px 5px 0 0;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 20px;
-    }
-    li {
-      height: 30px;
-      line-height: 30px;
-    }
-  }
-
-  .detail-main {
-    padding: 10px;
-    overflow: hidden;
-    float: left;
-    width: 100%;
-    .text-detail {
-      float: left;
-      display: block;
-      width: 100%;
-      margin-bottom: 20px;
-      li {
-        width: 80%;
+    .message-deatil {
+      margin-top: 20px;
+      overflow: hidden;
+      .detail-li {
+        overflow: hidden;
+        border: 1px solid #e5e5e5;
+        border-radius: 5px;
+        .detail-title {
+          color: #999;
+          border-bottom: 1px solid #e5e5e5;
+          background-color: #e8e8e8;
+          border-radius: 5px 5px 0 0;
+          display: flex;
+          justify-content: space-between;
+          padding: 0 20px;
+          li {
+            height: 40px;
+            line-height: 40px;
+          }
+          span {
+            margin-left: 10px;
+          }
+        }
       }
     }
-  }
+    .text-red {
+      color: #F56C6C;
+    }
 
-  .detail-main .event-btn {
-    float: right;
-    display: block;
-    overflow: hidden;
-    font-size: 14px;
-  }
+    .text-green {
+      color: #67C23A;
+    }
 
-  .event-btn li {
-    float: left;
-    margin-right: 10px;
-    color: #44a8f8;
-  }
+    .text-hui {
+      color: #909399;
+    }
 
-  .re-circle {
-    position: relative;
-    overflow: hidden;
-    float: left;
-    width: 100%;
-    padding: 10px;
-  }
+    .text-blue {
+      color: #409EFF;
+    }
 
-  .resCircle {
-    border: 1px solid #e5e5e5;
-    border-radius: 5px;
-    line-height: 30px;
-    width: 80%;
-    padding: 10px;
-    overflow: hidden;
-  }
+    .text-black {
+      color: #333;
+      margin-left: 10px;
+    }
 
-  .res-title {
-    background-color: #fff;
-    padding: 0 5px;
-    height: 30px;
-    position: absolute;
-    top: -4px;
-    left: 25px;
-  }
+    .text-sblack {
+      color: #999;
+      margin-right: 5px;
+    }
 
-  .res-main {
-    height: 30px;
-    padding: 10px;
-    overflow: hidden;
-  }
-
-  .res-sign {
-    float: right;
-    li {
+    .detail-main {
+      padding: 10px;
+      overflow: hidden;
       float: left;
-      margin-right: 10px;
-    }
-  }
+      width: calc(100% - 20px);
+      .text-detail {
+        float: left;
+        display: block;
+        width: 100%;
+        margin-bottom: 20px;
+        li {
+          width: 80%;
+        }
+      }
 
-  /*添加留言*/
-  .addMsg {
-    border-top: 1px solid #e5e5e5;
-    padding: 0 20px 56px;
-    overflow: hidden;
-    position: relative;
-    font-size: 14px;
-    .addInput {
-      width: 50%;
-      line-height: 40px;
-      display: block;
-      font-size: 16px;
-      margin-bottom: 30px;
-      margin-top: 30px;
-    }
-    .addTextarea {
-      width: 50%;
-      height: 260px;
-      font-size: 16px;
-      display: block;
-    }
-  }
+      .re-circle {
+        position: relative;
+        overflow: hidden;
+        float: left;
+        width: 100%;
+        padding: 10px;
+        .res-title {
+          background-color: #fff;
+          padding: 0 5px;
+          height: 30px;
+          position: absolute;
+          top: -4px;
+          left: 25px;
+          color: #999;
+        }
+        .resCircle {
+          border: 1px dashed #999;
+          border-radius: 5px;
+          line-height: 30px;
+          width: 80%;
+          padding: 10px;
+          overflow: hidden;
+          .res-main {
+            color: #333;
+            height: 30px;
+            padding: 10px;
+            overflow: hidden;
+          }
+          .res-sign {
+            float: right;
+            li {
+              float: left;
+              margin-right: 20px;
+            }
+          }
+        }
+      }
+      .event-btn {
+        float: right;
+        display: block;
+        overflow: hidden;
+        font-size: 14px;
+        li {
+          float: left;
+          margin-right: 10px;
+          color: #409EFF;
+        }
+      }
+      .fade-move {
+        transition: all 2s;
+      }
 
-  .btnAdd {
-    width: 120px;
-    height: 40px;
-    padding: 0 10px;
-    line-height: 40px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
-    float: right;
-    margin-top: 20px;
-    color: #fff;
-    position: absolute;
-    bottom: 0;
-    right: 50%;
+    }
+    .pageS {
+      text-align: center;
+      margin: 20px auto;
+    }
   }
 </style>

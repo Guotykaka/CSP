@@ -1,7 +1,7 @@
 <template>
   <div class="tableMain">
     <ul class="tcontent-ul" v-if="orderList&&orderList.list">
-      <li class="layui-tab-item layui-show label-main" v-for="(item,index) in orderList.list"
+      <li class="label-main" v-for="(item,index) in orderList.list"
           v-if="orderList.list.length!==0" :key="index" @click="_getChatDetail(item,index)"
           :class="{selTrueStyle:selCurrent==index}">
         <div class="nav-main-top">
@@ -14,9 +14,9 @@
           <div class="main-right fr">
             <a href="javascript:;" @click.stop="detailShow(item)">详情</a>
             <span class="servicing" v-show="item.orderServiceStatus==0">待服务</span>
-            <span class="servicing" style="background-color:#f86b4f;" v-show="item.orderServiceStatus==2">服务中</span>
-            <span class="servicing" style="background-color:#999;" v-show="item.orderServiceStatus==3">已完成</span>
-            <span class="servicing" style="background-color:#999;" v-show="item.orderServiceStatus==4">已失效</span>
+            <span class="servicing Danger-color" v-show="item.orderServiceStatus==2">服务中</span>
+            <span class="servicing info-color" v-show="item.orderServiceStatus==3">已完成</span>
+            <span class="servicing info-color" v-show="item.orderServiceStatus==4">已失效</span>
           </div>
         </div>
         <div class="nav-main-bottom">
@@ -51,7 +51,7 @@
     methods: {
       _getChatDetail(item, index) {
         this.selCurrent = index;
-        this.$emit('_getChatDetail', item)
+        this.$emit('getChatDetail', item)
       },
       //信息展示
       detailShow: function (val) {
@@ -82,8 +82,17 @@
         padding: 0 10px;
         line-height: 25px;
         color: #fff !important;
-        background-color: #00e765;
+        background-color: #67C23A;
         border-radius: 5px;
+      }
+      .info-color{
+        background-color:#909399
+      }
+      .Warning-color{
+        background-color:#E6A23C
+      }
+      .Danger-color{
+        background-color:#F56C6C
       }
     }
   }
