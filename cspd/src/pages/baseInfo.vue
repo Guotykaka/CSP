@@ -1,6 +1,4 @@
 <template>
-
-
   <div>
     <el-card class="box-card">
       <!--tab-->

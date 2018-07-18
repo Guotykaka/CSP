@@ -17,7 +17,6 @@ const announcement = () => import('@/pages/announcement.vue')//系统公告
 const annoDetail = () => import('@/pages/announcement/annoDetail')//系统公告详情
 const tel_consult = () => import('@/pages/tel_consult.vue')//电话咨询
 const imgText_consult = () => import('@/pages/imgText_consult.vue')//图为咨询
-const indetification = () => import('@/pages/identification.vue')//认证详情
 const server_setting = () => import('@/pages/server_setting.vue')//服务设置
 const call_doctor = () => import('@/pages/callDoctor.vue')//服务设置
 const baseInfo = () => import('@/pages/baseInfo.vue')//医生基本信息  未认证就进这个页面
@@ -73,7 +72,7 @@ export default new Router({
           meta: ["服务管理","图文咨询"],//图文咨询
         },{
           path: '/indetification',
-          component: indetification,//认证详情
+          component: baseInfo,//认证详情
           meta: ["服务管理","认证详情"],
         },{
           path: '/server_setting',
@@ -84,11 +83,6 @@ export default new Router({
           path: '/call_doctor',
           component: call_doctor,//服务设置
           meta: ["服务管理","联系医助"],
-        },
-        {
-          path: '/baseInfo',
-          component: baseInfo,//基本信息 医生没认证就进这个页面
-          meta: ["服务管理","基本信息"],
         },
         {
           path: '/doApply',

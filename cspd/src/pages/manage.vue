@@ -52,7 +52,7 @@
               </template>
               <el-menu-item index="indetification">基础信息</el-menu-item>
               <el-menu-item index="2-2">修改密码</el-menu-item>
-              <el-menu-item index="2-3">退出系统</el-menu-item>
+              <el-menu-item index="/">退出系统</el-menu-item>
             </el-submenu>
           </el-menu>
         </el-header>
