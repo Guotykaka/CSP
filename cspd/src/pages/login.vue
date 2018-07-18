@@ -51,10 +51,10 @@
             if(res.code===ERR_OK){
 
 
-
+/*
               console.log(res)
 
-              return
+              return*/
 
               setStore('userMesage',res.data);
               this.$router.push("doctor_index")
