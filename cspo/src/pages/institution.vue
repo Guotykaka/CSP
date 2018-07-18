@@ -270,13 +270,13 @@
                 </el-form>
                 <el-form :inline="true" :model="addTable">
                   <el-form-item label="机构类型:" label-width="120px">
-                    <el-select v-model="addTable.gradeName" placeholder="">
+                    <el-select v-model="addTable.institutionGradeId " placeholder="">
                       <el-option label="公立" value="公立"></el-option>
                       <el-option label="民营" value="民营"></el-option>
                     </el-select>
                   </el-form-item>
                   <el-form-item>
-                    <el-select v-model="addTable.lavelName" placeholder="">
+                    <el-select v-model="addTable.institutionGradeId " placeholder="">
                       <el-option label="三甲医院" value="三甲医院"></el-option>
                       <el-option label="二甲医院" value="二甲医院"></el-option>
                       <el-option label="三级医院" value="三级医院"></el-option>
@@ -473,6 +473,29 @@ export default {
       formLabelWidth150: '150px'
     }
   },
+  watch:{
+      searchParams: {
+        deep: true,
+        handler () {
+        let params = {
+        selectInstitutionName: this.searchParams.selectInstitutionName,
+        selectInstitutionCode: this.searchParams.selectInstitutionCode,
+        selectIsAppShow: this.searchParams.selectIsAppShow,
+        selectIsOpenMsm: this.searchParams.selectIsOpenMsm,
+        institutionGradeId: '',
+        institutionLavelId: '',
+        parentId: '',
+        currentPage: 1,
+        pageSize: 1000
+      }
+      PostInstitutionList(params).then(response => {
+        this.tableData = []
+        this.tableData = response.data.list
+        this.totalCount = response.data.totalCount
+      })
+        }
+      }
+  },
   methods: {
     doSearche() {
       let params = {
@@ -498,6 +521,7 @@ export default {
       this.searchParams.selectInstitutionCode = ''
       this.searchParams.selectIsAppShow = ''
       this.searchParams.selectIsOpenMsm = ''
+      this.getList()
       return false
     },
     //上传
@@ -538,6 +562,7 @@ export default {
     // 确定新增
     _doAdd() {
       let params = {
+        institutionId : "5555",
         bannerExtensionUrl: this.addTable.bannerExtensionUrl,
         bannerLogo: this.addTable.bannerLogo,
         createUser: this.addTable.createUser,
