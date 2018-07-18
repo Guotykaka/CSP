@@ -92,6 +92,7 @@ export const API_POST_CHANGE_DOCTOR_STATUS = baseUrl+'sys/doctorApply/changeDoct
 
 //财务管理
 export const API_POST_LIST_ACCOUNT_RECORD = baseUrl+'ins/withdraw/listAccountRecord';//提现列表
+export const API_POST_UPDATE_APPLY_STATUS= baseUrl+'ins/withdraw/updateApplyStatus';//更新提现状态 同意或拒绝提现
 
 
 

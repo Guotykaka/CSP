@@ -23,7 +23,7 @@
 </template>
 
 <script>
-  import {login,ERR_OK} from "@/api/api.js";
+  import {login,isAuthentication,ERR_OK} from "@/api/api.js";
   import {setStore} from "@/config/mUtils.js";
   import {baseUrl} from "@/config/env";
 
@@ -44,36 +44,24 @@
         this.refreshImg();
       },
       methods:{
+        //登录  先判断是否认证  医生 医生主任  健管师 已认证跳到首页
         doLogin:function () {
-          var params=this.loginParams;
+          let params=this.loginParams;
           login(params).then(res => {
-
             if(res.code===ERR_OK){
-
-
-/*
-              console.log(res)
-
-              return*/
-
               setStore('userMesage',res.data);
-              this.$router.push("doctor_index")
+              //this.$router.push("doctor_index")
+              this.isAuthenticationFn(res.data.insDoctorId)
             }else{
               this.$alert(res.msg, '提示', {
                 confirmButtonText: '确定',
               })
             }
           }).catch(err => {
-
+            this.$alert(err.msg, '提示', {
+              confirmButtonText: '确定',
+            })
           });
-          this.$router.push("")
-/*          login(this.loginParams).then((res) => {
-            console.log(res);
-            this.$router.push("manage")
-            return Promise.resolve(res.data)
-          }).catch(function (error) {
-            console.log(error)
-          })*/
         },
 
         //刷新验证码
@@ -83,6 +71,25 @@
           this.loginParams.timespan = params.getTime().toString();
           this.imgUrl = baseUrl+"doctor/captcha.jpg/?"+this.loginParams.timespan
 
+        },
+
+        //判断是否已认证
+        isAuthenticationFn(insDoctorId){
+          let params={
+            insDoctorId:insDoctorId
+          };
+          isAuthentication(params).then(res => {
+            if(res.code===ERR_OK){
+              //authenticationStatus  2已认证  其他值未认证
+              if(res.data.authenticationStatus===2){
+                //已认证 首页
+                this.$router.push("doctor_index");
+              }else {
+                //未认证 认证页
+                this.$router.push("indetification");
+              }
+            }
+          });
         }
       }
 

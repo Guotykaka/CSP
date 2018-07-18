@@ -12,6 +12,11 @@ export function login(params) {
   return post(urls.API_LOGIN, params)
 }
 
+//判断是否认证 乐
+export function isAuthentication(params) {
+  return post(urls.API_IS_AUTHENTICATION, params)
+}
+
 /*图文咨询*/
 
 //医生回复
@@ -75,11 +80,86 @@ export function saveInsLeaveWordAnswer(params) {
   return post(urls.API_INS_SAVE_LEAVE_WORD_ANSWER, params)
 }
 
-//个人账户
-
+//个人账户金额 乐
 export function getAccountInfo(params) {
   return post(urls.API_GET_DOCTOR_ACCOUNT_INFO, params)
 }
+
+//获取提现记录 乐
+export function getWithdrawList(params) {
+  return post(urls.API_LIST_ACCOUNT_RECORD, params)
+}
+
+//获取医生的订单记录 乐
+export function getDoctorOrderList(params) {
+  return post(urls.API_GET_ORDER_INFO, params)
+}
+
+//医生提现 乐
+export function doDeposit(params) {
+  return post(urls.API_SAVE_ACCOUNT_RECORD, params)
+}
+
+
+//服务设置 乐  获取医生服务
+export function getDoctorServices(params) {
+  return post(urls.API_QUERY_INS_SERVICE_DOCTOR_BY_USERID, params)
+}
+
+//服务设置 乐  医生设置服务
+export function doctorEditorService(params) {
+  return post(urls.API_SAVE_OR_UPDATE_SERVICE_DOCTOR_SETTING, params)
+}
+
+//电话咨询 乐
+export function getTelService(params) {
+  return post(urls.API_INS_PHOTO_CONSULTATION_ORDER, params)
+}
+
+//打电话 乐
+export function callCustomer(params) {
+  return post(urls.API_INS_PHOTO_LIST, params)
+}
+//打电话 乐
+export function getReportData(params) {
+  return post(urls.API_INS_REPORT_DETAIL, params)
+}
+
+//保存备注 乐
+export function saveRemark(params) {
+  return post(urls.API_INS_UPDATE_REMARK, params)
+}
+
+//保存服务小结 乐
+export function saveTelReport(params) {
+  return post(urls.API_INS_SAVE_ORDER_CALL_REPORT, params)
+}
+
+//获取录音列表 乐
+export function getAudioList(params) {
+  return post(urls.API_INS_ORDER_CALL_RECORD_BY_PAGE, params)
+}
+
+//获取短信模板内容 乐
+export function getSMSTemplate(params) {
+  return post(urls.API_INS_GET_SMS_TEMPLATE, params)
+}
+
+//获取短信模板内容 乐
+export function sendMsg(params) {
+  return post(urls.API_INS_SEND_SMS, params)
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 

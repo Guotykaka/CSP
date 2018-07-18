@@ -161,6 +161,11 @@ export function getAccountRecord(params) {
   return post(urls.API_POST_LIST_ACCOUNT_RECORD,params);
 }
 
+//同意或拒绝提现
+export function updataWithdrawStatus(params) {
+  return post(urls.API_POST_UPDATE_APPLY_STATUS,params);
+}
+
 
 
 

@@ -38,14 +38,14 @@
             <strong class="note-t">提现金额：</strong>
           </el-col>
           <el-col :span="8">
-            <el-input v-model="disburse" placeholder="请输入内容"></el-input>
+            <el-input v-model="disburse" placeholder="请输入金额"></el-input>
             <p class="addtion-text">单日提款范围500~10000;T+3到账</p>
           </el-col>
         </el-row>
         <el-row :gutter="20" style="margin-bottom: 10px">
           <el-col :span="6" class="title-note">&nbsp;</el-col>
           <el-col :span="8">
-            <el-button type="primary">我要提现</el-button>
+            <el-button type="primary" @click="depositFn">我要提现</el-button>
           </el-col>
         </el-row>
 
@@ -74,7 +74,7 @@
 
         <!--分页-->
         <div class="self-page-container">
-          <el-pagination @size-change="withdrawHandSize" @current-change="withdrawHandleCurrent" :current-page="withdrawPage.currentPage" :page-sizes="[10,20]" :page-size="withdrawPage.limit" layout="total, sizes, prev, pager, next, jumper" :total="withdrawPage.totalListCount">
+          <el-pagination @size-change="withdrawHandSize" @current-change="withdrawHandleCurrent" :current-page="withdrawPage.currentPage" :page-sizes="[10,20]" :page-size="withdrawPage.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="withdrawPage.totalCount">
           </el-pagination>
         </div>
 
@@ -94,7 +94,7 @@
 
         <!--分页-->
         <div class="self-page-container">
-          <el-pagination @size-change="orderHandSize" @current-change="orderHandleCurrent" :current-page="orderPage.currentPage" :page-sizes="[10,20]" :page-size="orderPage.limit" layout="total, sizes, prev, pager, next, jumper" :total="orderPage.totalListCount">
+          <el-pagination @size-change="orderHandSize" @current-change="orderHandleCurrent" :current-page="orderPage.currentPage" :page-sizes="[10,20]" :page-size="orderPage.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="orderPage.totalCount">
           </el-pagination>
         </div>
 
@@ -116,145 +116,195 @@
 </template>
 
 <script>
-
-
-
-  import {ERR_OK, getAccountInfo } from '@/api/api';
+  import {ERR_OK, getAccountInfo,getWithdrawList,getDoctorOrderList,doDeposit} from '@/api/api';
   import {getStore} from "@/config/mUtils.js";
-
-
-
+  var reg_number=/^[1-9]\d*$/;
   export default {
     data() {
       return {
-
-
         refuse:{
-
           isShowDialog:false,
           reason:""
-
         },
-
-
 
         tabIndex: '1',
         //账户
         accountINfo: {
-          balance: '100',//余额
-          sumEarnings: '120',//总收益
-          withdrawDeposit: '200'//提现
+          balance: '',//余额
+          sumEarnings: '',//总收益
+          withdrawDeposit: ''//提现
         },
 
-
         disburse:"",//提现金额
-
 
         //提现分页参数
         withdrawPage:{
           currentPage:1,
-          limit:10,
-          totalListCount:100
+          pageSize:10,
+          totalCount:0
         },
         //提现记录数据
-        withdrawList:[
-          {"insAccountRecordId":"2c8080aa64688e870164688fa4c00002","username":"huihui","createTime":"2018-07-05 11:50:01","institutionName":"上海天意达公司","disburse":10001.0,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":2,"refuseReason":null,"insDoctorId":"2c8080aa63de70c60163de70c6450000"},
-          {"insAccountRecordId":"2c8080aa64688e870164688e87490000","username":"huihui","createTime":"2018-07-05 11:48:48","institutionName":"上海天意达公司","disburse":500.0,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":2,"refuseReason":null,"insDoctorId":"2c8080aa63de70c60163de70c6450000"},
-          {"insAccountRecordId":"2c8080aa6439afef016439c9cc470005","username":"huihui","createTime":"2018-06-26 09:51:23","institutionName":"上海天意达公司","disburse":500.17,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":2,"refuseReason":null,"insDoctorId":"2c8080aa63de70c60163de70c6450000"},
-          {"insAccountRecordId":"2c8080aa6439afef016439c8dd5b0002","username":"huihui","createTime":"2018-06-26 09:50:22","institutionName":"上海天意达公司","disburse":500.0,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":1,"refuseReason":"不同意请填写拒绝理由","insDoctorId":"2c8080aa63de70c60163de70c6450000"},
-          {"insAccountRecordId":"2c8080aa6420cfae01642106e616000a","username":"huihui","createTime":"2018-06-21 14:27:37","institutionName":"上海天意达公司","disburse":500.0,"insDoctorAccountId":"2c8080aa63de70c60163de70c6450000","type":2,"status":1,"refuseReason":"请填写拒绝理由","insDoctorId":"2c8080aa63de70c60163de70c6450000"}
-        ],
+        withdrawList:[],
 
 
         //订单分页参数
         orderPage:{
           currentPage:1,
-          limit:10,
-          totalListCount:100
+          pageSize:10,
+          totalCount:0
         },
 
         //订单记录
-        orderList:[
-          {"orderCode":"20180711115019393989_01","serviceName":"图文咨询","orderTime":"2018-07-11 11:50:19.0","serviceFinishTime":"2018-07-11 12:50:42.0","totalAmount":0.01},
-          {"orderCode":"20180711114515281599_01","serviceName":"图文咨询","orderTime":"2018-07-11 11:45:15.0","serviceFinishTime":"2018-07-11 11:49:52.0","totalAmount":0.01},
-          {"orderCode":"20180711105148690062_01","serviceName":"电话报告解读","orderTime":"2018-07-11 10:51:48.0","serviceFinishTime":null,"totalAmount":0.01},
-          {"orderCode":"20180711095255186040_01","serviceName":"电话报告解读","orderTime":"2018-07-11 09:52:55.0","serviceFinishTime":null,"totalAmount":0.01},
-          {"orderCode":"20180711092120785166_01","serviceName":"图文咨询","orderTime":"2018-07-11 09:21:20.0","serviceFinishTime":null,"totalAmount":0.01},
-          {"orderCode":"20180710174728231273_01","serviceName":"电话报告解读","orderTime":"2018-07-10 17:47:28.0","serviceFinishTime":null,"totalAmount":0.01},
-          {"orderCode":"20180710173015030428_01","serviceName":"电话报告解读","orderTime":"2018-07-10 17:30:15.0","serviceFinishTime":null,"totalAmount":0.01},
-          {"orderCode":"20180710170723681671_01","serviceName":"图文咨询","orderTime":"2018-07-10 17:07:23.0","serviceFinishTime":"2018-07-11 09:20:48.0","totalAmount":0.01},
-          {"orderCode":"20180709170237617309_01","serviceName":"电话报告解读","orderTime":"2018-07-09 17:02:37.0","serviceFinishTime":null,"totalAmount":0.01},
-          {"orderCode":"20180706190803111292_01","serviceName":"图文咨询","orderTime":"2018-07-06 19:08:03.0","serviceFinishTime":"2018-07-06 19:09:23.0","totalAmount":0.01}
-        ]
+        orderList:[]
       }
     },
 
     methods: {
-
-
-
-
-
       //医生个人信息
-
-
       getPersonAccountInfo(){
-
-
-
         var params={
           userId:JSON.parse(getStore("userMesage")).userId
         };
-
         getAccountInfo(params).then(res => {
-
           if(res.code===ERR_OK){
             this.accountINfo.balance=res.data.balance;//余额
             this.accountINfo.sumEarnings=res.data.incomeTotal;//总收益
             this.accountINfo.withdrawDeposit=res.data.disburseTotal;//提现
-
           }else{
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',
             })
           }
         }).catch(err => {
+          this.$alert(err.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        });
+      },
 
+      //获取提现记录
+      getWithdrawListFn(){
+        var params={
+          userId:JSON.parse(getStore("userMesage")).userId,
+          currentPage:this.withdrawPage.currentPage,
+          pageSize:this.withdrawPage.pageSize,
+        };
+        getWithdrawList(params).then(res => {
+          if(res.code===ERR_OK){
+            this.withdrawList=res.data.list;
+            this.withdrawPage.totalCount=res.data.totalCount;
+          }else{
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        }).catch(err => {
+          this.$alert(err.msg, '提示', {
+            confirmButtonText: '确定',
+          })
         });
 
+      },
+
+      //获取订单记录
+      getDoctorOrderListFn(){
+        var params={
+          userId:JSON.parse(getStore("userMesage")).userId,
+          currentPage:this.orderPage.currentPage,
+          pageSize:this.orderPage.pageSize,
+        };
+        getDoctorOrderList(params).then(res => {
+          if(res.code===ERR_OK){
+            this.orderList=res.data.list;
+
+            this.orderPage.totalCount=res.data.totalCount;
+          }else{
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        }).catch(err => {
+          this.$alert(err.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        });
+      },
+
+      //医生提现
+      depositFn(){
+        var params={
+          userId:JSON.parse(getStore("userMesage")).userId,
+          disburse:this.disburse,
+        };
+
+        if(!this.disburse){
+          this.$alert("请输入提现金额", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
+
+        if(!reg_number.test(this.disburse)){
+          this.$alert("金额须为整数", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
+
+        if(parseFloat(this.disburse) < 500){
+          this.$alert("提现金额不能小于500", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
+        if(parseFloat(this.disburse) > parseFloat(this.accountINfo.balance)){
+          this.$alert("提现金额不能大于账户余额", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
+        doDeposit(params).then(res => {
+          if(res.code===ERR_OK){
+
+            this.getPersonAccountInfo();//刷新账户数据
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }else{
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        }).catch(err => {
+          this.$alert(err.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        });
 
       },
 
+      withdrawHandSize(val){
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      withdrawHandSize(){
-
+        console.log(val)
+        this.withdrawPage.pageSize=val;
+        this.getWithdrawListFn();
       },
 
-      withdrawHandleCurrent(){
+      withdrawHandleCurrent(val){
+        console.log(val)
 
-
+        this.withdrawPage.currentPage=val;
+        this.getWithdrawListFn();
       },
 
-      orderHandSize(){
-
+      orderHandSize(val){
+        this.orderPage.pageSize=val;
+        this.getDoctorOrderListFn();
       },
 
-      orderHandleCurrent(){
-
-
+      orderHandleCurrent(val){
+        this.orderPage.currentPage=val;
+        this.getDoctorOrderListFn();
       },
 
 
@@ -276,26 +326,17 @@
 
 
     created(){
-
       this.getPersonAccountInfo()
-
-
     },
 
 
     watch:{
-
-
       tabIndex(val){
-
         if(val==="2"){
-
-
-
+          this.getWithdrawListFn()
+        }else if(val==="3"){
+          this.getDoctorOrderListFn()
         }
-
-
-
       }
     }
 
