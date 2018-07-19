@@ -14,7 +14,7 @@
           <el-col :span="4">
             <el-upload
               class="avatar-uploader"
-              action="http://m0.api.upyun.com/zhangshangtijian/"
+              action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload"
               :show-file-list="false"
               :on-success="handleLogoSuccess"
               :before-upload="beforeLogoUpload">
@@ -94,7 +94,7 @@
           <el-col :span="4">
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload"
               :show-file-list="false"
               :on-success="handleAvatarSuccess1"
               :before-upload="beforeAvatarUpload1">
@@ -108,7 +108,7 @@
           <el-col :span="4">
             <el-upload
               class="avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload"
               :show-file-list="false"
               :on-success="handleAvatarSuccess2"
               :before-upload="beforeAvatarUpload2">
@@ -277,18 +277,18 @@
         authenticationStatus:getStore("authenticationStatus"),
         apply:{
           department: "",//科室
-          doctorJobCertificateUrl: "http://zhangshangtijian.b0.upaiyun.com/http:/zhangshangtijian.b0.upaiyun.com/XblEMw5Z9eTUlRykheECyQfsJkXviObW.png",//从业资格证图片
+          doctorJobCertificateUrl: "",//从业资格证图片
           hospital: "",//职业医院
           insDoctorId:"",
           insDoctorInfoId:null,
-          logoUrl: "http://zhangshangtijian.b0.upaiyun.com/http:/zhangshangtijian.b0.upaiyun.com/XblEMw5Z9eTUlRykheECyQfsJkXviObW.png",
+          logoUrl: "",
           name: JSON.parse(getStore("userMesage")).userName,
           positionalTitles: "",//职称
           professionalCertificateCode: "",//职业证号
           recommendReason: "",//推荐理由
           remarks: "",//简介
           specialty: "",//擅长
-          titleCertificateUrl: "http://zhangshangtijian.b0.upaiyun.com/http:/zhangshangtijian.b0.upaiyun.com/XblEMw5Z9eTUlRykheECyQfsJkXviObW.png",//职称证书图片
+          titleCertificateUrl: "",//职称证书图片
           winningDesc: "" ,//研究成果
         },
         write:{
@@ -335,7 +335,6 @@
               callback: action => {
                 setStore("authenticationStatus",res.data.authenticationStatus);
                 this.doBack()
-
               }
             })
           }else{
@@ -424,18 +423,14 @@
         });
       },
 
-
-
       //返回
       doBack(){
         window.history.go(-1)
       },
-
-      handleLogoSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+      handleLogoSuccess(res) {
+        this.apply.logoUrl=res.data.src
       },
       beforeLogoUpload(file) {
-        console.log(file)
         const isJPG = file.type === 'image/jpeg';
         const isLt2M = file.size / 1024 / 1024 < 2;
         if (!isJPG) {
@@ -448,8 +443,9 @@
       },
 
 
-      handleAvatarSuccess1(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+      handleAvatarSuccess1(res) {
+        console.log(555)
+        this.apply.doctorJobCertificateUrl =res.data.src;
       },
       beforeAvatarUpload1(file) {
         console.log(file)
@@ -465,8 +461,8 @@
         return isJPG && isLt2M;
       },
 
-      handleAvatarSuccess2(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
+      handleAvatarSuccess2(res) {
+        this.apply.titleCertificateUrl =res.data.src;
       },
       beforeAvatarUpload2(file) {
         console.log(file)
