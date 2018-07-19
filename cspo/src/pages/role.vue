@@ -51,7 +51,7 @@
                 default-expand-all
                 :default-checked-keys="sysRoleMenuListVOList.menuIdList"
                 node-key="id"
-                ref="tree"
+                ref="tree1"
                 highlight-current
                 :props="tree">
               </el-tree>
@@ -63,7 +63,7 @@
                 show-checkbox
                 default-expand-all
                 node-key="id"
-                ref="tree"
+                ref="tree2"
                 highlight-current
                 :props="tree">
               </el-tree>
@@ -109,25 +109,25 @@
             <el-form-item label="功能权限:" :label-width="formLabelWidth">
               <el-col :span="5">
               <el-tree
-                v-model="sysRoleMenuListVOList.menuIdList"
                 @check="checkchange()"
                 v-show="flag1"
                 :data="data2"
                 show-checkbox
                 :default-checked-keys="sysRoleMenuListVOList.menuIdList"
                 node-key="id"
-                ref="tree"
+                ref="treenew1"
                 highlight-current
                 :props="tree">
               </el-tree>
               </el-col>
               <el-col :span="5">
                <el-tree
+               @check="checkchange()"
                 v-show="flag2"
                 :data="data3"
                 show-checkbox
                 node-key="id"
-                ref="tree"
+                ref="treenew2"
                 highlight-current
                 :props="tree">
               </el-tree>
@@ -271,6 +271,13 @@ export default {
             ],
             "roleType": 0,
             "timespan": "1"
+          },
+          {
+            "menuIdList": [
+              0
+            ],
+            "roleType": 1,
+            "timespan": "1"
           }
         ],
         "remark": "string",
@@ -288,7 +295,11 @@ export default {
   },
   methods: {
     checkchange(){
-    console.log(this.sysRoleMenuListVOList.menuIdList)
+    
+        let menuIdList1 = this.$refs.treenew1.getCheckedKeys();
+        let menuIdList2 = this.$refs.treenew2.getCheckedKeys();
+        menuIdList1 = menuIdList1.concat(menuIdList2)
+        console.log(menuIdList1)
     },
     doSearche() {
       let date = Date.parse(new Date())
@@ -368,20 +379,26 @@ export default {
     },
     // 确定新增
     _doAdd() {
-     
+
+        let menuIdList1 = this.$refs.treenew1.getCheckedKeys();
+        let menuIdList2 = this.$refs.treenew2.getCheckedKeys();
         let date = Date.parse( new Date())
         let params = {
               "deptId": this.addTable.deptId,
-              "deptIdList": [
-                0
-              ],
-              "deptName": "string",
+              // "deptIdList": [
+              //   0
+              // ],
+              "deptIdList":this.addTable.deptIdList,
+              "deptName": this.addTable.deptName,
               "menuTypeListDTO": [
                 {
-                  "menuIdList": [
-                    0
-                  ],
-                  "roleType": this.addTable.roleType,
+                  "menuIdList": menuIdList1,
+                  "roleType": +this.addTable.menuTypeListDTO[0].roleType,
+                  "timespan": date
+                },
+                {
+                  "menuIdList": menuIdList2,
+                  "roleType": +this.addTable.menuTypeListDTO[1].roleType,
                   "timespan": date
                 }
               ],
@@ -391,25 +408,43 @@ export default {
               "roleName": this.addTable.roleName,
               
           }
+          console.log(JSON.stringify(params))
         PostSaveRole(params).then(response => {
-                  this.$alert(response.msg)
-                  this.getRoleList()
-                  }).catch(err => {
-                    this.$alert(err)
+            if (response.code == 1) {
+              this.$alert(response.msg)
+              this.getRoleList()
+            } else {
+              this.$alert(response.msg)
+              console.log(JSON.stringify(params))
+            }
                   })
-        this.tableData.push(this.addTable)
         this.addTable = {
-        // roleId: 1,
-        roleCode: '',
-        roleName: '',
-        remark: '',
-        deptId: null,
-        deptName: null,
-        menuIdList: null,
-        deptIdList: null,
-        createTime: '2018-07-02 16:58:57',
-        roleType: '1',
-        roleTypelist: ['医生端']
+        "deptId": 0,
+        "deptIdList": [
+          0
+        ],
+        "deptName": "string",
+        "menuTypeListDTO": [
+          {
+            "menuIdList": [
+              0
+            ],
+            "roleType": 0,
+            "timespan": "1"
+          },
+          {
+            "menuIdList": [
+              0
+            ],
+            "roleType": 0,
+            "timespan": "1"
+          }
+        ],
+        "remark": "string",
+        "roleCode": "string",
+        "roleId": 0,
+        "roleName": "string",
+        "timespan": "1"
       }
       this.dialogAddVisible = false
       
@@ -418,17 +453,25 @@ export default {
     _doAddCancel() {
       this.addTable = {
         //重置新增数据为空
-        roleId: 1,
-        roleCode: '',
-        roleName: '',
-        remark: '',
-        deptId: null,
-        deptName: null,
-        menuIdList: null,
-        deptIdList: null,
-        createTime: '2018-07-02 16:58:57',
-        roleType: '1',
-        roleTypelist: ['医生端']
+        "deptId": 0,
+        "deptIdList": [
+          0
+        ],
+        "deptName": "string",
+        "menuTypeListDTO": [
+          {
+            "menuIdList": [
+              0
+            ],
+            "roleType": 0,
+            "timespan": "1"
+          }
+        ],
+        "remark": "string",
+        "roleCode": "string",
+        "roleId": 0,
+        "roleName": "string",
+        "timespan": "1"
       }
       this.dialogAddVisible = false
       this.$message({
@@ -443,8 +486,7 @@ export default {
                 arr.push(item);    
             })
         this.sysRoleMenuListVOList.category = arr
-        console.log(this.sysRoleMenuListVOList.category)
-      var myVar0 = '0';
+        var myVar0 = '0';
         var myVar1 = '1';
         var myVar2 = '2';
          //数组
@@ -489,10 +531,11 @@ export default {
         
         
         if (response.code == 1) {
+        console.log(response,"this.response")
         this.editTable = response.data.sysRoleEntity
-        console.log(JSON.stringify(response.data))
         this.sysRoleMenuListVOList = response.data.sysRoleMenuListVOList[0]
         this.chenge()
+        console.log(response.data)
         this.dialogEditVisible = true
         } else {
           this.$alert("无法修改")
@@ -505,39 +548,40 @@ export default {
     },
     //确定修改
     _doHandleEdit() {
-      console.log(this.sysRoleMenuListVOList)
-      console.log(this.sysRoleMenuListVOList.category,"this.sysRoleMenuListVOList.category")
-        // let date = Date.parse( new Date())
-        // let params = {
-        //       "deptId": this.editTable.deptId,
-        //       "deptIdList": [
-        //         0
-        //       ],
-        //       "deptName": "string",
-        //       "menuTypeListDTO": [
-        //         {
-        //           "menuIdList": [
-        //             0
-        //           ],
-        //           "roleType": this.editTable.roleType,
-        //           "timespan": date
-        //         }
-        //       ],
-        //       "remark": this.editTable.remark,
-        //       "roleCode": this.editTable.roleCode,
-        //       "roleId": this.editTable.roleId,
-        //       "roleName": this.editTable.roleName,
-        //   }
+      let menuIdList1 = this.$refs.tree1.getCheckedKeys();
+      let menuIdList2 = this.$refs.tree2.getCheckedKeys();
+        let date = Date.parse( new Date())
+        let params = {
+              "deptId": this.editTable.deptId,
+              "deptIdList": this.editTable.deptIdList,
+              "deptName": this.editTable.deptName,
+              "menuTypeListDTO": [
+                {
+                  "menuIdList": menuIdList1,
+                  "roleType": parseInt(this.sysRoleMenuListVOList.category[0]),
+                  "timespan": date
+                },
+                {
+                  "menuIdList": menuIdList2,
+                  "roleType": parseInt(this.sysRoleMenuListVOList.category[1]),
+                  "timespan": date
+                }
+              ],
+              "remark": this.editTable.remark,
+              "roleCode": this.editTable.roleCode,
+              "roleId": this.editTable.roleId,
+              "roleName": this.editTable.roleName,
+          }
+          console.log(+this.sysRoleMenuListVOList.category[1])
+          console.log(typeof(+this.sysRoleMenuListVOList.category[1]))
+          console.log(params)
         // PostUpdateRole(params).then(response => {
-        //       this.$message({
-        //             type: 'success',
-        //             message: '修改成功!'
-        //           })
-        //           }).catch(err => {
-        //             this.$message({
-        //                   type: 'error',
-        //                   message: err
-        //                 })
+        //       if (response.code == 1) {
+        //         this.$alert(response.msg)
+        //         this.getRoleList()
+        //       } else {
+        //         this.$alert(response.msg)
+        //       }
         //           })
         this.dialogEditVisible = false
       
@@ -553,7 +597,7 @@ export default {
     },
     // 删除提示
     deleteMessage(index, row) {
-      this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+      this.$confirm('此操作将删除该角色, 是否继续?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning',
@@ -567,13 +611,8 @@ export default {
           }
         PostDeleteRole(params).then(response => {
               this.$alert(response.msg)
-                  }).catch(err => {
-                   this.$alert(err)
+              this.getRoleList()
                   })
-          this.tableData.splice(
-            index + (this.currentPage - 1) * this.pagesize,
-            1
-          ) //删除
         })
         .catch(() => {
           this.$message({
