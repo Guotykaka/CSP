@@ -2,7 +2,6 @@
   <div class="page-wrapper">
     <header-top></header-top>
     <div class="page-container">
-
       <!--操作行-->
       <el-form :inline="true" :model="searchParams" class="demo-form-inline">
         <el-form-item label="姓名">
@@ -36,12 +35,10 @@
           <el-button type="primary" @click="doSearch">查询</el-button>
         </el-form-item>
       </el-form>
-
       <!--新增-->
       <el-row class="m_b_15">
         <el-button type="primary" @click="_addItem">新增</el-button>
       </el-row>
-
       <!--table 表单开始-->
       <el-table :data="doctorList" border style="width: 100%">
         <el-table-column prop="name" label="用户名"></el-table-column>
@@ -63,12 +60,10 @@
         </el-table-column>
       </el-table>
       <!--table 表单结束-->
-
       <div class="self-page-container">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
         </el-pagination>
       </div>
-
       <!--医生详情弹窗-->
       <el-dialog title="详细信息" :visible.sync="detailINfo.isShowDialog">
         <el-row :gutter="20">
@@ -139,7 +134,6 @@
           <el-button size="small" type="primary" @click="closeDialog('detailINfo')">关闭</el-button>
         </div>
       </el-dialog>
-
       <!--增加医生弹窗-->
       <el-dialog title="增加信息" :visible.sync="addINfo.isShowDialog">
         <el-row :gutter="20" class="m_b_15">
@@ -219,7 +213,6 @@
           <el-button size="small" type="primary" @click="closeDialog('addINfo')">取消</el-button>
         </div>
       </el-dialog>
-
       <!--编辑医生弹窗-->
       <el-dialog title="编辑信息" :visible.sync="editorINfo.isShowDialog">
         <el-row :gutter="20" class="m_b_15">
@@ -286,7 +279,6 @@
           <el-button size="small" type="primary" @click="closeDialog('editorINfo')">取消</el-button>
         </div>
       </el-dialog>
-
       <!--服务权限弹窗-->
       <el-dialog title="服务权限--医生" :visible.sync="limitedSetting.isShowDialog">
         <el-row :gutter="20" class="m_b_15">
@@ -309,21 +301,12 @@
       </el-dialog>
     </div>
   </div>
-
 </template>
-
-
 <script>
-
 import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
-
-//引入getDoctorList的方法
 import { getDoctorList,updataDoctorEditor,getAllService,setService,restPassword,addDoctor,ERR_OK} from "@/api/api.js";
-
-
 var mbTest = /^(13|14|15|18|17)[0-9]{9}$/;
-
 export default {
   data(){
     return{
@@ -396,8 +379,6 @@ export default {
         insDoctorId:'',
         serviceSetStateAndStatusDTOS:[]
       },
-
-
     }
   },
 
@@ -489,7 +470,6 @@ export default {
         sort:this.addINfo.sort,
         username: this.addINfo.username//用户账号
       };
-
       if(!params.roleId){
         this.$alert("请选择角色", '提示', {
           confirmButtonText: '确定',
@@ -556,9 +536,6 @@ export default {
           confirmButtonText: '确定',
         })
       })
-
-
-
     },
 
     //点击查看
@@ -586,7 +563,6 @@ export default {
       this.editorINfo.doctorServices=item.doctorServices;//医生的服务
       this.editorINfo.insDoctorId=item.insDoctorId;//医生的id
     },
-
 
     //保存编辑
     updataEditor:function(){
@@ -661,7 +637,6 @@ export default {
         })
       })
     },
-
 
     //保存服务权限设置
     saveServiceFn(){
@@ -738,20 +713,15 @@ export default {
           })
 
     },
-
   },
 
 
-  created: function(){
+  activated: function(){
     this.getDoctorListsFn()
   },
-
-
-
   components:{
     headerTop
   },
-
   computed:{
     ...mapGetters(['getDoctorRolesList','getInstitutionArr'])
   },
@@ -762,13 +732,9 @@ export default {
         this.searchParams.institutionId="";
       }
     }
-
   }
-
-
 }
 </script>
-
 <style lang="less" scoped>
   .el-select {display: block;}
   .el-input {margin-bottom: 15px;}
@@ -780,7 +746,6 @@ export default {
   .service-label input[type='checkbox'] {margin: 3px 3px 0 0;display: inline-block;vertical-align: top;}
   .input-benefit {display: inline-block;width: 100px;}
   input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {-webkit-appearance: none;}
-
   input[type='number'] {-moz-appearance: textfield;}
   .auto-select{width: 100%}
 </style>
