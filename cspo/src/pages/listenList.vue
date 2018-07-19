@@ -2,31 +2,21 @@
   <div class="page-wrapper">
     <header-top></header-top>
     <div class="page-container">
-
-      <!-- <el-form ref="form" label-width="80px" :inline="true">
-        <el-form-item label="">
-          <input id="fileSelect" name="fileSelect" @change="update()" ref="inputer"  type="file"/>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="fileupdate()">上传</el-button>
-        </el-form-item>
-      </el-form> -->
-
       <!-- 一元听商品管理页面 -->
       <el-header height="30">
         <!-- 操作行-->
         <el-row :gutter="20">
           <el-col :span="6">
-            <el-input v-model="formInline.valueBT" placeholder="服务名称" clearable></el-input>
+            <el-input v-model="searchParams.voiceProductName" placeholder="商品名称" clearable></el-input>
           </el-col>
           <el-col :span="6">
-            <el-select v-model="formInline.valueLX" clearable placeholder="请选择角色">
-              <el-option v-for="item in RoleData" :key="item.roleId" :label="item.roleName" :value="item.roleId">
+            <el-select v-model="searchParams.voiceProductCode" clearable placeholder="商品编号">
+              <el-option v-for="item in searchParamsList" :key="item.voiceProductCode" :label="item.voiceProductCode" :value="item.voiceProductCode">
               </el-option>
             </el-select>
           </el-col>
           <el-col :span="6">
-            <el-button type="primary">搜索</el-button>
+            <el-button type="primary"  @click="doSearch()">搜索</el-button>
           </el-col>
         </el-row>
         <!--一元听新增按钮-->
@@ -82,7 +72,7 @@
 
       <el-footer height="30px">
         <el-row style="margin-top: 2%;">
-          <el-col :span="24" :offset="8">
+          <el-col :span="24" :offset="6">
             <template>
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length">
               </el-pagination>
@@ -104,7 +94,7 @@
             <template slot-scope="scope">
               <el-col :span="16">
                 <el-select v-model="editTable_YYT.name" clearable placeholder="请绑定医生">
-                  <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">
                   </el-option>
                 </el-select>
               </el-col>
@@ -159,7 +149,7 @@
             <template slot-scope="scope">
               <el-col :span="16">
                 <el-select v-model="addTable_YYT.name" clearable placeholder="请绑定医生">
-                  <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
+                  <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">
                   </el-option>
                 </el-select>
               </el-col>
@@ -218,198 +208,11 @@ export default {
     return {
       upyunUrl: '', //又拍云url
       AudioDuration: null, //音频时长
+      searchParams:{ voiceProductName: '',voiceProductCode:'' },
+      searchParamsList: [],//商品编码列表
       fileList: [],
       dialogVisible: true,
       Doclist: [],
-      RoleData: [
-        {
-          roleId: 4,
-          roleCode: '123',
-          roleName: '医生角色',
-          remark: '医生角色账号设置',
-          deptId: 11,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-06-22 11:41:55',
-          roleType: '0'
-        },
-        {
-          roleId: 12,
-          roleCode: null,
-          roleName: '运营人员',
-          remark: '运营人员',
-          deptId: 9,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-07-02 16:36:51',
-          roleType: '1'
-        },
-        {
-          roleId: 29,
-          roleCode: '003',
-          roleName: '健管师',
-          remark: '健管部门',
-          deptId: 11,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-06-22 16:00:33',
-          roleType: '1,0'
-        },
-        {
-          roleId: 30,
-          roleCode: '004',
-          roleName: '医生主任',
-          remark: '医生主任',
-          deptId: null,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-06-20 17:01:31',
-          roleType: '0'
-        },
-        {
-          roleId: 31,
-          roleCode: '产品',
-          roleName: '产品',
-          remark: '产品',
-          deptId: null,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-05-23 12:00:20',
-          roleType: '1'
-        },
-        {
-          roleId: 32,
-          roleCode: 'sy-js',
-          roleName: '邵勇-角色',
-          remark: '邵勇-角色',
-          deptId: null,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-07-02 16:58:57',
-          roleType: '0'
-        },
-        {
-          roleId: 33,
-          roleCode: '6',
-          roleName: 'sai医生角色',
-          remark: 'sai医生角色',
-          deptId: null,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-07-02 16:34:23',
-          roleType: '1'
-        },
-        {
-          roleId: 34,
-          roleCode: 'media',
-          roleName: '媒体号',
-          remark: '社媒',
-          deptId: null,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-06-25 10:53:49',
-          roleType: '1'
-        },
-        {
-          roleId: 35,
-          roleCode: 'content operator',
-          roleName: '内容编辑',
-          remark: '内容编辑',
-          deptId: null,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-06-25 11:13:47',
-          roleType: '1'
-        },
-        {
-          roleId: 36,
-          roleCode: 'scb',
-          roleName: '市场部',
-          remark: '市场部',
-          deptId: null,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-06-27 14:18:42',
-          roleType: '1'
-        },
-        {
-          roleId: 37,
-          roleCode: '564',
-          roleName: '567',
-          remark: '风帆股份给黑',
-          deptId: null,
-          deptName: null,
-          menuIdList: null,
-          deptIdList: null,
-          createTime: '2018-06-29 09:31:33',
-          roleType: '1,0'
-        }
-      ],
-      DoctorData: [
-        {
-          value: 1,
-          label: '赵医生'
-        },
-        {
-          value: 2,
-          label: '钱医生'
-        },
-        {
-          value: 3,
-          label: '孙医生'
-        },
-        {
-          value: 4,
-          label: '李医生'
-        },
-        {
-          value: 5,
-          label: '周医生'
-        }
-      ],
-      formInline: {
-        optionsLX: [
-          {
-            value: '选项1',
-            label: '版本升级'
-          },
-          {
-            value: '选项2',
-            label: '产品推广'
-          }
-        ],
-        optionsZT: [
-          {
-            value: '选项1',
-            label: '待发布'
-          },
-          {
-            value: '选项2',
-            label: '已发布'
-          },
-          {
-            value: '选项3',
-            label: '已撤销'
-          }
-        ],
-
-        valueBT: '',
-        valueCJR: '',
-        valueLX: '',
-        valueZT: '',
-        valueKS: '',
-        valueJS: ''
-      },
       currentPage: 1, //分页初始页码
       pagesize: 10, //分页初始显示条数
       tableData_YYT: [], //一元厅列表数据
@@ -436,37 +239,19 @@ export default {
     }
   },
   methods: {
-    // 上传方法
-    submitUpload() {
-      this.$refs.upload.submit()
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview(file) {
-      console.log(file)
-      this.dialogImageUrl = file.url
-      this.dialogVisible = true
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning(
-        `当前限制选择 1 个文件，本次选择了 ${
-          files.length
-        } 个文件，共选择了 ${files.length + fileList.length} 个文件`
-      )
-    },
-    beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`)
-    },
-    handleReset() {
-      //重置按钮
-      this.formInline.valueCJR = ''
-      this.formInline.valueBT = ''
-      this.formInline.valueLX = ''
-      this.formInline.valueZT = ''
-      this.formInline.valueKS = ''
-      this.formInline.valueJS = ''
-      return false
+    //搜索方法
+    doSearch() {
+      let params = {
+        currentPage: 1,
+        pageSize: 1000,
+        voiceProductCode: this.searchParams.voiceProductCode,
+        voiceProductName: this.searchParams.voiceProductName
+      }
+      GetListenList(params).then(response => {
+        this.tableData_YYT = []
+        this.tableData_YYT = response.data.list
+        this.totalCount = response.data.totalCount
+      })
     },
     handleSizeChange: function(size) {
       this.pagesize = size
@@ -479,27 +264,29 @@ export default {
 
     // 删除提示
     deleteMessage(index, row) {
-      if (row.goodsStatus === 0) {
-        this.$message({
-          type: 'error',
-          message: '请先将商品下架！'
-        })
+      if (row.status === 1) {
+        this.$alert('请先将商品下架！')
       } else {
-        this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
           cancelButtonText: '取消',
           type: 'warning',
           center: true
         })
           .then(() => {
-            this.$message({
-              type: 'success',
-              message: '删除成功!'
-            })
-            this.tableData_YYT.splice(
-              index + (this.currentPage - 1) * this.pagesize,
-              1
-            ) //删除
+            let params = {
+            "status": "3",
+            "voiceProductId": row.voiceProductId
+          }
+          PostListenStatus(params).then(response => {
+            if (response.code = 1) {
+              this.$alert('删除成功!')
+              this.getList()
+            } else {
+              $alert(response.msg)
+              this.getList()
+            }
+          })
           })
           .catch(() => {
             this.$message({
@@ -596,7 +383,7 @@ export default {
       this.AudioDuration = this.getTime()
       let params = {
         "abnormalKeyWord": this.editTable_YYT.abnormalKeyWord,
-        "insDoctorId": "1",
+        "insDoctorId": this.editTable_YYT.name,
         "paperWork": this.editTable_YYT.paperWork,
         "relevantContent": this.editTable_YYT.relevantContent,
         "voiceCategory": this.editTable_YYT.voiceCategory,
@@ -617,10 +404,10 @@ export default {
     },
     // 一元厅确定新增
     _doAdd_YYT() {
-      this.AudioDuration = this.getTime()
+      this.AudioDuration = this.getTime()//获取音频时长
       let params = {
         "abnormalKeyWord": this.addTable_YYT.abnormalKeyWord,
-        "insDoctorId": "1",
+        "insDoctorId": this.addTable_YYT.name,
         "paperWork": this.addTable_YYT.paperWork,
         "relevantContent": this.addTable_YYT.relevantContent,
         "voiceCategory": this.addTable_YYT.voiceCategory,
@@ -633,6 +420,7 @@ export default {
         
       }
       PostListenSave(params).then(response => {
+        console.log(this.addTable_YYT.name)
         this.$alert(response.msg)
         this.getList()
       })
@@ -649,10 +437,6 @@ export default {
         "voiceProductUrl": "",
         "voiceTime": 0
       }
-      this.$message({
-        type: 'success',
-        message: '新增服务成功!'
-      })
     },
     // 一元厅取消新增
     _doAddCancel_YYT() {
@@ -678,9 +462,13 @@ export default {
     },
     //获取绑定医生列表
     getDocList(){
-      PostListenDoc().then(response => {
+      let params = {
+        
+      }
+      PostListenDoc(params).then(response => {
         this.Doclist = []
-        this.Doclist = response.data.list
+        this.Doclist = response.data.data
+        console.log(this.Doclist,"6666666")
       })
     },
     //获取一元听列表
@@ -694,6 +482,7 @@ export default {
       GetListenList(params).then(response => {
         this.tableData_YYT = []
         this.tableData_YYT = response.data.list
+        this.searchParamsList = response.data.list
         this.totalCount = response.data.totalCount
       })
     },
@@ -710,26 +499,8 @@ export default {
       }, 10)
       return spam
     },
-    // audiotime() {
-    //   //获取音频时长
-
-    //   let myAudio = this.$refs.audior
-
-    //   if (myAudio != null) {
-    //     var duration
-    //     let AudioDur
-    //     myAudio.load()
-    //     console.log(myAudio.duration, 'myAudio.duration')
-
-    //     myAudio.oncanplay = function() {
-    //       // console.log(myAudio.duration,"myAudio.duration",);
-    //       AudioDur = myAudio.duration
-    //     }
-    //     console.log(AudioDur)
-    //   }
-    // },
     update() {
-      //上传
+      //上传音频
       let inputDOM = this.$refs.inputer
       // 通过DOM取文件数据
       this.file = inputDOM.files[0]
@@ -793,12 +564,12 @@ export default {
   created: function() {
     this.getList()
     this.getDocList()
-    PostListenDoc().then(response => {
-        this.Doclist = []
-        this.Doclist = response.data.list
-        console.log(response)
-      })
-  }
+    
+  },
+  // mounted: function() {
+  //   this.getDocList()
+    
+  // }
 }
 </script>
 

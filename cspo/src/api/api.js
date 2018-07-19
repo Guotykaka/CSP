@@ -41,6 +41,9 @@ export function getListWithNoParam(params){//获取列表
 export function getListRole(params){//获取列表
   return post(urls.API_POST_LIST_ROLE,params)
 }
+export function getRoleInfo(params){//角色详情信息
+  return post(urls.API_GET_INFO_ROLE,params)
+}
 export function PostSaveRole(params){//新增角色
   return post(urls.API_POST_SAVE_ROLE,params)
 }
@@ -65,13 +68,25 @@ export function PostTemplateDelete(params){//删除
   return post(urls.API_POST_DELETE_TEMPLATE,params)
 }
 //机构管理
-export function PostInstitutionList(params){//删除
+export function PostInstitutionList(params){//列表
   return post(urls.API_POST_LIST_INSTITUTION,params)
+}
+export function PostInstitutionUpdate(params){//修改
+  return post(urls.API_POST_UPDATE_INSTITUTION,params)
 }
 export function PostInstitutionSave(params){//新增
   return post(urls.API_POST_SAVE_INSTITUTION,params)
 }
 //服务管理
+export function GetServiceList(params){//服务列表
+  return post(urls.API_GET_LIST_SERVICE,params)
+}
+export function PostServiceStatus(params){//修改服务状态
+  return post(urls.API_POST_STATUS_SERVICE,params)
+}
+export function PostServiceUpdate(params){//修改服务
+  return post(urls.API_POST_UPDATE_SERVICE,params)
+}
 export function GetListenList(params){//一元听列表
   return post(urls.API_GET_LIST_LISTEN,params)
 }

@@ -16,8 +16,17 @@ let baseImgPath;
 let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
+<<<<<<< HEAD
   baseUrl = 'http://172.0.0.41:8117/cspo/';
   //baseUrl = 'http://10.50.50.117:8117/cspd/';
+=======
+  // baseUrl = 'http://172.0.0.41:8117/cspo/';
+<<<<<<< HEAD
+  baseUrl = 'http://10.50.50.117:8117/cspo/';
+=======
+  baseUrl = 'http://10.50.50.121:8117/cspo/';
+>>>>>>> d27a8c2b513b2bdcbc27deb36fc6e1cf52aa66f3
+>>>>>>> 371c138badd6aa9e57cbbcbe74f768c4944476b7
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';
@@ -51,6 +60,7 @@ export const API_POST_PASSWORD_USER = baseUrl+'sys/doctor/resetPassword';//修�
 export const API_POST_LIST_WITH_NOPARAM = baseUrl+'sys/role/listWithNoParam';//角色列表
 export const API_POST_LIST_ROLE = baseUrl+'sys/role/list';//角色列表
 export const API_POST_SAVE_ROLE = baseUrl+'sys/role/save';//新增角色
+export const API_GET_INFO_ROLE = baseUrl+'sys/role/info';//角色详情
 export const API_POST_UPDATE_ROLE = baseUrl+'sys/role/update';//修改角色
 export const API_POST_DELETE_ROLE = baseUrl+'sys/role/delete';//删除角色
 
@@ -86,7 +96,12 @@ export const API_POST_SAVE_OR_UPDATAE_DICTIONARY = baseUrl+'sys/dictionary/saveO
 
 //机构业务
 export const API_POST_LIST_INSTITUTION = baseUrl+'ins/institution/list';//机构业务列表
-export const API_POST_SAVE_INSTITUTION = baseUrl+'ins/institution/save';//消息模板列表
+export const API_POST_UPDATE_INSTITUTION = baseUrl+'ins/institution/update';//修改机构业务
+export const API_POST_SAVE_INSTITUTION = baseUrl+'ins/institution/save';//新增机构业务
+//服务管理
+export const API_GET_LIST_SERVICE = baseUrl+'csp/serviceInfo/list';//服务列表
+export const API_POST_STATUS_SERVICE = baseUrl+'csp/serviceInfo/updateStatus';//修改服务状态
+export const API_POST_UPDATE_SERVICE = baseUrl+'csp/serviceInfo/updateCspServiceInfo';//修改服务
 //商品管理
 export const API_GET_LIST_LISTEN = baseUrl+'CspVoiceProduct/CspVoiceProductget';//一元听列表
 export const API_GET_UPDATE_LISTEN = baseUrl+'CspVoiceProduct/CspVoiceProductupdate';//一元听编辑
