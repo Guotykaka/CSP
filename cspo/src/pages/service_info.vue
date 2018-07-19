@@ -77,7 +77,7 @@
 
 
       <!-- 修改弹窗 -->
-      <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
+      <el-dialog title="修改" :visible.sync="dialogEditVisible" width=60%>
 
         <el-form :model="editTable">
           <el-form-item class="is-required" label="服务名称:" :label-width="formLabelWidth">
@@ -141,8 +141,15 @@
             </template>
           </el-form-item>
           <el-form-item class="is-required" label="服务介绍" :label-width="formLabelWidth">
-            <el-col :span="16">
-              <el-input class="selector"  type="textarea" v-html="editTable.serviceIntroduce"></el-input>
+            <el-col :span="24">
+              <!-- <el-input class="selector"  type="textarea" v-html="editTable.serviceIntroduce"></el-input> -->
+              <quill-editor 
+                v-model="editTable.serviceIntroduce" 
+                ref="myQuillEditor" 
+                :options="editorOption" 
+                @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
+                @change="onEditorChange($event)">
+              </quill-editor>
             </el-col>
           </el-form-item>
         </el-form>
@@ -153,7 +160,7 @@
         </div>
       </el-dialog>
       <!-- 新增弹窗 -->
-      <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
+      <el-dialog title="新增" :visible.sync="dialogAddVisible" width=60%>
         <el-form :model="addTable">
           <el-form-item class="is-required2" label="服务名称:" :label-width="formLabelWidth">
             <el-col :span="16">
@@ -216,9 +223,18 @@
             </template>
           </el-form-item>
           <el-form-item class="is-required2" label="服务介绍" :label-width="formLabelWidth">
-            <el-col :span="16">
-              <el-input v-model="addTable.serviceIntroduce"></el-input>
+            <el-col :span="24">
+             <quill-editor 
+                v-model="addTable.serviceIntroduce" 
+                ref="myQuillEditor" 
+                :options="editorOption" 
+                @blur="onEditorBlur($event)" @focus="onEditorFocus($event)"
+                @change="onEditorChange($event)">
+              </quill-editor>
             </el-col>
+            <template>
+              
+          </template> 
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -235,6 +251,7 @@
 
 <script>
 import { GetServiceList,PostServiceStatus,PostServiceUpdate,getListWithNoParam } from '@/api/api.js'
+import { quillEditor } from 'vue-quill-editor'
 import { getStore } from '@/config/mUtils.js'
 import headerTop from '@/components/headTop.vue'
 export default {
@@ -243,6 +260,8 @@ export default {
   },
   data() {
     return {
+      content:null,
+      editorOption:{},
       AdminUserId: null,//userId
       serviceIconUrl:"",//serviceIconUrl
       RoleList: [],//角色列表
@@ -521,6 +540,12 @@ export default {
     }
   },
   methods: {
+    onEditorBlur(){//失去焦点事件
+    },
+    onEditorFocus(){//获得焦点事件
+    },
+    onEditorChange(){//内容改变事件
+    },
     doSearch() {
       let params = {
             "currentPage": 1,
@@ -661,6 +686,10 @@ export default {
       let Str = ""
       Str = this.editTable.serviceRole.join(',')
       this.editTable.serviceRole = Str
+      let code = ""
+      code = encodeURIComponent(this.editTable.serviceIntroduce)
+      this.editTable.serviceIntroduce= ""
+      this.editTable.serviceIntroduce= code
       console.log(typeof(this.editTable.serviceRole),"type2")
       console.log(this.editTable.serviceRole)
       let params ={

@@ -16,12 +16,9 @@ let baseImgPath;
 let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
-  // baseUrl = 'http://172.0.0.41:8117/cspo/';
-<<<<<<< HEAD
-  baseUrl = 'http://10.50.50.117:8117/cspo/';
-=======
-  baseUrl = 'http://10.50.50.121:8117/cspo/';
->>>>>>> d27a8c2b513b2bdcbc27deb36fc6e1cf52aa66f3
+  baseUrl = 'http://172.0.0.41:8117/cspo/';
+  // baseUrl = 'http://10.50.50.121:8117/cspo/';
+  // baseUrl = 'http://10.50.50.117:8117/cspo/';
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';

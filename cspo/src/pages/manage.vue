@@ -9,7 +9,7 @@
       <el-menu background-color="#324157" text-color="#b8c7ce" router>
 
         <el-menu-item index="main"><i class="el-icon-menu"></i>控制台</el-menu-item>
-      <!--  <el-submenu index="1">
+       <el-submenu index="1">
           <template slot="title"><i class="el-icon-document nav-t-icon"></i>系统管理</template>
           <el-menu-item index="notice"><i class="el-icon-view nav-t-icon"></i>公告管理</el-menu-item>
           <el-menu-item index="role"><i class="el-icon-refresh nav-t-icon"></i>角色管理</el-menu-item>
@@ -45,7 +45,7 @@
         <el-submenu index="6">
           <template slot="title"><i class="el-icon-plus nav-t-icon"></i>财务管理</template>
           <el-menu-item index="withdrawList">提现列表</el-menu-item>
-        </el-submenu>-->
+        </el-submenu>
 
 
         <el-submenu :index="item.name" v-for="(item,index) in navMenu" :key="index">
