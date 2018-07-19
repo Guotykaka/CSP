@@ -11,11 +11,13 @@ import {getDictListByType} from "../api/api";
  *
  */
 let baseUrl = '';
+let payUrl = '';
 let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
   baseUrl = 'http://172.0.0.41:8117/cspo/';
+  payUrl = 'http://172.0.0.41:8115/pay/';
   //baseUrl = 'http://10.50.50.117:8117/cspd/';
   // baseUrl = 'http://10.50.50.121:8117/cspo/';
   // baseUrl = 'http://10.50.50.117:8117/cspo/';
@@ -132,6 +134,8 @@ export const API_POST_UPDATE_APPLY_STATUS= baseUrl+'ins/withdraw/updateApplyStat
 //订单管理
 export const API_GET_LIST_ORDER_REFUND = baseUrl+'ins/orderRefund/listOrderRefund';//退款列表
 export const API_GET_LIST_ORDER_CHANGE_R = baseUrl+'ins/orderRefund/listOrderChangeRecord';//退款订单变更
+export const API_POST_LIST_ORDER_REFUND = payUrl+'api/trade/orderRefund';//同意退款
+export const API_POST_LIST_ORDER_CHANGE_RECORD = baseUrl+'ins/orderRefund/updateOrderRefundStatus';//拒绝退款
 
 export const API_GET_LIST_ALL_INSTITUTION = baseUrl+'ins/institution/listAllInstitution';//机构列表
 

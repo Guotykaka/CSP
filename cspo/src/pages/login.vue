@@ -2,7 +2,7 @@
 
   <div class="login-container">
     <div class="login-box">
-      <p class="login-title">登录</p>
+      <p class="login-title">运营端登录</p>
       <ul>
         <li class="m_b_20">
           <el-input type="text" v-model="loginParams.username" placeholder="请输入账号"></el-input>

@@ -156,6 +156,17 @@
         <report :reportData="reportData"></report>
       </el-dialog>
 
+      <el-dialog title="拒绝理由" :visible.sync="refuse.isShowDialog" width="400px">
+        <el-input type="textarea" v-model="refuse.refuseReason"></el-input>
+        <div class="btn-row" style="text-align: right">
+          <el-button size="small" type="default" @click="">取消</el-button>
+          <el-button size="small" type="primary" @click="doRefuseFn">确定</el-button>
+        </div>
+      </el-dialog>
+
+
+
+
 
     </div>
   </div>
@@ -165,7 +176,7 @@
 import headerTop from '@/components/headTop.vue';
 import report from '@/components/report.vue';
 import { mapGetters } from "vuex";
-import { getOrderChangeRecord,ERR_OK } from "@/api/api.js";
+import { getOrderChangeRecord,reportDetail,agreeRefuse,refuseList,ERR_OK } from "@/api/api.js";
 export default {
   data() {
     return {
@@ -173,6 +184,12 @@ export default {
       //报告详情数据
       reportData:{},
       isShowReport:false,//是否显示体检报告
+
+
+      refuse:{
+        isShowDialog:false,
+        refuseReason:""
+      },
 
       //订单变更记录
       orderChangeList: [],
@@ -203,80 +220,84 @@ export default {
 
     //点击显示体检报告详情
     showReportFn(){
-      this.isShowReport=true;
-      console.log(this.isShowReport)
+      var params = {
+        workNo: this.orderInfo.workNo,
+        checkUnitCode: this.orderInfo.checkUnitCode
+      };
+      reportDetail(params).then(res => {
+        if(res.code===ERR_OK){
+          if(res.data){
+            this.reportData=res.data;
+            this.isShowReport=true;
+          }else {
+            this.$alert("暂无报告数据", '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        }else{
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      }).catch(err => {
+      })
     },
 
 
     //同意申请
-    agreeApply: function (item) {
-      confirm("确定同意退款？", function () {
-        var parms = {
-          payType: item.payChannel,//支付方式
-          refundCode: item.refundCode,
-          refundType: 2,
-          tradeCode: item.tradeCode
-        };
-        $.ajax({
-          type: "post",
-          url: basePayUrl + "api/trade/orderRefund",
-          contentType: "application/json",
-          data: JSON.stringify(parms),
-          success: function (res) {
-            if (res.code === 1) {
-              alert(res.msg,function () {
-                vm.showStatus = 1;
-                vm.searchParams.refundStatus="";
-                vm._getDatalist();
+    agreeApply: function () {
+      this.$confirm('确定同意退款？')
+        .then(_ => {
+          var params = {
+            payType: this.orderInfo.payChannel,//支付方式
+            refundCode: this.orderInfo.refundCode,
+            refundType: 1,
+            tradeCode: this.orderInfo.tradeCode
+          };
+          agreeRefuse(params).then(res => {
+            if(res.code===ERR_OK){
+              this.$message({
+                message: '退款成功',
+                type: 'success'
               });
-            } else {
-              alert(res.msg,function () {
-                vm._doBack();
-              });
+            }else{
+              this.$message.error('操作失败');
             }
-          }
+          }).catch(err => {
+            this.$alert(err.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          })
         })
-      })
+    },
+    //拒绝申请
+    refuseApply: function () {
+      this.refuse.isShowDialog=true;
     },
 
-    //拒绝申请
-    refuseApply: function (item) {
-      layer.prompt({
-        formType: 2,
-        value: '',
-        title: '请填写拒绝理由',
-        area: ['400px', '200px'] //自定义文本域宽高
-      }, function (value, index, elem) {
-        if (!value) {
-          alert("拒绝理由不能为空");
-          return
+    doRefuseFn(){
+      var ids = [];
+      ids.push(this.orderInfo.insOrderRefundId);
+      var params = {
+        insOrderRefundIds: ids,
+        refundStatus: 3,
+        userId:1,
+        refuseReason: this.refuse.refuseReason
+      };
+      refuseList(params).then(res => {
+        if(res.code===ERR_OK){
+          this.refuse.isShowDialog=false;
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }else{
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
         }
-        var ids = [];
-        ids.push(item.insOrderRefundId);
-        var parms = {
-          insOrderRefundIds: ids,
-          refundStatus: 3,
-          refuseReason: value
-        };
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/orderRefund/updateOrderRefundStatus",
-          contentType: "application/json",
-          data: JSON.stringify(parms),
-          success: function (res) {
-            if (res.code === 1) {
-              alert(res.msg, function () {
-                vm.showStatus = 1;
-                vm._getDatalist();
-              });
-            } else {
-              alert(res.msg);
-            }
-          }
-        });
-        layer.close(index);
-      });
+      })
     },
+    
     //获取订单变更列表
     getOrderChanges: function () {
       var params = {
