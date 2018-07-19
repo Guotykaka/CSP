@@ -16,8 +16,10 @@ if (process.env.NODE_ENV == 'development') {
   baseUrl = 'http://10.50.50.117:8117/cspd/';
   baseImgPath = '/img/';
 }else{
-  baseUrl = '//elm.cangdu.org';
-  baseImgPath = '//elm.cangdu.org/img/';
+  // baseUrl = '//elm.cangdu.org';
+  // baseImgPath = '//elm.cangdu.org/img/';
+  baseUrl = 'http://172.0.0.41:8117/cspd/';
+  baseImgPath = '/img/';
 }
 
 export {
@@ -92,23 +94,6 @@ export const API_INS_USER_QURY = baseUrl+'doctor/ins/usernewsreal/query';//查�
 export const API_INS_USER_SAVE = baseUrl+'doctor/ins/usernewsreal/save';//新增保存用户消息
 export const API_INS_USER_UPDATE = baseUrl+'doctor/ins/usernewsreal/update';//更新保存用户消息
 export const API_INS_UPDATE_BATCH = baseUrl+'doctor/ins/usernewsreal/updateBatch';//按类型更新用户消息为已读状态
-
-
-
-export const API_NAV = localUrl+'nav';
-
-export const API_COUNT_USER_NEWS_LIST1 = localUrl+'countUserNewsList';
-/*个人账户*/
-export const API_GET_DOCTOR_ACCOUNT_INFO1 = localUrl+'getDoctorAccountInfo';//提现
-export const API_LIST_ACCOUNT_RECORD1 = localUrl+'listAccountRecord';//提现记录
-export const API_GET_ORDER_INFO1 = localUrl+'getOrderInfo';//订单记录
-/*电话咨询*/
-export const API_QUERY_PHONE_CONSULTATION = localUrl+'queryPhoneConsultationOrder';//电话咨询列表数据
-export const API_GET_SMSTEMPLATE = localUrl+'getSMSTemplate';//
-export const API_SEND_SMS = localUrl+'sendSMS';//发送短信
-/*联系医助*/
-export const API_QUERY_INS_LEAVE_WORDLIST = localUrl+'queryInsLeaveWordList';//发送短信
-export const API_QUERY_INS_LEAVE_ANSWER_LIST = localUrl+'queryInsLeaveWordAnswerList';//发送短信
 
 
 

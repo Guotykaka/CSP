@@ -13,24 +13,15 @@ import {getDictListByType} from "../api/api";
 let baseUrl = '';
 let routerMode = 'hash';
 let baseImgPath;
-let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
-<<<<<<< HEAD
-  baseUrl = 'http://172.0.0.41:8117/cspo/';
-  //baseUrl = 'http://10.50.50.117:8117/cspd/';
-=======
   // baseUrl = 'http://172.0.0.41:8117/cspo/';
-<<<<<<< HEAD
-  baseUrl = 'http://10.50.50.117:8117/cspo/';
-=======
   baseUrl = 'http://10.50.50.121:8117/cspo/';
->>>>>>> d27a8c2b513b2bdcbc27deb36fc6e1cf52aa66f3
->>>>>>> 371c138badd6aa9e57cbbcbe74f768c4944476b7
   baseImgPath = '/img/';
 }else{
-  baseUrl = '//elm.cangdu.org';
-  baseImgPath = '//elm.cangdu.org/img/';
+  // baseUrl = '//elm.cangdu.org';
+  // baseImgPath = '//elm.cangdu.org/img/';
+  baseUrl = 'http://172.0.0.41:8117/cspo/';
 }
 
 export {

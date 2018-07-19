@@ -13,10 +13,11 @@
           <template slot="title"><i class="el-icon-document nav-t-icon"></i>系统管理</template>
           <el-menu-item index="notice"><i class="el-icon-view nav-t-icon"></i>公告管理</el-menu-item>
           <el-menu-item index="role"><i class="el-icon-refresh nav-t-icon"></i>角色管理</el-menu-item>
-          <!-- <el-menu-item index="dept">部门管理</el-menu-item> -->
+          &lt;!&ndash; <el-menu-item index="dept">部门管理</el-menu-item> &ndash;&gt;
           <el-menu-item index="user"><i class="el-icon-bell nav-t-icon"></i>用户管理</el-menu-item>
           <el-menu-item index="message_template"><i class="el-icon-message nav-t-icon"></i>消息模板</el-menu-item>
           <el-menu-item index="menuList"><i class="el-icon-menu nav-t-icon"></i>菜单管理</el-menu-item>
+          <el-menu-item index="dictionary"><i class="el-icon-menu nav-t-icon"></i>系统常量</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-setting nav-t-icon"></i>机构业务</template>

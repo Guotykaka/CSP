@@ -42,7 +42,7 @@
             <el-menu-item index="call_doctor">联系医助</el-menu-item>
             <el-menu-item index="msg">
                   消息
-                <el-badge class="mark iconStyle" :value="allcount" />
+                <el-badge class="mark iconStyle" value="11" />
             </el-menu-item>
             <el-submenu index="2" class="nav-child-title">
               <template slot="title"><img
@@ -59,7 +59,7 @@
         <el-main>
           <keep-alive>
             <router-view>
-              <loading v-if="loading"></loading>
+
             </router-view>
           </keep-alive>
         </el-main>
@@ -71,47 +71,156 @@
 <script>
   import {localUrl} from "@/config/env.js"
   import {storeManager} from '@/api/util.js';
-  import {mapState} from 'vuex';
-  import {api} from '@/api/api';
-  import loading from '@/components/loading/loading'
 
   export default {
     data() {
       return {
-        navMenu: [],
+        navMenu: [
+          {
+            "menuId": 105,
+            "parentId": 0,
+            "parentName": null,
+            "name": "个人中心",
+            "url": null,
+            "perms": null,
+            "type": 0,
+            "icon": "icon-icon03 iconfont",
+            "orderNum": 0,
+            "category": 0,
+            "open": null,
+            "list": [
+              {
+                "menuId": 107,
+                "parentId": 105,
+                "parentName": null,
+                "name": "个人账户",
+                "url": "personal",
+                "perms": null,
+                "type": 1,
+                "icon": "iconfont icon-zhanghu",
+                "orderNum": 0,
+                "category": 0,
+                "open": null,
+                "list": null
+              },
+              {
+                "menuId": 116,
+                "parentId": 105,
+                "parentName": null,
+                "name": "消息列表",
+                "url": "msg",
+                "perms": null,
+                "type": 1,
+                "icon": "iconfont icon-xiaoxiliebiao",
+                "orderNum": 0,
+                "category": 0,
+                "open": null,
+                "list": null
+              }
+            ]
+          },
+          {
+            "menuId": 56,
+            "parentId": 0,
+            "parentName": null,
+            "name": "服务管理",
+            "url": null,
+            "perms": null,
+            "type": 0,
+            "icon": "iconfont icon-fuwuguanli",
+            "orderNum": 2,
+            "category": 0,
+            "open": null,
+            "list": [
+              {
+                "menuId": 123,
+                "parentId": 56,
+                "parentName": null,
+                "name": "电话咨询",
+                "url": "tel_consult",
+                "perms": null,
+                "type": 1,
+                "icon": "iconfont icon-dianhuazixun",
+                "orderNum": 0,
+                "category": 0,
+                "open": null,
+                "list": null
+              },
+              {
+                "menuId": 131,
+                "parentId": 56,
+                "parentName": null,
+                "name": "图文咨询",
+                "url": "imgText_consult",
+                "perms": null,
+                "type": 1,
+                "icon": "iconfont icon-tuwenzixun",
+                "orderNum": 0,
+                "category": 0,
+                "open": null,
+                "list": null
+              },
+              {
+                "menuId": 58,
+                "parentId": 56,
+                "parentName": null,
+                "name": "服务设置",
+                "url": "server_setting",
+                "perms": null,
+                "type": 1,
+                "icon": "icon-shezhi iconfont",
+                "orderNum": 2,
+                "category": 0,
+                "open": null,
+                "list": null
+              },
+              {
+                "menuId": 55,
+                "parentId": 56,
+                "parentName": null,
+                "name": "认证详情",
+                "url": "indetification",
+                "perms": null,
+                "type": 1,
+                "icon": "icon-renzheng iconfont",
+                "orderNum": 1,
+                "category": 0,
+                "open": null,
+                "list": null
+              }
+            ]
+          }
+        ],
         activeIndex2: '1'
       }
     },
-    components: {
-      loading
-    },
     created() {
-      let url = localUrl + 'nav',
+/*      let url = localUrl + 'nav',
         params = '';
       api.nav(url, params).then((res) => {
         let data = res.data;
         if (data.code === 0) {
           this.navMenu = data.menuList;
         }
-      });
-      this.getMsgList();
+      });*/
     },
     methods: {
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
-      getMsgList() {
+      //系统公告
+/*      getMsgList() {
         let url = localUrl + 'countUserNewsList',
           uid = storeManager.getUserId(),
           params = uid;
         this.$store.dispatch('msgList', url, params)
-      }
+      }*/
     },
     computed: {
       defaultActive: function () {
         return this.$route.path.replace('/', '');
       },
-      allcount() {
+/*      allcount() {
         let count = 0;
         if (this.msgList && this.msgList.data) {
           this.msgList.data.forEach((item) => {
@@ -119,11 +228,7 @@
           });
         }
         return count;
-      },
-      ...mapState({
-        loading: state => state.isLoading,
-        msgList: state => state.msgList
-      }),
+      }*/
     },
   }
 
