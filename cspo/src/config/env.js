@@ -16,8 +16,8 @@ let baseImgPath;
 let localUrl = "http://localhost:8080/api/";
 
 if (process.env.NODE_ENV == 'development') {
-  // baseUrl = 'http://172.0.0.41:8117/cspo/';
-  baseUrl = 'http://10.50.50.121:8117/cspo/';
+  baseUrl = 'http://172.0.0.41:8117/cspo/';
+  //baseUrl = 'http://10.50.50.117:8117/cspd/';
   baseImgPath = '/img/';
 }else{
   baseUrl = '//elm.cangdu.org';

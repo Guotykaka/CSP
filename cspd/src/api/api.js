@@ -17,6 +17,11 @@ export function isAuthentication(params) {
   return post(urls.API_IS_AUTHENTICATION, params)
 }
 
+//获取认证详情 乐
+export function getApplyInfo(params) {
+  return post(urls.API_QUERY_DOCTOR_APPLY_INFO, params)
+}
+
 /*图文咨询*/
 
 //医生回复
@@ -145,9 +150,20 @@ export function getSMSTemplate(params) {
   return post(urls.API_INS_GET_SMS_TEMPLATE, params)
 }
 
-//获取短信模板内容 乐
+//发送短信 乐
 export function sendMsg(params) {
   return post(urls.API_INS_SEND_SMS, params)
+}
+
+
+//提交认证   乐
+export function submitDoctorInfo(params) {
+  return post(urls.API_SUBMIT_DOCTOR_INFO, params)
+}
+
+//取消认证   乐
+export function cancelApply(params) {
+  return post(urls.API_CHANGE_DOCTOR_STATUS, params)
 }
 
 
