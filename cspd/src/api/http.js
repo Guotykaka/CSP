@@ -2,7 +2,7 @@ import axios from 'axios';
 import md5 from 'js-md5';
 axios.defaults.baseURL="/Api";
 
-export function get(url, params) {
+export function get(url, data) {
   var data = data;
   data.timespan= Math.round(new Date().getTime() / 1000); //增加时间戳
   var preSign = {};
@@ -15,7 +15,7 @@ export function get(url, params) {
   axios.defaults.headers.post['Authorization'] = btoaCode;
 
   return new Promise((resolve, reject) => {
-    axios.get(url,params).then(res => {
+    axios.get(url,data).then(res => {
       resolve(res.data)
     }).catch(err => {
       reject(err)

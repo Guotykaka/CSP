@@ -70,8 +70,6 @@
 </template>
 
 <script>
-  import {localUrl} from "@/config/env.js"
-  import {api} from '@/api/api';
   import {storeManager} from '@/api/util.js';
 
   export default {
@@ -116,7 +114,7 @@
       },
       getNoticeTypes: function () {
         //加载系统公告类型字典表
-        let url = localUrl + "getDictionaryByKey",
+/*        let url = localUrl + "getDictionaryByKey",
           that = this,
           params = {
             dictType: "",
@@ -130,7 +128,7 @@
           } else {
             alert(data.msg);
           }
-        })
+        })*/
       },
 
       //搜索
@@ -141,11 +139,11 @@
 
       //请求公告列表
       _getList: function () {
-        let uid = storeManager.getUserId(),
+/*        let uid = storeManager.getUserId(),
           url = localUrl + 'noticeTitleQuery',
           that = this,
-          params = this.searchParams;
-        api.noticeTitleQuery(url, params).then((res) => {
+          params = this.searchParams;*/
+/*        api.noticeTitleQuery(url, params).then((res) => {
           let data = res.data;
           if (data.code === 1) {
             if (data.data.list) {
@@ -160,7 +158,7 @@
           }
         }).catch((res) => {
           alert(res.msg)
-        })
+        })*/
 
       },
       //点击查看详情

@@ -74,7 +74,7 @@
         let uid = storeManager.getUserId(),
           url = localUrl + 'getSysNoticeInfo',
           params = uid;
-        api.getSysNoticeInfo(url, params).then((res) => {
+/*        api.getSysNoticeInfo(url, params).then((res) => {
           let data = res.data;
           if (data.code === 1) {
             this.announceText = data.data.noticeContent;
@@ -83,7 +83,7 @@
           }
         }).catch((res) => {
           alert(res.msg)
-        })
+        })*/
       },
 
       //点击查看把未读变已读

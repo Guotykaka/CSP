@@ -3,17 +3,6 @@
     <header-top></header-top>
     <div class="page-container">
       <el-header height="30">
-
-        <!-- <el-row :gutter="20" class="m_b_15">
-          <el-col :span="6" class="minwidth">
-            <el-input v-model="searchParams.roleName" placeholder="用户名" @keyup.enter.native="doSearche()" clearable></el-input>
-          </el-col>
-
-          <el-col :span="6" class="minwidth">
-            <el-button type="primary" @click="doSearche()">查询</el-button>
-            <el-button type="primary" @click="handleAdd()">新增</el-button>
-          </el-col>
-        </el-row> -->
         <el-form :model="searchParams" class="demo-form-inline">
         <el-form-item label="角色名称：">
           <el-col :span="6">
@@ -48,40 +37,29 @@
                 <!-- <el-checkbox-group v-model="sysRoleMenuListVOList.roleType"> -->
                 <el-checkbox-group v-model="sysRoleMenuListVOList.category">
                   <el-checkbox label= "0"  @change="colType1()">运营端</el-checkbox>
-                  <el-checkbox label= "1"  @change="colType()">医生端</el-checkbox>
-                  <el-checkbox label= "2"  @change="colType()">企业端</el-checkbox>
+                  <el-checkbox label= "1"  @change="colType2()">医生端</el-checkbox>
+                  <el-checkbox label= "2"  @change="colType3()">企业端</el-checkbox>
                 </el-checkbox-group>
               </template>
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth"  v-model="sysRoleMenuListVOList">
-              <!-- <el-row :gutter="20">
-                <template v-if="editTable.roleType === '1'||editTable.roleType === '1,2'||editTable.roleType === '1,3'||editTable.roleType === '1,2,3'">
-                  <el-col :span="5">
-                    <el-select v-model="editTable.purview" clearable placeholder="请选择1">
-                      <el-option label="产品推广" value="1"></el-option>
-                      <el-option label="版本升级" value="2"></el-option>
-                    </el-select>
-                  </el-col>
-                </template>
-                <template v-if="editTable.roleType === '2'||editTable.roleType === '1,2'||editTable.roleType === '2,3'||editTable.roleType === '1,2,3'">
-                  <el-col :span="5">
-                    <el-select v-model="editTable.purview" clearable placeholder="请选择2">
-                      <el-option label="产品推广" value="1"></el-option>
-                      <el-option label="版本升级" value="2"></el-option>
-                    </el-select>
-                  </el-col>
-                </template>
-                <template v-if="editTable.roleType === '3'||editTable.roleType === '1,3'||editTable.roleType === '2,3'||editTable.roleType === '1,2,3'">
-                  <el-col :span="5">
-                    <el-select v-model="editTable.purview" clearable placeholder="请选择3">
-                      <el-option label="产品推广" value="1"></el-option>
-                      <el-option label="版本升级" value="2"></el-option>
-                    </el-select>
-                  </el-col>
-                </template>
-              </el-row> -->
+              <el-col :span="5">
               <el-tree
+                v-show="flag1"
                 :data="data2"
+                show-checkbox
+                default-expand-all
+                :default-checked-keys="sysRoleMenuListVOList.menuIdList"
+                node-key="id"
+                ref="tree"
+                highlight-current
+                :props="tree">
+              </el-tree>
+              </el-col>
+              <el-col :span="5">
+               <el-tree
+                v-show="flag2"
+                :data="data3"
                 show-checkbox
                 default-expand-all
                 node-key="id"
@@ -89,6 +67,10 @@
                 highlight-current
                 :props="tree">
               </el-tree>
+              </el-col>
+              <el-col :span="5">
+                <div v-show="flag3">企业端</div>
+              </el-col>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -115,41 +97,44 @@
               </el-col>
             </el-form-item>
             <el-form-item label="角色类别:" :label-width="formLabelWidth">
-              <template>
-                <el-checkbox-group v-model="addTable.roleType">
-                  <el-checkbox label="运营端" value = '0' @change="colType()"></el-checkbox>
-                  <el-checkbox label="医生端" key = 0 @change="colType()"></el-checkbox>
-                  <el-checkbox label="企业端" key = 0 @change="colType()"></el-checkbox>
+              <template :model="sysRoleMenuListVOList">
+                <!-- <el-checkbox-group v-model="sysRoleMenuListVOList.roleType"> -->
+                <el-checkbox-group v-model="sysRoleMenuListVOList.category">
+                  <el-checkbox label= "0"  @change="colType1()">运营端</el-checkbox>
+                  <el-checkbox label= "1"  @change="colType2()">医生端</el-checkbox>
+                  <el-checkbox label= "2"  @change="colType3()">企业端</el-checkbox>
                 </el-checkbox-group>
               </template>
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth">
-              <el-row :gutter="20">
-                <template v-if="addTable.roleType === '1'||addTable.roleType === '1,2'||addTable.roleType === '1,3'||addTable.roleType === '1,2,3'">
-                  <el-col :span="5">
-                    <el-select v-model="addTable.purview" clearable placeholder="请选择1">
-                      <el-option label="产品推广" value="1"></el-option>
-                      <el-option label="版本升级" value="2"></el-option>
-                    </el-select>
-                  </el-col>
-                </template>
-                <template v-if="addTable.roleType === '2'||addTable.roleType === '1,2'||addTable.roleType === '2,3'||addTable.roleType === '1,2,3'">
-                  <el-col :span="5">
-                    <el-select v-model="addTable.purview" clearable placeholder="请选择2">
-                      <el-option label="产品推广" value="1"></el-option>
-                      <el-option label="版本升级" value="2"></el-option>
-                    </el-select>
-                  </el-col>
-                </template>
-                <template v-if="addTable.roleType === '3'||addTable.roleType === '1,3'||addTable.roleType === '2,3'||addTable.roleType === '1,2,3'">
-                  <el-col :span="5">
-                    <el-select v-model="addTable.purview" clearable placeholder="请选择3">
-                      <el-option label="产品推广" value="1"></el-option>
-                      <el-option label="版本升级" value="2"></el-option>
-                    </el-select>
-                  </el-col>
-                </template>
-              </el-row>
+              <el-col :span="5">
+              <el-tree
+                v-model="sysRoleMenuListVOList.menuIdList"
+                @check="checkchange()"
+                v-show="flag1"
+                :data="data2"
+                show-checkbox
+                :default-checked-keys="sysRoleMenuListVOList.menuIdList"
+                node-key="id"
+                ref="tree"
+                highlight-current
+                :props="tree">
+              </el-tree>
+              </el-col>
+              <el-col :span="5">
+               <el-tree
+                v-show="flag2"
+                :data="data3"
+                show-checkbox
+                node-key="id"
+                ref="tree"
+                highlight-current
+                :props="tree">
+              </el-tree>
+              </el-col>
+              <el-col :span="5">
+                <div v-show="flag3">企业端</div>
+              </el-col>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -198,46 +183,73 @@ export default {
   },
   data() {
     return {
-      tree:[],
+      flag1:true,
+      flag2:true,
+      flag3:true,
+      tree:{
+          children: 'children',
+          label: 'label'
+        },
       data2: [{
           id: 1,
-          label: '一级 1',
+          label: '系统管理',
           children: [{
-            id: 4,
-            label: '二级 1-1',
-            children: [{
-              id: 9,
-              label: '三级 1-1-1'
+              id: 105,
+              label: '角色管理'
             }, {
-              id: 10,
-              label: '三级 1-1-2'
+              id: 107,
+              label: '用户管理'
+            }, {
+              id: 116,
+              label: '菜单管理'
             }]
-          }]
         }, {
           id: 2,
-          label: '一级 2',
+          label: ' 机构业务',
           children: [{
-            id: 5,
-            label: '二级 2-1'
-          }, {
-            id: 6,
-            label: '二级 2-2'
-          }]
+            id: 56,
+            label: '机构列表'
+          },]
         }, {
-          id: 3,
-          label: '一级 3',
+          id: 123,
+          label: '商品管理',
           children: [{
-            id: 7,
-            label: '二级 3-1'
-          }, {
-            id: 8,
-            label: '二级 3-2'
+            id: 131,
+            label: '服务管理'
+          }]
+        }],
+      data3: [{
+          id: 4,
+          label: '医生管理',
+          children: [{
+              id: 9,
+              label: '医生列表'
+            }, {
+              id: 10,
+              label: '认证列表'
+            }, ]
+        }, {
+          id: 5,
+          label: ' 订单管理',
+          children: [{
+              id: 110,
+              label: '订单列表'
+            }, {
+              id: 111,
+              label: '退款管理'
+            },]
+        }, {
+          id: 6,
+          label: '财务管理',
+          children: [{
+            id: 27,
+            label: '提现列表'
           }]
         }],
       searchParams: { roleName: '', },
       dateNw: Date.parse(new Date()),
       params: { timespan : this.dateNw, },
-      sysRoleMenuListVOList : {},//详情中的树状列表
+      sysRoleMenuListVOList : {"category":0,"menuIdList":[116]},//详情中的树状列表
       formInline: { valueSS: '' },
       currentPage: 1, //分页初始页码
       pagesize: 30, //分页初始显示条数
@@ -247,16 +259,25 @@ export default {
       addTable: {
         //新增单个数据
         // roleId: 1,
-        roleCode: '',
-        roleName: '',
-        remark: '',
-        deptId: null,
-        deptName: null,
-        menuIdList: null,
-        deptIdList: null,
-        createTime: '2018-07-02 16:58:57',
-        roleType: '1',
-        roleTypelist: ['医生端']
+        "deptId": 0,
+        "deptIdList": [
+          0
+        ],
+        "deptName": "string",
+        "menuTypeListDTO": [
+          {
+            "menuIdList": [
+              0
+            ],
+            "roleType": 0,
+            "timespan": "1"
+          }
+        ],
+        "remark": "string",
+        "roleCode": "string",
+        "roleId": 0,
+        "roleName": "string",
+        "timespan": "1"
       }, //新增单个数据
       dialogCheckVisible: false, //查看
       dialogEditVisible: false, //修改
@@ -266,6 +287,9 @@ export default {
     }
   },
   methods: {
+    checkchange(){
+    console.log(this.sysRoleMenuListVOList.menuIdList)
+    },
     doSearche() {
       let date = Date.parse(new Date())
       let params = {
@@ -279,11 +303,53 @@ export default {
         this.tableData = response.data.list
       })
     },
-    colType() {
-      console.log(JSON.stringify(this.editTable.roleType))
-    },
     colType1() {
-      console.log(JSON.stringify(this.editTable.roleType))
+         var myVar = '0';
+         var array = this.sysRoleMenuListVOList.category
+         var flag = false;
+         for (var i = 0; i < array.length; i++)
+        {
+             if(myVar==array[i])
+           {
+                 flag = true;
+             }else{
+                 flag = false;
+             }
+        }
+        this.flag1 =flag
+        console.log(this.sysRoleMenuListVOList.category)
+    },
+    colType2() {
+         var myVar = '1';
+         var array = this.sysRoleMenuListVOList.category
+         var flag = false;
+         for (var i = 0; i < array.length; i++)
+        {
+             if(myVar==array[i])
+           {
+                 flag = true;
+             }else{
+                 flag = false;
+             }
+        }
+        this.flag2 =flag
+        console.log(this.sysRoleMenuListVOList.category)
+    },
+    colType3() {
+         var myVar = '2';
+         var array = this.sysRoleMenuListVOList.category
+         var flag = false;
+         for (var i = 0; i < array.length; i++)
+        {
+             if(myVar==array[i])
+           {
+                 flag = true;
+             }else{
+                 flag = false;
+             }
+        }
+        this.flag3 =flag
+        console.log(this.sysRoleMenuListVOList.category)
     },
     handleSizeChange: function(size) {
       this.pagesize = size
@@ -296,6 +362,8 @@ export default {
 
     // 新增
     handleAdd() {
+      // this.sysRoleMenuListVOList = {"category":0,"menuIdList":[105,107,116,56,123,131,57,58]},
+      this.chenge()
       this.dialogAddVisible = true
     },
     // 确定新增
@@ -368,58 +436,109 @@ export default {
         message: '取消新增'
       })
     },
+    chenge(){//checkbox绑定
+        this.sysRoleMenuListVOList.category = String(this.sysRoleMenuListVOList.category)
+        let arr = [];
+        this.sysRoleMenuListVOList.category.split(",").forEach(function (item) {   
+                arr.push(item);    
+            })
+        this.sysRoleMenuListVOList.category = arr
+        console.log(this.sysRoleMenuListVOList.category)
+      var myVar0 = '0';
+        var myVar1 = '1';
+        var myVar2 = '2';
+         //数组
+         var array = this.sysRoleMenuListVOList.category
+         var flag1 = false;
+         var flag2 = false;
+         var flag3 = false;
+         for (var i = 0; i < array.length; i++)
+        {
+             if(myVar0==array[i])
+           {
+                 flag1 = true;
+                 break;
+             }
+        }
+        for (var i = 0; i < array.length; i++)
+        {
+             if(myVar1==array[i])
+           {
+                 flag2 = true;
+                 break;
+             }
+        }
+        for (var i = 0; i < array.length; i++)
+        {
+             if(myVar2==array[i])
+           {
+                 flag3 = true;
+                 break;
+             }
+        }
+        this.flag1 =flag1
+        this.flag2 =flag2
+        this.flag3 =flag3
+    },
     // 修改
     handleEdit(index, row) {
       let params = {
         id: row.roleId,
       }
       getRoleInfo(params).then(response => {
+        
+        
+        if (response.code == 1) {
         this.editTable = response.data.sysRoleEntity
+        console.log(JSON.stringify(response.data))
         this.sysRoleMenuListVOList = response.data.sysRoleMenuListVOList[0]
-        this.sysRoleMenuListVOList.category = [String(this.sysRoleMenuListVOList.category)]
-        console.log(this.editTable)
-        console.log(this.sysRoleMenuListVOList,"2")
+        this.chenge()
+        this.dialogEditVisible = true
+        } else {
+          this.$alert("无法修改")
+        }
       })
       this.inde = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
       this.editTableRoot = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
       // this.editTable = row //复制单列数据
-      this.dialogEditVisible = true
+        
     },
     //确定修改
     _doHandleEdit() {
-      // console.log(JSON.stringify(this.editTable))
-        let date = Date.parse( new Date())
-        let params = {
-              "deptId": this.editTable.deptId,
-              "deptIdList": [
-                0
-              ],
-              "deptName": "string",
-              "menuTypeListDTO": [
-                {
-                  "menuIdList": [
-                    0
-                  ],
-                  "roleType": this.editTable.roleType,
-                  "timespan": date
-                }
-              ],
-              "remark": this.editTable.remark,
-              "roleCode": this.editTable.roleCode,
-              "roleId": this.editTable.roleId,
-              "roleName": this.editTable.roleName,
-          }
-        PostUpdateRole(params).then(response => {
-              this.$message({
-                    type: 'success',
-                    message: '修改成功!'
-                  })
-                  }).catch(err => {
-                    this.$message({
-                          type: 'error',
-                          message: err
-                        })
-                  })
+      console.log(this.sysRoleMenuListVOList)
+      console.log(this.sysRoleMenuListVOList.category,"this.sysRoleMenuListVOList.category")
+        // let date = Date.parse( new Date())
+        // let params = {
+        //       "deptId": this.editTable.deptId,
+        //       "deptIdList": [
+        //         0
+        //       ],
+        //       "deptName": "string",
+        //       "menuTypeListDTO": [
+        //         {
+        //           "menuIdList": [
+        //             0
+        //           ],
+        //           "roleType": this.editTable.roleType,
+        //           "timespan": date
+        //         }
+        //       ],
+        //       "remark": this.editTable.remark,
+        //       "roleCode": this.editTable.roleCode,
+        //       "roleId": this.editTable.roleId,
+        //       "roleName": this.editTable.roleName,
+        //   }
+        // PostUpdateRole(params).then(response => {
+        //       this.$message({
+        //             type: 'success',
+        //             message: '修改成功!'
+        //           })
+        //           }).catch(err => {
+        //             this.$message({
+        //                   type: 'error',
+        //                   message: err
+        //                 })
+        //           })
         this.dialogEditVisible = false
       
     },
