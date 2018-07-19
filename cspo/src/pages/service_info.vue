@@ -491,20 +491,20 @@ export default {
       editTableRoot_YYT: {},
       addTable: {
         serviceType: 'ITEM_PLATFORM_SERVICE',
-        serviceDesc: '平台服务-图文咨询',
+        serviceDesc: '',
         itemType: 'ITEM_SERVICE_TYPE',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
         serviceRole: [4,29,30],
         serviceSuggestedPrice: '1.0-99.0元/次',
-        serviceName: '图文咨询',
+        serviceName: '',
         serviceIconUrl:
           '',
         serviceMinPrice: 1.0,
         serviceUnit: 'UNIT_SECOND',
         serviceStatus: 1,
         serviceIntroduce:
-          '测试',
+          '',
         serviceId: '8ab2b2f563822d260163822d26fd0000',
         serviceSort: 2,
         roleNames: [],
@@ -600,23 +600,22 @@ export default {
       this.dialogAddVisible = false
       this.addTable = {
         serviceType: 'ITEM_PLATFORM_SERVICE',
-        serviceDesc: '平台服务-图文咨询',
+        serviceDesc: '',
         itemType: 'ITEM_SERVICE_TYPE',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
         serviceRole: '4,29,30',
         serviceSuggestedPrice: '1.0-99.0元/次',
-        serviceName: '图文咨询',
+        serviceName: '',
         serviceIconUrl:
-          'http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/O8PUbufKOX6vkmKZhHhNZ3nOQ4sWGrvK.png',
+          '',
         serviceMinPrice: 1.0,
         serviceUnit: 'UNIT_SECOND',
         serviceStatus: 1,
         serviceIntroduce:
-          '%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E',
-        serviceId: '8ab2b2f563822d260163822d26fd0000',
+          '',
         serviceSort: 2,
-        roleNames: ['医生角色', '运营人员', '医生主任'],
+        roleNames: [],
         createDate: '2018-05-21 18:09:47'
       }
       this.$message({
@@ -629,23 +628,23 @@ export default {
       this.addTable = {
         //重置新增数据为空
         serviceType: 'ITEM_PLATFORM_SERVICE',
-        serviceDesc: '平台服务-图文咨询',
+        serviceDesc: '',
         itemType: 'ITEM_SERVICE_TYPE',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
         serviceRole: '4,29,30',
         serviceSuggestedPrice: '1.0-99.0元/次',
-        serviceName: '图文咨询',
+        serviceName: '',
         serviceIconUrl:
-          'http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/O8PUbufKOX6vkmKZhHhNZ3nOQ4sWGrvK.png',
+          '',
         serviceMinPrice: 1.0,
         serviceUnit: 'UNIT_SECOND',
         serviceStatus: 1,
         serviceIntroduce:
-          '%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E',
+          '',
         serviceId: '8ab2b2f563822d260163822d26fd0000',
         serviceSort: 2,
-        roleNames: ['医生角色', '运营人员', '医生主任'],
+        roleNames: [],
         createDate: '2018-05-21 18:09:47'
       }
       this.dialogAddVisible = false
