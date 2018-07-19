@@ -163,11 +163,6 @@
           <el-button size="small" type="primary" @click="doRefuseFn">确定</el-button>
         </div>
       </el-dialog>
-
-
-
-
-
     </div>
   </div>
 
@@ -176,6 +171,8 @@
 import headerTop from '@/components/headTop.vue';
 import report from '@/components/report.vue';
 import { mapGetters } from "vuex";
+import {getStore} from "@/config/mUtils.js";
+
 import { getOrderChangeRecord,reportDetail,agreeRefuse,refuseList,ERR_OK } from "@/api/api.js";
 export default {
   data() {
@@ -215,7 +212,8 @@ export default {
         allDiscountAmount: this.orderInfo.allDiscountAmount,
         totalPrice:this.orderInfo.totalPrice
       };
-      this.payList[0]=obj;
+      this.payList.length=0;
+      this.payList.push(obj);
     },
 
     //点击显示体检报告详情
@@ -275,13 +273,14 @@ export default {
       this.refuse.isShowDialog=true;
     },
 
+    //执行拒绝动作
     doRefuseFn(){
       var ids = [];
       ids.push(this.orderInfo.insOrderRefundId);
       var params = {
         insOrderRefundIds: ids,
         refundStatus: 3,
-        userId:1,
+        userId:JSON.parse(getStore("userMesage")).userId,
         refuseReason: this.refuse.refuseReason
       };
       refuseList(params).then(res => {
@@ -297,7 +296,7 @@ export default {
         }
       })
     },
-    
+
     //获取订单变更列表
     getOrderChanges: function () {
       var params = {
