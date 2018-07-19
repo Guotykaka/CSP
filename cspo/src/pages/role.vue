@@ -4,16 +4,25 @@
     <div class="page-container">
       <el-header height="30">
 
-        <el-row :gutter="20" class="m_b_15">
+        <!-- <el-row :gutter="20" class="m_b_15">
           <el-col :span="6" class="minwidth">
-            <el-input v-model="searchParams.roleName" placeholder="用户名" @keyup.enter.native="doSearche()"></el-input>
+            <el-input v-model="searchParams.roleName" placeholder="用户名" @keyup.enter.native="doSearche()" clearable></el-input>
           </el-col>
 
           <el-col :span="6" class="minwidth">
             <el-button type="primary" @click="doSearche()">查询</el-button>
             <el-button type="primary" @click="handleAdd()">新增</el-button>
           </el-col>
-        </el-row>
+        </el-row> -->
+        <el-form :model="searchParams" class="demo-form-inline">
+        <el-form-item label="角色名称：">
+          <el-col :span="6">
+          <el-input v-model="searchParams.roleName" placeholder="" @keyup.enter.native="doSearch()" clearable></el-input>
+          </el-col>
+          <el-button type="primary" @click="doSearch()" class="m_l_15">查询</el-button>
+          <el-button type="primary" @click="handleAdd()">新增</el-button>
+        </el-form-item>
+      </el-form>
       </el-header>
       <el-main>
         <!-- 修改 -->
@@ -35,16 +44,17 @@
               </el-col>
             </el-form-item>
             <el-form-item label="角色类别:" :label-width="formLabelWidth">
-              <template>
-                <el-checkbox-group v-model="editTable.roleType">
-                  <el-checkbox label="运营端"  @change="colType()"></el-checkbox>
-                  <el-checkbox label="医生端"  @change="colType()"></el-checkbox>
-                  <el-checkbox label="企业端"  @change="colType()"></el-checkbox>
+              <template :model="sysRoleMenuListVOList">
+                <!-- <el-checkbox-group v-model="sysRoleMenuListVOList.roleType"> -->
+                <el-checkbox-group v-model="sysRoleMenuListVOList.category">
+                  <el-checkbox label= "0"  @change="colType1()">运营端</el-checkbox>
+                  <el-checkbox label= "1"  @change="colType()">医生端</el-checkbox>
+                  <el-checkbox label= "2"  @change="colType()">企业端</el-checkbox>
                 </el-checkbox-group>
               </template>
             </el-form-item>
-            <el-form-item label="功能权限:" :label-width="formLabelWidth">
-              <el-row :gutter="20">
+            <el-form-item label="功能权限:" :label-width="formLabelWidth"  v-model="sysRoleMenuListVOList">
+              <!-- <el-row :gutter="20">
                 <template v-if="editTable.roleType === '1'||editTable.roleType === '1,2'||editTable.roleType === '1,3'||editTable.roleType === '1,2,3'">
                   <el-col :span="5">
                     <el-select v-model="editTable.purview" clearable placeholder="请选择1">
@@ -69,7 +79,16 @@
                     </el-select>
                   </el-col>
                 </template>
-              </el-row>
+              </el-row> -->
+              <el-tree
+                :data="data2"
+                show-checkbox
+                default-expand-all
+                node-key="id"
+                ref="tree"
+                highlight-current
+                :props="tree">
+              </el-tree>
             </el-form-item>
           </el-form>
           <div slot="footer" class="dialog-footer">
@@ -171,7 +190,7 @@
 
 
 <script>
-import { getListWithNoParam,PostUpdateRole,PostDeleteRole,PostSaveRole,getListRole } from '@/api/api.js'
+import { getListWithNoParam,PostUpdateRole,PostDeleteRole,PostSaveRole,getListRole,getRoleInfo } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -179,9 +198,46 @@ export default {
   },
   data() {
     return {
+      tree:[],
+      data2: [{
+          id: 1,
+          label: '一级 1',
+          children: [{
+            id: 4,
+            label: '二级 1-1',
+            children: [{
+              id: 9,
+              label: '三级 1-1-1'
+            }, {
+              id: 10,
+              label: '三级 1-1-2'
+            }]
+          }]
+        }, {
+          id: 2,
+          label: '一级 2',
+          children: [{
+            id: 5,
+            label: '二级 2-1'
+          }, {
+            id: 6,
+            label: '二级 2-2'
+          }]
+        }, {
+          id: 3,
+          label: '一级 3',
+          children: [{
+            id: 7,
+            label: '二级 3-1'
+          }, {
+            id: 8,
+            label: '二级 3-2'
+          }]
+        }],
       searchParams: { roleName: '', },
       dateNw: Date.parse(new Date()),
       params: { timespan : this.dateNw, },
+      sysRoleMenuListVOList : {},//详情中的树状列表
       formInline: { valueSS: '' },
       currentPage: 1, //分页初始页码
       pagesize: 30, //分页初始显示条数
@@ -224,6 +280,9 @@ export default {
       })
     },
     colType() {
+      console.log(JSON.stringify(this.editTable.roleType))
+    },
+    colType1() {
       console.log(JSON.stringify(this.editTable.roleType))
     },
     handleSizeChange: function(size) {
@@ -311,16 +370,20 @@ export default {
     },
     // 修改
     handleEdit(index, row) {
+      let params = {
+        id: row.roleId,
+      }
+      getRoleInfo(params).then(response => {
+        this.editTable = response.data.sysRoleEntity
+        this.sysRoleMenuListVOList = response.data.sysRoleMenuListVOList[0]
+        this.sysRoleMenuListVOList.category = [String(this.sysRoleMenuListVOList.category)]
+        console.log(this.editTable)
+        console.log(this.sysRoleMenuListVOList,"2")
+      })
       this.inde = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
       this.editTableRoot = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
-      this.editTable = row //复制单列数据
+      // this.editTable = row //复制单列数据
       this.dialogEditVisible = true
-      // console.log(this.editTable)
-      // console.log(this.editTable.roleType)
-      // console.log(typeof(this.editTable.roleType))
-      // this.editTable.roleType = this.editTable.roleType.split(',')
-      // console.log(this.editTable.roleType)
-      // console.log(typeof(this.editTable.roleType))
     },
     //确定修改
     _doHandleEdit() {
@@ -428,5 +491,8 @@ export default {
 }
 .minwidth {
   min-width: 200px;
+}
+.m_l_15{
+  margin-left: 15px;
 }
 </style>

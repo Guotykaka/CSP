@@ -8,7 +8,7 @@
             <el-header height="30">
               <el-row :gutter="20" class="m_b_15">
                 <el-col :span="6" class="minwidth">
-                  <el-input v-model="searchParams.username" placeholder="用户名" @keyup.enter.native="doSearche()"></el-input>
+                  <el-input v-model="searchParams.username" placeholder="用户名" @keyup.enter.native="doSearche()" clearable></el-input>
                 </el-col>
                 <el-col :span="6" class="minwidth">
                   <el-button type="primary" @click="doSearche()">查询</el-button>
@@ -87,7 +87,7 @@
             <el-header height="30">
               <el-row :gutter="20" class="m_b_15">
                 <el-col :span="6" class="minwidth">
-                  <el-input v-model="searchParams2.username" placeholder="用户名" @keyup.enter.native="doSearche2()"></el-input>
+                  <el-input v-model="searchParams2.username" placeholder="用户名" @keyup.enter.native="doSearche2()" clearable></el-input>
                 </el-col>
                 <el-col :span="6" class="minwidth">
                   <el-button type="primary" @click="doSearche2()">查询</el-button>
@@ -297,6 +297,7 @@ export default {
     _doAdd() {
       let params = {
         messageTemplateContent: this.addTable.messageTemplateContent,
+        messageTemplateId: 0,
         messageTemplateName: this.addTable.messageTemplateName,
         messageTemplateState: this.addTable.messageTemplateState,
         messageTemplateType: this.addTable.messageTemplateType,

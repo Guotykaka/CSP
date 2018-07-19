@@ -4,14 +4,14 @@
     <div class="page-container">
       <el-header height="30">
         <el-form :model="searchParams" class="demo-form-inline">
-        <el-form-item label="姓名">
-          <el-col :span="6">
-          <el-input v-model="searchParams.username" placeholder="用户名" @keyup.enter.native="doSearch()"></el-input>
-          </el-col>
-          <el-button type="primary" @click="doSearch()" class="m_l_15">查询</el-button>
-          <el-button type="primary" @click="handleAdd()">新增</el-button>
-        </el-form-item>
-      </el-form>
+          <el-form-item label="用户名：">
+            <el-col :span="6">
+              <el-input v-model="searchParams.username" placeholder="" @keyup.enter.native="doSearch()" clearable></el-input>
+            </el-col>
+            <el-button type="primary" @click="doSearch()" class="m_l_15">查询</el-button>
+            <el-button type="primary" @click="handleAdd()">新增</el-button>
+          </el-form-item>
+        </el-form>
 
       </el-header>
       <el-main>
@@ -20,33 +20,28 @@
           <el-form :model="editTable">
             <el-form-item class="is-required" label="用户名:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="editTable.username" auto-complete="off" el></el-input>
+                <el-input v-model="editTable.username" auto-complete="off" el clearable></el-input>
               </el-col>
             </el-form-item>
             <el-form-item class="is-required" label="密码:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="editTable.password" auto-complete="off" placeholder="密码" el></el-input>
+                <el-input v-model="editTable.password" auto-complete="off" placeholder="密码" el clearable></el-input>
               </el-col>
             </el-form-item>
             <el-form-item class="is-required" label="邮箱:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="editTable.email" auto-complete="off" el></el-input>
+                <el-input v-model="editTable.email" auto-complete="off" el clearable></el-input>
               </el-col>
             </el-form-item>
             <el-form-item class="is-required" label="手机号:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="editTable.mobile" auto-complete="off" el></el-input>
+                <el-input v-model="editTable.mobile" auto-complete="off" el clearable></el-input>
               </el-col>
             </el-form-item>
-            <!-- <el-form-item class="is-required" label="所属部门:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-input v-model="editTable.deptName" auto-complete="off" el></el-input>
-              </el-col>
-            </el-form-item> -->
             <el-form-item label="角色:" :label-width="formLabelWidth">
               <template>
                 <el-col :span="16">
-                  <el-checkbox-group v-model="editTable.roleIdList" :change="chanbox()">
+                  <el-checkbox-group v-model="editTable.roleIdList">
                     <el-checkbox v-for="(item,index) in roleList" :label="item.roleId" :key="index">{{item.roleName}}</el-checkbox>
                   </el-checkbox-group>
                 </el-col>
@@ -83,24 +78,20 @@
                 <el-input v-model="selectTable.mobile" auto-complete="off" el readonly></el-input>
               </el-col>
             </el-form-item>
-            <!-- <el-form-item label="所属部门:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-input v-model="selectTable.deptName" auto-complete="off" el readonly></el-input>
-              </el-col>
-            </el-form-item> -->
+
             <el-form-item label="角色:" :label-width="formLabelWidth">
-               <template>
+              <template>
                 <el-col :span="16">
-                  <el-checkbox-group v-model="selectTable.roleIdList" :change="chanbox()">
-                    <el-checkbox v-for="(item,index) in roleList" :label="item.roleId" :key="index"  onclick="return false">{{item.roleName}}</el-checkbox>
+                  <el-checkbox-group v-model="selectTable.roleIdList">
+                    <el-checkbox v-for="(item,index) in roleList" :label="item.roleId" :key="index" onclick="return false">{{item.roleName}}</el-checkbox>
                   </el-checkbox-group>
                 </el-col>
               </template>
             </el-form-item>
             <el-form-item label="状态:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-radio v-model="selectTable.status" label= '0' onclick="return false">禁用</el-radio>
-                <el-radio v-model="selectTable.status" label= '1' onclick="return false">正常</el-radio>
+                <el-radio v-model="selectTable.status" label='0' onclick="return false">禁用</el-radio>
+                <el-radio v-model="selectTable.status" label='1' onclick="return false">正常</el-radio>
               </template>
             </el-form-item>
           </el-form>
@@ -132,15 +123,10 @@
                 <el-input v-model="addTable.mobile" auto-complete="off" el></el-input>
               </el-col>
             </el-form-item>
-            <!-- <el-form-item label="所属部门:" :label-width="formLabelWidth">
-              <el-col :span="16">
-                <el-input v-model="addTable.deptName" auto-complete="off" el></el-input>
-              </el-col>
-            </el-form-item> -->
             <el-form-item label="角色:" :label-width="formLabelWidth">
               <template>
                 <el-col :span="16">
-                  <el-checkbox-group v-model="addTable.roleIdList" :change="chanbox()">
+                  <el-checkbox-group v-model="addTable.roleIdList">
                     <el-checkbox v-for="(item,index) in roleList" :label="item.roleId" :key="index">{{item.roleName}}</el-checkbox>
                   </el-checkbox-group>
                 </el-col>
@@ -163,7 +149,6 @@
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
             <el-table-column show-overflow-tooltip align="center" prop="userId" type="index" label="Id" min-width="25%"></el-table-column>
             <el-table-column show-overflow-tooltip align="center" prop="username" label="用户名" min-width="50%"></el-table-column>
-            <!-- <el-table-column show-overflow-tooltip align="center" prop="deptName" label="所属部门"></el-table-column> -->
             <el-table-column show-overflow-tooltip align="center" prop="email" label="邮箱"></el-table-column>
             <el-table-column show-overflow-tooltip align="center" prop="mobile" label="手机号"></el-table-column>
             <el-table-column align="center" label="状态">
@@ -190,7 +175,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10,30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10,30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </template>
           </el-col>
@@ -219,8 +204,8 @@ export default {
   },
   data() {
     return {
-      searchParams: { username: '', },
-      totalCount:0,
+      searchParams: { username: '' },
+      totalCount: 0,
       currentPage: 1, //分页初始页码
       pagesize: 10, //分页初始显示条数
       tableData: [], //列表数据
@@ -252,13 +237,11 @@ export default {
   },
   methods: {
     doSearch() {
-      let date = Date.parse(new Date())
       let params = {
         currentPage: 1,
         pageSize: 10,
         userType: '',
-        username: this.searchParams.username,
-        timespan: date
+        username: this.searchParams.username
       }
       getUserList(params).then(response => {
         this.tableData = []
@@ -291,7 +274,7 @@ export default {
         username: this.addTable.username
       }
       postUserSave(params).then(response => {
-        this.$alert(response.msg)
+        this.$alert('新增成功!')
         if (response.code == 1) {
           this.addTable = {
             userId: null,
@@ -307,11 +290,11 @@ export default {
             deptName: '',
             userType: 0
           }
+          this.getUser()
+        } else {
+          this.$alert(response.msg)
         }
-        
       })
-      this.tableData.push(this.addTable)
-      this.getUser()
       this.dialogAddVisible = false
     },
     //取消新增
@@ -336,11 +319,12 @@ export default {
         type: 'warning',
         message: '取消新增'
       })
+      this.getUser()
     },
     // 查看
     handleCheck(index, row) {
       let params = {
-        id: row.userId,
+        id: row.userId
       }
       getUserInfo(params).then(response => {
         this.selectTable = response.data
@@ -350,44 +334,37 @@ export default {
     },
     //获取角色复选框
     getRoleList() {
-      let date = Date.parse(new Date())
-      let params = {
-        timespan: date
-      }
+      let params = {}
       getListWithNoParam(params).then(response => {
         this.roleList = []
         this.roleList = response.data
       })
     },
-    chanbox() {
-      // console.log(this.editTable.roleIdList)
-    },
     // 修改
     handleEdit(index, row) {
       let params = {
-        id: row.userId,
+        id: row.userId
       }
       getUserInfo(params).then(response => {
         this.editTable = response.data
-        this.selectTable.status = String(this.selectTable.status)
+        this.editTable.status = String(this.editTable.status)
       })
-      // this.inde = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
-      // row.status = String(row.status)
-      // row.roleIdList = [row.roleIdList]
-      // this.editTableRoot = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
-      // this.editTable = row //复制单列数据
-      this.dialogEditVisible = true
-      // console.log(this.editTable.roleIdList, '2')
-      // console.log(typeof(this.editTable.roleIdList))
+      
+      setTimeout(() => {
+        this.dialogEditVisible = true
+      }, 100);
     },
     //确定修改
     _doHandleEdit() {
+      let str = ""
+      str = Number.parseInt(this.editTable.status)
+      this.editTable.status = str
       let params = {
         deptId: this.editTable.deptId,
         // deptName: this.editTable.deptName,
         email: this.editTable.email,
         mobile: this.editTable.mobile,
-        password: "123456",
+        password: '123456',
         roleIdList: this.editTable.roleIdList,
         status: this.editTable.status,
         userId: this.editTable.userId,
@@ -404,14 +381,14 @@ export default {
         }
       })
       this.dialogEditVisible = false
-      // this.getUser()
-      // console.log(this.editTable.deptName)
     },
     //取消修改
     _doCancel() {
-      this.tableData.splice(this.inde, 1, this.editTableRoot) //删除修改的数据并替换为原始数据
+      this.$message({
+        type: 'warning',
+        message: '取消修改'
+      })
       this.dialogEditVisible = false
-      this.$alert('取消修改')
     },
     // 删除提示
     deleteMessage(index, row) {
@@ -422,18 +399,17 @@ export default {
         center: true
       })
         .then(() => {
-          let date = Date.parse(new Date())
           let params = {
-            ids: [row.userId],
-            timespan: date
+            ids: [row.userId]
           }
           postUserDelete(params).then(response => {
-            this.$alert(response.msg)
+            if ((response.code = 1)) {
+              this.$alert('删除成功！')
+            } else {
+              this.$alert(response.msg)
+            }
+            this.getUser()
           })
-          this.tableData.splice(
-            index + (this.currentPage - 1) * this.pagesize,
-            1
-          ) //删除
         })
         .catch(() => {
           this.$message({
@@ -451,18 +427,16 @@ export default {
         center: true
       })
         .then(() => {
-          let date = Date.parse(new Date())
           let params = {
-            id: row.userId,
-            timespan: date
+            id: row.userId
           }
           postDoctorResetPassword(params).then(response => {
-            this.$alert(response.msg)
-            if (response.msg == '操作成功') {
-              this.tableData[
-                index + (this.currentPage - 1) * this.pagesize
-              ].password = null //给密码赋值为空
+            if (response.code == 1) {
+              this.$alert('已重置密码')
+            } else {
+              this.$alert(response.msg)
             }
+            this.getUser()
           })
         })
         .catch(() => {
@@ -474,13 +448,11 @@ export default {
     },
     //获取用户列表
     getUser() {
-      let date = Date.parse(new Date())
       let params = {
         currentPage: 1,
         pageSize: 1000,
         userType: '',
-        username: '',
-        timespan: date
+        username: ''
       }
       getUserList(params).then(response => {
         this.tableData = []
@@ -503,7 +475,7 @@ export default {
 .el-checkbox {
   margin-left: 20px;
 }
-.m_l_15{
+.m_l_15 {
   margin-left: 15px;
 }
 </style>

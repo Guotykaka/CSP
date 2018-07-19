@@ -4,21 +4,21 @@
     <div class="page-container">
 
       <!-- 服务页面 -->
-      <div v-show="!GoodsManVisible">
+      <div>
         <el-header height="30">
           <!-- 操作行-->
           <el-row :gutter="20">
             <el-col :span="6">
-              <el-input v-model="formInline.valueBT" placeholder="服务名称" clearable></el-input>
+              <el-input v-model="searchParams.name" placeholder="服务名称" clearable></el-input>
             </el-col>
             <el-col :span="6">
-              <el-select v-model="formInline.valueLX" clearable placeholder="请选择角色">
-                <el-option v-for="item in RoleData" :key="item.roleId" :label="item.roleName" :value="item.roleId">
+              <el-select v-model="searchParams.role" clearable placeholder="请选择角色">
+                <el-option v-for="item in RoleList" :key="item.roleId" :label="item.roleName" :value="item.roleId">
                 </el-option>
               </el-select>
             </el-col>
             <el-col :span="6">
-              <el-button type="primary">搜索</el-button>
+              <el-button type="primary" @click="doSearch()">搜索</el-button>
             </el-col>
           </el-row>
           <!--新增按钮-->
@@ -55,7 +55,7 @@
                   <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
                   <el-button size="mini" type="danger" v-if="scope.row.serviceStatus === 1" @click="FalseStatus(scope.$index, scope.row)">不可用</el-button>
                   <el-button size="mini" type="success" v-if="scope.row.serviceStatus === 0" @click="TrueStatus(scope.$index, scope.row)">可用</el-button>
-                  <el-button size="mini" type="warning" v-if="scope.row.YYTstatus === 1" @click="GoodsMan()">商品管理</el-button>
+                  <el-button size="mini" type="warning" v-if="scope.row.serviceId === '8ab2b2f364a762fd0164a762fd500000'" @click="GoodsMan()">商品管理</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -63,7 +63,7 @@
 
         </el-main>
 
-        <el-footer height="30px" v-show="!GoodsManVisible">
+        <el-footer height="30px">
           <el-row style="margin-top: 2%;">
             <el-col :span="24" :offset="8">
               <template>
@@ -75,91 +75,9 @@
         </el-footer>
       </div>
 
-      <!-- 一元厅商品管理页面 -->
-      <div v-show="GoodsManVisible">
-        <el-header height="30">
-          <!-- 操作行-->
-          <el-row :gutter="20">
-            <el-col :span="6">
-              <el-input v-model="formInline.valueBT" placeholder="服务名称" clearable></el-input>
-            </el-col>
-            <el-col :span="6">
-              <el-select v-model="formInline.valueLX" clearable placeholder="请选择角色">
-                <el-option v-for="item in RoleData" :key="item.roleId" :label="item.roleName" :value="item.roleId">
-                </el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="6">
-              <el-button type="primary">搜索</el-button>
-            </el-col>
-          </el-row>
-          <!--一元厅新增按钮-->
-          <el-row class="m_b_15">
-            <el-button type="primary" @click="handleAdd_YYT()">新增</el-button>
-          </el-row>
-
-        </el-header>
-
-        <el-main>
-          <el-table :data="tableData_YYT.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
-            <el-table-column align="center" prop="goodCode" label="商品编号"></el-table-column>
-            <el-table-column align="center" prop="firstType" label="商品一级分类"></el-table-column>
-            <el-table-column align="center" prop="secondType" label="商品二级分类"></el-table-column>
-            <el-table-column align="center" prop="goodsName" label="商品名称"></el-table-column>
-            <el-table-column align="center" prop="goodsWords" label="商品文案" show-overflow-tooltip></el-table-column>
-            <el-table-column align="center" label="商品状态" width="100">
-              <template slot-scope="scope">
-                <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.goodsStatus === 1">下架</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.goodsStatus === 0">上架</el-tag>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="YYTgoods" label="绑定商品"></el-table-column>
-            <el-table-column align="center" label="建议价格">
-              <template slot-scope="scope">
-                <p>￥{{ scope.row.goodsPrice}}</p>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="createDate" label="音频" width="100">
-              <template slot-scope="scope">
-                <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="success" v-if="scope.row.audioStatus === 1">已添加</el-tag>
-                  <el-tag size="medium" type="danger" v-if="scope.row.audioStatus === 0">未添加</el-tag>
-                </div>
-              </template>
-            </el-table-column>
-            <el-table-column align="center" prop="createDate" label="创建时间"></el-table-column>
-            <el-table-column label="操作" width="290">
-                <template slot-scope="scope">
-                  <el-button size="mini" type="danger" v-if="scope.row.goodsStatus === 1" @click="FalseStatus_YYT(scope.$index, scope.row)">上架</el-button>
-                  <el-button size="mini" type="success" v-if="scope.row.goodsStatus === 0" @click="TrueStatus_YYT(scope.$index, scope.row)">下架</el-button>
-                  <el-button size="mini" type="primary" @click="handleEdit_YYT(scope.$index, scope.row)">修改</el-button>
-                  <el-button size="mini" type="danger" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
-                  
-                </template>
-            </el-table-column>
-          </el-table>
-        </el-main>
-
-        <el-footer height="30px" v-show="GoodsManVisible">
-          <el-row style="margin-top: 2%;">
-            <el-col :span="24" :offset="8">
-              <template>
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length">
-                </el-pagination>
-              </template>
-            </el-col>
-          </el-row>
-          <el-button type="warning" @click="GoodsManVisible=false">返回</el-button>
-          
-        </el-footer>
-      </div>
-
-
 
       <!-- 修改弹窗 -->
-      <el-dialog title="修改" :visible.sync="dialogEditVisible" width=60%>
+      <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
 
         <el-form :model="editTable">
           <el-form-item class="is-required" label="服务名称:" :label-width="formLabelWidth">
@@ -204,27 +122,27 @@
           </el-form-item>
           <el-form-item class="is-required" label="服务ICON:" :label-width="formLabelWidth">
             <el-col :span="3">
-              <el-upload class="upload-demo" action="editTable.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
+              <el-upload class="upload-demo" action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="onsuccess"  :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
               </el-upload>
             </el-col>
             <el-col :span="5" :offset="4">
-              <div v-show="dialogVisible">
+              <div v-show="editTable.serviceIconUrl">
                 <img :src="editTable.serviceIconUrl" style="width: 370px;height: 200px;">
               </div>
             </el-col>
           </el-form-item>
-          <el-form-item class="is-required" label="接收端:" :label-width="formLabelWidth">
+          <el-form-item class="is-required" label="服务角色:" :label-width="formLabelWidth">
             <template slot-scope="scope">
-              <el-checkbox-group v-model="editTable.roleNames">
-                <el-checkbox v-for="(item,index) in RoleData" :label="item.roleName" :key="item.roleId"></el-checkbox>
+              <el-checkbox-group v-model="editTable.serviceRole">
+                <el-checkbox v-for="(item,index) in RoleList" :label="item.roleId" :key="index">{{item.roleName}}</el-checkbox>
               </el-checkbox-group>
             </template>
           </el-form-item>
           <el-form-item class="is-required" label="服务介绍" :label-width="formLabelWidth">
             <el-col :span="16">
-              <el-input v-model="editTable.roleNames"></el-input>
+              <el-input class="selector"  type="textarea" v-html="editTable.serviceIntroduce"></el-input>
             </el-col>
           </el-form-item>
         </el-form>
@@ -279,27 +197,27 @@
           </el-form-item>
           <el-form-item class="is-required2" label="服务ICON:" :label-width="formLabelWidth">
             <el-col :span="3">
-              <el-upload class="upload-demo" action="addTable.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
+              <el-upload class="upload-demo" action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="onsuccess"  :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
               </el-upload>
             </el-col>
             <el-col :span="5" :offset="4">
-              <div v-show="dialogVisible">
-                <img :src="dialogImageUrl" style="width: 370px;height: 200px;">
+              <div v-show="addTable.serviceIconUrl">
+                <img :src="addTable.serviceIconUrl" style="width: 370px;height: 200px;">
               </div>
             </el-col>
           </el-form-item>
-          <el-form-item class="is-required2" label="接收端:" :label-width="formLabelWidth">
+          <el-form-item class="is-required2" label="服务角色:" :label-width="formLabelWidth">
             <template slot-scope="scope">
-              <el-checkbox-group v-model="addTable.roleNames">
-                <el-checkbox v-for="(item,index) in RoleData" :label="item.roleName" :key="item.roleId"></el-checkbox>
+              <el-checkbox-group v-model="addTable.serviceRole">
+                <el-checkbox v-for="(item,index) in RoleList" :label="item.roleId" :key="index">{{item.roleName}}</el-checkbox>
               </el-checkbox-group>
             </template>
           </el-form-item>
           <el-form-item class="is-required2" label="服务介绍" :label-width="formLabelWidth">
             <el-col :span="16">
-              <el-input v-model="addTable.roleNames"></el-input>
+              <el-input v-model="addTable.serviceIntroduce"></el-input>
             </el-col>
           </el-form-item>
         </el-form>
@@ -309,109 +227,6 @@
         </div>
       </el-dialog>
 
-      <!-- 一元厅修改弹窗 -->
-      <el-dialog title="修改" :visible.sync="dialogEditVisible_YYT" width=40%>
-
-        <el-form :model="editTable_YYT">
-          <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
-            <el-col :span="16">
-              <el-input v-model="editTable_YYT.goodsName" prop auto-complete="off" el></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item class="is-required2" label="绑定医生"  :label-width="formLabelWidth2">
-            <template slot-scope="scope">
-            <el-col :span="16">
-              <el-select v-model="editTable_YYT.doctor" clearable placeholder="请绑定医生">
-                <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-col>
-            </template>
-          </el-form-item>
-          <el-form-item class="is-required2" label="商品文件" :label-width="formLabelWidth2">
-            <el-col :span="3">
-              <el-upload class="upload-demo" action="editTable_YYT.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
-              </el-upload>
-            </el-col>
-          </el-form-item>
-          
-          <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
-            <el-col :span="16">
-              <el-input v-model="editTable_YYT.AbnormalKeywords"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="相关指标" :label-width="formLabelWidth2">
-            <el-col :span="16">
-              <el-input v-model="editTable_YYT.AbnormalKeywords"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
-            <el-col :span="16">
-              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="editTable_YYT.goodsCopywriting"></el-input>
-            </el-col>
-            <el-col :span="4" class="wordsnum">50字内</el-col>
-            
-          </el-form-item>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-          <el-button type="warning" @click="_doCancel_YYT()">取消</el-button>
-          <el-button type="primary" @click="_doHandleEdit_YYT()">保存</el-button>
-        </div>
-      </el-dialog>
-
-      <!-- 一元厅新增弹窗 -->
-      <el-dialog title="新增" :visible.sync="dialogAddVisible_YYT" width=40%>
-       <el-form :model="addTable_YYT">
-          <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
-            <el-col :span="16">
-              <el-input v-model="addTable_YYT.goodsName" prop auto-complete="off" el></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item class="is-required2" label="绑定医生"  :label-width="formLabelWidth2">
-            <template slot-scope="scope">
-            <el-col :span="16">
-              <el-select v-model="addTable_YYT.doctor" clearable placeholder="请绑定医生">
-                <el-option v-for="item in DoctorData" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-col>
-            </template>
-          </el-form-item>
-          <el-form-item class="is-required2" label="商品文件" :label-width="formLabelWidth2">
-            <el-col :span="3">
-              <el-upload class="upload-demo" action="addTable_YYT.qrCodeUrl" :on-preview="handlePreview" :on-remove="handleRemove" :before-remove="beforeRemove" :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
-                <el-button size="small" type="primary">点击上传</el-button>
-                <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
-              </el-upload>
-            </el-col>
-          </el-form-item>
-          
-          <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
-            <el-col :span="16">
-              <el-input v-model="addTable_YYT.AbnormalKeywords"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item label="相关指标" :label-width="formLabelWidth2">
-            <el-col :span="16">
-              <el-input v-model="addTable_YYT.AbnormalKeywords"></el-input>
-            </el-col>
-          </el-form-item>
-          <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
-            <el-col :span="16">
-              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="addTable_YYT.goodsCopywriting"></el-input>
-            </el-col>
-            <el-col :span="4" class="wordsnum">50字内</el-col>
-          </el-form-item>
-        </el-form>
-
-        <div slot="footer" class="dialog-footer">
-          <el-button type="warning" @click="_doAddCancel_YYT()">取消</el-button>
-          <el-button type="primary" @click="_doAdd_YYT()">保存</el-button>
-        </div>
-      </el-dialog>
     </div>
   </div>
 
@@ -419,7 +234,8 @@
 
 
 <script>
-import { getUserlistData } from '@/api/getData.js'
+import { GetServiceList,PostServiceStatus,PostServiceUpdate,getListWithNoParam } from '@/api/api.js'
+import { getStore } from '@/config/mUtils.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -427,6 +243,10 @@ export default {
   },
   data() {
     return {
+      AdminUserId: null,//userId
+      serviceIconUrl:"",//serviceIconUrl
+      RoleList: [],//角色列表
+      searchParams: { name: '',role: '' },
       dialogImageUrl:
         'http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/z5o5rqJqcKhbMXBNDTgG89AvrZG5eIK1.png',
       dialogVisible: true,
@@ -656,19 +476,19 @@ export default {
         itemType: 'ITEM_SERVICE_TYPE',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
-        serviceRole: '4,29,30',
+        serviceRole: [4,29,30],
         serviceSuggestedPrice: '1.0-99.0元/次',
         serviceName: '图文咨询',
         serviceIconUrl:
-          'http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/O8PUbufKOX6vkmKZhHhNZ3nOQ4sWGrvK.png',
+          '',
         serviceMinPrice: 1.0,
         serviceUnit: 'UNIT_SECOND',
         serviceStatus: 1,
         serviceIntroduce:
-          '%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E',
+          '测试',
         serviceId: '8ab2b2f563822d260163822d26fd0000',
         serviceSort: 2,
-        roleNames: ['医生角色', '运营人员', '医生主任'],
+        roleNames: [],
         createDate: '2018-05-21 18:09:47'
       }, //新增单个数据
       addTable_YYT: {
@@ -701,6 +521,19 @@ export default {
     }
   },
   methods: {
+    doSearch() {
+      let params = {
+            "currentPage": 1,
+            "pageSize": 1000,
+            "queryServiceName": this.searchParams.name,
+            "queryServiceRole": this.searchParams.role,
+      }
+      GetServiceList(params).then(response => {
+        this.tableData = []
+        this.tableData = response.data.list
+        this.totalCount = response.data.totalCount
+      })
+    },
     // 上传方法
     handleRemove(file, fileList) {
       console.log(file, fileList)
@@ -717,18 +550,11 @@ export default {
         } 个文件，共选择了 ${files.length + fileList.length} 个文件`
       )
     },
-    beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`)
-    },
-    handleReset() {
-      //重置按钮
-      this.formInline.valueCJR = ''
-      this.formInline.valueBT = ''
-      this.formInline.valueLX = ''
-      this.formInline.valueZT = ''
-      this.formInline.valueKS = ''
-      this.formInline.valueJS = ''
-      return false
+    onsuccess(response, file, fileList) {
+      this.$alert("上传成功!")
+      console.log(typeof(response))
+      console.log(response.data.src)
+      this.serviceIconUrl =response.data.src
     },
     handleSizeChange: function(size) {
       this.pagesize = size
@@ -803,30 +629,70 @@ export default {
         message: '取消新增'
       })
     },
-    // 查看
-    handleCheck(index, row) {
-      this.selectTable = row
-      this.dialogCheckVisible = true
+    GoodsMan() {
+      this.$router.push("listenList")
     },
     // 修改
     handleEdit(index, row) {
+      let Arr =[]
+      let code = ""
+      row.serviceRole = row.serviceRole.split(',')
+      for (var i = 0; i < row.serviceRole.length; i++) {
+          Arr.push(Number.parseInt(row.serviceRole[i]));
+      }
+      row.serviceRole = []
+      row.serviceRole = Arr//转换数组类型从string为整数
+      
+      code = decodeURIComponent(row.serviceIntroduce)
+      row.serviceIntroduce = ""
+      row.serviceIntroduce = code
+      console.log(row.serviceIntroduce)
       this.inde = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
       this.editTableRoot = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
       this.editTable = row //复制单列数据
+      // this.editTable.serviceRole =this.editTable.serviceRole.split(',')
+      console.log(typeof(this.editTable.serviceRole),"type1")
+      console.log(this.editTable.serviceRole)
       this.dialogEditVisible = true
+      
     },
     //确定修改
     _doHandleEdit() {
-      this.dialogEditVisible = false
-      this.$message({
-        type: 'success',
-        message: '修改成功!'
+      let Str = ""
+      Str = this.editTable.serviceRole.join(',')
+      this.editTable.serviceRole = Str
+      console.log(typeof(this.editTable.serviceRole),"type2")
+      console.log(this.editTable.serviceRole)
+      let params ={
+          "itemType": this.editTable.itemType,
+          "serviceDesc": this.editTable.serviceDesc,
+          "serviceIconUrl": this.serviceIconUrl,
+          "serviceId": this.editTable.serviceId,
+          "serviceIntroduce": this.editTable.serviceIntroduce,
+          "serviceMaxPrice": this.editTable.serviceMaxPrice,
+          "serviceMinPrice": this.editTable.serviceMinPrice,
+          "serviceName": this.editTable.serviceName,
+          "serviceRole": this.editTable.serviceRole,
+          "serviceSort": this.editTable.serviceSort,
+          "serviceType": this.editTable.serviceType,
+          "serviceUnit": this.editTable.serviceUnit,
+          "userId": this.AdminUserId
+      }
+      PostServiceUpdate(params).then(response => {
+        this.$alert(response.msg)
+        this.getList()
       })
+      this.dialogEditVisible = false
     },
     //取消修改
     _doCancel() {
+      let Str = ""
+      Str = this.editTableRoot.serviceRole.join(',')
+      this.editTableRoot.serviceRole = Str
       this.tableData.splice(this.inde, 1, this.editTableRoot) //删除修改的数据并替换为原始数据
       this.dialogEditVisible = false
+      console.log(this.editTableRoot.serviceRole)
+      // this.getList()
       this.$message({
         type: 'warning',
         message: '取消修改'
@@ -866,13 +732,19 @@ export default {
         center: true
       })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '服务状态改为可用!'
+          let params = {
+            "serviceId": row.serviceId,
+            "serviceStatus": 1
+          }
+          PostServiceStatus(params).then(response => {
+            if (response.code = 1) {
+              this.$alert('成功!')
+              this.getList()
+            } else {
+              $alert(response.msg)
+              this.getList()
+            }
           })
-          this.tableData[
-            index + (this.currentPage - 1) * this.pagesize
-          ].serviceStatus = 1 //更改发布状态
         })
         .catch(() => {
           this.$message({
@@ -890,13 +762,19 @@ export default {
         center: true
       })
         .then(() => {
-          this.$message({
-            type: 'success',
-            message: '服务状态改为不可用!'
+          let params = {
+            "serviceId": row.serviceId,
+            "serviceStatus": 0
+          }
+          PostServiceStatus(params).then(response => {
+            if (response.code = 1) {
+              this.$alert('成功!')
+              this.getList()
+            } else {
+              $alert(response.msg)
+              this.getList()
+            }
           })
-          this.tableData[
-            index + (this.currentPage - 1) * this.pagesize
-          ].serviceStatus = 0 //更改发布状态
         })
         .catch(() => {
           this.$message({
@@ -905,172 +783,43 @@ export default {
           })
         })
     },
-    // 一元厅下架
-    TrueStatus_YYT(index, row) {
-      this.$confirm('确定下架?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        center: true
-      })
-        .then(() => {
-          this.$message({
-            type: 'success',
-            message: '已下架!'
-          })
-          this.tableData_YYT[
-            index + (this.currentPage - 1) * this.pagesize
-          ].goodsStatus = 1 //更改发布状态
-        })
-        .catch(() => {
-          this.$message({
-            type: 'warning ',
-            message: '已取消更改'
-          })
-        })
-    },
-    // 一元厅上架
-    FalseStatus_YYT(index, row) {
-      this.$confirm('确定上架?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
-        type: 'warning',
-        center: true
-      })
-        .then(() => {
-          this.$message({
-            type: 'success',
-            message: '已上架!'
-          })
-          this.tableData_YYT[
-            index + (this.currentPage - 1) * this.pagesize
-          ].goodsStatus = 0 //更改发布状态
-        })
-        .catch(() => {
-          this.$message({
-            type: 'warning ',
-            message: '已取消更改'
-          })
-        })
-    },
-    //一元厅商品管理页面
-    GoodsMan() {
-      // this.GoodsManVisible = true
-      this.$router.push("listenList");
-    },
-    // 一元厅修改
-    handleEdit_YYT(index, row) {
-      this.inde_YYT = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
-      this.editTableRoot_YYT = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
-      this.editTable_YYT = row //复制单列数据
-      this.dialogEditVisible_YYT = true
-    },
-    // 一元厅取消修改
-    _doCancel_YYT() {
-      this.tableData_YYT.splice(this.inde_YYT, 1, this.editTableRoot_YYT) //删除修改的数据并替换为原始数据
-      this.dialogEditVisible_YYT = false
-      this.$message({
-        type: 'warning',
-        message: '取消修改'
-      })
-    },
-    // 一元厅确定修改
-    _doHandleEdit_YYT() {
-      this.dialogEditVisible_YYT = false
-      this.$message({
-        type: 'success',
-        message: '修改成功!'
-      })
-    },
-     // 一元厅新增
-    handleAdd_YYT() {
-      this.dialogAddVisible_YYT = true
-    },
-    // 一元厅确定新增
-    _doAdd_YYT() {
-      this.tableData_YYT.push(this.addTable_YYT)
-      this.dialogAddVisible_YYT = false
-      this.addTable_YYT = {
-        "goodCode": 4231231,
-        "firstType": "服务",
-        "secondType": "一元听",
-        "goodsName": "",
-        "goodsWords": "",
-        "goodsStatus": 0,
-        "goodsPrice": 1,
-        "audioStatus": 1,
-        "serviceStatus": 1,
-        "YYTgoods": 43,
-        "YYTstatus": 1,
-        "doctor": 2,
-        "AbnormalKeywords": "",
-        "goodsCopywriting": "",
-        "createDate": "2018-05-21"
+    //获取列表
+    getList() {
+        let params = {
+            "currentPage": 1,
+            "pageSize": 1000,
+            "queryServiceName": "",
+            "queryServiceRole": "",
       }
-      this.$message({
-        type: 'success',
-        message: '新增服务成功!'
+      GetServiceList(params).then(response => {
+        this.tableData = []
+        this.tableData = response.data.list
+        this.totalCount = response.data.totalCount
+        console.log(this.tableData)
       })
+      let partthis = getStore('userMesage')
+      this.AdminUserId = JSON.parse(partthis).userId
     },
-    // 一元厅取消新增
-    _doAddCancel_YYT() {
-      this.addTable_YYT = {
-        //重置新增数据为空
-        "goodCode": 4231231,
-        "firstType": "服务",
-        "secondType": "一元听",
-        "goodsName": "",
-        "goodsWords": "",
-        "goodsStatus": 0,
-        "goodsPrice": 1,
-        "audioStatus": 1,
-        "serviceStatus": 1,
-        "YYTgoods": 43,
-        "YYTstatus": 1,
-        "doctor": 2,
-        "AbnormalKeywords": "",
-        "goodsCopywriting": "",
-        "createDate": "2018-05-21"
-      }
-      this.dialogAddVisible_YYT = false
-      this.$message({
-        type: 'warning',
-        message: '取消新增'
+    getRoleList() {//获取角色列表
+      let params = {
+        }
+      getListWithNoParam(params).then(response => {
+        this.RoleList = []
+        this.RoleList = response.data
       })
-    },
-    //获取用户列表
-    getNoticeList() {
-      this.$http
-        .post('http://localhost:8080/api/service_info')
-        .then(response => {
-          this.tableData = []
-          this.tableData = this.tableData.concat(response.data.data)
-          // response.data.data.forEach(item => {
-          //   const tableData = {}
-          //   tableData.username = item.username
-          //   this.tableData.push(tableData)
-          // })
-        })
-      this.$http
-        .post('http://localhost:8080/api/yiyuanting')
-        .then(response => {
-          this.tableData_YYT = []
-          this.tableData_YYT = this.tableData_YYT.concat(response.data.data)
-          // response.data.data.forEach(item => {
-          //   const tableData = {}
-          //   tableData.username = item.username
-          //   this.tableDataYYT.push(tableData)
-          // })
-        })
     }
   },
   created: function() {
-    this.getNoticeList()
+    this.getList()
+    this.getRoleList()
   }
 }
 </script>
 
 <style lang="less" scoped>
+.el-checkbox {
+  margin-left: 10px;
+}
 .dot {
   width: 100%;
 }
@@ -1112,6 +861,9 @@ export default {
       }
     }
   }
+}
+.selector img{
+    width: 150%;
 }
 </style>
 
