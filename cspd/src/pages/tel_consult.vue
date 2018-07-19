@@ -66,7 +66,6 @@
       </el-table-column>
     </el-table>
     <!--table 表单结束-->
-
     <div class="self-page-container">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
       </el-pagination>
@@ -76,7 +75,6 @@
     <el-dialog title="体检报告" :visible.sync="isShowReport" width="90%" custom-class="self-dialog">
       <report :reportData="reportData"></report>
     </el-dialog>
-
 
     <!--备注的dialog-->
     <el-dialog title="保存备注" :visible.sync="saveRemark.isShowDialog">
@@ -100,7 +98,6 @@
 
       </el-tabs>
     </el-dialog>
-
 
     <!--拒绝原因 dialog-->
     <el-dialog title="拒绝原因" :visible.sync="refuseData.isShowDialog">
@@ -137,12 +134,10 @@
 
   </div>
 </template>
-
 <script>
   import report from '@/components/report.vue';
   import {getStore} from "@/config/mUtils.js";
   import {ERR_OK, getTelService,callCustomer,getReportData,saveRemark,saveTelReport,getAudioList,getSMSTemplate,sendMsg} from '@/api/api';
-
   export default {
     data(){
       return{
@@ -161,7 +156,6 @@
           providerServiceUserId:JSON.parse(getStore("userMesage")).insDoctorId,
           userId:JSON.parse(getStore("userMesage")).userId,
           itemId:"",
-          //orderServiceStatus:0,
           providerServiceUserType:1,
           pageSize:10
         },
@@ -178,8 +172,6 @@
           cspOrderId:"",
           cspCustomId:""//增加的客户Id
         },
-
-
         //短信的内容
         msgData:{
           isShowDialog:false,
@@ -281,9 +273,6 @@
               message: '电话已拨通',
               type: 'success'
             });
-
-
-
           }else{
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',
@@ -319,9 +308,6 @@
                 this.getDataList();
               }
             })
-
-
-
           }else{
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',
@@ -448,9 +434,6 @@
             confirmButtonText: '确定',
           })
         });
-
-
-
       },
 
       //发送短信
@@ -472,15 +455,12 @@
                 this.getDataList();
               }
             })
-
           }else{
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',
             })
           }
         }).catch(err => {
-
-          console.log(err)
           this.$alert(err.msg, '提示', {
             confirmButtonText: '确定',
           })
@@ -498,13 +478,10 @@
         this.searchParams.orderCode="";
         this.rangeTime="";
       },
-
-
       handleSizeChange(val){
         this.searchParams.pageSize=val;
         this.getDataList();
       },
-
       handleCurrentChange(val){
         this.searchParams.currentPage=val;
         this.getDataList();
@@ -538,9 +515,6 @@
         this.getDataList()
       }
     }
-
-
-
   }
 
 </script>
@@ -548,9 +522,6 @@
   .el-button--mini{padding: 7px 7px;}
   .el-button+.el-button{margin-left:5px;}
   .dialog-btn-row{text-align: right;padding: 15px 0 0 0}
-
-
-
   .remark-short-cut{white-space: nowrap;text-overflow: ellipsis;overflow: hidden;max-width: 130px;}
   .voice-list{height:32px;padding: 15px;border-bottom: 1px solid #e9e9e9;}
   .voice-content{padding:0 15px;max-height: 320px;overflow-y: auto;min-height: 150px;}
@@ -558,5 +529,4 @@
   .voice-bar{float: left;width: 240px;line-height: 34px;height: 34px;border-radius: 6px;position: relative;background-color: #4fb136;cursor: pointer}
   .voice-icon{color:#fff;font-size: 22px;float: left;margin-left: 10px;}
   .during{float: right;color:#fff;font-size: 14px;margin-right: 10px;}
-
 </style>

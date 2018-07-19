@@ -9,7 +9,7 @@
       <el-menu background-color="#324157" text-color="#b8c7ce" router>
 
         <el-menu-item index="main"><i class="el-icon-menu"></i>控制台</el-menu-item>
-       <el-submenu index="1">
+        <el-submenu index="1">
           <template slot="title"><i class="el-icon-document nav-t-icon"></i>系统管理</template>
           <el-menu-item index="notice"><i class="el-icon-view nav-t-icon"></i>公告管理</el-menu-item>
           <el-menu-item index="role"><i class="el-icon-refresh nav-t-icon"></i>角色管理</el-menu-item>
@@ -17,6 +17,7 @@
           <el-menu-item index="user"><i class="el-icon-bell nav-t-icon"></i>用户管理</el-menu-item>
           <el-menu-item index="message_template"><i class="el-icon-message nav-t-icon"></i>消息模板</el-menu-item>
           <el-menu-item index="menuList"><i class="el-icon-menu nav-t-icon"></i>菜单管理</el-menu-item>
+          <el-menu-item index="dictionary"><i class="el-icon-menu nav-t-icon"></i>系统常量</el-menu-item>
         </el-submenu>
         <el-submenu index="2">
           <template slot="title"><i class="el-icon-setting nav-t-icon"></i>机构业务</template>
@@ -47,12 +48,12 @@
           <el-menu-item index="withdrawList">提现列表</el-menu-item>
         </el-submenu>
 
-
+<!--
         <el-submenu :index="item.name" v-for="(item,index) in navMenu" :key="index">
           <template slot="title"><i :class="item.icon"></i>{{item.name}}</template>
           <el-menu-item :index="itemChild.url" v-for="(itemChild,indexChild) in item.list" :key="indexChild">{{itemChild.name}}
           </el-menu-item>
-        </el-submenu>
+        </el-submenu>-->
       </el-menu>
     </div>
 

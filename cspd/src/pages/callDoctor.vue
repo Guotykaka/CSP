@@ -94,11 +94,9 @@
 
 <script>
   import headerTop from "@/components/headTop.vue"
-  import {localUrl} from "@/config/env.js"
   import {getStore} from "@/config/mUtils.js"
   import {
     ERR_OK,
-    api,
     closeInsLeaveWordAnswer,
     queryInsLeaveWordAnswerList,
     queryInsLeaveWordList,
@@ -127,13 +125,7 @@
         leaveWordTitle: '',//描述标题
         createUserId: null,//用户ID
         insLeaveDetail: [],//留言信息列表
-        insLeaveAnswerlist: [],//留言回复列表
-        insLeavePage: {
-          currentPage: 1,
-          pageCount: 1,
-          pageSize: 10,
-          totalCount: null, //了留言回复列表
-        },//留言信息列表页数
+        insLeaveAnswerlist: [],//留言回复列表//留言信息列表页数
         resList: {},
         checkT: null,
         list: [],
