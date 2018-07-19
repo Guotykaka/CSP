@@ -505,7 +505,7 @@
       },
     },
 
-    created(){
+    activated(){
       this.getDataList()
     },
 

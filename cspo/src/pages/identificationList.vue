@@ -2,7 +2,6 @@
   <div class="page-wrapper">
     <header-top></header-top>
     <div class="page-container">
-
       <!--操作行开始-->
       <el-form :inline="true" :model="searchParams" class="demo-form-inline">
         <el-form-item label="姓名">
@@ -21,7 +20,6 @@
             </template>
           </el-autocomplete>
         </el-form-item>
-
         <el-form-item label="时间">
           <el-date-picker
             v-model="rangeTime"
@@ -33,9 +31,6 @@
             end-placeholder="结束日期">
           </el-date-picker>
         </el-form-item>
-
-
-
         <el-form-item>
           <el-button type="primary" @click="_doSearch">查询</el-button>
         </el-form-item>
@@ -50,7 +45,6 @@
         <el-tab-pane label="取消认证" name="3"></el-tab-pane>
         <el-tab-pane label="拒绝认证" name="4"></el-tab-pane>
       </el-tabs>
-
       <!--table 表单开始-->
       <el-table
         :data="doctorIdenList"
@@ -68,9 +62,7 @@
             <el-tag type="warning" v-if="scope.row.authenticationStatus===3">已取消</el-tag>
             <el-tag type="danger" v-if="scope.row.authenticationStatus===4">已拒绝</el-tag>
           </template>
-
         </el-table-column>
-
         <el-table-column label="操作" width="190">
           <template slot-scope="scope">
             <el-button v-if="scope.row.authenticationStatus===1" size="mini" type="primary" @click="agreeApply(scope.row.insDoctorId)">同意</el-button>
@@ -80,13 +72,10 @@
         </el-table-column>
       </el-table>
       <!--table 表单结束-->
-
-
       <div class="self-page-container">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
         </el-pagination>
       </div>
-
 
       <!--详情的dialog-->
       <el-dialog title="认证详情" :visible.sync="isShowDialog" width="70%">
@@ -104,7 +93,6 @@
             </el-col>
           </el-row>
         </el-card>
-
         <!--成功状态-->
         <el-card shadow="never" class="m_b_15 success-panel" v-if="doctorInfo.authenticationStatus === 2">
           <el-row :gutter="20">
@@ -119,7 +107,6 @@
             </el-col>
           </el-row>
         </el-card>
-
         <!--认证失败-->
         <el-card shadow="never" class="m_b_15 fail-panel" v-if="doctorInfo.authenticationStatus === 3">
           <el-row :gutter="20">
@@ -147,7 +134,6 @@
             </el-col>
           </el-row>
         </el-card>
-
         <el-row :gutter="20" class="m_b_15">
           <el-col :span="5" style="text-align: right">
             <strong class="logo-note">LOGO：</strong>
@@ -229,9 +215,7 @@
             <img class="zhengshuImg" :src="doctorInfo.titleCertificateUrl"/>
           </el-col>
         </el-row>
-
         <el-row :gutter="20" class="m_b_15">
-
           <el-col :span="5" style="text-align: right">
             <strong class="title-note">推荐理由：</strong>
           </el-col>
@@ -245,7 +229,6 @@
           <el-button size="small" type="warning" @click="closeDialog">关闭</el-button>
         </div>
       </el-dialog>
-
       <!--refuse reason dialog-->
       <el-dialog title="拒绝理由" :visible.sync="refuse.isShowDialog" width="400px">
         <el-input type="textarea" v-model="refuse.refuseReason"></el-input>
@@ -254,7 +237,6 @@
           <el-button size="small" type="primary" @click="doRefuseFn">确定</el-button>
         </div>
       </el-dialog>
-
     </div>
   </div>
 
@@ -293,13 +275,10 @@
           institutionName:"",//机构名称
           name: ""
         },
-
         rangeTime:"",//开始时间和结束时间
         nowDate: '',
       }
     },
-
-
     methods:{
       //自带搜索组件选中
       handleSelect(item) {
@@ -372,10 +351,7 @@
             confirmButtonText: '确定',
           })
         })
-
-
       },
-
 
       //查询医生详情
       queryDoctorInfoFn(item){
@@ -401,9 +377,7 @@
       //关闭dialog
       closeDialog(){
         this.isShowDialog=false;
-
       },
-
 
       //同意申请
       agreeApply: function (uid) {
@@ -428,14 +402,7 @@
                 confirmButtonText: '确定',
               })
             })
-
-          })
-          .catch(_ => {
-
           });
-
-
-
       },
 
       //显示拒绝申请dialog
@@ -464,34 +431,15 @@
             confirmButtonText: '确定',
           })
         })
-
-
       },
-
-
-
-
-
     },
 
-
-
-    created(){
-
-
-      this.getApplyList()
-
+    activated(){
+      this.getApplyList();
     },
-
-
-
-
-
     components: {
       headerTop,
     },
-
-
     computed:{
       ...mapGetters(['getInstitutionArr'])
     },
@@ -506,13 +454,9 @@
         this.searchParams.currentPage=1;
         this.getApplyList();
       }
-
     }
-
-
   }
 </script>
-
 <style lang="less" scoped>
   .el-select{display: block}
   .el-button--mini{padding: 7px 10px}
@@ -524,14 +468,9 @@
   .warning-panel{background-color: #f9ebd8;border: 1px solid #f0ad4e}
   .fail-panel{background-color: #f6cbca;border: 1px solid #d9534f}
   .note-icon{font-size: 20px}
-
   .success-icon{color:#44ae44;}
   .warning-icon{color:#f0ad4e}
   .error-icon{color:#d9534f;}
-
   .status-panel-text{line-height: 22px;color:#444;font-size: 14px;}
-
   .el-textarea{margin-bottom: 25px}
-
-
 </style>

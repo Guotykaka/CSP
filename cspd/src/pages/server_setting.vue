@@ -1,7 +1,5 @@
 <template>
   <div class="server-setting">
-
-
     <el-row :gutter="20">
       <el-col :xs="12" :sm="10" :md="9" :lg="7"  v-for="(item,index) in serviceLists" :key="index">
         <div class="service-item">
@@ -29,9 +27,6 @@
         </div>
       </el-col>
     </el-row>
-
-
-
 
     <!--查看dialog-->
     <el-dialog title="查看" :visible.sync="isShowCheckDialog" width="640px">
@@ -127,7 +122,6 @@
               <div class="el-input-box">
                 <el-input v-model="infoParams.itemPrice" placeholder="请输入内容"></el-input>
               </div>
-
               <span class="money-unit">元</span>
               <div class="query-part">
                 <span class="query-icon icon-wenhao iconfont"></span>
@@ -233,26 +227,20 @@
         </div>
       </div>
     </el-dialog>
-
   </div>
 </template>
 
 <script>
   import {ERR_OK,getDoctorServices,doctorEditorService} from '@/api/api';
   import {getStore} from "@/config/mUtils.js";
-
   export default {
     data() {
       return {
-
         queryInfo:{},//
-
         isShowCheckDialog:false,
         isShowEditorDialog:false,
-
         //服务列表数据
         serviceLists:[],
-
         //完善信息的数据
         infoParams:{
           serviceDoctorSettingId:"",
@@ -269,7 +257,6 @@
           userId:JSON.parse(getStore("userMesage")).userId
         },
 
-
         //查看信息的数据
         checkInfoData:{
           itemPrice:"",
@@ -282,7 +269,6 @@
           offdayPmFromTime:"",
           offdayPmToTime:""
         }
-
       }
     },
 
@@ -348,7 +334,6 @@
           this.$message.error('非工作时间不能为空');
           return;
         }
-
         doctorEditorService(params).then(res => {
           if(res.code===ERR_OK){
             this.isShowEditorDialog=false;
@@ -367,7 +352,8 @@
           this.$alert(err.msg, '提示', {
             confirmButtonText: '确定',
           })
-        });      }
+        });
+      }
     },
 
     created(){
@@ -384,8 +370,6 @@
 
   }
 </script>
-
-
 <style lang="less">
   .service-info img{width: 100px;height: 100px;}
 </style>

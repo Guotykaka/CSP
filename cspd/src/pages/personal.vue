@@ -1,6 +1,5 @@
 <template>
   <div class="personal">
-
     <!--账户card-->
     <el-card class="box-card">
       <el-row :gutter="24">
@@ -18,7 +17,6 @@
         </el-col>
       </el-row>
     </el-card>
-
 
     <el-tabs v-model="tabIndex">
       <el-tab-pane label="我要提现" name="1">
@@ -48,9 +46,6 @@
             <el-button type="primary" @click="depositFn">我要提现</el-button>
           </el-col>
         </el-row>
-
-
-
       </el-tab-pane>
       <el-tab-pane label="提现记录" name="2">
         <!--table 表单开始-->
@@ -77,7 +72,6 @@
           <el-pagination @size-change="withdrawHandSize" @current-change="withdrawHandleCurrent" :current-page="withdrawPage.currentPage" :page-sizes="[10,20]" :page-size="withdrawPage.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="withdrawPage.totalCount">
           </el-pagination>
         </div>
-
       </el-tab-pane>
 
       <el-tab-pane label="订单记录" name="3">
@@ -97,21 +91,15 @@
           <el-pagination @size-change="orderHandSize" @current-change="orderHandleCurrent" :current-page="orderPage.currentPage" :page-sizes="[10,20]" :page-size="orderPage.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="orderPage.totalCount">
           </el-pagination>
         </div>
-
       </el-tab-pane>
     </el-tabs>
-
-
     <!--拒绝原因的dialog-->
     <el-dialog title="拒绝原因" :visible.sync="refuse.isShowDialog">
-
       <p class="info-content">{{refuse.reason}}</p>
       <div class="btn-row" style="text-align:center">
         <el-button size="small" type="danger" @click="closeDialog">关闭</el-button>
       </div>
     </el-dialog>
-
-
   </div>
 </template>
 
@@ -126,7 +114,6 @@
           isShowDialog:false,
           reason:""
         },
-
         tabIndex: '1',
         //账户
         accountINfo: {
@@ -134,9 +121,7 @@
           sumEarnings: '',//总收益
           withdrawDeposit: ''//提现
         },
-
         disburse:"",//提现金额
-
         //提现分页参数
         withdrawPage:{
           currentPage:1,
@@ -145,7 +130,6 @@
         },
         //提现记录数据
         withdrawList:[],
-
 
         //订单分页参数
         orderPage:{
@@ -205,7 +189,6 @@
         });
 
       },
-
       //获取订单记录
       getDoctorOrderListFn(){
         var params={
@@ -285,14 +268,11 @@
 
       withdrawHandSize(val){
 
-        console.log(val)
         this.withdrawPage.pageSize=val;
         this.getWithdrawListFn();
       },
 
       withdrawHandleCurrent(val){
-        console.log(val)
-
         this.withdrawPage.currentPage=val;
         this.getWithdrawListFn();
       },
@@ -301,35 +281,24 @@
         this.orderPage.pageSize=val;
         this.getDoctorOrderListFn();
       },
-
       orderHandleCurrent(val){
         this.orderPage.currentPage=val;
         this.getDoctorOrderListFn();
       },
-
 
       //查看拒绝原因
       checkReason(item){
         this.refuse.reason=item.refuseReason;
         this.refuse.isShowDialog=true;
       },
-
-
       closeDialog(){
         this.refuse.isShowDialog=false;
       }
-
-    },
-    computed: {
-
     },
 
-
-    created(){
+    activated(){
       this.getPersonAccountInfo()
     },
-
-
     watch:{
       tabIndex(val){
         if(val==="2"){

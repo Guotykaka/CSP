@@ -286,6 +286,16 @@ export function reportDetail(params) {
   return post(urls.API_CSP_REPORT_DETAIL, params)
 }
 
+//同意退款
+export function agreeRefuse(params) {
+  return post(urls.API_POST_LIST_ORDER_REFUND, params)
+}
+
+//拒绝
+export function refuseList(params) {
+  return post(urls.API_POST_LIST_ORDER_CHANGE_RECORD, params)
+}
+
 /*个人中心*/
 //分页查询所有留言
 export function queryInsLeaveWordList(params) {
