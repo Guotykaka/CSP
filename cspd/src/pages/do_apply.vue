@@ -3,7 +3,6 @@
 
   <div>
     <el-card class="box-card" style="padding-top: 30px">
-
       <el-row :gutter="20" class="self-row">
         <el-col :span="6" class="list-note">
           <strong class="list-title isRequire">上传头像：</strong>
@@ -26,7 +25,7 @@
           <strong class="list-title">姓名：</strong>
         </el-col>
         <el-col :span="6">
-          <el-input v-model="professionalCertificateCode" placeholder="请输入内容"></el-input>
+          <el-input v-model="apply.name" placeholder="请输入内容"></el-input>
         </el-col>
       </el-row>
 
@@ -35,7 +34,7 @@
           <strong class="list-title">职称：</strong>
         </el-col>
         <el-col :span="6">
-          <el-input v-model="professionalCertificateCode" placeholder="请输入职称"></el-input>
+          <el-input v-model="apply" placeholder="请输入职称"></el-input>
         </el-col>
       </el-row>
 
@@ -114,9 +113,6 @@
           </el-upload>
         </el-col>
       </el-row>
-
-
-
       <el-row :gutter="20" class="self-row">
         <el-col :span="6" class="list-note">
           <strong class="list-title">推荐理由：</strong>
@@ -137,14 +133,9 @@
 
       <el-row :gutter="20" class="self-row">
         <el-col :span="6" class="list-note"> &nbsp;</el-col>
-
-
-
         <el-col :span="6">
-
-
           <el-button type="primary" size="small">提交认证</el-button>
-          <el-button type="warning" size="small">取消</el-button>
+          <el-button type="warning" size="small">返回</el-button>
         </el-col>
       </el-row>
 
@@ -157,32 +148,23 @@
   export default {
     data() {
       return {
-        isAuthorization: true,//是否认证
-        isWritingAuthorization: false,//是否处于填写信息阶段
-        authenticationStatus: null,//认证状态
-        doctorName: null,//姓名
-        professionalCertificateCode: null,//职业证号
-        positionalTitles: null,//职称
-        winningDesc: null,//获奖描述
-        hospital: null,//执业医院
-        recommendReason: null,//推荐理由
-        specialty: null,//擅长
-        remarks: null,//简介
-        department: null,//科室
-        uploadImgId: null,//确定照片上传的id
-        doctorHeaderImgUrl: null,//医生头像url
-        doctorJobCertificateImgUrl: null,//医生从业资格证Url
-        titleCertificateImgUrl: null,//职称证书url
-        insDoctorInfoId: null,
-        insDoctorId: null,
-        title: null,
-        showList:true,
-        authenticationRefuseReason:null,//拒绝理由
-        doctorAuthenticationInfo:{},
 
-
-
-        imageUrl: ''
+        apply:{
+          department: "",
+          doctorJobCertificateUrl: "",
+          hospital: "",
+          insDoctorId:"",
+          insDoctorInfoId:null,
+          logoUrl: "",
+          name: "yuexinbbb",
+          positionalTitles: "11",
+          professionalCertificateCode: "11",
+          recommendReason: "11",
+          remarks: "11",
+          specialty: "11",
+          titleCertificateUrl: "",
+          winningDesc: "11" ,
+        }
 
       }
     },

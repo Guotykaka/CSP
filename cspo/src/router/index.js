@@ -17,7 +17,7 @@ const role = () => import('@/pages/role.vue')//角色管理
 const user = () => import('@/pages/user.vue')//用户管理
 const message_template = () => import('@/pages/message_template.vue')//消息模板
 const menuList = () => import('@/pages/menuList.vue')//菜单管理
-const menuList1 = () => import('@/pages/menuList1.vue')//菜单管理
+const dictionary = () => import('@/pages/dictionary.vue')//系统常量
 //机构业务
 const institution = () => import('@/pages/institution.vue')//机构列表
 const medicine_group = () => import('@/pages/medicine_group.vue')//医学分组
@@ -107,9 +107,9 @@ let router =  new Router({
           meta: ["系统管理", "菜单管理"],//菜单管理
         },
         {
-          path: '/menuList1',
-          component: menuList1,
-          meta: ["系统管理", "菜单管理"],//菜单管理
+          path: '/dictionary',
+          component: dictionary,
+          meta: ["系统管理", "系统常量"],//系统常量
         },
         {
           path: '/institution',

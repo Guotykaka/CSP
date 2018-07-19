@@ -121,16 +121,11 @@
     <el-dialog title="完善信息" :visible.sync="isShowEditorDialog" width="640px">
       <div class="model-content">
         <ul class="input-content">
-
-
-
-
-
           <li class="input-list clear_fix">
             <strong class="note">服务价格：</strong>
             <div class="note-left">
               <div class="el-input-box">
-                <el-input v-model="checkInfoData.servicePrice" placeholder="请输入内容"></el-input>
+                <el-input v-model="infoParams.itemPrice" placeholder="请输入内容"></el-input>
               </div>
 
               <span class="money-unit">元</span>
@@ -176,15 +171,9 @@
               </div>
             </div>
           </li>
-
-
-
-
-
           <li class="input-list clear_fix">
             <strong class="note">服务时间：</strong>
             <div class="note-left">
-
 
               <!--时间-->
               <div class="time-list clear_fix">
@@ -249,7 +238,8 @@
 </template>
 
 <script>
-  import headerTop from "@/components/headTop.vue"
+  import {ERR_OK,getDoctorServices,doctorEditorService} from '@/api/api';
+  import {getStore} from "@/config/mUtils.js";
 
   export default {
     data() {
@@ -257,20 +247,11 @@
 
         queryInfo:{},//
 
-
         isShowCheckDialog:false,
         isShowEditorDialog:false,
 
-
-
-
-
         //服务列表数据
-        serviceLists:[
-          {"insServiceSettingId":"2c8080aa63de70c60163de7106fb0002","serviceId":"8ab2b2f56381c35a016381c35a400000","serviceName":"电话报告解读","servicePrice":"0.01","serviceMinPrice":50.00,"serviceMaxPrice":100.00,"serviceUnit":"UNIT_SECOND","workdayAmFromTime":"09:00:00","workdayAmToTime":"12:00:00","workdayPmFromTime":"14:00:00","workdayPmToTime":"20:00:00","offdayAmFromTime":"09:00:00","offdayAmToTime":"12:00:00","offdayPmFromTime":"14:00:00","offdayPmToTime":"20:00:00","serviceDoctorSettingId":"2c8080aa63de70c60163de748d330006","createTime":"2018-06-08 16:12:50","serviceIconUrl":"http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/z5o5rqJqcKhbMXBNDTgG89AvrZG5eIK1.png","serviceIntroduce":"%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E%E6%B5%8B%E8%AF%95%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FLAyV5zcwMFMDwZ7Fo8KQbXDrJCe9RSps.png%22%20alt%3D%22file%22%3E","userRoleName":"医生角色","serviceUnitName":"元/次","fill":false},
-          {"insServiceSettingId":"2c8080aa63de70c60163de7107080003","serviceId":"8ab2b2f563822d260163822d26fd0000","serviceName":"图文咨询","servicePrice":"0.01","serviceMinPrice":1.00,"serviceMaxPrice":99.00,"serviceUnit":"UNIT_SECOND","workdayAmFromTime":"09:00:00","workdayAmToTime":"12:00:00","workdayPmFromTime":"14:00:00","workdayPmToTime":"20:00:00","offdayAmFromTime":"09:00:00","offdayAmToTime":"12:00:00","offdayPmFromTime":"14:00:00","offdayPmToTime":"20:00:00","serviceDoctorSettingId":"2c8080aa63de70c60163de74ae720007","createTime":"2018-06-08 16:12:58","serviceIconUrl":"http://zhangshangtijian.b0.upaiyun.com/CSPO/DEV/O8PUbufKOX6vkmKZhHhNZ3nOQ4sWGrvK.png","serviceIntroduce":"%3Cp%3E%3Cimg%20src%3D%22http%3A%2F%2Fzhangshangtijian.b0.upaiyun.com%2FCSPO%2FDEV%2FN2kgWlbMB1j1paBVu1n1DCGD6ymKc3FO.png%22%20alt%3D%22file%22%3E%3Cbr%3E%3C%2Fp%3E%3Cp%3E%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E9%A1%B6%E5%A4%A7%E5%A4%A7%E5%A4%A7%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%E5%A4%9A%3C%2Fp%3E","userRoleName":"医生角色","serviceUnitName":"元/次","fill":true}
-        ],
-
+        serviceLists:[],
 
         //完善信息的数据
         infoParams:{
@@ -284,7 +265,8 @@
           offdayAmFromTime:"09:00",
           offdayAmToTime:"12:00",
           offdayPmFromTime:"14:00",
-          offdayPmToTime:"20:00"
+          offdayPmToTime:"20:00",
+          userId:JSON.parse(getStore("userMesage")).userId
         },
 
 
@@ -301,13 +283,29 @@
           offdayPmToTime:""
         }
 
-
-
       }
     },
-    created() {
-    },
+
     methods: {
+      getServiceFn(){
+        var params={
+          userId:JSON.parse(getStore("userMesage")).userId
+        };
+        getDoctorServices(params).then(res => {
+          if(res.code===ERR_OK){
+            this.serviceLists=res.data;
+          }else{
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        }).catch(err => {
+          this.$alert(err.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        });
+      },
+
       showCheckFn(item){
         this.isShowCheckDialog=true;
         this.queryInfo=item;
@@ -330,21 +328,50 @@
         this.infoParams.insServiceSettingId=item.insServiceSettingId;
       },
 
-
-
       //关闭dialog
       closeCheckDialog(){
         this.isShowCheckDialog=false;
       },
 
-
       //点击editorDialog 确定
-
       editorOkFn(){
-        console.log(this.infoParams)
-      }
+        let params=this.infoParams;
+        if(this.infoParams.itemPrice ===''){
+          this.$message.error('服务价格不能为空');
+          return;
+        }
+        if(this.infoParams.workdayAmFromTime ===null || this.infoParams.workdayAmToTime === null || this.infoParams.workdayPmFromTime === null || this.infoParams.workdayPmToTime === null){
+          this.$message.error('工作时间不能为空');
+          return;
+        }
+        if(this.infoParams.offdayAmFromTime ===null || this.infoParams.offdayAmToTime === null || this.infoParams.offdayPmFromTime === null || this.infoParams.offdayPmToTime === null){
+          this.$message.error('非工作时间不能为空');
+          return;
+        }
 
+        doctorEditorService(params).then(res => {
+          if(res.code===ERR_OK){
+            this.isShowEditorDialog=false;
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+              callback: action => {
+                this.getServiceFn();
+              }
+            })
+          }else{
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        }).catch(err => {
+          this.$alert(err.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        });      }
+    },
 
+    created(){
+      this.getServiceFn()
     },
 
     filters: {

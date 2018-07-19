@@ -106,7 +106,7 @@ export function PostListenDoc(params){//一元听绑定医生列表
 export function Menudelete(params){//删除菜单
   return post(urls.API_POST_MENU_DELETE,params)
 }
-export function getLeftNav(params){//删除菜单
+export function getLeftNav(params){//获取左侧导航菜单
   return post(urls.API_POST_MENU_GETLEFTNAV,params)
 }
 export function getMenuList(params){//获取所有菜单列表
@@ -121,7 +121,7 @@ export function getSysMenuByCategory(params){//选择菜单(添加、修改菜�
 export function getSysMenuById(params){//获取菜单信息
   return post(urls.API_POST_MENU_GETSYSMENUBYID,params)
 }
-export function listByCategory(params){//根据角色类别加载菜单信息
+  export function listByCategory(params){//根据角色类别加载菜单信息
   return post(urls.API_POST_MENU_LISTBYCATEGORY,params)
 }
 export function Menusave(params){//保存菜单信息
@@ -130,6 +130,34 @@ export function Menusave(params){//保存菜单信息
 export function MenuUpdate(params){//修改菜单
   return post(urls.API_POST_MENU_UPDATE,params)
 }
+/*数据字典*/
+export function getDictListByType(params){//修改菜单
+  return post(urls.API_GET_DICTLISTBY_TYPE,params)
+}
+/*系统常量*/
+//
+export function deleteDictionary(params){//删除字典列表数据
+  return post(urls.API_POST_DELETE_DICTIONARY,params)
+}
+//
+export function getDictionaryByKey(params){//根据key获取字典列表数据详情
+  return post(urls.API_POST_GETDICTIONARY_BY_KEY,params)
+}
+//
+export function getDictionaryInfo(params){//获取字典列表数据详情
+  return post(urls.API_POST_GETDICTIONARY_INFO,params)
+}
+//
+export function listDictionary(params){//获取字典列表数据
+  return get(urls.API_GET_LIST_DICTIONARY,params)
+}
+//
+export function saveOrUpdateDictionary(params){//获取字典列表数据
+  return post(urls.API_POST_SAVE_OR_UPDATAE_DICTIONARY,params)
+}
+
+
+
 
 
 //医生管理
@@ -193,6 +221,11 @@ export function changeDoctorStatus(params) {
 //财务管理
 export function getAccountRecord(params) {
   return post(urls.API_POST_LIST_ACCOUNT_RECORD,params);
+}
+
+//同意或拒绝提现
+export function updataWithdrawStatus(params) {
+  return post(urls.API_POST_UPDATE_APPLY_STATUS,params);
 }
 
 
