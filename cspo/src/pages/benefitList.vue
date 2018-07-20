@@ -56,7 +56,7 @@
             <strong class="title-note">生效时间：</strong>
           </el-col>
           <el-col :span="18">
-            <el-date-picker v-model="takeEffectTime" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd">
+            <el-date-picker v-model="takeEffectTime" type="date" placeholder="选择日期" format="yyyy-MM-dd" value-format="yyyy-MM-dd" :picker-options="pickerOptions0">
             </el-date-picker>
           </el-col>
         </el-row>
@@ -81,6 +81,15 @@ import {getInsProportionsList,addProportionItem,deleteProportionItem,ERR_OK} fro
 export default {
   data(){
     return{
+
+      pickerOptions0: {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 8.64e7;
+        }
+      },
+
+
+
       searchParams:{
         pageSize:10,
         currentPage:1,

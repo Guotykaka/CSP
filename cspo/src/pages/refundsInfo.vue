@@ -254,10 +254,12 @@ export default {
           };
           agreeRefuse(params).then(res => {
             if(res.code===ERR_OK){
-              this.$message({
-                message: '退款成功',
-                type: 'success'
-              });
+              this.$alert("退款成功", '提示', {
+                confirmButtonText: '确定',
+                callback: action => {
+                  this.backFn()
+                }
+              })
             }else{
               this.$message.error('操作失败');
             }
@@ -288,6 +290,9 @@ export default {
           this.refuse.isShowDialog=false;
           this.$alert(res.msg, '提示', {
             confirmButtonText: '确定',
+            callback: action => {
+              this.backFn()
+            }
           })
         }else{
           this.$alert(res.msg, '提示', {

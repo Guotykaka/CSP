@@ -18,19 +18,15 @@
       </ul>
     </div>
   </div>
-
-
 </template>
 
 <script>
   //引入login的方法
   import {login,ERR_OK} from "@/api/api.js";
   import {setStore} from "@/config/mUtils.js";
-
   export default {
       data:function () {
         return{
-
           //登录参数
           loginParams:{
             captcha: "",
