@@ -328,6 +328,52 @@
           titleCertificateUrl:this.apply.titleCertificateUrl,//职称证书图片
           winningDesc:this.apply.winningDesc,//研究成果
         };
+
+        if(!params.positionalTitles){
+
+          this.$alert("职称不能为空", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }else if(params.positionalTitles.length > 10){
+          this.$alert("职称不能超过10个字", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }else if(!params.logoUrl){
+          this.$alert("头像不能为空", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }else if(!params.professionalCertificateCode){
+          this.$alert("职称号不能为空", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }else if(!params.department){
+
+          return;
+        }else if(params.department.length > 10){
+          this.$alert("科室不能超过10个字", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }else if(!params.specialty){
+          this.$alert("擅长不能为空", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }else if(!params.remarks){
+          this.$alert("简介不能为空", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }else if(!params.winningDesc){
+          this.$alert("学术研究成果获奖报告不能为空", '提示', {
+            confirmButtonText: '确定',
+          });
+          return;
+        }
         submitDoctorInfo(params).then(res => {
           if(res.code===ERR_OK){
             this.$alert(res.msg, '提示', {
