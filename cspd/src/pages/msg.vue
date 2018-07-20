@@ -1,7 +1,5 @@
 <template>
-
-
-  <div>
+  <div class="msg">
     <el-card class="box-card">
       <!--tab-->
       <el-tabs>
@@ -50,16 +48,16 @@
       _checkDetail(item){
         if(item.newsType ==='1'){
           //订单
-          this.$router.push("orderList")
+          this.$router.push("/orderList")
         }else if(item.newsType === '2'){
           //退款
-          this.$router.push("refundsList")
+          this.$router.push("/refundsList")
         }else if(item.newsType === '3'){
           //医生认证
-          this.$router.push("indentList")
+          this.$router.push("/indentList")
         }else if(item.newsType === '4'){
           //提现
-          this.$router.push("withdrawList")
+          this.$router.push("/withdrawList")
         }
       },
     },

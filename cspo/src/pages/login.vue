@@ -23,6 +23,7 @@
 <script>
   //引入login的方法
   import {login,ERR_OK} from "@/api/api.js";
+  import {baseUrl} from "@/config/env";
   import {setStore} from "@/config/mUtils.js";
   export default {
       data:function () {
@@ -40,16 +41,17 @@
       },
     created(){
         this.refreshImg();
+      localStorage.clear();
     },
       methods:{
         doLogin:function () {
-
           var params=this.loginParams;
           login(params).then(res => {
             if(res.code===ERR_OK){
                 setStore('userMesage',res.data);
               this.$router.push("notice")
             }else{
+              this.refreshImg();
               this.$alert(res.msg)
             }
           }).catch(err => {
@@ -62,7 +64,7 @@
           var params = new Date();
           this.loginParams.codeKey = params.getTime().toString();
           this.loginParams.timespan = params.getTime().toString();
-          this.imgUrl = "http://172.0.0.41:8117/cspo/sys/user/captcha.jpg/"+this.loginParams.codeKey
+          this.imgUrl = baseUrl+"sys/user/captcha.jpg/"+this.loginParams.codeKey
         }
       }
     }

@@ -48,15 +48,15 @@
               <!-- <p>￥{{ scope.row.goodsPrice}}</p> -->
             </template>
           </el-table-column>
-          <el-table-column align="center" prop="createDate" label="音频" width="100">
+          <!-- <el-table-column align="center" prop="createDate" label="音频" width="100">
             <template slot-scope="scope">
               <p>{{scope.row.voiceProductUrl}}</p>
-              <!-- <div slot="reference" class="name-wrapper">
+              <div slot="reference" class="name-wrapper">
                   <el-tag size="medium" type="success">{{scope.row.voiceProductUrl}}</el-tag>
                   <el-tag size="medium" type="danger" v-if="scope.row.status  === 0">未添加</el-tag>
-                </div> -->
+                </div>
             </template>
-          </el-table-column>
+          </el-table-column> -->
           <el-table-column show-overflow-tooltip align="center" prop="createTime" label="创建时间"></el-table-column>
           <el-table-column align="center" label="操作" width="220">
             <template slot-scope="scope">
@@ -111,6 +111,7 @@
                 <el-button size="small" type="primary" @click="fileupdate()" class="m_l_0">确定上传</el-button>
               </el-form-item>
             </el-col>
+            <el-col :span="16"><div>{{fileName}}</div></el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
             <el-col :span="16">
@@ -139,13 +140,13 @@
 
       <!-- 一元听新增弹窗 -->
       <el-dialog title="新增" :visible.sync="dialogAddVisible_YYT" width=40%>
-        <el-form :model="addTable_YYT">
-          <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
+        <el-form :model="addTable_YYT" :rules="rulesNew" ref="formNew">
+          <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2" prop="voiceProductName">
             <el-col :span="16">
               <el-input v-model="addTable_YYT.voiceProductName" prop auto-complete="off" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2">
+          <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2"  prop="name">
             <template slot-scope="scope">
               <el-col :span="16">
                 <el-select v-model="addTable_YYT.name" clearable placeholder="请绑定医生">
@@ -155,8 +156,8 @@
               </el-col>
             </template>
           </el-form-item>
-          <el-form-item class="is-required2" label="商品文件" :label-width="formLabelWidth2">
-            <el-col :span="3">
+          <el-form-item class="is-required2" label="商品文件" :label-width="formLabelWidth2" >
+            <el-col :span="8">
               <el-form-item v-show="false" v-model="upyunUrl">
                 <input id="fileSelect" name="fileSelect" @change="update()" ref="inputer" type="file" />
                 <audio v-bind:src="upyunUrl" controls="controls" id="audio_duration" ref="audior">{{upyunUrl}}</audio>
@@ -166,8 +167,9 @@
                 <el-button size="small" type="primary" @click="fileupdate()" class="m_l_0">确定上传</el-button>
               </el-form-item>
             </el-col>
+            <el-col :span="16"><div>{{fileName}}</div></el-col>
           </el-form-item>
-          <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
+          <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2"  prop="abnormalKeyWord">
             <el-col :span="16">
               <el-input v-model="addTable_YYT.abnormalKeyWord "></el-input>
             </el-col>
@@ -177,7 +179,7 @@
               <el-input v-model="addTable_YYT.relevantContent"></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
+          <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2"  prop="paperWork">
             <el-col :span="16">
               <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="addTable_YYT.paperWork"></el-input>
             </el-col>
@@ -188,7 +190,8 @@
 
         <div slot="footer" class="dialog-footer">
           <el-button type="warning" @click="_doAddCancel_YYT()">取消</el-button>
-          <el-button type="primary" @click="_doAdd_YYT()">保存</el-button>
+          <!-- <el-button type="primary" @click="_doAdd_YYT()">保存</el-button> -->
+          <el-button type="primary" @click="submitForm('formNew')">保存</el-button>
         </div>
       </el-dialog>
     </div>
@@ -208,6 +211,7 @@ export default {
     return {
       upyunUrl: '', //又拍云url
       AudioDuration: null, //音频时长
+      fileName:"",
       searchParams:{ voiceProductName: '',voiceProductCode:'' },
       searchParamsList: [],//商品编码列表
       fileList: [],
@@ -235,7 +239,26 @@ export default {
       GoodsManVisible: false, //一元厅商品管理
       inde_YYT: null, //一元厅index flag
       formLabelWidth: '120px',
-      formLabelWidth2: '170px'
+      formLabelWidth2: '170px',
+      rulesNew: {
+          voiceProductName: [
+            { required: true, message: '请输入商品名称' }
+            
+          ],
+          name: [
+            { required: true, message: '请选择绑定医生' }
+          ],
+          upyunUrl: [
+            {required: true, message: '请选择文件' }
+          ],
+          abnormalKeyWord: [
+            { required: true, message: '请填写异常指标关键词' },
+            { max: 50, message: '50字内' }
+          ],
+          paperWork: [
+            { required: true, message: '请输入商品文案' }
+          ],
+        }
     }
   },
   methods: {
@@ -378,6 +401,7 @@ export default {
         message: '取消编辑'
       })
     },
+    
     // 一元厅确定编辑
     _doHandleEdit_YYT() {
       this.AudioDuration = this.getTime()
@@ -397,6 +421,7 @@ export default {
         this.getList()
       })
       this.dialogEditVisible_YYT = false
+      this.upyunUrl=""
     },
     // 一元厅新增
     handleAdd_YYT() {
@@ -437,7 +462,22 @@ export default {
         "voiceProductUrl": "",
         "voiceTime": 0
       }
+      this.upyunUrl=""
     },
+    submitForm(formName) {//新增模块表单验证
+        this.$refs[formName].validate((valid) => {
+          if (valid) {
+            if (this.upyunUrl) {
+             this._doAdd_YYT()
+            } else {
+              this.$alert('请上传商品文件!');
+            }
+          } else {
+            console.log('error submit!!');
+            return false;
+          }
+        });
+      },
     // 一元厅取消新增
     _doAddCancel_YYT() {
       this.dialogAddVisible_YYT = false
@@ -518,15 +558,17 @@ export default {
         }
         this.fileType = this.file.type
       }
+      console.log(this.fileName)
     },
     //上传按钮的事件axios
     fileupdate() {
       let inputDOM = this.$refs.inputer
+      let date = Date.parse( new Date())
       // 通过DOM取文件数据
       var bucketname = 'zhangshangtijian' //服务名
       var username = 'hztest' //操作员账号
       var password = 'a1234567' //操作员密码
-      var save_key = '/csp/audio/{year}{mon}{day}/{filename}{.suffix}'
+      var save_key = '/csp/audio/{year}{mon}{day}/'+ date +'{.suffix}'
       var policy = btoa(
         JSON.stringify({
           bucket: bucketname,
@@ -553,7 +595,6 @@ export default {
           this.upyunUrl =
             'http://zhangshangtijian.b0.upaiyun.com' + response.data.url //返回地址
           console.log(this.upyunUrl, 'this.upyunUrl1')
-
           this.$alert('上传成功')
         } else {
           this.$alert(response.msg)

@@ -9,6 +9,27 @@ export function login(params) {
   return post(urls.API_LOGIN, params)
 }
 
+//获取左侧导航菜单
+export function GetNav(params) {
+  return post(urls.API_DOCTOR_NAV, params)
+}
+
+//根据key获取字典列表数据详情
+export function getDictionaryByKey(params) {
+  return post(urls.API_SYS_DICTIONARY_BYKEY, params)
+}
+
+//getSysNoticeInfo
+export function getSysNoticeInfo(params) {
+  return post(urls.API_SYS_NOTICE_IFNO, params)
+}
+
+//医生端系统公告表列表
+export function noticelist(params) {
+  return post(urls.API_SYS_SYSNOTICE_LIST, params)
+}
+
+
 //判断是否认证 乐
 export function isAuthentication(params) {
   return post(urls.API_IS_AUTHENTICATION, params)
@@ -161,4 +182,8 @@ export function submitDoctorInfo(params) {
 //取消认证   乐
 export function cancelApply(params) {
   return post(urls.API_CHANGE_DOCTOR_STATUS, params)
+}
+//获取各类型未读消息总数
+export function countUserNewsList(params) {
+  return post(urls.API_COUNT_USER_NEWS_LIST, params)
 }

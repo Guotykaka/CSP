@@ -35,8 +35,8 @@
           <el-input v-model="searchParams.name" placeholder="请输入服务医生"></el-input>
         </el-form-item>
 
-        <el-form-item label="服务名称">
-          <el-select filterable  v-model="searchParams.itemId" placeholder="请选择服务名称">
+        <el-form-item label="商品名称">
+          <el-select filterable  v-model="searchParams.itemId" placeholder="请选择商品名称">
             <el-option
               v-for="(item,index) in listServiceDictList"
               :key="index"
@@ -203,6 +203,7 @@
 <script>
 
   import headerTop from '@/components/headTop.vue';
+  import {baseUrl} from '@/config/env.js'
   import {listServiceDict,tradeList,ERR_OK,cspOrderList} from "@/api/api"
   import {mapState} from 'vuex'
 
@@ -225,7 +226,7 @@
         },
         listServiceDictList: [],//服务名称
         rangeTime: null,
-        activeName: "first",
+        activeName: "first",//主次订单切换
         tradeList: [],
         cspOrderList: [],
         pages1: {
@@ -245,6 +246,7 @@
     },
     activated(){
       this._getDatalist();
+      this._listServiceDict();
     },
     methods: {
       //获取时间
@@ -259,7 +261,9 @@
         let data = {},
         that = this;
         listServiceDict(data).then((res) => {
+          console.log(res)
           if (res.code === ERR_OK) {
+            console.log(res.data)
             that.listServiceDictList = res.data;
           } else {
             this.$alert(res.msg, '提示', {
@@ -271,9 +275,9 @@
       //订单搜索
       _searchDatalist: function () {
         this.searchParams.currentPage = 1;
-        if (this.listShowTab) {
+        if (this.activeName==='first') {
           this._getDatalist();
-        } else {
+        } else if(this.activeName==='second') {
           this._getDataSonlist();
         }
       },
@@ -309,41 +313,8 @@
           '&institutionName=' + params.institutionName +
           '&startTime=' + params.startTime +
           '&endTime=' + params.endTime;
-
-        //GET /cspo/csp/trade/exportTradeList
-        let data={
-          "endTime": "string",
-          "institutionName": "string",
-          "itemId": "string",
-          "mobile": params.mobile,
-          "name": "string",
-          "orderCode": "string",
-          "orderServiceStatus": 0,
-          "realName": params.realName,
-          "startTime": "string",
-          "tradeCode": params.tradeCode,
-          "tradeStatus": params.tradeStatus,
-          "type": params.type
-        }
-
-        var url = baseURL + "csp/trade/exportTradeList?" + paramString;
-        // if (params.tradeStatus) {
-        // url = url + "&tradeStatus=" + params.tradeStatus;
-        // }
+        var url = baseUrl + "csp/trade/exportTradeList?" + paramString;
         window.open(url);
-        // $.ajax({
-        //   type: "POST",
-        //   url: baseURL + "csp/trade/exportTradeList",
-        //   contentType: "application/json",
-        //   data: JSON.stringify(params),
-        //   success: function (res) {
-        //     if (res.code == 1) {
-        //       alert('导出列表成功,请在桌面查看')
-        //     } else {
-        //       alert(res.msg);
-        //     }
-        //   }
-        // });
       },
       //清除搜索参数
       _clearParams: function () {
@@ -447,268 +418,11 @@
       },
       //主订单详情
       _showStatusBox: function (val) {
-        // this.showStatus = false;
-        // this.showStatusBox = false;
-        // this.customerDetail = val;
-
-        // window.scrollTo(0, 0);
-
         this.$router.push({name: 'orderDetail', params: {val: val}})
-        /*        $.ajax({
-                  type: "POST",
-                  url: baseURL + "csp/trade/tradeInfo",
-                  contentType: "application/json",
-                  data: val.tradeCode,
-                  success: function (res) {
-                    if (res.code == 1) {
-                      vm.cspTradeInfoEntity = res.data.cspTradeInfoEntity;
-                      vm.cspOrderInfoList = res.data.cspOrderInfoList;
-                      var changList = res.data.cspOrderInfoList;
-                    } else {
-                      alert(res.msg);
-                    }
-                  }
-                });*/
       },
-
-
       //子订单详情
       _showStatusSonBox: function (val) {
         this.$router.push({name: 'orderSonDetail', params: {val: val}})
-/*        this.showStatusSon = true;
-        this.showStatus = false;
-        this.customerSonDetail = val;
-        window.scrollTo(0, 0);*/
-/*        $.ajax({
-          type: "POST",
-          url: baseURL + "csp/trade/cspOrderInfo",
-          contentType: "application/json",
-          data: val.orderCode,
-          success: function (res) {
-            if (res.code == 1) {
-              vm.deatilSon = res.data;
-
-            } else {
-              alert(res.msg);
-            }
-          }
-        });*/
-      },
-      checkedTrue: function (val) {
-        vm.checkedId = val
-
-      },
-      //点击返回
-      returnBtn: function () {
-        this.showStatusSon = false;
-        this.showStatus = true;
-        this.showStatusBox = true;
-      },
-      //从退款返回
-      returnBtnRe: function () {
-        if (this.listShowTab) {
-          this.showStatusBox = false;
-        } else {
-          this.showStatusSon = true;
-        }
-        this.refundShow = false;
-        window.scrollTo(0, 0);
-
-      },
-      //去退款详情||主子订单
-      _goDetail: function (val) {
-        if (this.listShowTab) {
-          val.payChannel = this.cspTradeInfoEntity.payChannel;
-        }
-        this.refundDetail = val;
-        this.refundShow = true;
-        this.showStatus = false;
-        this.showStatusSon = false;
-        this.showStatusBox = true;
-        this._getRefundDetail(val.insOrderRefundEntity.insOrderRefundId);
-        window.scrollTo(0, 0);
-      },
-      //获取退款详情
-      _getRefundDetail: function (val) {
-        var that = this;
-        var params = {
-          "insOrderRefundId": val
-        }
-        $.ajax({
-          type: "POST",
-          url: baseURL + "ins/orderRefund/getRefundDetail",
-          contentType: "application/json",
-          // dataType: "json",
-          data: JSON.stringify(params),
-          success: function (res) {
-            if (res.code == 1) {
-              that.getRefundDetail = res.data;
-            } else {
-              alert(res.msg);
-            }
-          }
-        });
-      },
-      //体检报告详情
-      showReport: function (val) {
-        var params = {
-          workNo: val.workNo,
-          checkUnitCode: val.checkUnitCode
-        };
-        $.ajax({
-          type: "POST",
-          url: baseURL + "csp/trade/getMedicalReportDetail",
-          contentType: "application/x-www-form-urlencoded",
-          data: params,
-          success: function (res) {
-            if (res.code === 1) {
-              if (res.data) {
-                vm.reportData = res.data;
-                vm.isShowReport = true;
-              } else {
-                alert("暂无数据")
-              }
-            } else {
-              alert(res.msg);
-            }
-          }
-        });
-      },
-      //关闭体检报告
-      closeReport: function () {
-        this.isShowReport = false;
-      },
-      //点击nav
-      _navClick: function (index) {
-        this.currentHash = index;
-        location.hash = index;
-      },
-
-
-      //同意申请
-      _agreenBtn: function (item) {
-        var tradeCodeS = null;
-        if (this.listShowTab) {
-          tradeCodeS = this.cspTradeInfoEntity.tradeCode;
-        } else {
-          tradeCodeS = item.tradeCode;
-        }
-        confirm("确定同意退款？", function () {
-          var parms = {
-            payType: item.payChannel,
-            refundCode: item.insOrderRefundEntity.refundCode,
-            refundType: 2,
-            tradeCode: tradeCodeS
-          };
-          $.ajax({
-            type: "post",
-            url: basePayUrl + "api/trade/orderRefund",
-            contentType: "application/json",
-            data: JSON.stringify(parms),
-            success: function (res) {
-              if (res.code === 1) {
-                alert(res.msg);
-                vm._getRefundDetail(vm.refundDetail.insOrderRefundEntity.insOrderRefundId)
-              } else {
-                alert(res.msg);
-              }
-            }
-          })
-        })
-      },
-
-
-      //关闭按钮
-      _closeBox: function () {
-        this.agreenBox = false;
-        this.refuseBox = false;
-      },
-      //确认同意
-      _agreeTrue: function () {
-        // alert('请调用同意接口')
-        layer.confirm('纳尼？', {
-          btn: ['确定', '取消'] //可以无限个按钮
-        }, function (index, layero) {
-          //按钮【按钮一】的回调
-        }, function (index) {
-          //按钮【按钮二】的回调
-        });
-      },
-      //拒绝按钮
-      _refuseBtn: function () {
-        // this.refuseBox=true;
-        layer.prompt({
-          formType: 2,
-          value: '',
-          title: '请填写拒绝理由',
-          area: ['400px', '200px'] //自定义文本域宽高
-        }, function (value, index, elem) {
-          if (value == '') {
-            alert("拒绝理由不能为空");
-            return
-          }
-          var ids = [];
-          ids.push(vm.refundDetail.refundCode);
-          var parms = {
-            insOrderRefundIds: ids,
-            refundStatus: 3,
-            refuseReason: value
-          };
-          $.ajax({
-            type: "POST",
-            url: baseURL + "ins/orderRefund/updateOrderRefundStatus",
-            contentType: "application/json",
-            data: JSON.stringify(parms),
-            success: function (res) {
-              if (res.code === 1) {
-                alert(res.msg, function () {
-                  /* vm.showStatus = 1;
-                   vm.searchParams.authenticationStatus = null;
-                   vm._getDatalist();*/
-                  vm._getRefundDetail(vm.refundDetail.insOrderRefundEntity.insOrderRefundId)
-                });
-              } else {
-                alert(res.msg);
-              }
-            }
-          });
-          layer.close(index);
-        });
-      },
-      //拒绝确认同意
-      _refuseTrue: function () {
-        alert('请调用拒绝接口')
-      },
-      capitalize: function (value) {
-        if (value) {
-          var arrValue = value.split(',');
-        }
-        return arrValue
-      },
-      photoShow: function (val) {
-        var arrValue = val.split(',');
-        var arr = [];
-        arrValue.forEach(function (v, i) {
-          arr.push({
-            "alt": "图文咨询图片",
-            "pid": i, //图片id
-            "src": v, //原图地址
-            "thumb": v //缩略图地址
-          })
-        })
-        var objectData = {
-          "title": "", //相册标题
-          "id": 123, //相册id
-          "start": 0, //初始显示的图片序号，默认0
-          "data": arr
-        };
-        layui.use('layer', function () {
-          var layer = layui.layer;
-          layer.photos({
-            photos: objectData,
-            anim: 5
-          });
-        });
       }
     },
 

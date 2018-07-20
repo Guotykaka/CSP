@@ -16,15 +16,13 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = 'http://172.0.0.41:8117/cspo/';
+  // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
+  // baseUrl = 'http://172.0.0.41:8117/cspo/';
   payUrl = 'http://172.0.0.41:8115/pay/';
-  //baseUrl = 'http://10.50.50.117:8117/cspd/';
-  // baseUrl = 'http://10.50.50.121:8117/cspo/';
-  // baseUrl = 'http://10.50.50.117:8117/cspo/';
+  baseUrl = 'http://10.50.50.128:8117/cspo/';//明星
   baseImgPath = '/img/';
 }else{
-  // baseUrl = '//elm.cangdu.org';
-  // baseImgPath = '//elm.cangdu.org/img/';
+  // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
   baseUrl = 'http://172.0.0.41:8117/cspo/';
 }
 
@@ -140,7 +138,7 @@ export const API_POST_LIST_ORDER_CHANGE_RECORD = baseUrl+'ins/orderRefund/update
 export const API_GET_LIST_ALL_INSTITUTION = baseUrl+'ins/institution/listAllInstitution';//机构列表
 
 
-export const API_LIST_SERVICE_dict = baseUrl+'ins/orderRefund/listOrderRefund';//订单列表词典
+export const API_LIST_SERVICE_dict = baseUrl+'ins/institution/listAllInstitution';//订单列表词典
 export const API_TRADE_LIST = baseUrl+'csp/trade/tradeList';//主订单列表
 export const API_TRADE_INFO = baseUrl+'csp/trade/tradeInfo';//主订单详情
 export const API_CSP_ORDER_LIST = baseUrl+'csp/trade/cspOrderList';//子订单列表
