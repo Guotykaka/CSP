@@ -18,19 +18,16 @@
       </ul>
     </div>
   </div>
-
-
 </template>
 
 <script>
   //引入login的方法
   import {login,ERR_OK} from "@/api/api.js";
+  import {baseUrl} from "@/config/env";
   import {setStore} from "@/config/mUtils.js";
-
   export default {
       data:function () {
         return{
-
           //登录参数
           loginParams:{
             captcha: "",
@@ -44,16 +41,17 @@
       },
     created(){
         this.refreshImg();
+      localStorage.clear();
     },
       methods:{
         doLogin:function () {
-
           var params=this.loginParams;
           login(params).then(res => {
             if(res.code===ERR_OK){
                 setStore('userMesage',res.data);
-              this.$router.push("notice")
+              this.$router.push("main")
             }else{
+              this.refreshImg();
               this.$alert(res.msg)
             }
           }).catch(err => {
@@ -66,7 +64,7 @@
           var params = new Date();
           this.loginParams.codeKey = params.getTime().toString();
           this.loginParams.timespan = params.getTime().toString();
-          this.imgUrl = "http://172.0.0.41:8117/cspo/sys/user/captcha.jpg/"+this.loginParams.codeKey
+          this.imgUrl = baseUrl+"sys/user/captcha.jpg/"+this.loginParams.codeKey
         }
       }
     }

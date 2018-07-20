@@ -260,7 +260,6 @@ export function listServiceDict(params){
 }
 //主订单列表
 export function tradeList(params) {
-  params.timespan = timeString();
   return post(urls.API_TRADE_LIST, params)
 }
 

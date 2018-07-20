@@ -146,7 +146,7 @@
 
 <script>
   import headerTop from '@/components/headTop.vue'
-  import {ERR_OK, showReportFn, getRefundDetail} from "@/api/api"
+  import {ERR_OK, showReportFn, getRefundDetail,reportDetail} from "@/api/api"
   import report from '@/components/report.vue';
   import {mapState} from 'vuex'
 

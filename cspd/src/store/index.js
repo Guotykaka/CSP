@@ -29,14 +29,14 @@ const mutations = {
     state.detailShow = value;
   },
 //  消息列表数据
-  getMsgList(state,url,params){
+/*  getMsgList(state,url,params){
     api.countUserNewsList(url,params).then((res)=>{
       let data = res.data;
       state.msgList = data;
     }).catch((res)=>{
       alert(res.data)
     })
-  }
+  }*/
 
 };
 

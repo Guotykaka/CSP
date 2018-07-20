@@ -163,7 +163,7 @@
               <template slot-scope="{ item }">
                 <div class="name">{{ item.institutionName }}</div>
               </template>
-              </el-autocomplete>
+            </el-autocomplete>
           </el-col>
         </el-row>
 
@@ -259,10 +259,16 @@
             <strong class="title-note">所属机构：</strong>
           </el-col>
           <el-col :span="8">
-            <el-select v-model="editorINfo.institutionId" clearable placeholder="请选择机构">
-              <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId">
-              </el-option>
-            </el-select>
+            <el-autocomplete class="auto-select"
+                             popper-class="my-autocomplete"
+                             v-model="editorINfo.institutionName"
+                             :fetch-suggestions="querySearch"
+                             placeholder="请输入内容"
+                             @select="handleSelectEditor">
+              <template slot-scope="{ item }">
+                <div class="name">{{ item.institutionName }}</div>
+              </template>
+            </el-autocomplete>
           </el-col>
         </el-row>
 
@@ -392,6 +398,10 @@ export default {
     handleSelectAdd(item) {
       this.addINfo.institutionName=item.institutionName;
       this.addINfo.institutionId=item.institutionId
+    },
+    handleSelectEditor(item) {
+      this.editorINfo.institutionName=item.institutionName;
+      this.editorINfo.institutionId=item.institutionId
     },
 
     //自带搜索组件搜索

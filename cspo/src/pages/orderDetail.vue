@@ -236,7 +236,7 @@
         return arrValue
       },
       returnBlack() {
-        this.$router.go(-1)
+        this.$router.push('/orderList')
       },
       //点击显示体检报告详情
       showReportFn(val){

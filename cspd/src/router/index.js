@@ -1,12 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import "@/asset/style/common.less"
-import "@/asset/style/mixin.less"
-
-
-
-
-
 
 const login = () => import('@/pages/login.vue')//登录
 const doctor_index = () => import('@/pages/doctor_index.vue')//首页
@@ -24,7 +17,8 @@ const doApply = () => import('@/pages/do_apply.vue')//医生去认证
 
 Vue.use(Router)
 
-export default new Router({
+
+const router =new Router({
   routes: [
     {
       path: '/',
@@ -92,4 +86,21 @@ export default new Router({
       ]
     }
   ]
-})
+});
+
+router.beforeEach((to, from, next) => {
+  var authenticationStatus=localStorage.getItem("authenticationStatus");
+  if(authenticationStatus !== '2'){
+    if(to.fullPath==='/' || to.fullPath==='/doApply' || to.fullPath==='/indetification'){
+      next()
+    }else {
+      alert("请先认证");
+      next(false)
+    }
+  }else{
+    next()
+  }
+
+});
+export default router
+
