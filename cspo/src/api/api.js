@@ -232,6 +232,17 @@ export function updataWithdrawStatus(params) {
 }
 
 
+//获取未读列表
+export function getNewsList(params) {
+  return post(urls.API_POST_COUNT_USER_NEWSLIST,params);
+}
+
+//设置未读为已读  乐
+export function clearUnReadMes(params) {
+  return post(urls.API_POST_UNREAD_UPDATE_BATCH,params);
+}
+
+
 
 
 
@@ -257,6 +268,10 @@ export function getOrderChangeRecord(params){
 //订单列表词典
 export function listServiceDict(params){
   return post(urls.API_LIST_SERVICE_dict,params)
+}
+//订单商品名称
+export function getAllServiceInfo(params){
+  return post(urls.API_GET_ALL_SERVICE_INFO,params)
 }
 //主订单列表
 export function tradeList(params) {

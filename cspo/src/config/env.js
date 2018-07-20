@@ -1,6 +1,3 @@
-// import {localUrl} from "../../../cspd/src/config/env";
-
-import {getDictListByType} from "../api/api";
 
 /**
  * 配置编译环境和线上环境之间的切换
@@ -17,7 +14,7 @@ let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
   // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
-   baseUrl = 'http://172.0.0.41:8117/cspo/';
+  baseUrl = 'http://172.0.0.41:8117/cspo/';
   payUrl = 'http://172.0.0.41:8115/pay/';
   //baseUrl = 'http://10.50.50.128:8117/cspo/';//明星
   baseImgPath = '/img/';
@@ -125,7 +122,8 @@ export const API_POST_UPDATE_APPLY_STATUS= baseUrl+'ins/withdraw/updateApplyStat
 
 
 
-
+export const API_POST_COUNT_USER_NEWSLIST= baseUrl+'ins/usernewsreal/countUserNewsList';//未读消息列表
+export const API_POST_UNREAD_UPDATE_BATCH= baseUrl+'ins/usernewsreal/updateBatch';//设置未读消息为已读
 
 
 
@@ -137,6 +135,7 @@ export const API_POST_LIST_ORDER_REFUND = payUrl+'api/trade/orderRefund';//同�
 export const API_POST_LIST_ORDER_CHANGE_RECORD = baseUrl+'ins/orderRefund/updateOrderRefundStatus';//拒绝退款
 
 export const API_GET_LIST_ALL_INSTITUTION = baseUrl+'ins/institution/listAllInstitution';//机构列表
+export const API_GET_ALL_SERVICE_INFO = baseUrl+'csp/serviceInfo/getAllServiceInfo';//服务名称
 
 
 export const API_LIST_SERVICE_dict = baseUrl+'ins/institution/listAllInstitution';//订单列表词典

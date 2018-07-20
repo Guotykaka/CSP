@@ -48,7 +48,7 @@
       <!--订单信息-->
       <div class="stautsStyle" v-for="(item,index) in cspOrderInfoList" :key="index">
         <!--电话报告解读-->
-        <el-card class="box-card" :body-style="payStyle" v-if="item.serviceType===2">
+        <el-card class="box-card" :body-style="payStyle" v-if="item.serviceType==='20'" :key="item.serviceType">
           <div slot="header" class="header-style">
             <span class="colorStatus">订单信息</span>
             <div v-if="item.orderStatus==0">订单状态：
@@ -82,8 +82,38 @@
           <div>订单金额：<span class="color3">￥{{item.totalPrice | fixedTwo}}</span></div>
           <div>结算信息：<span class="color3">商品售价：￥{{item.totalPrice | fixedTwo}}</span></div>
         </el-card>
+        <!--一元听-->
+        <el-card class="box-card" :body-style="payStyle" v-if="item.serviceType==='10000'" :key="item.serviceType">
+          <div slot="header" class="header-style">
+            <span class="colorStatus">订单信息</span>
+            <div v-if="item.orderStatus==0">订单状态：
+              <el-tag type="warning">待付款</el-tag>
+            </div>
+            <div v-if="item.orderStatus==1">订单状态：
+              <el-tag type="info">已取消</el-tag>
+            </div>
+            <div v-if="item.orderStatus==2">订单状态：
+              <el-tag type="success">已付款</el-tag>
+              <div v-if="customerDetail" class="serverCss">订单服务状态：
+                <el-tag>{{customerDetail.orderServiceStatusString}}</el-tag>
+              </div>
+            </div>
+            <div v-if="item.orderStatus==3">订单状态：
+              <el-tag type="success">已完成</el-tag>
+              <div v-if="customerDetail" class="serverCss">订单服务状态：
+                <el-tag>{{customerDetail.orderServiceStatusString}}</el-tag>
+              </div>
+            </div>
+          </div>
+          <div>订单编号：<span @click="showReportFn(item)" class="color3">{{item.tradeCode}}</span></div>
+          <div>服务名称：<span class="color3">{{item.itemName}}</span></div>
+          <div>服务机构：<span class="color3">{{item.institutionName}}</span></div>
+          <div>服务医生：<span class="color3">{{item.name}}</span></div>
+          <div>订单金额：<span class="color3">￥{{item.totalPrice | fixedTwo}}</span></div>
+          <div>结算信息：<span class="color3">商品售价：￥{{item.totalPrice | fixedTwo}}</span></div>
+        </el-card>
         <!--图文咨询-->
-        <el-card class="box-card" :body-style="payStyle" v-else>
+        <el-card class="box-card" :body-style="payStyle"  v-if="item.serviceType==='10'" :key="item.serviceType">
           <div slot="header" class="header-style">
             <span class="colorStatus">订单信息</span>
             <div v-if="item.orderStatus==0">订单状态：
@@ -209,6 +239,10 @@
 
     },
     activated(){
+      if(!this.$route.params.val){
+        this.$router.push('/orderList')
+        return;
+      }
       this.customerDetail = this.$route.params.val;
       this.checkedId = this.$route.params.val.tradeCode;
       this.getDetail();
@@ -242,12 +276,16 @@
       showReportFn(val){
         let data = {
           "checkUnitCode": val.checkUnitCode,
-          "workNo": val.checkUnitCode
+          "workNo": val.workNo
         }
         reportDetail(data).then((res)=>{
           if(res.code===ERR_OK){
             this.reportData=res.data;
-            this.isShowReport=true;
+            if(res.data){
+              this.isShowReport=true;
+            }else{
+              this.$alert('暂无数据','提示')
+            }
           }
         })
       },

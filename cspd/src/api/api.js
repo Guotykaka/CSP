@@ -187,3 +187,7 @@ export function cancelApply(params) {
 export function countUserNewsList(params) {
   return post(urls.API_COUNT_USER_NEWS_LIST, params)
 }
+//';//按类型更新用户消息为已读状态
+export function updateBatch(params) {
+  return post(urls.API_INS_UPDATE_BATCH, params)
+}

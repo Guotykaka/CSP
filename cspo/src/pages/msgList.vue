@@ -10,7 +10,7 @@
 
         <!--table 表单开始-->
         <el-table
-          :data="msgLists"
+          :data="getUnReadList"
           border
           style="width: 100%">
           <el-table-column prop="" label="序号"  width="60" type="index"></el-table-column>
@@ -20,7 +20,7 @@
 
           <el-table-column label="操作" width="150">
             <template slot-scope="scope">
-              <el-button size="mini" type="primary" @click="_checkDetail(scope.row)">查看详情</el-button>
+              <el-button size="mini" type="primary" @click="setUnreadMsgFn( scope.row,scope.$index)">查看详情</el-button>
             </template>
           </el-table-column>
         </el-table>
@@ -31,41 +31,62 @@
 </template>
 <script>
 import headerTop from '@/components/headTop.vue';
-import { mapGetters } from "vuex";
+import { mapGetters,mapMutations } from "vuex";
+import {ERR_OK,clearUnReadMes} from '@/api/api';
+import {getStore} from "@/config/mUtils.js";
+
+
 export default {
   data() {
-    return {
-      msgLists:[
-        {"unReadCount":"0","newsTitle":"您有新订单","typeName":"新订单通知","newsType":"1"},
-        {"unReadCount":"17","newsTitle":"新退款订单","typeName":"新退款通知","newsType":"2"},
-        {"unReadCount":"4","newsTitle":"新待认证订单","typeName":"新认证通知","newsType":"3"},
-        {"unReadCount":"5","newsTitle":"新提现订单","typeName":"提现申请通知","newsType":"4"}      ]
-  }
+    return {}
   },
   components:{
     headerTop,
   },
 
   computed:{
-    ...mapGetters(['getInstitutionArr'])
+    ...mapGetters(['getInstitutionArr','getUnReadList'])
   },
 
   methods:{
-    //查看详情
-    _checkDetail(item){
-      if(item.newsType ==='1'){
-        //订单
-        this.$router.push("orderList")
-      }else if(item.newsType === '2'){
-        //退款
-        this.$router.push("refundsList")
-      }else if(item.newsType === '3'){
-        //医生认证
-        this.$router.push("indentList")
-      }else if(item.newsType === '4'){
-        //提现
-        this.$router.push("withdrawList")
-      }
+
+
+    ...mapMutations(['setUnReadListZero']),
+
+    //数据清零方法
+    setUnreadMsgFn(item,index){
+      let params={
+        userId:JSON.parse(getStore("userMesage")).userId,
+        newsTypes:item.newsType
+      };
+
+      clearUnReadMes(params).then(res => {
+        if(res.code===ERR_OK){
+          this.setUnReadListZero(index);//清零
+
+          if(item.newsType ==='1'){
+            //订单
+            this.$router.push("orderList")
+          }else if(item.newsType === '2'){
+            //退款
+            this.$router.push("refundsList")
+          }else if(item.newsType === '3'){
+            //医生认证
+            this.$router.push("indentList")
+          }else if(item.newsType === '4'){
+            //提现
+            this.$router.push("withdrawList")
+          }
+        }else {
+          this.$alert(err.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      }).catch(err => {
+        this.$alert(err.msg, '提示', {
+          confirmButtonText: '确定',
+        })
+      });
     },
   },
 }

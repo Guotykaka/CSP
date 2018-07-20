@@ -36,12 +36,12 @@
         </el-form-item>
 
         <el-form-item label="商品名称">
-          <el-select filterable  v-model="searchParams.itemId" placeholder="请选择商品名称">
+          <el-select filterable  v-model="searchParams.itemType" placeholder="请选择商品名称">
             <el-option
               v-for="(item,index) in listServiceDictList"
               :key="index"
-              :label="item.institutionName"
-              :value="item.dictCode"
+              :label="item.serviceName"
+              :value="item.serviceType"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -204,7 +204,7 @@
 
   import headerTop from '@/components/headTop.vue';
   import {baseUrl} from '@/config/env.js'
-  import {listServiceDict,tradeList,ERR_OK,cspOrderList} from "@/api/api"
+  import { tradeList,ERR_OK,cspOrderList, getAllServiceInfo} from "@/api/api"
   import {mapState} from 'vuex'
 
   export default {
@@ -219,7 +219,7 @@
           tradeCode: '',//string 交易号
           orderServiceStatus: null,//int 订单服务状态（0待服务 1客户忙待联系 2服务中 3已完成 4已失效）
           name: '',//string	医生姓名
-          itemId: null,//string	服务id
+          itemType: null,//string	服务id
           institutionName: '',//string 机构名称
           startTime: '',
           endTime: ''
@@ -260,7 +260,7 @@
       _listServiceDict: function () {
         let data = {},
         that = this;
-        listServiceDict(data).then((res) => {
+        getAllServiceInfo(data).then((res) => {
           console.log(res)
           if (res.code === ERR_OK) {
             console.log(res.data)
@@ -290,15 +290,15 @@
           tradeCode: this.searchParams.tradeCode,//string 交易号
           orderServiceStatus: this.searchParams.orderServiceStatus || '',//int 订单服务状态（0待服务 1客户忙待联系 2服务中 3已完成 4已失效）
           name: this.searchParams.name,//string	医生姓名
-          itemId: this.searchParams.itemId || '',//string	服务id
+          itemType: this.searchParams.itemType || '',//string	服务id
           institutionName: this.searchParams.institutionName,//string 机构名称
           type: null,//判断是不是为主订单
           startTime: this.searchParams.startTime,
           endTime: this.searchParams.endTime
         };
-        if (this.listShowTab) {
+        if (this.activeName==='first') {
           params.type = 1;
-        } else {
+        } else if(this.activeName==='second'){
           params.type = 2;
         }
         var paramString =
@@ -309,7 +309,7 @@
           '&tradeCode=' + params.tradeCode +
           '&orderServiceStatus=' + params.orderServiceStatus +
           '&name=' + params.name +
-          '&itemId=' + params.itemId +
+          '&itemType=' + params.itemType +
           '&institutionName=' + params.institutionName +
           '&startTime=' + params.startTime +
           '&endTime=' + params.endTime;
@@ -327,7 +327,7 @@
           tradeCode: '',//string 交易号
           orderServiceStatus: '',//int 订单服务状态（0待服务 1客户忙待联系 2服务中 3已完成 4已失效）
           name: '',//string	医生姓名
-          itemId: '',//string	服务id
+          itemType: '',//string	服务id
           institutionName: ''//string 机构名称
         };
         this.startTime = null;
@@ -346,7 +346,7 @@
             tradeCode: '',//string 交易号
             orderServiceStatus: '',//int 订单服务状态（0待服务 1客户忙待联系 2服务中 3已完成 4已失效）
             name: '',//string	医生姓名
-            itemId: '',//string	服务id
+            itemType: '',//string	服务id
             institutionName: ''//string 机构名称
           };
           this._getDatalist();
@@ -361,7 +361,7 @@
             tradeCode: '',//string 交易号
             orderServiceStatus: '',//int 订单服务状态（0待服务 1客户忙待联系 2服务中 3已完成 4已失效）
             name: '',//string	医生姓名
-            itemId: '',//string	服务id
+            itemType: '',//string	服务id
             institutionName: ''//string 机构名称
           };
           this._getDataSonlist();

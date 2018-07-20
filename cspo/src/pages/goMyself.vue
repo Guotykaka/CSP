@@ -173,7 +173,7 @@
         selStatus: '',//留言状态
       }
     },
-    created() {
+    activated() {
       this.userMessage = JSON.parse(getStore('userMesage'));
       this.createUserId = this.userMessage.userId;
       this._getQueryInsLeaveWordList();

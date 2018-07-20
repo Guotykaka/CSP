@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {api} from '@/api/api';
-//import {getAdminInfo} from '@/api/getData'
+import {
+  ERR_OK,
+  countUserNewsList
+} from '@/api/api.js';
 
 Vue.use(Vuex)
 
@@ -10,7 +12,7 @@ Vue.use(Vuex)
 const state = {
   isLoading:false,//缓冲
   detailShow:null,//系统公告详情
-  msgList:{data:null},//消息列表数据
+  msgList:[],//消息列表数据
 };
 
 
@@ -29,14 +31,15 @@ const mutations = {
     state.detailShow = value;
   },
 //  消息列表数据
-/*  getMsgList(state,url,params){
-    api.countUserNewsList(url,params).then((res)=>{
-      let data = res.data;
-      state.msgList = data;
+  getcountUserNewsList(state,params){
+    countUserNewsList(params).then((res)=>{
+      if(res.code===ERR_OK){
+        state.msgList = res.data;
+      }
     }).catch((res)=>{
       alert(res.data)
     })
-  }*/
+  }
 
 };
 
@@ -50,8 +53,8 @@ const actions={
     context.commit('getDetail',flag);
   },
   /*消息列表数据*/
-  msgList(context,url,params){
-    context.commit('getMsgList',url,params )
+  msgList(context,params){
+    context.commit('getcountUserNewsList',params )
   }
 }
 

@@ -4,7 +4,7 @@
   <div class="apply-wrapper">
 
     <!--操作认证-->
-    <div class="apply-box" v-if="authenticationStatus==='0' || authenticationStatus==='3' ">
+    <div class="apply-box" v-if="authenticationStatus==='0' || authenticationStatus==='3' || authenticationStatus==='4'">
 
       <el-card class="box-card" style="padding-top: 30px">
         <el-row :gutter="20" class="self-row">
@@ -146,7 +146,7 @@
     </div>
 
     <!--认证信息-->
-    <div class="apply-box" v-if="authenticationStatus==='1' || authenticationStatus==='2' || authenticationStatus==='4' ">
+    <div class="apply-box" v-if="authenticationStatus==='1' || authenticationStatus==='2'">
       <el-card class="box-card" style="padding-top: 30px">
         <el-row :gutter="20" class="self-row">
           <el-col :span="6" class="list-note">
@@ -431,6 +431,8 @@
           if(res.code===ERR_OK){
 
             if(res.data){
+              setStore("authenticationStatus",res.data.authenticationStatus)
+
               this.write.department=res.data.department;
               this.write.doctorJobCertificateUrl=res.data.doctorJobCertificateUrl;
               this.write.hospital=res.data.hospital;
@@ -443,8 +445,7 @@
               this.write.specialty=res.data.specialty;
               this.write.titleCertificateUrl=res.data.titleCertificateUrl;
               this.write.winningDesc=res.data.winningDesc;
-
-              if(this.authenticationStatus==='3'){
+              if(this.authenticationStatus==='3' || this.authenticationStatus==='4'){
                 this.apply.department=res.data.department;
                 this.apply.doctorJobCertificateUrl=res.data.doctorJobCertificateUrl;
                 this.apply.hospital=res.data.hospital;
