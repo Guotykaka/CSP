@@ -7,25 +7,25 @@
       <div>
         <el-header height="30">
           <!-- 操作行-->
-          <el-row :gutter="20">
-            <el-col :span="6">
-              <el-input v-model="searchParams.name" placeholder="服务名称" clearable></el-input>
-            </el-col>
-            <el-col :span="6">
+          <el-form :model="searchParams" :inline="true" class="demo-form-inline">
+          <el-form-item label="服务名称：">
+              <el-input v-model="searchParams.name" placeholder="服务名称" @keyup.enter.native="doSearch()" clearable></el-input>
+          </el-form-item>
+          <el-form-item label="请选择角色：">
               <el-select v-model="searchParams.role" clearable placeholder="请选择角色">
                 <el-option v-for="item in RoleList" :key="item.roleId" :label="item.roleName" :value="item.roleId">
                 </el-option>
               </el-select>
-            </el-col>
-            <el-col :span="6">
-              <el-button type="primary" @click="doSearch()">搜索</el-button>
-            </el-col>
-          </el-row>
-          <!--新增按钮-->
-          <el-row class="m_b_15">
+            
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="doSearch()" class="m_l_15">搜索</el-button>
+            
+          </el-form-item>
+          <el-row>
             <el-button type="primary" @click="handleAdd()">新增</el-button>
           </el-row>
-
+          </el-form>
         </el-header>
 
         <el-main>
@@ -250,7 +250,7 @@
 
 
 <script>
-import { GetServiceList,PostServiceStatus,PostServiceUpdate,getListWithNoParam } from '@/api/api.js'
+import { GetServiceList,PostServiceStatus,PostServiceUpdate,getListWithNoParam,PostServiceSave } from '@/api/api.js'
 import { quillEditor } from 'vue-quill-editor'
 import { getStore } from '@/config/mUtils.js'
 import headerTop from '@/components/headTop.vue'
@@ -495,7 +495,7 @@ export default {
         itemType: 'ITEM_SERVICE_TYPE',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
-        serviceRole: [4,29,30],
+        serviceRole: [],
         serviceSuggestedPrice: '1.0-99.0元/次',
         serviceName: '',
         serviceIconUrl:
@@ -596,7 +596,39 @@ export default {
     },
     // 确定新增
     _doAdd() {
-      this.tableData.push(this.addTable)
+      let Str = ""
+      Str = this.addTable.serviceRole.join(',')
+      this.addTable.serviceRole = Str
+      let code = ""
+      code = encodeURIComponent(this.addTable.serviceIntroduce)
+      this.addTable.serviceIntroduce= ""
+      this.addTable.serviceIntroduce= code
+      let params ={
+          "itemType": this.addTable.itemType,
+          "serviceDesc": this.addTable.serviceDesc,
+          "serviceIconUrl": this.serviceIconUrl,
+          "serviceId": this.addTable.serviceId,
+          "serviceIntroduce": this.addTable.serviceIntroduce,
+          "serviceMaxPrice": this.addTable.serviceMaxPrice,
+          "serviceMinPrice": this.addTable.serviceMinPrice,
+          "serviceName": this.addTable.serviceName,
+          "serviceRole": this.addTable.serviceRole,
+          "serviceSort": this.addTable.serviceSort,
+          "serviceType": this.addTable.serviceType,
+          "serviceUnit": this.addTable.serviceUnit,
+          "userId": this.AdminUserId
+      }
+      PostServiceSave(params).then(response => {
+        if (response.code == 1) {
+          this.$alert(response.msg)
+          this.getList()
+        } else {
+          this.$alert(response.msg)
+          this.getList()
+        }
+        
+      })
+      // this.tableData.push(this.addTable)
       this.dialogAddVisible = false
       this.addTable = {
         serviceType: 'ITEM_PLATFORM_SERVICE',
@@ -604,7 +636,7 @@ export default {
         itemType: 'ITEM_SERVICE_TYPE',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
-        serviceRole: '4,29,30',
+        serviceRole: [],
         serviceSuggestedPrice: '1.0-99.0元/次',
         serviceName: '',
         serviceIconUrl:
@@ -632,7 +664,7 @@ export default {
         itemType: 'ITEM_SERVICE_TYPE',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
-        serviceRole: '4,29,30',
+        serviceRole: [],
         serviceSuggestedPrice: '1.0-99.0元/次',
         serviceName: '',
         serviceIconUrl:
@@ -653,7 +685,7 @@ export default {
         message: '取消新增'
       })
     },
-    GoodsMan() {
+    GoodsMan() {//一元听商品管理路由跳转
       this.$router.push("listenList")
     },
     // 修改
@@ -877,6 +909,9 @@ export default {
     line-height: 117px;
 
 }
+.m_l_15{
+  margin-left: 15px;
+}
 </style>
 <style lang="less">
 .el-form-item {
@@ -892,6 +927,9 @@ export default {
 }
 .selector img{
     width: 150%;
+}
+el-header el-mian el-footer{
+  padding:0;
 }
 </style>
 

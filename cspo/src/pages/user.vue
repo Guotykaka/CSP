@@ -16,7 +16,7 @@
       </el-header>
       <el-main>
         <!-- 修改 -->
-        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
+        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40% v-bind:show-close = "false">
           <el-form :model="editTable">
             <el-form-item class="is-required" label="用户名:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -61,7 +61,7 @@
         </el-dialog>
 
         <!-- 查看 -->
-        <el-dialog title="查看" :visible.sync="dialogCheckVisible" width=40%>
+        <el-dialog title="查看" :visible.sync="dialogCheckVisible" width=40% v-bind:show-close = "false">
           <el-form :model="selectTable">
             <el-form-item label="用户名:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -101,7 +101,7 @@
           </div>
         </el-dialog>
         <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
+        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
           <el-form :model="addTable">
             <el-form-item class="is-required" label="用户名:" :label-width="formLabelWidth">
               <el-col :span="16">

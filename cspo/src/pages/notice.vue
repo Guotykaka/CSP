@@ -4,71 +4,40 @@
     <div class="page-container">
       <el-header height="30">
         <!-- 操作行-->
-        <!-- <el-form :model="formInline" ref="formInline" label-width="80px" :inline="true">
-            <el-form-item label="公告标题">
-              <el-input v-model="formInline.valueBT" placeholder="公告标题" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="公告类型">
-              <el-select v-model="formInline.valueLX" clearable placeholder="请选择公告类型">
-                <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="公告状态">
-              <el-select v-model="formInline.valueZT" clearable placeholder="请选择公告状态">
-                <el-option v-for="item in formInline.optionsZT" :key="item.value" :label="item.label" :value="item.value">
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="创建人">
-              <el-input v-model="formInline.valueCJR" placeholder="创建人" clearable></el-input>
-            </el-form-item>
-        </el-form> -->
-
-        <el-row :gutter="20">
-          <el-col :span="6">
+        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+          <el-form-item label="公告标题">
             <el-input v-model="formInline.valueBT" placeholder="公告标题" clearable></el-input>
-          </el-col>
-          <el-col :span="6">
+          </el-form-item>
+
+          <el-form-item label="请选择公告类型">
             <el-select v-model="formInline.valueLX" clearable placeholder="请选择公告类型">
               <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
-          </el-col>
-          <el-col :span="6">
+          </el-form-item>
+          <el-form-item label="请选择公告状态">
             <el-select v-model="formInline.valueZT" clearable placeholder="请选择公告状态">
               <el-option v-for="item in formInline.optionsZT" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
-          </el-col>
-
-          <el-col :span="6">
+          </el-form-item>
+          <el-form-item label="创建人">
             <el-input v-model="formInline.valueCJR" placeholder="创建人" clearable></el-input>
-          </el-col>
-        </el-row>
-        <el-row :gutter="20">
-          <el-col :span="6">
+          </el-form-item>
+          <el-form-item label="创建开始时间">
             <el-date-picker v-model="formInline.valueKS" align="right" type="date" placeholder="创建开始时间" :picker-options="formInline.pickerOptions">
             </el-date-picker>
-          </el-col>
-
-          <el-col :span="6">
+          </el-form-item>
+          <el-form-item label="创建结束时间">
             <el-date-picker v-model="formInline.valueJS" align="right" type="date" placeholder="创建结束时间" :picker-options="formInline.pickerOptions">
             </el-date-picker>
-          </el-col>
+          </el-form-item>
 
-          <el-col :span="6">
-            <el-button type="primary">搜索</el-button>
+          <el-form-item>
             <el-button type="primary" @click="handleReset()">重置</el-button>
-          </el-col>
-
-        </el-row>
-
-        <!--新增按钮-->
-        <el-row class="m_b_15">
-          <el-button type="primary" @click="handleAdd()">新增</el-button>
-        </el-row>
-
+            <el-button type="primary">搜索</el-button>
+          </el-form-item>
+        </el-form>
       </el-header>
       <el-main>
         <!-- 修改 -->
@@ -210,7 +179,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
               </el-pagination>
             </template>
           </el-col>
@@ -505,10 +474,18 @@ export default {
         userName: ''
       }
       getNoticeList(params).then(response => {
-        this.tableData = []
-        this.tableData = response
-        console.log(response,"tableData")
-        this.totalCount = response.totalCount
+        if (response.code == 1) {
+          if (!response.data.list.length == 0) {
+            this.tableData = []
+            this.tableData = response
+            this.totalCount = response.totalCount
+          } else {
+            console.log(response,"tableData")
+          }
+        } else {
+          console.log(response.msg)
+        }
+        
       })
     }
   },

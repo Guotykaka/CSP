@@ -10,8 +10,6 @@
 
           <el-form-item label="机构名称">
             <el-input v-model="searchParams.selectInstitutionName" placeholder="机构名称" clearable></el-input>
-            </el-autocomplete>
-
           </el-form-item>
           <el-form-item label="APP是否显示">
             <el-select v-model="searchParams.selectIsAppShow" clearable placeholder="APP是否显示" clearable>
@@ -37,7 +35,7 @@
       </el-header>
       <el-main>
         <!-- 修改 -->
-        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
+        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40% v-bind:show-close = "false">
           <template :model="editTable">
             <el-tabs @tab-click="handleClick">
               <!-- 修改==基本信息 -->
@@ -158,7 +156,7 @@
         </el-dialog>
 
         <!-- 查看 -->
-        <el-dialog title="查看" :visible.sync="dialogCheckVisible" width=40%>
+        <el-dialog title="查看" :visible.sync="dialogCheckVisible" width=40% v-bind:show-close = "false">
           <ul :model="selectTable">
             <li>
               <div class="messageTitle">
@@ -249,7 +247,7 @@
           </div>
         </el-dialog>
         <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
+        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
           <template :model="addTable">
             <el-tabs @tab-click="handleClick">
               <!-- 新增==基本信息 -->
@@ -445,28 +443,28 @@ export default {
       editTableRoot: {},
       addTable: {
         //新增单个数据
-        "bannerExtensionUrl": "",
-        "bannerLogo": "1",
-        "createUser": "1",
-        "extensionImageUrl": "1",
-        "extensionLogoUrl": "1",
-        "institutionAddr": "1",
-        "institutionCode": "gty",
-        "institutionDesc": "1",
-        "institutionExtensionUrl": "1",
-        "institutionGradeId": "1",
-        "institutionId": "1",
-        "institutionLavelId": "3",
-        "institutionName": "1",
-        "medicalExamReportLogo": "1",
-        "qrCodeUrl": "1",
-        "registeredReservationAddr": "1",
-        "status": 0,
-        "updateUser": "1",
-        "whetherAppShow": 1,
-        "whetherDelete": 1,
-        "whetherHasPdfReport": 1,
-        "whetherOpenMsm": 1
+        bannerExtensionUrl: '',
+        bannerLogo: '1',
+        createUser: '1',
+        extensionImageUrl: '1',
+        extensionLogoUrl: '1',
+        institutionAddr: '1',
+        institutionCode: 'gty',
+        institutionDesc: '1',
+        institutionExtensionUrl: '1',
+        institutionGradeId: '1',
+        institutionId: '1',
+        institutionLavelId: '3',
+        institutionName: '1',
+        medicalExamReportLogo: '1',
+        qrCodeUrl: '1',
+        registeredReservationAddr: '1',
+        status: 0,
+        updateUser: '1',
+        whetherAppShow: 1,
+        whetherDelete: 1,
+        whetherHasPdfReport: 1,
+        whetherOpenMsm: 1
       }, //新增单个数据
       dialogCheckVisible: false, //查看
       dialogEditVisible: false, //修改
@@ -476,7 +474,7 @@ export default {
       formLabelWidth150: '150px'
     }
   },
-// watch:{
+  // watch:{
   //     searchParams: {
   //       deep: true,
   //       handler () {
@@ -498,7 +496,7 @@ export default {
   //     })
   //       }
   //     }
-// },
+  // },
   methods: {
     doSearche() {
       let params = {
@@ -622,28 +620,28 @@ export default {
         }
       })
       this.addTable = {
-        "bannerExtensionUrl": "",
-        "bannerLogo": "1",
-        "createUser": "1",
-        "extensionImageUrl": "1",
-        "extensionLogoUrl": "1",
-        "institutionAddr": "1",
-        "institutionCode": "1111111",
-        "institutionDesc": "1",
-        "institutionExtensionUrl": "1",
-        "institutionGradeId": "1",
-        "institutionId": "1",
-        "institutionLavelId": "1",
-        "institutionName": "1",
-        "medicalExamReportLogo": "1",
-        "qrCodeUrl": "1",
-        "registeredReservationAddr": "1",
-        "status": 0,
-        "updateUser": "1",
-        "whetherAppShow": 1,
-        "whetherDelete": 1,
-        "whetherHasPdfReport": 1,
-        "whetherOpenMsm": 1
+        bannerExtensionUrl: '',
+        bannerLogo: '1',
+        createUser: '1',
+        extensionImageUrl: '1',
+        extensionLogoUrl: '1',
+        institutionAddr: '1',
+        institutionCode: '1111111',
+        institutionDesc: '1',
+        institutionExtensionUrl: '1',
+        institutionGradeId: '1',
+        institutionId: '1',
+        institutionLavelId: '1',
+        institutionName: '1',
+        medicalExamReportLogo: '1',
+        qrCodeUrl: '1',
+        registeredReservationAddr: '1',
+        status: 0,
+        updateUser: '1',
+        whetherAppShow: 1,
+        whetherDelete: 1,
+        whetherHasPdfReport: 1,
+        whetherOpenMsm: 1
       }
       this.dialogAddVisible = false
     },

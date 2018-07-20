@@ -34,7 +34,7 @@
                 </el-table>
               </template>
               <!-- 修改 -->
-              <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
+              <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40% v-bind:show-close = "false">
                 <el-form :model="editTable">
                   <el-form-item label="短信模板名称:" :label-width="formLabelWidth">
                     <el-col :span="16">
@@ -53,7 +53,7 @@
                 </div>
               </el-dialog>
               <!-- 新增 -->
-              <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
+              <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
                 <el-form :model="addTable">
                   <el-form-item label="短信模板名称:" :label-width="formLabelWidth">
                     <el-col :span="16">
@@ -113,7 +113,7 @@
                 </el-table>
               </template>
               <!-- 编辑 -->
-              <el-dialog title="编辑" :visible.sync="dialogEditVisible2" width=40%>
+              <el-dialog title="编辑" :visible.sync="dialogEditVisible2" width=40% v-bind:show-close = "false">
                 <el-form :model="editTable2">
                   <el-form-item label="手机推送模板名称:" :label-width="formLabelWidth2">
                     <el-col :span="16">
@@ -132,7 +132,7 @@
                 </div>
               </el-dialog>
               <!-- 新增 -->
-              <el-dialog title="新增" :visible.sync="dialogAddVisible2" width=40%>
+              <el-dialog title="新增" :visible.sync="dialogAddVisible2" width=40% v-bind:show-close = "false">
                 <el-form :model="addTable2">
                   <el-form-item label="手机推送模板名称:" :label-width="formLabelWidth2">
                     <el-col :span="16">
