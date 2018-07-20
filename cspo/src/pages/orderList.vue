@@ -36,10 +36,10 @@
         </el-form-item>
 
         <el-form-item label="商品名称">
-          <el-select filterable  v-model="searchParams.itemType" placeholder="请选择商品名称">
+          <el-select filterable v-model="searchParams.itemType" placeholder="请选择商品名称">
             <el-option
-              v-for="(item,index) in listServiceDictList"
-              :key="index"
+              v-for="item in listServiceDictList"
+              :key="item.serviceType"
               :label="item.serviceName"
               :value="item.serviceType"
             ></el-option>
@@ -47,12 +47,12 @@
         </el-form-item>
 
         <el-form-item label="服务机构">
-          <el-select filterable  v-model="searchParams.institutionName" placeholder="请输入服务机构">
+          <el-select filterable v-model="searchParams.institutionName" placeholder="请输入服务机构">
             <el-option
-              v-for="(item,index) in institutionArr"
-              :key="index"
+              v-for="item in institutionArr"
+              :key="item.dictCode"
               :label="item.institutionName"
-              :value="item.dictCode"
+              :value="item.institutionName"
             ></el-option>
           </el-select>
         </el-form-item>
@@ -118,7 +118,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <div class="firstTable">
+          <div class="firstTable" v-if="tradeList.length>0">
             <el-pagination
               background
               @size-change="handleSizeChange1"
@@ -180,7 +180,7 @@
               </template>
             </el-table-column>
           </el-table>
-          <div class="firstTable">
+          <div class="firstTable" v-if="cspOrderList.length>0">
             <el-pagination
               background
               @size-change="handleSizeChange2"
@@ -204,7 +204,7 @@
 
   import headerTop from '@/components/headTop.vue';
   import {baseUrl} from '@/config/env.js'
-  import { tradeList,ERR_OK,cspOrderList, getAllServiceInfo} from "@/api/api"
+  import {tradeList, ERR_OK, cspOrderList, getAllServiceInfo} from "@/api/api"
   import {mapState} from 'vuex'
 
   export default {
@@ -244,7 +244,7 @@
     created() {
       this._listServiceDict();
     },
-    activated(){
+    activated() {
       this._getDatalist();
       this._listServiceDict();
     },
@@ -259,7 +259,7 @@
       //服务名称选择
       _listServiceDict: function () {
         let data = {},
-        that = this;
+          that = this;
         getAllServiceInfo(data).then((res) => {
           console.log(res)
           if (res.code === ERR_OK) {
@@ -275,14 +275,15 @@
       //订单搜索
       _searchDatalist: function () {
         this.searchParams.currentPage = 1;
-        if (this.activeName==='first') {
+        if (this.activeName === 'first') {
           this._getDatalist();
-        } else if(this.activeName==='second') {
+        } else if (this.activeName === 'second') {
           this._getDataSonlist();
         }
       },
       //导出列表
       _exportTradeList: function () {
+        let listMsg = [];
         var params = {
           tradeStatus: this.searchParams.tradeStatus || '',//string 订单状态 0待付款 1已取消 2已付款 3已完成
           realName: this.searchParams.realName,//string	用户真实姓名
@@ -296,9 +297,11 @@
           startTime: this.searchParams.startTime,
           endTime: this.searchParams.endTime
         };
-        if (this.activeName==='first') {
+        if (this.activeName === 'first') {
+          listMsg = this.tradeList;
           params.type = 1;
-        } else if(this.activeName==='second'){
+        } else if (this.activeName === 'second') {
+          listMsg = this.cspOrderList;
           params.type = 2;
         }
         var paramString =
@@ -313,8 +316,12 @@
           '&institutionName=' + params.institutionName +
           '&startTime=' + params.startTime +
           '&endTime=' + params.endTime;
-        var url = baseUrl + "csp/trade/exportTradeList?" + paramString;
-        window.open(url);
+        var url = baseUrl + "csp/trade/exportTradeList?" + paramString.toString();
+        if(listMsg.length>0){
+          window.open(url);
+        }else{
+          this.$alert('暂无数据导出','提示')
+        }
       },
       //清除搜索参数
       _clearParams: function () {
@@ -350,7 +357,6 @@
             institutionName: ''//string 机构名称
           };
           this._getDatalist();
-          this.listShowTab = true;
         } else if (tab.name === 'second') {
           this.searchParams = {
             currentPage: 1,//当前页是第几页
@@ -365,7 +371,6 @@
             institutionName: ''//string 机构名称
           };
           this._getDataSonlist();
-          this.listShowTab = false;
         }
       },
       //获取主订单列表
@@ -378,9 +383,10 @@
             this.pages1.currentpage = res.data.currPage;
             this.pages1.pageSize = res.data.pageSize
           } else {
-            this.$alert(res.msg, '提示', {
-              confirmButtonText: '确定',
-            })
+            this.tradeList = [];
+            /*            this.$alert(res.msg, '提示', {
+                          confirmButtonText: '确定',
+                        })*/
           }
         })
       },
@@ -394,9 +400,10 @@
             this.pages2.currentpage = res.data.currPage;
             this.pages2.pageSize = res.data.pageSize
           } else {
-            this.$alert(res.msg, '提示', {
-              confirmButtonText: '确定',
-            })
+            this.cspOrderList = [];
+            /*            this.$alert(res.msg, '提示', {
+                          confirmButtonText: '确定',
+                        })*/
           }
         })
       },
@@ -405,7 +412,7 @@
         this._getDatalist();
       },
       handleCurrentChange1(val) {
-        this.searchParams.currentPage=val;
+        this.searchParams.currentPage = val;
         this._getDatalist();
       },
       handleSizeChange2(val) {
@@ -413,7 +420,7 @@
         this._getDataSonlist();
       },
       handleCurrentChange2(val) {
-        this.searchParams.currentPage=val;
+        this.searchParams.currentPage = val;
         this._getDataSonlist();
       },
       //主订单详情

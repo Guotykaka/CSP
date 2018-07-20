@@ -60,20 +60,38 @@
       _checkDetail(item){
         if(item.newsType ==='5'){
           //电话报告解读
-          this.$router.push("/tel_consult")
+          this.params.newsTypes=item.newsType;
+          this.updateStatus();
         }else if(item.newsType === '6'){
           //图文咨询
-          this.$router.push("/imgText_consult")
+          this.params.newsTypes=item.newsType;
+          this.updateStatus();
         }else if(item.newsType === '7'){
+          //账单消息
+          this.params.newsTypes=item.newsType;
+          this.updateStatus();
+        }
+      },
+      //路由跳转
+      routerTo(){
+        if(this.params.newsType ==='5'){
+          //电话报告解读
+          this.$router.push("/tel_consult")
+        }else if(this.params.newsType === '6'){
+          //图文咨询
+          this.$router.push("/imgText_consult")
+        }else if(this.params.newsType === '7'){
           //账单消息
           this.$router.push("/personal")
         }
       },
       //更新消息状态
       updateStatus(){
-        updateBatch(params).then((res)=>{
+        updateBatch(this.params).then((res)=>{
           if(res.code===ERR_OK){
-
+            this.routerTo();
+          }else{
+            this.$alert('更新失败','提示')
           }
         })
       }
