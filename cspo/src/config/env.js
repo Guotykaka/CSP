@@ -21,6 +21,8 @@ if (process.env.NODE_ENV == 'development') {
 }else{
   // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
   baseUrl = 'http://172.0.0.41:8117/cspo/';
+  payUrl = 'http://172.0.0.41:8115/pay/';
+
 }
 
 export {
@@ -59,6 +61,9 @@ export const API_POST_UPDATE_TEMPLATE = baseUrl+'bd/template/update';//修改
 export const API_POST_SAVE_TEMPLATE = baseUrl+'bd/template/save';//新增
 export const API_POST_DELETE_TEMPLATE = baseUrl+'bd/template/delete';//删除
 
+
+
+
 //菜单管理
 
 export const API_POST_MENU_DELETE = baseUrl+'sys/menu/delete';//删除菜单
@@ -77,6 +82,9 @@ export const API_GET_DICTLISTBY_TYPE = baseUrl+'sys/dict/getDictListByType';//�
 /*系统常量*/
 export const API_POST_DELETE_DICTIONARY = baseUrl+'sys/dictionary/deleteDictionary';//删除字典列表数据
 export const API_POST_GETDICTIONARY_BY_KEY = baseUrl+'sys/dictionary/getDictionaryByKey';//根据key获取字典列表数据详情
+//export const API_POST_GETDICTIONARY_BY_KEY = baseUrl+'sys/dictionary/getDictionaryByKey';//根据key获取字典列表数据详情
+
+
 export const API_POST_GETDICTIONARY_INFO = baseUrl+'sys/dictionary/getDictionaryInfo';//获取字典列表数据详情
 /*GET请求*/
 export const API_GET_LIST_DICTIONARY = baseUrl+'sys/dictionary/listDictionary';//获取字典列表数据
