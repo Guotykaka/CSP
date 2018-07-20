@@ -429,32 +429,35 @@
         };
         getApplyInfo(params).then(res => {
           if(res.code===ERR_OK){
-            this.write.department=res.data.department;
-            this.write.doctorJobCertificateUrl=res.data.doctorJobCertificateUrl;
-            this.write.hospital=res.data.hospital;
-            this.write.logoUrl=res.data.logoUrl;
-            this.write.name=res.data.name;
-            this.write.positionalTitles=res.data.positionalTitles;
-            this.write.professionalCertificateCode=res.data.professionalCertificateCode;
-            this.write.recommendReason=res.data.recommendReason;
-            this.write.remarks=res.data.remarks;
-            this.write.specialty=res.data.specialty;
-            this.write.titleCertificateUrl=res.data.titleCertificateUrl;
-            this.write.winningDesc=res.data.winningDesc;
 
-            if(this.authenticationStatus==='3'){
-              this.apply.department=res.data.department;
-              this.apply.doctorJobCertificateUrl=res.data.doctorJobCertificateUrl;
-              this.apply.hospital=res.data.hospital;
-              this.apply.logoUrl=res.data.logoUrl;
-              this.apply.name=res.data.name;
-              this.apply.positionalTitles=res.data.positionalTitles;
-              this.apply.professionalCertificateCode=res.data.professionalCertificateCode;
-              this.apply.recommendReason=res.data.recommendReason;
-              this.apply.remarks=res.data.remarks;
-              this.apply.specialty=res.data.specialty;
-              this.apply.titleCertificateUrl=res.data.titleCertificateUrl;
-              this.apply.winningDesc=res.data.winningDesc;
+            if(res.data){
+              this.write.department=res.data.department;
+              this.write.doctorJobCertificateUrl=res.data.doctorJobCertificateUrl;
+              this.write.hospital=res.data.hospital;
+              this.write.logoUrl=res.data.logoUrl;
+              this.write.name=res.data.name;
+              this.write.positionalTitles=res.data.positionalTitles;
+              this.write.professionalCertificateCode=res.data.professionalCertificateCode;
+              this.write.recommendReason=res.data.recommendReason;
+              this.write.remarks=res.data.remarks;
+              this.write.specialty=res.data.specialty;
+              this.write.titleCertificateUrl=res.data.titleCertificateUrl;
+              this.write.winningDesc=res.data.winningDesc;
+
+              if(this.authenticationStatus==='3'){
+                this.apply.department=res.data.department;
+                this.apply.doctorJobCertificateUrl=res.data.doctorJobCertificateUrl;
+                this.apply.hospital=res.data.hospital;
+                this.apply.logoUrl=res.data.logoUrl;
+                this.apply.name=res.data.name;
+                this.apply.positionalTitles=res.data.positionalTitles;
+                this.apply.professionalCertificateCode=res.data.professionalCertificateCode;
+                this.apply.recommendReason=res.data.recommendReason;
+                this.apply.remarks=res.data.remarks;
+                this.apply.specialty=res.data.specialty;
+                this.apply.titleCertificateUrl=res.data.titleCertificateUrl;
+                this.apply.winningDesc=res.data.winningDesc;
+              }
             }
 
           }else{
@@ -463,6 +466,9 @@
             })
           }
         }).catch(err => {
+
+          console.log(err)
+
           this.$alert(err.msg, '提示', {
             confirmButtonText: '确定',
           })
