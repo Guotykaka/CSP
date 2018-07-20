@@ -8,7 +8,7 @@
 
       <!--table 表单开始-->
       <el-table
-        :data="msgLists"
+        :data="msgListCount"
         border
         style="width: 100%">
         <el-table-column prop="" label="序号"  width="60" type="index"></el-table-column>
@@ -28,38 +28,55 @@
 
 </template>
 <script>
-  import { mapGetters } from "vuex";
+  import { mapGetters, mapState} from "vuex";
+  import {updateBatch, ERR_OK } from '@/api/api'
+  import {getStore} from "@/config/mUtils";
+
   export default {
     data() {
       return {
-        msgLists:[
-          {"unReadCount":"0","newsTitle":"您有新订单","typeName":"新订单通知","newsType":"1"},
-          {"unReadCount":"17","newsTitle":"新退款订单","typeName":"新退款通知","newsType":"2"},
-          {"unReadCount":"4","newsTitle":"新待认证订单","typeName":"新认证通知","newsType":"3"},
-          {"unReadCount":"5","newsTitle":"新提现订单","typeName":"提现申请通知","newsType":"4"}      ]
+        params:{
+          newsTypes: "",
+          userId: ""
+        },
+        userInfo:{
+
+        }
       }
     },
+    created(){
+      this.userInfo = JSON.parse(getStore('userMesage'));
+      this.params.userId = this.userInfo.userId;
+    },
     computed:{
-      ...mapGetters(['getInstitutionArr'])
+      ...mapGetters(['getInstitutionArr']),
+      ...mapState({
+        msgListCount:state =>state.msgList
+      })
     },
 
     methods:{
       //查看详情
       _checkDetail(item){
-        if(item.newsType ==='1'){
-          //订单
-          this.$router.push("/orderList")
-        }else if(item.newsType === '2'){
-          //退款
-          this.$router.push("/refundsList")
-        }else if(item.newsType === '3'){
-          //医生认证
-          this.$router.push("/indentList")
-        }else if(item.newsType === '4'){
-          //提现
-          this.$router.push("/withdrawList")
+        if(item.newsType ==='5'){
+          //电话报告解读
+          this.$router.push("/tel_consult")
+        }else if(item.newsType === '6'){
+          //图文咨询
+          this.$router.push("/imgText_consult")
+        }else if(item.newsType === '7'){
+          //账单消息
+          this.$router.push("/personal")
         }
       },
+      //更新消息状态
+      updateStatus(){
+        updateBatch(params).then((res)=>{
+          if(res.code===ERR_OK){
+
+          }
+        })
+      }
     },
   }
 </script>
