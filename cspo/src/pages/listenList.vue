@@ -111,6 +111,7 @@
                 <el-button size="small" type="primary" @click="fileupdate()" class="m_l_0">确定上传</el-button>
               </el-form-item>
             </el-col>
+            <el-col :span="16"><div>{{fileName}}</div></el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
             <el-col :span="16">
@@ -166,9 +167,9 @@
                 <el-button size="small" type="primary" @click="fileupdate()" class="m_l_0">确定上传</el-button>
               </el-form-item>
             </el-col>
-            <el-col :span="16"><div>{{fileName}}{{upyunUrl}}</div></el-col>
+            <el-col :span="16"><div>{{fileName}}</div></el-col>
           </el-form-item>
-          <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2"  prop="name">
+          <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2"  prop="abnormalKeyWord">
             <el-col :span="16">
               <el-input v-model="addTable_YYT.abnormalKeyWord "></el-input>
             </el-col>
@@ -241,21 +242,21 @@ export default {
       formLabelWidth2: '170px',
       rulesNew: {
           voiceProductName: [
-            { required: true, message: '请输入商品名称', trigger: 'blur' }
+            { required: true, message: '请输入商品名称' }
             
           ],
           name: [
-            { required: true, message: '请选择绑定医生', trigger: 'blur' }
+            { required: true, message: '请选择绑定医生' }
           ],
           upyunUrl: [
-            {required: true, message: '请选择文件', trigger: 'blur' }
+            {required: true, message: '请选择文件' }
           ],
           abnormalKeyWord: [
-            { required: true, message: '请填写异常指标关键词', trigger: 'blur' },
-            { max: 50, message: '50字内', trigger: 'blur' }
+            { required: true, message: '请填写异常指标关键词' },
+            { max: 50, message: '50字内' }
           ],
           paperWork: [
-            { required: true, message: '请输入商品文案', trigger: 'blur' }
+            { required: true, message: '请输入商品文案' }
           ],
         }
     }
@@ -420,6 +421,7 @@ export default {
         this.getList()
       })
       this.dialogEditVisible_YYT = false
+      this.upyunUrl=""
     },
     // 一元厅新增
     handleAdd_YYT() {
