@@ -73,9 +73,9 @@
               </el-col>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="_doCancel()">取 消</el-button>
-            <el-button type="primary" @click="_doHandleEdit()">确 定</el-button>
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doHandleEdit()">确定</el-button>
+          <el-button size="small" type="primary" @click="_doCancel()">取消</el-button>
           </div>
         </el-dialog>
         <!-- 新增 -->
@@ -137,9 +137,13 @@
               </el-col>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
+          <!-- <div slot="footer" class="dialog-footer">
             <el-button @click="_doAddCancel()">取 消</el-button>
             <el-button type="primary" @click="_doAdd()">确 定</el-button>
+          </div> -->
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doAdd()">确定</el-button>
+          <el-button size="small" type="primary" @click="_doAddCancel()">取消</el-button>
           </div>
         </el-dialog>
         <!-- 列表 -->
@@ -162,7 +166,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10,30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </template>
           </el-col>
@@ -183,6 +187,7 @@ export default {
   },
   data() {
     return {
+      title:"提示",//this.$alert的标题
       flag1:true,
       flag2:true,
       flag3:true,
@@ -252,7 +257,7 @@ export default {
       sysRoleMenuListVOList : {"category":0,"menuIdList":[116]},//详情中的树状列表
       formInline: { valueSS: '' },
       currentPage: 1, //分页初始页码
-      pagesize: 30, //分页初始显示条数
+      pagesize: 10, //分页初始显示条数
       tableData: [], //列表数据
       editTable: {}, //修改单个数据
       editTableRoot: {},
@@ -301,7 +306,7 @@ export default {
         menuIdList1 = menuIdList1.concat(menuIdList2)
         console.log(menuIdList1)
     },
-    doSearche() {
+    doSearch() {
       let date = Date.parse(new Date())
       let params = {
         currentPage: 1,
@@ -411,10 +416,10 @@ export default {
           console.log(JSON.stringify(params))
         PostSaveRole(params).then(response => {
             if (response.code == 1) {
-              this.$alert(response.msg)
+              this.$alert(response.msg,this.title)
               this.getRoleList()
             } else {
-              this.$alert(response.msg)
+              this.$alert(response.msg,this.title)
               console.log(JSON.stringify(params))
             }
                   })
@@ -538,7 +543,7 @@ export default {
         console.log(response.data)
         this.dialogEditVisible = true
         } else {
-          this.$alert("无法修改")
+          this.$alert("无法修改",this.title)
         }
       })
       this.inde = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
@@ -610,7 +615,7 @@ export default {
               "timespan": date
           }
         PostDeleteRole(params).then(response => {
-              this.$alert(response.msg)
+              this.$alert(response.msg,this.title)
               this.getRoleList()
                   })
         })
@@ -653,4 +658,5 @@ export default {
 .m_l_15{
   margin-left: 15px;
 }
+.btn-row {text-align: center;padding-top: 20px;}
 </style>
