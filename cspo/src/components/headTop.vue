@@ -67,7 +67,7 @@
       handleCommand(command){
         if(command==='baseInfo'){
           //个人中心
-          this.$router.push('goMyself')
+          this.$router.push('/goMyself')
 
         }else if(command==='changePass'){
           //修改密码
@@ -75,7 +75,7 @@
         }else if(command==='logout'){
           //退出
 
-          this.$router.push("login",function () {
+          this.$router.push("/login",function () {
             console.log("退出");
           })
 

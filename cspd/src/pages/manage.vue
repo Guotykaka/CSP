@@ -25,8 +25,11 @@
       <el-container>
         <el-header class="nav-title">
           <!--<el-breadcrumb-item v-for="(item, index) in $route.meta" :key="index">{{item}}</el-breadcrumb-item>-->
-          <el-breadcrumb separator-class="el-icon-arrow-right" style="float:left;height:100%;line-height:60px;color:#fff;">
-            <el-breadcrumb-item class="breadcrumbStyle" v-for="(item, index) in $route.meta" :key="index" style="color: #ffffff;">{{item}}</el-breadcrumb-item>
+          <el-breadcrumb separator-class="el-icon-arrow-right"
+                         style="float:left;height:100%;line-height:60px;color:#fff;">
+            <el-breadcrumb-item class="breadcrumbStyle" v-for="(item, index) in $route.meta" :key="index"
+                                style="color: #ffffff;">{{item}}
+            </el-breadcrumb-item>
           </el-breadcrumb>
           <el-menu
             :default-active="defaultActive"
@@ -38,19 +41,19 @@
             style="float:right"
             active-text-color="#ffd04b"
             router>
-            <el-menu-item index="announcement">系统公告</el-menu-item>
-            <el-menu-item index="call_doctor">联系医助</el-menu-item>
-            <el-menu-item index="msg">
-                  消息
-                <el-badge class="mark iconStyle" value="11" />
+            <el-menu-item index="/announcement">系统公告</el-menu-item>
+            <el-menu-item index="/call_doctor">联系医助</el-menu-item>
+            <el-menu-item index="/msg">
+              消息
+              <el-badge class="mark iconStyle" :value="allCount"/>
             </el-menu-item>
             <el-submenu index="2" class="nav-child-title">
               <template slot="title"><img
-                src="http://zhangshangtijian.b0.upaiyun.com/http:/zhangshangtijian.b0.upaiyun.com/XblEMw5Z9eTUlRykheECyQfsJkXviObW.png"
+                :src="areaImg"
                 style="padding-right:10px;width:20px;height:20px;-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"
-                alt="">huihui
+                alt="">{{userInfo.name}}
               </template>
-              <el-menu-item index="indetification">基础信息</el-menu-item>
+              <el-menu-item index="/indetification">基础信息</el-menu-item>
               <el-menu-item index="2-2">修改密码</el-menu-item>
               <el-menu-item index="/">退出系统</el-menu-item>
             </el-submenu>
@@ -69,166 +72,90 @@
 </template>
 
 <script>
-  import {localUrl} from "@/config/env.js"
   import {storeManager} from '@/api/util.js';
+  import {getStore} from '@/config/mUtils.js';
+  import {
+    GetNav,
+    ERR_OK,
+    getApplyInfo,
+    countUserNewsList
+  } from '@/api/api.js';
 
   export default {
     data() {
       return {
-        navMenu: [
-          {
-            "menuId": 105,
-            "parentId": 0,
-            "parentName": null,
-            "name": "个人中心",
-            "url": null,
-            "perms": null,
-            "type": 0,
-            "icon": "icon-icon03 iconfont",
-            "orderNum": 0,
-            "category": 0,
-            "open": null,
-            "list": [
-              {
-                "menuId": 107,
-                "parentId": 105,
-                "parentName": null,
-                "name": "个人账户",
-                "url": "personal",
-                "perms": null,
-                "type": 1,
-                "icon": "iconfont icon-zhanghu",
-                "orderNum": 0,
-                "category": 0,
-                "open": null,
-                "list": null
-              },
-              {
-                "menuId": 116,
-                "parentId": 105,
-                "parentName": null,
-                "name": "消息列表",
-                "url": "msg",
-                "perms": null,
-                "type": 1,
-                "icon": "iconfont icon-xiaoxiliebiao",
-                "orderNum": 0,
-                "category": 0,
-                "open": null,
-                "list": null
-              }
-            ]
-          },
-          {
-            "menuId": 56,
-            "parentId": 0,
-            "parentName": null,
-            "name": "服务管理",
-            "url": null,
-            "perms": null,
-            "type": 0,
-            "icon": "iconfont icon-fuwuguanli",
-            "orderNum": 2,
-            "category": 0,
-            "open": null,
-            "list": [
-              {
-                "menuId": 123,
-                "parentId": 56,
-                "parentName": null,
-                "name": "电话咨询",
-                "url": "tel_consult",
-                "perms": null,
-                "type": 1,
-                "icon": "iconfont icon-dianhuazixun",
-                "orderNum": 0,
-                "category": 0,
-                "open": null,
-                "list": null
-              },
-              {
-                "menuId": 131,
-                "parentId": 56,
-                "parentName": null,
-                "name": "图文咨询",
-                "url": "imgText_consult",
-                "perms": null,
-                "type": 1,
-                "icon": "iconfont icon-tuwenzixun",
-                "orderNum": 0,
-                "category": 0,
-                "open": null,
-                "list": null
-              },
-              {
-                "menuId": 58,
-                "parentId": 56,
-                "parentName": null,
-                "name": "服务设置",
-                "url": "server_setting",
-                "perms": null,
-                "type": 1,
-                "icon": "icon-shezhi iconfont",
-                "orderNum": 2,
-                "category": 0,
-                "open": null,
-                "list": null
-              },
-              {
-                "menuId": 55,
-                "parentId": 56,
-                "parentName": null,
-                "name": "认证详情",
-                "url": "indetification",
-                "perms": null,
-                "type": 1,
-                "icon": "icon-renzheng iconfont",
-                "orderNum": 1,
-                "category": 0,
-                "open": null,
-                "list": null
-              }
-            ]
-          }
-        ],
-        activeIndex2: '1'
+        navMenu: [],
+        userInfo:{},//用户信息
+        areaImg:null,//用户头像
+        allCount:null
       }
     },
     created() {
-/*      let url = localUrl + 'nav',
-        params = '';
-      api.nav(url, params).then((res) => {
-        let data = res.data;
-        if (data.code === 0) {
-          this.navMenu = data.menuList;
-        }
-      });*/
+      this.userInfo = JSON.parse(getStore('userMesage'));
+      this.getNav();
+      this.getUserImg();
     },
     methods: {
+      //获取左侧菜单
+      getNav() {
+        let params = {
+          userId: this.userInfo.userId
+        };
+        GetNav(params).then((res) => {
+          if (res.code === ERR_OK) {
+            this.navMenu = res.data;
+          }
+        });
+      },
+      //获取登录图片
+      getUserImg(){
+        let params = {
+          insDoctorId: this.userInfo.insDoctorId
+        },
+          parNes={
+            userId: this.userInfo.userId
+          }
+        ;
+        getApplyInfo(params).then((res)=>{
+            if(res.code===ERR_OK){
+              this.areaImg = res.data.logoUrl;
+            }
+          })
+        countUserNewsList(parNes).then((res)=>{
+            if(res.code===ERR_OK){
+              let count = res.data,
+                  counts=0;
+              count.forEach((v)=>{
+                counts+=+v.unReadCount
+              });
+              this.allCount = counts;
+            }
+          })
+      },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
       //系统公告
-/*      getMsgList() {
-        let url = localUrl + 'countUserNewsList',
-          uid = storeManager.getUserId(),
-          params = uid;
-        this.$store.dispatch('msgList', url, params)
-      }*/
+      /*      getMsgList() {
+              let url = localUrl + 'countUserNewsList',
+                uid = storeManager.getUserId(),
+                params = uid;
+              this.$store.dispatch('msgList', url, params)
+            }*/
     },
     computed: {
       defaultActive: function () {
-        return this.$route.path.replace('/', '');
+        return this.$route.path.replace('/', '/');
       },
-/*      allcount() {
-        let count = 0;
-        if (this.msgList && this.msgList.data) {
-          this.msgList.data.forEach((item) => {
-            count += parseInt(item.unReadCount)
-          });
-        }
-        return count;
-      }*/
+      /*      allcount() {
+              let count = 0;
+              if (this.msgList && this.msgList.data) {
+                this.msgList.data.forEach((item) => {
+                  count += parseInt(item.unReadCount)
+                });
+              }
+              return count;
+            }*/
     },
   }
 
@@ -259,16 +186,16 @@
     margin-bottom: 40px;
   }
 
-/*
-  .el-container:nth-child(5) .el-aside,
-  .el-container:nth-child(6) .el-aside {
-    line-height: 260px;
-  }
+  /*
+    .el-container:nth-child(5) .el-aside,
+    .el-container:nth-child(6) .el-aside {
+      line-height: 260px;
+    }
 
-  .el-container:nth-child(7) .el-aside {
-    line-height: 320px;
-  }
-*/
+    .el-container:nth-child(7) .el-aside {
+      line-height: 320px;
+    }
+  */
 
   /*容器样式end*/
   /*面包屑start*/
@@ -280,25 +207,28 @@
     align-items: center;
     padding: 0 20px;
   }
-  .breadcrumbStyle>span{
-    color:#fff!important;
+
+  .breadcrumbStyle > span {
+    color: #fff !important;
   }
-  .manage_page{
+
+  .manage_page {
     .el-submenu__title {
       border-bottom: none !important;
     }
   }
+
   /*面包屑end*/
 </style>
 <style scoped lang="less">
   /*我的样式*/
   .manage_page {
     height: 100%;
-    .homeTitle{
-      background-color:#2D93CA!important;
-      color:#fff!important;
-      height:59px;
-      font-size:18px;
+    .homeTitle {
+      background-color: #2D93CA !important;
+      color: #fff !important;
+      height: 59px;
+      font-size: 18px;
     }
     .nav-title li {
       border-bottom: none !important;

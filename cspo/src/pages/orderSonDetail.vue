@@ -219,8 +219,10 @@
       }
     },
     activated() {
-      this.customerSonDetail = this.$route.params.val;
-      this.checkedId = this.$route.params.val.orderCode;
+      if(!this.checkedId){
+        this.customerSonDetail = this.$route.params.val;
+        this.checkedId = this.$route.params.val.orderCode;
+      }
       this.getDetail();
     },
     methods: {
