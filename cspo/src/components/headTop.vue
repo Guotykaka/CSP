@@ -43,13 +43,17 @@
   </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters,mapMutations } from 'vuex';
+  import {getStore} from "@/config/mUtils.js";
+
   export default {
     data(){
       return{
         isShowDialog:false,
         oldPassword:"",
-        newPassword:""
+        newPassword:"",
+
+        userName:""
       }
     },
 
@@ -63,6 +67,9 @@
     },
 
     methods:{
+
+
+      ...mapMutations(['setUseName']),
       //处理command
       handleCommand(command){
         if(command==='baseInfo'){
@@ -113,6 +120,10 @@
 
 
 
+    },
+
+    activated(){
+      this.setUseName(JSON.parse(getStore("userMesage")).username)
     }
 
   }

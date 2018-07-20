@@ -89,7 +89,7 @@ const router =new Router({
 });
 
 router.beforeEach((to, from, next) => {
-  var authenticationStatus=localStorage.getItem("authenticationStatus");
+  let authenticationStatus=localStorage.getItem("authenticationStatus");
   if(authenticationStatus !== '2'){
     if(to.fullPath==='/' || to.fullPath==='/doApply' || to.fullPath==='/indetification'){
       next()
