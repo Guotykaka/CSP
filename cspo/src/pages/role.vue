@@ -15,7 +15,7 @@
       </el-header>
       <el-main>
         <!-- 修改 -->
-        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
+        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40% v-bind:show-close = "false">
           <el-form :model="editTable">
             <el-form-item label="角色名称:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -79,7 +79,7 @@
           </div>
         </el-dialog>
         <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
+        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
           <el-form :model="addTable">
             <el-form-item label="角色名称:" :label-width="formLabelWidth">
               <el-col :span="16">

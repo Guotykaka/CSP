@@ -87,6 +87,9 @@ export function PostServiceStatus(params){//修改服务状态
 export function PostServiceUpdate(params){//修改服务
   return post(urls.API_POST_UPDATE_SERVICE,params)
 }
+export function PostServiceSave(params){//修改服务
+  return post(urls.API_POST_SAVE_SERVICE,params)
+}
 export function GetListenList(params){//一元听列表
   return post(urls.API_GET_LIST_LISTEN,params)
 }

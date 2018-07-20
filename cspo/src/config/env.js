@@ -18,7 +18,7 @@ let baseImgPath;
 if (process.env.NODE_ENV == 'development') {
   baseUrl = 'http://172.0.0.41:8117/cspo/';
   payUrl = 'http://172.0.0.41:8115/pay/';
-  //baseUrl = 'http://10.50.50.117:8117/cspd/';
+  // baseUrl = 'http://10.50.50.117:8117/cspd/';
   // baseUrl = 'http://10.50.50.121:8117/cspo/';
   // baseUrl = 'http://10.50.50.117:8117/cspo/';
   baseImgPath = '/img/';
@@ -97,6 +97,7 @@ export const API_POST_SAVE_INSTITUTION = baseUrl+'ins/institution/save';//新增
 export const API_GET_LIST_SERVICE = baseUrl+'csp/serviceInfo/list';//服务列表
 export const API_POST_STATUS_SERVICE = baseUrl+'csp/serviceInfo/updateStatus';//修改服务状态
 export const API_POST_UPDATE_SERVICE = baseUrl+'csp/serviceInfo/updateCspServiceInfo';//修改服务
+export const API_POST_SAVE_SERVICE = baseUrl+'csp/serviceInfo/saveCspServiceInfo';//新增服务
 //商品管理
 export const API_GET_LIST_LISTEN = baseUrl+'CspVoiceProduct/CspVoiceProductget';//一元听列表
 export const API_GET_UPDATE_LISTEN = baseUrl+'CspVoiceProduct/CspVoiceProductupdate';//一元听编辑

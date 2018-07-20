@@ -21,7 +21,7 @@
       </el-header>
       <el-main>
         <!-- 顺序 -->
-        <el-dialog title="顺序调整" :visible.sync="dialogOrderVisible" width=30%>
+        <el-dialog title="顺序调整" :visible.sync="dialogOrderVisible" width=30% v-bind:show-close = "false">
           <template class="my-table">
             <el-table :data="tableData" border style="width: 100%" id="app" :header-cell-style="getRowClass">
               <el-table-column align="center" type="index" label="序号" width="100"></el-table-column>
@@ -43,7 +43,7 @@
           </div>
         </el-dialog>
         <!-- 编辑 -->
-        <el-dialog title="编辑" :visible.sync="dialogEditVisible" width=40%>
+        <el-dialog title="编辑" :visible.sync="dialogEditVisible" width=40% v-bind:show-close = "false">
           <el-form :model="editTable">
             <el-form-item label="分组名称:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -62,7 +62,7 @@
           </div>
         </el-dialog>
         <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
+        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
           <el-form :model="addTable">
             <el-form-item label="分组名称:" :label-width="formLabelWidth">
               <el-col :span="16">
