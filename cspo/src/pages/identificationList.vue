@@ -224,8 +224,6 @@
           </el-col>
         </el-row>
         <div class="btn-row" style="text-align: center">
-          <el-button size="small" type="primary" @click="agreeApply"  v-if="doctorInfo.authenticationStatus == 1">同意</el-button>
-          <el-button size="small" type="danger" @click="refuseApply"  v-if="doctorInfo.authenticationStatus == 1">拒绝</el-button>
           <el-button size="small" type="warning" @click="closeDialog">关闭</el-button>
         </div>
       </el-dialog>
@@ -324,6 +322,9 @@
         }else {
           this.searchParams.startTime="";
           this.searchParams.endTime="";
+        }
+        if(!this.searchParams.institutionName){
+          this.searchParams.institutionId='';
         }
         var params={
           authenticationStatus: this.authenticationStatus,

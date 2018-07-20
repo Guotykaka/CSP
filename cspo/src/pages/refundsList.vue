@@ -191,7 +191,7 @@ export default {
         currentPage: this.searchParams.page,
         customerMobile:this.searchParams.customerMobile,
         customerName:this.searchParams.customerName,
-        doctorName: this.searchParams.customerName,
+        doctorName: this.searchParams.doctorName,
         institutionName: this.searchParams.institutionName,
         pageSize: this.searchParams.pageSize,
         refundStatus:this.searchParams.refundStatus,
