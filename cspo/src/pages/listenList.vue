@@ -402,6 +402,8 @@ export default {
         type: 'warning',
         message: '取消编辑'
       })
+      this.upyunUrl = ''
+      this.fileName = ''
     },
 
     // 一元厅确定编辑
@@ -424,6 +426,7 @@ export default {
       })
       this.dialogEditVisible_YYT = false
       this.upyunUrl = ''
+      this.fileName = ''
     },
     // 一元厅新增
     handleAdd_YYT() {
@@ -469,6 +472,7 @@ export default {
         voiceTime: 0
       }
       this.upyunUrl = ''
+      this.fileName = ''
     },
     submitForm(formName) {
       //新增模块表单验证
@@ -511,6 +515,8 @@ export default {
         type: 'warning',
         message: '取消新增'
       })
+      this.upyunUrl = ''
+      this.fileName = ''
     },
     //获取绑定医生列表
     getDocList() {
