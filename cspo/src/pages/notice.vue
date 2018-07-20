@@ -179,7 +179,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
               </el-pagination>
             </template>
           </el-col>
@@ -262,7 +262,7 @@ export default {
         valueJS: ''
       },
       currentPage: 1, //分页初始页码
-      pagesize: 30, //分页初始显示条数
+      pagesize: 10, //分页初始显示条数
       totalCount: 0,
       tableData: [], //列表数据
       selectTable: {}, //查看单个数据

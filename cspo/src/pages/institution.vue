@@ -149,9 +149,9 @@
               </el-tab-pane>
             </el-tabs>
           </template>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="_doCancel()">取 消</el-button>
-            <el-button type="primary" @click="_doHandleEdit()">确 定</el-button>
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doHandleEdit()">确定</el-button>
+          <el-button size="small" type="primary" @click="_doCancel()">取消</el-button>
           </div>
         </el-dialog>
 
@@ -241,10 +241,11 @@
               </div>
             </li>
           </ul>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogCheckVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogCheckVisible = false">确 定</el-button>
-          </div>
+          
+          <div class="btn-row">
+                <el-button size="small" type="primary" @click="dialogCheckVisible = false">确定</el-button>
+                <el-button size="small" type="primary" @click="dialogCheckVisible = false">取消</el-button>
+                </div>
         </el-dialog>
         <!-- 新增 -->
         <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
@@ -362,9 +363,10 @@
             </el-tabs>
           </template>
 
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="_doAddCancel()">取 消</el-button>
-            <el-button type="primary" @click="_doAdd()">确 定</el-button>
+          
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doAdd()">确定</el-button>
+          <el-button size="small" type="primary" @click="_doAddCancel()">取消</el-button>
           </div>
         </el-dialog>
         <!-- 列表 -->
@@ -403,7 +405,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </template>
           </el-col>
@@ -428,6 +430,7 @@ export default {
   },
   data() {
     return {
+      title:"提示",//this.$alert的标题
       imageUrl: '',
       searchParams: {
         selectInstitutionName: '',
@@ -436,7 +439,7 @@ export default {
         selectIsOpenMsm: ''
       }, //搜索时的数据
       currentPage: 1, //分页初始页码
-      pagesize: 30, //分页初始显示条数
+      pagesize: 10, //分页初始显示条数
       tableData: [], //列表数据
       selectTable: {}, //查看单个数据
       editTable: {}, //修改单个数据
@@ -446,17 +449,17 @@ export default {
         bannerExtensionUrl: '',
         bannerLogo: '1',
         createUser: '1',
-        extensionImageUrl: '1',
-        extensionLogoUrl: '1',
-        institutionAddr: '1',
-        institutionCode: 'gty',
+        extensionImageUrl: '',
+        extensionLogoUrl: '',
+        institutionAddr: '',
+        institutionCode: '',
         institutionDesc: '1',
-        institutionExtensionUrl: '1',
+        institutionExtensionUrl: '',
         institutionGradeId: '1',
         institutionId: '1',
         institutionLavelId: '3',
-        institutionName: '1',
-        medicalExamReportLogo: '1',
+        institutionName: '',
+        medicalExamReportLogo: '',
         qrCodeUrl: '1',
         registeredReservationAddr: '1',
         status: 0,
@@ -613,27 +616,27 @@ export default {
       console.log(params)
       PostInstitutionSave(params).then(response => {
         if (response.code == 1) {
-          this.$alert('新增成功!')
+          this.$alert('新增成功!',this.title)
           this.getList()
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.addTable = {
         bannerExtensionUrl: '',
         bannerLogo: '1',
         createUser: '1',
-        extensionImageUrl: '1',
-        extensionLogoUrl: '1',
-        institutionAddr: '1',
-        institutionCode: '1111111',
+        extensionImageUrl: '',
+        extensionLogoUrl: '',
+        institutionAddr: '',
+        institutionCode: '',
         institutionDesc: '1',
-        institutionExtensionUrl: '1',
+        institutionExtensionUrl: '',
         institutionGradeId: '1',
         institutionId: '1',
-        institutionLavelId: '1',
-        institutionName: '1',
-        medicalExamReportLogo: '1',
+        institutionLavelId: '3',
+        institutionName: '',
+        medicalExamReportLogo: '',
         qrCodeUrl: '1',
         registeredReservationAddr: '1',
         status: 0,
@@ -649,31 +652,28 @@ export default {
     _doAddCancel() {
       this.addTable = {
         //重置新增数据为空
-        institutionId: '2c8080aa6464825a016464825a000000',
-        institutionCode: '',
-        institutionName: '',
-        institutionAddr: '',
-        institutionGradeId: '1',
-        institutionLavelId: '3',
-        institutionExtensionUrl: null,
-        qrCodeUrl: null,
-        extensionLogoUrl: null,
-        extensionImageUrl: null,
-        whetherAppShow: 1,
-        whetherOpenMsm: 0,
-        whetherHasPdfReport: 0,
-        medicalExamReportLogo: null,
-        bannerLogo: null,
-        bannerExtensionUrl: null,
-        institutionDesc: null,
-        whetherDelete: 0,
-        createTime: '2018-07-04 16:57:01',
-        lastUpdateTime: null,
+        bannerExtensionUrl: '',
+        bannerLogo: '1',
         createUser: '1',
-        updateUser: null,
-        registeredReservationAddr: null,
-        gradeName: '公立',
-        lavelName: '三级医院'
+        extensionImageUrl: '',
+        extensionLogoUrl: '',
+        institutionAddr: '',
+        institutionCode: '',
+        institutionDesc: '1',
+        institutionExtensionUrl: '',
+        institutionGradeId: '1',
+        institutionId: '1',
+        institutionLavelId: '3',
+        institutionName: '',
+        medicalExamReportLogo: '',
+        qrCodeUrl: '1',
+        registeredReservationAddr: '1',
+        status: 0,
+        updateUser: '1',
+        whetherAppShow: 1,
+        whetherDelete: 1,
+        whetherHasPdfReport: 1,
+        whetherOpenMsm: 1
       }
       this.dialogAddVisible = false
       this.$message({
@@ -723,10 +723,10 @@ export default {
       }
       PostInstitutionUpdate(params).then(response => {
         if (response.code == 1) {
-          this.$alert('修改成功!')
+          this.$alert('修改成功!',this.title)
           this.getList()
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.dialogEditVisible = false
@@ -901,4 +901,5 @@ export default {
   margin-top: 20px;
   margin-right: 10px;
 }
+.btn-row {text-align: center;padding-top: 20px;}
 </style>

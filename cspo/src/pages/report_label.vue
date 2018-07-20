@@ -109,7 +109,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10,30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </template>
           </el-col>
@@ -132,7 +132,7 @@ export default {
     return {
       formInline: { valueSS: '' },
       currentPage: 1, //分页初始页码
-      pagesize: 30, //分页初始显示条数
+      pagesize: 10, //分页初始显示条数
       tableData: [], //列表数据
       orderData:[],//排序数据
       editTable: {}, //编辑弹窗 单列数据

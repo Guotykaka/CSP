@@ -25,7 +25,7 @@
             </el-form-item>
             <el-form-item class="is-required" label="密码:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="editTable.password" auto-complete="off" placeholder="密码" el clearable></el-input>
+                <el-input auto-complete="off" placeholder="密码" el clearable ref="password" @blur="blur()"></el-input>
               </el-col>
             </el-form-item>
             <el-form-item class="is-required" label="邮箱:" :label-width="formLabelWidth">
@@ -54,9 +54,9 @@
               </template>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="_doCancel()">取 消</el-button>
-            <el-button type="primary" @click="_doHandleEdit()">确 定</el-button>
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doHandleEdit()">确定</el-button>
+          <el-button size="small" type="primary" @click="_doCancel()">取消</el-button>
           </div>
         </el-dialog>
 
@@ -95,10 +95,11 @@
               </template>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button @click="dialogCheckVisible = false">取 消</el-button>
-            <el-button type="primary" @click="dialogCheckVisible = false">确 定</el-button>
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="dialogCheckVisible = false">确定</el-button>
+          <el-button size="small" type="primary" @click="dialogCheckVisible = false">取消</el-button>
           </div>
+          
         </el-dialog>
         <!-- 新增 -->
         <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
@@ -139,9 +140,13 @@
               </template>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
+          <!-- <div slot="footer" class="dialog-footer">
             <el-button @click="_doAddCancel()">取 消</el-button>
             <el-button type="primary" @click="_doAdd()">确 定</el-button>
+          </div> -->
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doAdd()">确定</el-button>
+          <el-button size="small" type="primary" @click="_doAddCancel()">取消</el-button>
           </div>
         </el-dialog>
         <!-- 列表 -->
@@ -175,7 +180,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[3, 5, 10,30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
               </el-pagination>
             </template>
           </el-col>
@@ -204,6 +209,7 @@ export default {
   },
   data() {
     return {
+      title:"提示",//this.$alert的标题
       searchParams: { username: '' },
       totalCount: 0,
       currentPage: 1, //分页初始页码
@@ -274,7 +280,7 @@ export default {
         username: this.addTable.username
       }
       postUserSave(params).then(response => {
-        this.$alert('新增成功!')
+        this.$alert('新增成功!',this.title)
         if (response.code == 1) {
           this.addTable = {
             userId: null,
@@ -292,7 +298,7 @@ export default {
           }
           this.getUser()
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.dialogAddVisible = false
@@ -354,17 +360,30 @@ export default {
         this.dialogEditVisible = true
       }, 100);
     },
+    blur(){
+      let password = this.$refs.password
+      console.log(password)
+    },
     //确定修改
     _doHandleEdit() {
       let str = ""
+      let password = this.$refs.password.values
+      console.log(password)
+      console.log(this.editTable.password)
       str = Number.parseInt(this.editTable.status)
       this.editTable.status = str
+      if (password == "") {
+        this.$alert("密码不能为空！",this.title)
+      } else {
+        this.editTable.password = ""
+        this.editTable.password = password
+      }
       let params = {
         deptId: this.editTable.deptId,
         // deptName: this.editTable.deptName,
         email: this.editTable.email,
         mobile: this.editTable.mobile,
-        password: '123456',
+        password: this.editTable.password,
         roleIdList: this.editTable.roleIdList,
         status: this.editTable.status,
         userId: this.editTable.userId,
@@ -374,10 +393,10 @@ export default {
       }
       postUserUpdate(params).then(response => {
         if (response.code == 1) {
-          this.$alert('修改成功!')
+          this.$alert('修改成功!',this.title)
           this.getUser()
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.dialogEditVisible = false
@@ -403,10 +422,10 @@ export default {
             ids: [row.userId]
           }
           postUserDelete(params).then(response => {
-            if ((response.code = 1)) {
-              this.$alert('删除成功！')
+            if ((response.code == 1)) {
+              this.$alert('删除成功！',this.title)
             } else {
-              this.$alert(response.msg)
+              this.$alert(response.msg,this.title)
             }
             this.getUser()
           })
@@ -432,9 +451,9 @@ export default {
           }
           postDoctorResetPassword(params).then(response => {
             if (response.code == 1) {
-              this.$alert('已重置密码')
+              this.$alert('已重置密码',this.title)
             } else {
-              this.$alert(response.msg)
+              this.$alert(response.msg,this.title)
             }
             this.getUser()
           })
@@ -478,4 +497,5 @@ export default {
 .m_l_15 {
   margin-left: 15px;
 }
+.btn-row {text-align: center;padding-top: 20px;}
 </style>

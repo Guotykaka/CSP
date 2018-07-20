@@ -47,9 +47,9 @@
                     </el-col>
                   </el-form-item>
                 </el-form>
-                <div slot="footer" class="dialog-footer">
-                  <el-button @click="_doCancel()">取 消</el-button>
-                  <el-button type="primary" @click="_doHandleEdit()">确 定</el-button>
+                <div class="btn-row">
+                <el-button size="small" type="primary" @click="_doHandleEdit()">确定</el-button>
+                <el-button size="small" type="primary" @click="_doCancel()">取消</el-button>
                 </div>
               </el-dialog>
               <!-- 新增 -->
@@ -66,9 +66,9 @@
                     </el-col>
                   </el-form-item>
                 </el-form>
-                <div slot="footer" class="dialog-footer">
-                  <el-button @click="_doAddCancel()">取 消</el-button>
-                  <el-button type="primary" @click="_doAdd()">确 定</el-button>
+                <div class="btn-row">
+                <el-button size="small" type="primary" @click="_doAdd()">确定</el-button>
+                <el-button size="small" type="primary" @click="_doAddCancel()">取消</el-button>
                 </div>
               </el-dialog>
             </el-main>
@@ -76,7 +76,7 @@
               <el-row style="margin-top: 2%;">
                 <el-col :span="24" :offset="8">
                   <template>
-                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                     </el-pagination>
                   </template>
                 </el-col>
@@ -126,9 +126,9 @@
                     </el-col>
                   </el-form-item>
                 </el-form>
-                <div slot="footer" class="dialog-footer">
-                  <el-button @click="_doCancel2()">取 消</el-button>
-                  <el-button type="primary" @click="_doHandleEdit2()">确 定</el-button>
+                <div class="btn-row">
+                <el-button size="small" type="primary" @click="_doHandleEdit2()">确定</el-button>
+                <el-button size="small" type="primary" @click="_doCancel2()">取消</el-button>
                 </div>
               </el-dialog>
               <!-- 新增 -->
@@ -145,9 +145,9 @@
                     </el-col>
                   </el-form-item>
                 </el-form>
-                <div slot="footer" class="dialog-footer">
-                  <el-button @click="_doAddCancel2()">取 消</el-button>
-                  <el-button type="primary" @click="_doAdd2()">确 定</el-button>
+                <div class="btn-row">
+                <el-button size="small" type="primary" @click="_doAdd2()">确定</el-button>
+                <el-button size="small" type="primary" @click="_doAddCancel2()">取消</el-button>
                 </div>
               </el-dialog>
             </el-main>
@@ -155,7 +155,7 @@
               <el-row style="margin-top: 2%;">
                 <el-col :span="24" :offset="8">
                   <template>
-                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
+                    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData2.length">
                     </el-pagination>
                   </template>
                 </el-col>
@@ -183,13 +183,14 @@ export default {
   },
   data() {
     return {
+      title:"提示",//this.$alert的标题
       AdminUserId: null, //userId
       activeName: 'first',
       searchParams: { username: '' },
       searchParams2: { username: '' },
       currentPage: 1, //分页初始页码
       totalCount: 0,
-      pagesize: 30, //分页初始显示条数
+      pagesize: 10, //分页初始显示条数
       tableData: [], //短信模板数据
       tableData2: [], //手机推送模板数据
       editTable: {}, //修改单个数据
@@ -282,7 +283,7 @@ export default {
           this.tableData2.push(this.addTable2)
           this.getMessageTemplateList()
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.addTable2 = {
@@ -305,11 +306,11 @@ export default {
       }
       PostTemplateSave(params).then(response => {
         if (response.code == 1) {
-          this.$alert('新增短息模板成功!')
+          this.$alert('新增短息模板成功!',this.title)
           this.tableData.push(this.addTable)
           this.getMessageTemplateList()
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.addTable = {
@@ -377,11 +378,11 @@ export default {
       
       PostTemplateUpdate(params).then(response => {
         if (response.code == 1) {
-          this.$alert('编辑短息模板成功!')
+          this.$alert('编辑短息模板成功!',this.title)
           this.getMessageTemplateList()
           console.log(this.editTable.messageTemplateId)
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.dialogEditVisible = false
@@ -398,11 +399,11 @@ export default {
       }
       PostTemplateUpdate(params).then(response => {
         if (response.code == 1) {
-          this.$alert('编辑短息模板成功!')
+          this.$alert('编辑短息模板成功!',this.title)
           this.getMessageTemplateList()
           console.log(this.editTable2.messageTemplateId)
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.dialogEditVisible2 = false
@@ -439,10 +440,10 @@ export default {
           }
           PostTemplateDelete(params).then(response => {
             if (response.code == 1) {
-              this.$alert('删除成功!')
+              this.$alert('删除成功!',this.title)
               this.getMessageTemplateList()
             } else {
-              this.$alert(response.msg)
+              this.$alert(response.msg,this.title)
             }
           })
           // this.tableData.splice(
@@ -491,6 +492,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.btn-row {text-align: center;padding-top: 20px;}
 </style>
 

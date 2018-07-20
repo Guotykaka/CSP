@@ -43,7 +43,7 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column show-overflow-tooltip align="center" prop="YYTgoods" label="绑定商品"></el-table-column>
+              <el-table-column show-overflow-tooltip align="center" prop="commodityBinding" label="绑定商品"></el-table-column>
               <el-table-column show-overflow-tooltip align="center" label="建议价格">
                 <template slot-scope="scope">
                   <p>{{ scope.row.serviceMinPrice}}-{{ scope.row.serviceMaxPrice}}元/次</p>
@@ -55,7 +55,7 @@
                   <el-button size="mini" type="primary" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
                   <el-button size="mini" type="danger" v-if="scope.row.serviceStatus === 1" @click="FalseStatus(scope.$index, scope.row)">不可用</el-button>
                   <el-button size="mini" type="success" v-if="scope.row.serviceStatus === 0" @click="TrueStatus(scope.$index, scope.row)">可用</el-button>
-                  <el-button size="mini" type="warning" v-if="scope.row.serviceId === '8ab2b2f364a762fd0164a762fd500000'" @click="GoodsMan()">商品管理</el-button>
+                  <el-button size="mini" type="warning" v-if="scope.row.serviceType === '10000'&scope.row.itemType === 'ITEM_PRODUCT_TYPE'" @click="GoodsMan()">商品管理</el-button>
                 </template>
               </el-table-column>
             </el-table>
@@ -67,7 +67,7 @@
           <el-row style="margin-top: 2%;">
             <el-col :span="24" :offset="8">
               <template>
-                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+                <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
                 </el-pagination>
               </template>
             </el-col>
@@ -77,7 +77,7 @@
 
 
       <!-- 修改弹窗 -->
-      <el-dialog title="修改" :visible.sync="dialogEditVisible" width=60%>
+      <el-dialog title="修改" :visible.sync="dialogEditVisible" width=60% v-bind:show-close = "false">
 
         <el-form :model="editTable">
           <el-form-item class="is-required" label="服务名称:" :label-width="formLabelWidth">
@@ -154,13 +154,14 @@
           </el-form-item>
         </el-form>
 
-        <div slot="footer" class="dialog-footer">
-          <el-button type="warning" @click="_doCancel()">取消</el-button>
-          <el-button type="primary" @click="_doHandleEdit()">保存</el-button>
+       
+        <div class="btn-row">
+        <el-button size="small" type="primary" @click="_doHandleEdit()">保存</el-button>
+        <el-button size="small" type="primary" @click="_doCancel()">取消</el-button>
         </div>
       </el-dialog>
       <!-- 新增弹窗 -->
-      <el-dialog title="新增" :visible.sync="dialogAddVisible" width=60%>
+      <el-dialog title="新增" :visible.sync="dialogAddVisible" width=60% v-bind:show-close = "false">
         <el-form :model="addTable">
           <el-form-item class="is-required2" label="服务名称:" :label-width="formLabelWidth">
             <el-col :span="16">
@@ -237,9 +238,10 @@
           </template> 
           </el-form-item>
         </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button type="warning" @click="_doAddCancel()">取消</el-button>
-          <el-button type="primary" @click="_doAdd()">保存</el-button>
+       
+         <div class="btn-row">
+        <el-button size="small" type="primary" @click="_doAdd()">保存</el-button>
+        <el-button size="small" type="primary" @click="_doAddCancel()">取消</el-button>
         </div>
       </el-dialog>
 
@@ -260,6 +262,7 @@ export default {
   },
   data() {
     return {
+      title:"提示",//this.$alert的标题
       content:null,
       editorOption:{},
       AdminUserId: null,//userId
@@ -576,7 +579,7 @@ export default {
       )
     },
     onsuccess(response, file, fileList) {
-      this.$alert("上传成功!")
+      this.$alert("上传成功!",this.title)
       console.log(typeof(response))
       console.log(response.data.src)
       this.serviceIconUrl =response.data.src
@@ -620,10 +623,10 @@ export default {
       }
       PostServiceSave(params).then(response => {
         if (response.code == 1) {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
           this.getList()
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
           this.getList()
         }
         
@@ -739,7 +742,7 @@ export default {
           "userId": this.AdminUserId
       }
       PostServiceUpdate(params).then(response => {
-        this.$alert(response.msg)
+        this.$alert(response.msg,this.title)
         this.getList()
       })
       this.dialogEditVisible = false
@@ -797,8 +800,8 @@ export default {
             "serviceStatus": 1
           }
           PostServiceStatus(params).then(response => {
-            if (response.code = 1) {
-              this.$alert('成功!')
+            if (response.code == 1) {
+              this.$alert('成功!',this.title)
               this.getList()
             } else {
               $alert(response.msg)
@@ -827,8 +830,8 @@ export default {
             "serviceStatus": 0
           }
           PostServiceStatus(params).then(response => {
-            if (response.code = 1) {
-              this.$alert('成功!')
+            if (response.code == 1) {
+              this.$alert('成功!',this.title)
               this.getList()
             } else {
               $alert(response.msg)
@@ -912,6 +915,7 @@ export default {
 .m_l_15{
   margin-left: 15px;
 }
+.btn-row {text-align: center;padding-top: 20px;}
 </style>
 <style lang="less">
 .el-form-item {

@@ -75,7 +75,7 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="6">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[5, 10, 30]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length">
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length">
               </el-pagination>
             </template>
           </el-col>
@@ -95,7 +95,7 @@
             <template slot-scope="scope">
               <el-col :span="16">
                 <el-select v-model="editTable_YYT.insDoctorId" clearable placeholder="请绑定医生">
-                  <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">{{item.name}}
+                  <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">
                   </el-option>
                 </el-select>
               </el-col>
@@ -149,12 +149,15 @@
               <el-input v-model="addTable_YYT.voiceProductName" prop auto-complete="off" el></el-input>
             </el-col>
           </el-form-item>
-          <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2" prop="name">
+          <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2" prop="insDoctorId">
             <template slot-scope="scope">
               <el-col :span="16">
                 <el-select v-model="addTable_YYT.insDoctorId" clearable placeholder="请绑定医生">
                   <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">
                   </el-option>
+                  <!-- <el-select v-model="editTable_YYT.insDoctorId" clearable placeholder="请绑定医生">
+                  <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">{{item.name}}
+                  </el-option> -->
                 </el-select>
               </el-col>
             </template>
@@ -220,6 +223,7 @@ export default {
   },
   data() {
     return {
+      title:"提示",//this.$alert的标题
       upyunUrl: '', //又拍云url
       AudioDuration: null, //音频时长
       fileName: '',
@@ -252,8 +256,8 @@ export default {
       formLabelWidth: '120px',
       formLabelWidth2: '170px',
       rulesNew: {
-        voiceProductName: [{ required: true, message: '请输入商品名称',trigger: 'blur' }],
-        name: [{ required: true, message: '请选择绑定医生',trigger: 'change' }],
+        voiceProductName: [{ required: true, message: '请输入商品名称',trigger: 'blur' },{ max: 10, message: '10字内' }],
+        insDoctorId: [{ required: true, message: '请选择绑定医生',trigger: 'change' }],
         upyunUrl: [{ required: true, message: '请选择文件' }],
         abnormalKeyWord: [
           { required: true, message: '请填写异常指标关键词',trigger: 'blur' },
@@ -290,7 +294,7 @@ export default {
     // 删除提示
     deleteMessage(index, row) {
       if (row.status === 1) {
-        this.$alert('请先将商品下架！')
+        this.$alert('请先将商品下架！',this.title)
       } else {
         this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -304,8 +308,8 @@ export default {
               voiceProductId: row.voiceProductId
             }
             PostListenStatus(params).then(response => {
-              if ((response.code = 1)) {
-                this.$alert('删除成功!')
+              if ((response.code == 1)) {
+                this.$alert('删除成功!',this.title)
                 this.getList()
               } else {
                 $alert(response.msg)
@@ -336,8 +340,8 @@ export default {
             voiceProductId: row.voiceProductId
           }
           PostListenStatus(params).then(response => {
-            if ((response.code = 1)) {
-              this.$alert('已下架!')
+            if ((response.code == 1)) {
+              this.$alert('已下架!',this.title)
               this.getList()
             } else {
               $alert(response.msg)
@@ -366,8 +370,8 @@ export default {
             voiceProductId: row.voiceProductId
           }
           PostListenStatus(params).then(response => {
-            if ((response.code = 1)) {
-              this.$alert('已上架!')
+            if ((response.code == 1)) {
+              this.$alert('已上架!',this.title)
               this.getList()
             } else {
               $alert(response.msg)
@@ -421,7 +425,7 @@ export default {
         voiceTime: this.AudioDuration
       }
       PostListenUpdate(params).then(response => {
-        this.$alert(response.msg)
+        this.$alert(response.msg,this.title)
         this.getList()
       })
       this.dialogEditVisible_YYT = false
@@ -451,10 +455,10 @@ export default {
       PostListenSave(params).then(response => {
         if (response.code == 1) {
           console.log(this.addTable_YYT.name)
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
           this.getList()
         } else {
-          this.$alert(response)
+          this.$alert(response.msg,this.title)
           this.getList()
         }
       })
@@ -481,7 +485,7 @@ export default {
           if (this.upyunUrl) {
             this._doAdd_YYT()
           } else {
-            this.$alert('请上传商品文件!')
+            this.$alert('请上传商品文件!',this.title)
           }
         } else {
           console.log('error submit!!')
@@ -611,9 +615,9 @@ export default {
           this.upyunUrl =
             'http://zhangshangtijian.b0.upaiyun.com' + response.data.url //返回地址
           console.log(this.upyunUrl, 'this.upyunUrl1')
-          this.$alert('上传成功')
+          this.$alert('上传成功',this.title)
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
     }
