@@ -258,6 +258,10 @@ export function getOrderChangeRecord(params){
 export function listServiceDict(params){
   return post(urls.API_LIST_SERVICE_dict,params)
 }
+//订单商品名称
+export function getAllServiceInfo(params){
+  return post(urls.API_GET_ALL_SERVICE_INFO,params)
+}
 //主订单列表
 export function tradeList(params) {
   return post(urls.API_TRADE_LIST, params)

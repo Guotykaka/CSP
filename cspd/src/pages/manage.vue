@@ -45,11 +45,11 @@
             <el-menu-item index="/call_doctor">联系医助</el-menu-item>
             <el-menu-item index="/msg">
               消息
-              <el-badge class="mark iconStyle" :value="allCount"/>
+              <el-badge class="mark iconStyle" :value="allcount"/>
             </el-menu-item>
             <el-submenu index="2" class="nav-child-title">
               <template slot="title"><img
-                :src="areaImg"
+                :src="areaImg||defaultImg"
                 style="padding-right:10px;width:20px;height:20px;-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"
                 alt="">{{userInfo.name}}
               </template>
@@ -80,6 +80,7 @@
     getApplyInfo,
     countUserNewsList
   } from '@/api/api.js';
+  import {mapState} from 'vuex'
 
   export default {
     data() {
@@ -87,7 +88,8 @@
         navMenu: [],
         userInfo:{},//用户信息
         areaImg:null,//用户头像
-        allCount:null
+        allCount:null,
+        defaultImg:require('../asset/img/logo.jpg')//用户默认图片
       }
     },
     created() {
@@ -117,10 +119,11 @@
           }
         ;
         getApplyInfo(params).then((res)=>{
-            if(res.code===ERR_OK){
+            if(res.code===ERR_OK&&res.data){
               this.areaImg = res.data.logoUrl;
             }
           })
+        this.$store.dispatch('msgList',parNes)
         countUserNewsList(parNes).then((res)=>{
             if(res.code===ERR_OK){
               let count = res.data,
@@ -147,15 +150,17 @@
       defaultActive: function () {
         return this.$route.path.replace('/', '/');
       },
-      /*      allcount() {
+            allcount() {
               let count = 0;
-              if (this.msgList && this.msgList.data) {
-                this.msgList.data.forEach((item) => {
+              console.log(this.msgList)
+                this.msgList.forEach((item) => {
                   count += parseInt(item.unReadCount)
                 });
-              }
               return count;
-            }*/
+            },
+      ...mapState({
+        msgList: state => state.msgList//消息列表数据
+      })
     },
   }
 

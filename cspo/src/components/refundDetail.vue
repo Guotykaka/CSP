@@ -213,12 +213,16 @@
       showReportFn(val){
         let data = {
           "checkUnitCode": val.checkUnitCode,
-          "workNo": val.checkUnitCode
+          "workNo": val.workNo
         }
         reportDetail(data).then((res)=>{
           if(res.code===ERR_OK){
             this.reportData=res.data;
-            this.isShowReport=true;
+            if(res.data){
+              this.isShowReport=true;
+            }else{
+              this.$alert('暂无数据','提示')
+            }
           }
         });
       }
