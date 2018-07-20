@@ -21,8 +21,8 @@
             </el-col>
           </el-row>
           <div class="btn-bar">
-            <input class="do-detail-btn "type="button" value="查看" @click="showCheckFn(item)" v-if="!item.fill">
-            <input class="do-detail-btn "type="button" value="完善信息" @click="showEditorFn(item)" v-else>
+            <input class="do-detail-btn "type="button" value="查看" @click="showCheckFn(item)" v-if="!item.isFill">
+            <input class="do-detail-btn "type="button" value="完善信息" @click="showEditorFn(item)" v-else="item.isFill">
           </div>
         </div>
       </el-col>
@@ -417,5 +417,6 @@
   .time-title-note{float: left;vertical-align: top;line-height: 40px;margin-right: 20px;width: 90px;text-align: right}
   .el-input-box{float: left;width: 200px;margin-right: 20px;}
   .time-list{margin-bottom: 15px;}
+  .m_b_10{margin-bottom: 10px;}
 </style>
 

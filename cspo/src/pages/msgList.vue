@@ -35,7 +35,6 @@ import { mapGetters,mapMutations } from "vuex";
 import {ERR_OK,clearUnReadMes} from '@/api/api';
 import {getStore} from "@/config/mUtils.js";
 
-
 export default {
   data() {
     return {}
@@ -43,14 +42,11 @@ export default {
   components:{
     headerTop,
   },
-
   computed:{
     ...mapGetters(['getInstitutionArr','getUnReadList'])
   },
 
   methods:{
-
-
     ...mapMutations(['setUnReadListZero']),
 
     //数据清零方法
