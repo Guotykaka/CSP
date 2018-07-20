@@ -49,7 +49,7 @@
           login(params).then(res => {
             if(res.code===ERR_OK){
                 setStore('userMesage',res.data);
-              this.$router.push("notice")
+              this.$router.push("main")
             }else{
               this.refreshImg();
               this.$alert(res.msg)
