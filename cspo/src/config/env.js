@@ -125,7 +125,8 @@ export const API_POST_UPDATE_APPLY_STATUS= baseUrl+'ins/withdraw/updateApplyStat
 
 
 
-
+export const API_POST_COUNT_USER_NEWSLIST= baseUrl+'ins/usernewsreal/countUserNewsList';//未读消息列表
+export const API_POST_UNREAD_UPDATE_BATCH= baseUrl+'ins/usernewsreal/updateBatch';//设置未读消息为已读
 
 
 

@@ -8,7 +8,7 @@
 
     <div class="self-nav-box">
       <a class="self-nav-item" @click="announcementFn">系统公告</a>
-      <a class="self-nav-item" @click="msgListFn">消息<span class="badge-item">{{getUnReadCount}}</span></a>
+      <a class="self-nav-item" @click="msgListFn">消息<span class="badge-item">{{getUnReadSum}}</span></a>
     </div>
 
     <!--下拉-->
@@ -45,6 +45,8 @@
 <script>
   import { mapGetters,mapMutations } from 'vuex';
   import {getStore} from "@/config/mUtils.js";
+  import {ERR_OK,getNewsList} from '@/api/api';
+
 
   export default {
     data(){
@@ -52,24 +54,18 @@
         isShowDialog:false,
         oldPassword:"",
         newPassword:"",
-
         userName:""
       }
     },
-
-
     computed:{
       ...mapGetters([
         'getUseName',
         'getUseAvatar',
-        'getUnReadCount',
+        'getUnReadSum'
       ])
     },
-
     methods:{
-
-
-      ...mapMutations(['setUseName']),
+      ...mapMutations(['setUseName','setUnReadNewsList']),
       //处理command
       handleCommand(command){
         if(command==='baseInfo'){
@@ -81,13 +77,9 @@
           this.isShowDialog=true;
         }else if(command==='logout'){
           //退出
-
           this.$router.push("/login",function () {
-            console.log("退出");
+            localStorage.clear();
           })
-
-
-          //this.$router.
         }
       },
 
@@ -101,29 +93,41 @@
 
       },
 
-
       //点击系统公告
       announcementFn(){
         console.log(888)
         this.$router.push("announcement");
       },
-
       msgListFn(){
-
         this.$router.push("msgList");
+      },
 
-
+      //获取未读消息列表 加总数
+      getUnreadList(){
+        let params={
+          id:JSON.parse(getStore("userMesage")).userId,
+        };
+        getNewsList(params).then(res => {
+          if(res.code===ERR_OK){
+            if(res.data){
+              this.setUnReadNewsList(res.data)
+            }
+          }else {
+            this.$alert(err.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        }).catch(err => {
+          this.$alert(err.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        });
       }
-
-
-
-
-
-
     },
 
     activated(){
-      this.setUseName(JSON.parse(getStore("userMesage")).username)
+      this.setUseName(JSON.parse(getStore("userMesage")).username);
+      this.getUnreadList()
     }
 
   }

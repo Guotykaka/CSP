@@ -28,6 +28,9 @@
       </el-col>
     </el-row>
 
+
+    <p v-if="serviceLists.length <=0">暂未开通服务，请联系管理员开通服务</p>
+
     <!--查看dialog-->
     <el-dialog title="查看" :visible.sync="isShowCheckDialog" width="640px">
       <div class="model-content">
@@ -279,7 +282,7 @@
         };
         getDoctorServices(params).then(res => {
           if(res.code===ERR_OK){
-            this.serviceLists=res.data;
+            this.serviceLists=res.data || [];
           }else{
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',
@@ -356,7 +359,7 @@
       }
     },
 
-    created(){
+    activated(){
       this.getServiceFn()
     },
 

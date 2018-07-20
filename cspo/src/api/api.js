@@ -232,6 +232,17 @@ export function updataWithdrawStatus(params) {
 }
 
 
+//获取未读列表
+export function getNewsList(params) {
+  return post(urls.API_POST_COUNT_USER_NEWSLIST,params);
+}
+
+//设置未读为已读  乐
+export function clearUnReadMes(params) {
+  return post(urls.API_POST_UNREAD_UPDATE_BATCH,params);
+}
+
+
 
 
 

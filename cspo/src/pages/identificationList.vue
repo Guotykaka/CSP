@@ -421,7 +421,17 @@
         };
         changeDoctorStatus(params).then(res => {
           if(res.code===ERR_OK){
-            this.getApplyList();
+            this.refuse.isShowDialog=false;
+
+
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+              callback: action => {
+                this.getApplyList();
+              }
+            })
+
+
           }else{
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',

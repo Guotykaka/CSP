@@ -113,13 +113,8 @@
       //获取机构列表
       getInstitution() {
         getListAllInstitution({}).then(res => {
-
-
           this.setInstitutionArr(res.data);
-
-
         }).catch(err => {
-
         })
       }
     }
