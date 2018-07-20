@@ -94,8 +94,8 @@
           <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2">
             <template slot-scope="scope">
               <el-col :span="16">
-                <el-select v-model="editTable_YYT.name" clearable placeholder="请绑定医生">
-                  <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">
+                <el-select v-model="editTable_YYT.insDoctorId" clearable placeholder="请绑定医生">
+                  <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">{{item.name}}
                   </el-option>
                 </el-select>
               </el-col>
@@ -152,7 +152,7 @@
           <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2" prop="name">
             <template slot-scope="scope">
               <el-col :span="16">
-                <el-select v-model="addTable_YYT.name" clearable placeholder="请绑定医生">
+                <el-select v-model="addTable_YYT.insDoctorId" clearable placeholder="请绑定医生">
                   <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">
                   </el-option>
                 </el-select>
@@ -409,7 +409,7 @@ export default {
       this.AudioDuration = this.getTime()
       let params = {
         abnormalKeyWord: this.editTable_YYT.abnormalKeyWord,
-        insDoctorId: this.editTable_YYT.name,
+        insDoctorId: this.editTable_YYT.insDoctorId,
         paperWork: this.editTable_YYT.paperWork,
         relevantContent: this.editTable_YYT.relevantContent,
         voiceCategory: this.editTable_YYT.voiceCategory,
@@ -434,7 +434,7 @@ export default {
       this.AudioDuration = this.getTime() //获取音频时长
       let params = {
         abnormalKeyWord: this.addTable_YYT.abnormalKeyWord,
-        insDoctorId: this.addTable_YYT.name,
+        insDoctorId: this.addTable_YYT.insDoctorId,
         paperWork: this.addTable_YYT.paperWork,
         relevantContent: this.addTable_YYT.relevantContent,
         voiceCategory: this.addTable_YYT.voiceCategory,
