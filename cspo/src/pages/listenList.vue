@@ -134,10 +134,9 @@
 
           </el-form-item>
         </el-form>
-
-        <div slot="footer" class="dialog-footer">
-          <el-button type="warning" @click="_doCancel_YYT()">取消</el-button>
-          <el-button type="primary" @click="_doHandleEdit_YYT()">保存</el-button>
+        <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doHandleEdit_YYT()">保存</el-button>
+          <el-button size="small" type="primary" @click="_doCancel_YYT()">取消</el-button>
         </div>
       </el-dialog>
 
@@ -196,10 +195,13 @@
           </el-form-item>
         </el-form>
 
-        <div slot="footer" class="dialog-footer">
+        <!-- <div slot="footer" class="dialog-footer">
           <el-button type="warning" @click="_doAddCancel_YYT()">取消</el-button>
-          <!-- <el-button type="primary" @click="_doAdd_YYT()">保存</el-button> -->
           <el-button type="primary" @click="submitForm('formNew')">保存</el-button>
+        </div> -->
+        <div class="btn-row">
+          <el-button size="small" type="primary" @click="submitForm('formNew')">保存</el-button>
+          <el-button size="small" type="primary" @click="_doAddCancel_YYT()">取消</el-button>
         </div>
       </el-dialog>
     </div>
@@ -413,6 +415,12 @@ export default {
     // 一元厅确定编辑
     _doHandleEdit_YYT() {
       this.AudioDuration = this.getTime()
+      let voiceProductUrl = ''
+      if (this.upyunUrl == '') {
+        voiceProductUrl = this.editTable_YYT.voiceProductUrl
+      } else {
+        voiceProductUrl = this.upyunUrl
+      }
       let params = {
         abnormalKeyWord: this.editTable_YYT.abnormalKeyWord,
         insDoctorId: this.editTable_YYT.insDoctorId,
@@ -421,7 +429,7 @@ export default {
         voiceCategory: this.editTable_YYT.voiceCategory,
         voiceLabel: this.editTable_YYT.voiceLabel,
         voiceProductId: this.editTable_YYT.voiceProductId,
-        voiceProductUrl: this.upyunUrl,
+        voiceProductUrl: voiceProductUrl,
         voiceTime: this.AudioDuration
       }
       PostListenUpdate(params).then(response => {
@@ -665,6 +673,7 @@ export default {
 .m_l_0 {
   margin-left: 0;
 }
+.btn-row {text-align: center;padding-top: 20px;}
 </style>
 <style lang="less">
 .el-form-item {

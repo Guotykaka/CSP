@@ -43,7 +43,7 @@
                   </el-form-item>
                   <el-form-item label="短信模板内容:" :label-width="formLabelWidth">
                     <el-col :span="16">
-                      <el-input v-model="editTable.messageTemplateContent" auto-complete="off" el placeholder="短信模板内容"></el-input>
+                      <el-input v-model="editTable.messageTemplateContent" auto-complete="off"  type="textarea" resize="none" :rows="5" el placeholder="短信模板内容"></el-input>
                     </el-col>
                   </el-form-item>
                 </el-form>
@@ -62,7 +62,7 @@
                   </el-form-item>
                   <el-form-item label="短信模板内容:" :label-width="formLabelWidth">
                     <el-col :span="16">
-                      <el-input v-model="addTable.messageTemplateContent" auto-complete="off" el placeholder="短信模板内容"></el-input>
+                      <el-input v-model="addTable.messageTemplateContent"type="textarea" resize="none" :rows="5" auto-complete="off" el placeholder="短信模板内容"></el-input>
                     </el-col>
                   </el-form-item>
                 </el-form>
@@ -122,7 +122,7 @@
                   </el-form-item>
                   <el-form-item label="手机推送模板内容:" :label-width="formLabelWidth2">
                     <el-col :span="16">
-                      <el-input v-model="editTable2.messageTemplateContent" auto-complete="off" el placeholder="手机推送模板内容"></el-input>
+                      <el-input type="textarea" resize="none" :rows="5" v-model="editTable2.messageTemplateContent" auto-complete="off" el placeholder="手机推送模板内容"></el-input>
                     </el-col>
                   </el-form-item>
                 </el-form>
@@ -141,7 +141,7 @@
                   </el-form-item>
                   <el-form-item label="手机推送模板内容:" :label-width="formLabelWidth2">
                     <el-col :span="16">
-                      <el-input v-model="addTable2.messageTemplateContent" auto-complete="off" el placeholder="手机推送模板内容"></el-input>
+                      <el-input type="textarea" resize="none" :rows="5" v-model="addTable2.messageTemplateContent" auto-complete="off" el placeholder="手机推送模板内容"></el-input>
                     </el-col>
                   </el-form-item>
                 </el-form>
