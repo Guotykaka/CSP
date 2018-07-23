@@ -337,6 +337,10 @@ export function closeInsLeaveWordAnswer(params) {
 }
 
 
+//控制台乐
+export function getIntervalNotice(params) {
+  return post(urls.API_POST_GETSYS_NOTICE_INFO, params)
+}
 
 
 

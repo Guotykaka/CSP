@@ -161,3 +161,9 @@ export const API_CSP_REPORT_DETAIL = baseUrl+'csp/trade/getMedicalReportDetail';
 
 
 export const API_LOGIN = baseUrl+'sys/user/login';//登录
+
+
+//控制台 乐
+
+export const API_POST_GETSYS_NOTICE_INFO = baseUrl+'sys/notice/getSysNoticeInfo';//系统公告循环内容
+
