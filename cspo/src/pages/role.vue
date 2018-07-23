@@ -1,6 +1,7 @@
 <template>
   <div class="page-wrapper">
     <header-top></header-top>
+    
     <div class="page-container">
       <el-header height="30">
         <el-form :model="searchParams" class="demo-form-inline">
@@ -43,8 +44,8 @@
               </template>
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth"  v-model="sysRoleMenuListVOList">
-              <el-col :span="5">
-              <el-tree
+              <el-col :span="8">
+              <!-- <el-tree
                 v-show="flag1"
                 :data="data2"
                 show-checkbox
@@ -54,7 +55,34 @@
                 ref="tree1"
                 highlight-current
                 :props="tree">
+              </el-tree> -->
+              <!-- <el-tree
+                v-show="flag1"
+                :data="allmenuLista"
+                show-checkbox
+                node-key="menuId"
+                :default-checked-keys="sysRoleMenuListVOList.menuIdList"
+                ref="tree"
+                highlight-current
+                :check-strictly="true"
+                @check="handleCheck"
+                :props="defaultProps">
+              </el-tree> -->
+              <el-tree
+                v-show="flag1"
+                :data="allmenuLista"
+                default-expand-all
+                show-checkbox
+                node-key="menuId"
+                :default-checked-keys="sysRoleMenuListVOList.menuIdList"
+                ref="tree1"
+                highlight-current
+                @check="handleCheck"
+                :props="defaultProps"
+                >
               </el-tree>
+              
+              
               </el-col>
               <el-col :span="5">
                <el-tree
@@ -107,8 +135,8 @@
               </template>
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth">
-              <el-col :span="5">
-              <el-tree
+              <el-col :span="8">
+              <!-- <el-tree
                 @check="checkchange()"
                 v-show="flag1"
                 :data="data2"
@@ -118,6 +146,19 @@
                 ref="treenew1"
                 highlight-current
                 :props="tree">
+              </el-tree> -->
+              <el-tree
+                v-show="flag1"
+                :data="allmenuLista"
+                default-expand-all
+                show-checkbox
+                node-key="menuId"
+                :default-checked-keys="sysRoleMenuListVOList.menuIdList"
+                ref="treenew1"
+                highlight-current
+                @check="handleCheck"
+                :props="defaultProps"
+                >
               </el-tree>
               </el-col>
               <el-col :span="5">
@@ -137,10 +178,7 @@
               </el-col>
             </el-form-item>
           </el-form>
-          <!-- <div slot="footer" class="dialog-footer">
-            <el-button @click="_doAddCancel()">取 消</el-button>
-            <el-button type="primary" @click="_doAdd()">确 定</el-button>
-          </div> -->
+          
           <div class="btn-row">
           <el-button size="small" type="primary" @click="_doAdd()">确定</el-button>
           <el-button size="small" type="primary" @click="_doAddCancel()">取消</el-button>
@@ -179,7 +217,7 @@
 
 
 <script>
-import { getListWithNoParam,PostUpdateRole,PostDeleteRole,PostSaveRole,getListRole,getRoleInfo } from '@/api/api.js'
+import {  ERR_OK,getListWithNoParam,PostUpdateRole,PostDeleteRole,PostSaveRole,getListRole,getRoleInfo,getDictListByType,getSysMenuByCategory } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -188,12 +226,20 @@ export default {
   data() {
     return {
       title:"提示",//this.$alert的标题
+      menuList: [],//对应模块菜单
+        allmenuList:[],//所有菜单
+        allmenuLista:[],
       flag1:true,
       flag2:true,
       flag3:true,
       tree:{
           children: 'children',
           label: 'label'
+        },
+        defaultProps: {
+          children: 'list',
+          label: 'name',
+          // isLeaf: false
         },
       data2: [{
           id: 1,
@@ -254,7 +300,7 @@ export default {
       searchParams: { roleName: '', },
       dateNw: Date.parse(new Date()),
       params: { timespan : this.dateNw, },
-      sysRoleMenuListVOList : {"category":0,"menuIdList":[116]},//详情中的树状列表
+      sysRoleMenuListVOList : {"category":0,"menuIdList":[1,147,36]},//详情中的树状列表
       formInline: { valueSS: '' },
       currentPage: 1, //分页初始页码
       pagesize: 10, //分页初始显示条数
@@ -299,6 +345,44 @@ export default {
     }
   },
   methods: {
+    handleCheck(val){
+      console.log(val.list)
+      console.log(this.sysRoleMenuListVOList.menuIdList)
+      console.log(JSON.stringify(this.allmenuLista))
+        // this.form.parentName = val.name;
+        // this.form.parentId = val.menuId;
+        // this.$refs.tree.setCheckedNodes([]);
+        // this.$refs.tree.setCheckedKeys([val.menuId]);
+      },
+    //获取字典数据
+      getdictionaryData(){
+       let typeParams = {
+          type:'MENU_TYPE'
+        };
+        //获取菜单类别
+        // getDictListByType(typeParams).then((res) => {
+        //   if (res.code === ERR_OK) {
+        //     this.categoryList = res.data;
+        //   } else {
+        //     this.$alert(res.msg, '提示', {
+        //       confirmButtonText: '确定',
+        //     })
+        //   }
+        // })
+        let params = {
+          category: '1'
+        };
+        //获取所有菜单
+        getSysMenuByCategory(params).then((res) => {
+          if (res.code === ERR_OK) {
+            this.allmenuList = res.data;
+          } else {
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        })
+      },
     checkchange(){
     
         let menuIdList1 = this.$refs.treenew1.getCheckedKeys();
@@ -639,10 +723,58 @@ export default {
     }
   },
   activated: function() {
-    
+    this.getdictionaryData()
     this.getRoleList()
-  }
+  },
+  watch: {
+    // formatData(val) {
+    //     let arr = [];
+    //     val.forEach((value, index) => {
+    //       if (value.parentId === 0) {
+    //         arr.push(value)
+    //       }
+    //     })
+    //     this.formatDataa = arr
+    //   },
+      getData(val) {
+        let arr = [];
+        val.forEach((value, index) => {
+          if (value.parentId === -1) {
+            arr.push(value)
+          }
+        })
+        this.allmenuLista =arr
+        console.log(this.allmenuLista,"this.allmenuLista")
+      }
+    },
+    computed: {
+      // formatData() {
+      //   let that = this;
+      //   this.menuList.forEach((val, index) => {
+      //     val.list = []
+      //     that.menuList.forEach((v, i) => {
+      //       if (v.parentId === val.menuId) {
+      //         val.list.push(v)
+      //       }
+      //     });
+      //   });
+      //   return this.menuList
+      // },
+      getData() {
+        let that = this;
+        this.allmenuList.forEach((val, index) => {
+          val.list = []
+          that.allmenuList.forEach((v, i) => {
+            if (v.parentId === val.menuId) {
+              val.list.push(v)
+            }
+          });
+        });
+        return this.allmenuList
+      }
+    }
 }
+
 </script>
 
 <style lang="less" scoped>

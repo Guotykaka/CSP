@@ -27,7 +27,7 @@
 
           <el-form-item>
             <el-button type="primary" @click="handleReset()">清空</el-button>
-            <el-button type="primary" @click="doSearche()">搜索</el-button>
+            <el-button type="primary" @click="doSearch()">搜索</el-button>
             <el-button type="primary" @click="handleAdd()">新增</el-button>
           </el-form-item>
         </el-form>
@@ -406,7 +406,8 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <!-- <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length"> -->
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
               </el-pagination>
             </template>
           </el-col>
@@ -437,8 +438,14 @@ export default {
         selectInstitutionName: '',
         selectInstitutionCode: '',
         selectIsAppShow: '',
-        selectIsOpenMsm: ''
+        selectIsOpenMsm: '',
+        institutionGradeId: '',
+        institutionLavelId: '',
+        parentId: '',
+        currentPage: 1,
+        pageSize: 10,
       }, //搜索时的数据
+      totalCount:0,
       currentPage: 1, //分页初始页码
       pagesize: 10, //分页初始显示条数
       tableData: [], //列表数据
@@ -502,23 +509,18 @@ export default {
   //     }
   // },
   methods: {
-    doSearche() {
-      let params = {
-        selectInstitutionName: this.searchParams.selectInstitutionName,
-        selectInstitutionCode: this.searchParams.selectInstitutionCode,
-        selectIsAppShow: this.searchParams.selectIsAppShow,
-        selectIsOpenMsm: this.searchParams.selectIsOpenMsm,
-        institutionGradeId: '',
-        institutionLavelId: '',
-        parentId: '',
-        currentPage: 1,
-        pageSize: 1000
-      }
-      PostInstitutionList(params).then(response => {
-        this.tableData = []
-        this.tableData = response.data.list
-        this.totalCount = response.data.totalCount
-      })
+    //搜索方法
+    doSearch() {
+      this.searchParams.currentPage=1;
+      this.getList()
+    },
+    handleSizeChange: function(size) {
+      this.searchParams.pageSize=size;
+      this.getList()
+    },
+    handleCurrentChange: function(currentPage) {
+      this.searchParams.currentPage=currentPage;
+      this.getList()
     },
     handleReset() {
       //清空按钮
@@ -551,15 +553,6 @@ export default {
       console.log(tab, event)
       console.log(this.addTable)
     },
-    handleSizeChange: function(size) {
-      this.pagesize = size
-      console.log(`每页 ${size} 条`)
-    },
-    handleCurrentChange: function(currentPage) {
-      this.currentPage = currentPage
-      console.log(`当前页: ${currentPage}`)
-    },
-
     // 新增
     handleAdd() {
       this.dialogAddVisible = true
@@ -745,18 +738,18 @@ export default {
         message: '取消修改'
       })
     },
-    //获取用户列表
+    //获取机构列表
     getList() {
       let params = {
-        selectInstitutionName: '',
-        selectInstitutionCode: '',
-        selectIsAppShow: '',
-        selectIsOpenMsm: '',
-        institutionGradeId: '',
-        institutionLavelId: '',
-        parentId: '',
-        currentPage: 1,
-        pageSize: 1000
+        selectInstitutionName: this.searchParams.selectInstitutionName,
+        selectInstitutionCode: this.searchParams.selectInstitutionCode,
+        selectIsAppShow: this.searchParams.selectIsAppShow,
+        selectIsOpenMsm: this.searchParams.selectIsOpenMsm,
+        institutionGradeId: this.searchParams.institutionGradeId,
+        institutionLavelId: this.searchParams.institutionLavelId,
+        parentId: this.searchParams.parentId,
+        currentPage: this.searchParams.currentPage,
+        pageSize: this.searchParams.pageSize,
       }
       PostInstitutionList(params).then(response => {
         this.tableData = []

@@ -178,9 +178,10 @@
       </el-main>
       <el-footer height="30px">
         <el-row style="margin-top: 2%;">
-          <el-col :span="24" :offset="8">
+          <el-col :span="24" :offset="6">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <!-- <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length"> -->
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
               </el-pagination>
             </template>
           </el-col>
@@ -210,7 +211,12 @@ export default {
   data() {
     return {
       title:"提示",//this.$alert的标题
-      searchParams: { username: '' },
+      searchParams: {
+        currentPage: 1,
+        pageSize: 10,
+        userType: '',
+        username: ''
+      },
       totalCount: 0,
       currentPage: 1, //分页初始页码
       pagesize: 10, //分页初始显示条数
@@ -243,24 +249,16 @@ export default {
   },
   methods: {
     doSearch() {
-      let params = {
-        currentPage: 1,
-        pageSize: 1000,
-        userType: '',
-        username: this.searchParams.username
-      }
-      getUserList(params).then(response => {
-        this.tableData = []
-        this.tableData = response.data.list
-      })
+      this.searchParams.currentPage=1;
+      this.getUser()
     },
     handleSizeChange: function(size) {
-      this.pagesize = size
-      // console.log(`每页 ${size} 条`)
+      this.searchParams.pageSize=size;
+      this.getUser()
     },
     handleCurrentChange: function(currentPage) {
-      this.currentPage = currentPage
-      // console.log(`当前页: ${currentPage}`)
+      this.searchParams.currentPage=currentPage;
+      this.getUser()
     },
 
     // 新增
@@ -468,10 +466,10 @@ export default {
     //获取用户列表
     getUser() {
       let params = {
-        currentPage: 1,
-        pageSize: 1000,
-        userType: '',
-        username: ''
+        currentPage: this.searchParams.currentPage,
+        pageSize: this.searchParams.pageSize,
+        userType: this.searchParams.userType,
+        username: this.searchParams.username
       }
       getUserList(params).then(response => {
         this.tableData = []
