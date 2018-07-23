@@ -217,6 +217,7 @@
   import {storeManager} from '@/api/util.js';
 
   export default {
+    name:'imgText_consult',
     components: {
       headerTop,
       tableMain
@@ -281,11 +282,11 @@
     },
     methods: {
       //上传图片
-      handleRemove(file, fileList) {
+      handleRemove() {
         this.$refs.clearfile.clearFiles();
         this.chatImg=null;
       },
-      handleSuccess(file,fileList) {
+      handleSuccess(file) {
         this.msgType = 2;
         this.$refs.clearfile.clearFiles();
         this.showLogo=true;
@@ -295,13 +296,11 @@
       handleSizeChange(val) {
         this.searchParams.pageSize = val;
         this._getOrderList();
-        console.log(`每页 ${val} 条`);
       },
       //列表跳转第几页
       handleCurrentChange(val) {
         this.searchParams.currentPage = val;
         this._getOrderList();
-        console.log(`当前页: ${val}`);
       },
       //tab栏切换
       handleClick(tab) {
@@ -359,12 +358,12 @@
             that.docubleClik = false;
             sendToCustomer(params).then((res) => {
               if (res.code === ERR_OK) {
-                this.showMsg = '';
-                this.chatImg = null;
-                this.showLogo = false;
+                that.showMsg = '';
+                that.chatImg = null;
+                that.showLogo = false;
                 that.docubleClik = true;
-                this.queryInsConsultChatList();
-                this._getOrderNumber()
+                that.queryInsConsultChatList();
+                that._getOrderNumber()
               } else {
                 that.docubleClik = true;
                 this.$alert(res.msg, '提示', {
@@ -389,7 +388,7 @@
         }
       },
       //获取相应订单的聊天详情
-      _getChatDetail: function (item, index) {
+      _getChatDetail: function (item) {
         this.chatCircle = true;
         this.chatCircleMsg = item;
         this.chatCircleMsgShow = true;
@@ -704,7 +703,7 @@
       }
       .tcontent-ul {
         overflow: auto;
-        height: 100%;
+        height: 700px;
         padding: 0 10px;
         margin-right: -30px;
       }
