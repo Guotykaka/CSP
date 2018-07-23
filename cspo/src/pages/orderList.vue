@@ -318,6 +318,7 @@
           '&endTime=' + params.endTime;
         var url = baseUrl + "csp/trade/exportTradeList?" + paramString.toString();
         if(listMsg.length>0){
+          console.log(url)
           window.open(url);
         }else{
           this.$alert('暂无数据导出','提示')
@@ -335,7 +336,9 @@
           orderServiceStatus: '',//int 订单服务状态（0待服务 1客户忙待联系 2服务中 3已完成 4已失效）
           name: '',//string	医生姓名
           itemType: '',//string	服务id
-          institutionName: ''//string 机构名称
+          institutionName: '',//string 机构名称
+          startTime: '',
+          endTime: ''
         };
         this.startTime = null;
         this.endTime = null;

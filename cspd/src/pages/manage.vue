@@ -85,7 +85,6 @@
       return {
         navMenu: [],
         userInfo:{},//用户信息
-        areaImg:null,//用户头像
         allCount:null,
         defaultImg:require('../asset/img/logo.jpg')//用户默认图片
       }
@@ -121,12 +120,14 @@
             userId: this.userInfo.userId
           }
         ;
-        getApplyInfo(params).then((res)=>{
+/*        getApplyInfo(params).then((res)=>{
             if(res.code===ERR_OK&&res.data){
               this.areaImg = res.data.logoUrl;
+
             }
-          })
-        this.$store.dispatch('msgList',parNes)
+          })*/
+        this.$store.dispatch('getAreaImg',params);
+        this.$store.dispatch('msgList',parNes);
         countUserNewsList(parNes).then((res)=>{
             if(res.code===ERR_OK){
               let count = res.data,
@@ -162,7 +163,8 @@
               return count;
             },
       ...mapState({
-        msgList: state => state.msgList//消息列表数据
+        msgList: state => state.msgList,//消息列表数据
+        areaImg: state => state.areaImg//用户头像
       })
     },
   }

@@ -630,14 +630,10 @@ export default {
       })
     }
   },
-  created: function() {
+  activated: function() {
     this.getList()
     this.getDocList()
   }
-  // mounted: function() {
-  //   this.getDocList()
-
-  // }
 }
 </script>
 

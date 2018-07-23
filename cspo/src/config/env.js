@@ -13,7 +13,11 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
+
   //baseUrl = 'http://HZ2WZSG82:8117/cspo/';
+
+  // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
+
   baseUrl = 'http://172.0.0.41:8117/cspo/';
   payUrl = 'http://172.0.0.41:8115/pay/';
   // baseUrl = 'http://10.50.50.128:8117/cspo/';//明星

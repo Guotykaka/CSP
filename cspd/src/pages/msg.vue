@@ -74,13 +74,13 @@
       },
       //路由跳转
       routerTo(){
-        if(this.params.newsType ==='5'){
+        if(this.params.newsTypes ==='5'){
           //电话报告解读
           this.$router.push("/tel_consult")
-        }else if(this.params.newsType === '6'){
+        }else if(this.params.newsTypes === '6'){
           //图文咨询
           this.$router.push("/imgText_consult")
-        }else if(this.params.newsType === '7'){
+        }else if(this.params.newsTypes === '7'){
           //账单消息
           this.$router.push("/personal")
         }

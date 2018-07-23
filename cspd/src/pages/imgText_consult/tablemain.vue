@@ -68,7 +68,7 @@
     overflow: hidden;
     .tcontent-ul {
       overflow: auto;
-      height: 100%;
+      height: 700px;
     }
     .label-main {
       padding: 10px;

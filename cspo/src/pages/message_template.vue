@@ -486,7 +486,7 @@ export default {
       this.AdminUserId = JSON.parse(partthis).userId
     }
   },
-  created: function() {
+  activated: function() {
     this.getMessageTemplateList()
   }
 }
