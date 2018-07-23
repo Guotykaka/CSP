@@ -39,32 +39,18 @@
 <script>
 
   export default {
-    components: {
-
-    },
     data(){
       return{
         tabIndex:'first'
       }
     },
-    created(){
-
-    },
-    methods:{
-
-    },
-    computed:{
-
-    }
   }
 </script>
 
 <style scoped lang="less">
   .basicInfoBar{margin-bottom: 20px;line-height: 28px;}
-
   .basicInfoBar .note{font-size: 16px;}
   .basicInfoBar .text{font-size: 16px;padding-right: 30px}
-
   .success-panel{background-color: #d8e8d8;border: 1px solid #44ae44}
   .warning-panel{background-color: #f9ebd8;border: 1px solid #f0ad4e}
   .fail-panel{background-color: #f6cbca;border: 1px solid #d9534f}

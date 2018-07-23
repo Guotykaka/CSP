@@ -1,6 +1,9 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import ElementUI from 'element-ui';
+import 'element-ui/lib/theme-chalk/index.css';
+
 const login = () => import('@/pages/login.vue')//登录
 const doctor_index = () => import('@/pages/doctor_index.vue')//首页
 const manage = () => import('@/pages/manage.vue')//管理页面
@@ -14,15 +17,16 @@ const server_setting = () => import('@/pages/server_setting.vue')//服务设置
 const call_doctor = () => import('@/pages/callDoctor.vue')//服务设置
 const baseInfo = () => import('@/pages/baseInfo.vue')//医生基本信息  未认证就进这个页面
 const doApply = () => import('@/pages/do_apply.vue')//医生去认证
-
+Vue.use(ElementUI);
 Vue.use(Router)
 
 
 const router =new Router({
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
+      alias: '/',
       component: login,
     },
     {

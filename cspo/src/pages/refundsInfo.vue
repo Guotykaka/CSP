@@ -286,7 +286,7 @@ export default {
           var params = {
             payType: this.orderInfo.payChannel,//支付方式
             refundCode: this.orderInfo.refundCode,
-            refundType: 1,
+            refundType: 2,
             tradeCode: this.orderInfo.tradeCode
           };
           agreeRefuse(params).then(res => {
