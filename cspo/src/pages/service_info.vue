@@ -7,25 +7,34 @@
       <div>
         <el-header height="30">
           <!-- 操作行-->
+          <el-row>
           <el-form :model="searchParams" :inline="true" class="demo-form-inline">
+            <el-col :span="8">
           <el-form-item label="服务名称：">
-              <el-input v-model="searchParams.name" placeholder="服务名称" @keyup.enter.native="doSearch()" clearable></el-input>
+         <el-input v-model="searchParams.name" placeholder="服务名称" @keyup.enter.native="doSearch()" clearable class="inpwidth"></el-input>
           </el-form-item>
+            </el-col>
+             <el-col :span="8">
           <el-form-item label="请选择角色：">
-              <el-select v-model="searchParams.role" clearable placeholder="请选择角色">
+              <el-select v-model="searchParams.role" clearable placeholder="请选择角色"  class="inpwidth">
                 <el-option v-for="item in RoleList" :key="item.roleId" :label="item.roleName" :value="item.roleId">
                 </el-option>
               </el-select>
             
           </el-form-item>
+          </el-col>
+          <el-col :span="8">
           <el-form-item>
             <el-button type="primary" @click="doSearch()" class="m_l_15">搜索</el-button>
             
           </el-form-item>
-          <el-row>
+          </el-col>
+         
+          </el-form>
+          </el-row>
+           <el-row>
             <el-button type="primary" @click="handleAdd()">新增</el-button>
           </el-row>
-          </el-form>
         </el-header>
 
         <el-main>
@@ -44,11 +53,11 @@
                 </template>
               </el-table-column>
               <el-table-column show-overflow-tooltip align="center" prop="commodityBinding" label="绑定商品"></el-table-column>
-              <el-table-column show-overflow-tooltip align="center" label="建议价格">
+              <!-- <el-table-column show-overflow-tooltip align="center" label="建议价格">
                 <template slot-scope="scope">
                   <p>{{ scope.row.serviceMinPrice}}-{{ scope.row.serviceMaxPrice}}元/次</p>
                 </template>
-              </el-table-column>
+              </el-table-column> -->
               <el-table-column show-overflow-tooltip align="center" prop="createDate" label="创建时间"></el-table-column>
               <el-table-column align="center" label="操作" width="260">
                 <template slot-scope="scope">
@@ -239,7 +248,7 @@
           </el-form-item>
         </el-form>
        
-         <div class="btn-row">
+        <div class="btn-row">
         <el-button size="small" type="primary" @click="_doAdd()">保存</el-button>
         <el-button size="small" type="primary" @click="_doAddCancel()">取消</el-button>
         </div>
@@ -880,6 +889,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 .el-checkbox {
   margin-left: 10px;
 }
@@ -916,8 +926,14 @@ export default {
   margin-left: 15px;
 }
 .btn-row {text-align: center;padding-top: 20px;}
+.el-header,.el-main,.el-footer{
+  padding-left:0;
+}
 </style>
 <style lang="less">
+ .inpwidth .el-input__inner{
+   width: 200%;
+ }
 .el-form-item {
   &.is-required2 {
     .el-form-item__label {
@@ -931,9 +947,6 @@ export default {
 }
 .selector img{
     width: 150%;
-}
-el-header el-mian el-footer{
-  padding:0;
 }
 </style>
 

@@ -659,4 +659,7 @@ export default {
   margin-left: 15px;
 }
 .btn-row {text-align: center;padding-top: 20px;}
+.el-header,.el-main,.el-footer{
+  padding:0;
+}
 </style>

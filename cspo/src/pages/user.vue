@@ -245,7 +245,7 @@ export default {
     doSearch() {
       let params = {
         currentPage: 1,
-        pageSize: 10,
+        pageSize: 1000,
         userType: '',
         username: this.searchParams.username
       }
@@ -498,4 +498,7 @@ export default {
   margin-left: 15px;
 }
 .btn-row {text-align: center;padding-top: 20px;}
+.el-header,.el-main,.el-footer{
+  padding:0;
+}
 </style>
