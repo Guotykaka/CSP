@@ -146,6 +146,9 @@ export function deleteDictionary(params){//删除字典列表数据
 export function getDictionaryByKey(params){//根据key获取字典列表数据详情
   return post(urls.API_POST_GETDICTIONARY_BY_KEY,params)
 }
+
+
+
 //
 export function getDictionaryInfo(params){//获取字典列表数据详情
   return post(urls.API_POST_GETDICTIONARY_INFO,params)

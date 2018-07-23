@@ -689,7 +689,7 @@ export default {
       })
     },
     GoodsMan() {//一元听商品管理路由跳转
-      this.$router.push("listenList")
+      this.$router.push({ path: "/listenList"})
     },
     // 修改
     handleEdit(index, row) {
@@ -872,7 +872,7 @@ export default {
       })
     }
   },
-  created: function() {
+  activated: function() {
     this.getList()
     this.getRoleList()
   }

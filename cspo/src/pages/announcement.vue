@@ -11,7 +11,7 @@
 
           <el-form-item label="类型">
             <el-select v-model="searchParams.selectedNoticeTypeQuery" clearable placeholder="公告类型">
-              <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId"></el-option>
+              <el-option v-for="item in noticeTypes" :key="item.id" :label="item.dictName" :value="item.institutionId"></el-option>
             </el-select>
           </el-form-item>
 
@@ -68,7 +68,7 @@
 <script>
 
 import headerTop from '@/components/headTop.vue';
-import { mapGetters } from "vuex";
+import { getDictionaryByKey,ERR_OK } from "@/api/api.js";
 
 
 
@@ -79,6 +79,10 @@ export default {
         noticeTitle:"",//标题
         noticeContent:""//内容
       },
+
+
+
+      noticeTypes:[],
 
       isShowDialog:false,
 
@@ -103,11 +107,6 @@ export default {
   components:{
     headerTop,
   },
-
-  computed:{
-    ...mapGetters(['getInstitutionArr'])
-  },
-
   methods:{
 
 
@@ -136,11 +135,27 @@ export default {
 
 
     //关闭dialog
-
-
     closeDialog(){
       this.isShowDialog=false;
-    }
+    },
+
+    //获取公告类型
+    getNoticeType(){
+      var params = {
+        code: "",
+        dictType: "",
+        parentId: "8ab2b2f562dc97230162dc9723560000"
+      };
+      getDictionaryByKey(params).then(res => {
+        if(res.code===ERR_OK){
+          this.noticeTypes=res.data
+        }else{
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      })
+    },
 
 
 
@@ -148,6 +163,14 @@ export default {
 
 
   },
+
+
+  activated(){
+
+
+    this.getNoticeType()
+
+  }
 
 
 
