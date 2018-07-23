@@ -8,21 +8,8 @@ import router from './router'
 import store from './store/index.js'
 import './asset/iconfont/iconfont.css'
 Vue.use(ElementUI);
-
 Vue.config.productionTip = false;
 
-/* eslint-disable no-new */
-router.beforeEach((to, from, next) => {
-  store.dispatch("onLoading", true);
-  next()
-})
-// 这里为了让效果明显一些加了延时
-router.afterEach((to, from) => {
-  setTimeout(function() {
-    store.dispatch("onLoading", false);
-  }, 1000)
-
-})
 new Vue({
   el: '#app',
   router,

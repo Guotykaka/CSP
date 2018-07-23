@@ -299,8 +299,7 @@
 
         if (!isJPG) {
           this.$message.error('上传图片只能是 JPG 格式!');
-        }
-        if (!isLt2M) {
+        }else if (!isLt2M) {
           this.$message.error('上传图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;

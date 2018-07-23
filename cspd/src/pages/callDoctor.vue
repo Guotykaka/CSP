@@ -1,6 +1,5 @@
 <template>
   <div class="call_doctor">
-    <!--<header-top></header-top>-->
     <div class="main-message">
       <div class="main-header">
         <span class="msg-title">我的留言板</span>
@@ -42,7 +41,7 @@
               </ul>
 
               <!--回复内容-->
-              <transition-group name="fade" tag="div">
+              <transition name="fade" tag="div">
                 <div class="re-circle" v-if="checkId==index" v-for="(item1,index1) in insLeaveAnswerlist" :key="index1">
                   <span class="res-title">回复</span>
                   <div class="resCircle">
@@ -59,7 +58,7 @@
                     </ul>
                   </div>
                 </div>
-              </transition-group>
+              </transition>
               <ul class="event-btn" v-if="checkId!==index">
                 <li @click="evnetShowList(item,index)">展开<b class="iconfont icon-xiangs-copy"></b></li>
               </ul>
@@ -93,7 +92,6 @@
 </template>
 
 <script>
-  import headerTop from "@/components/headTop.vue"
   import {getStore} from "@/config/mUtils.js"
   import {
     ERR_OK,
@@ -103,16 +101,10 @@
     saveInsLeaveWord,
     saveInsLeaveWordAnswer,
   } from '@/api/api';
-
   export default {
     name: 'call_doctor',
-    components: {
-      headerTop,
-    },
     data() {
       return {
-        showList: false,
-        replayMain: false,
         userInfo:{},//用户信息
         searchParams: {
           currentPage: 1,//页码
@@ -205,9 +197,7 @@
       },
       //展开
       evnetShowList: function (val, index) {
-        this.replayMain = true;
         this.checkId = index;
-        this.showList = true;
         let _this = this,
           params = {
             insLeaveWordId:val.insLeaveWordId
@@ -229,12 +219,9 @@
           }
         });
         this.resList = this.insLeaveAnswerlist;
-        // this.showList = true;
       },
       //收起
       eventHiddenList: function () {
-        this.replayMain = false;
-        this.showList = false;
         this.checkId = null
       },
       //填写留言信息
@@ -490,8 +477,11 @@
           color: #409EFF;
         }
       }
-      .fade-move {
-        transition: all 2s;
+      .fade-enter-active, .fade-leave-active {
+        transition: all 5s;
+      }
+      .fade-enter, .fade-leave-to{
+        opacity: 0;
       }
 
     }

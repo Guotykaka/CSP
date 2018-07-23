@@ -25,7 +25,7 @@
         </p>
         <p class="status-text">运营已同意退款，款还未打到客户账上</p>
         <div class="btn-row" style="text-align: right">
-          <el-button size="small" type="primary">退款</el-button>
+          <el-button size="small" type="primary" @click="agreeApply">退款</el-button>
         </div>
       </el-card>
 
@@ -286,7 +286,7 @@ export default {
           var params = {
             payType: this.orderInfo.payChannel,//支付方式
             refundCode: this.orderInfo.refundCode,
-            refundType: 1,
+            refundType: 2,
             tradeCode: this.orderInfo.tradeCode
           };
           agreeRefuse(params).then(res => {

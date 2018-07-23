@@ -330,7 +330,6 @@
         };
 
         if(!params.positionalTitles){
-
           this.$alert("职称不能为空", '提示', {
             confirmButtonText: '确定',
           });
@@ -346,12 +345,14 @@
           });
           return;
         }else if(!params.professionalCertificateCode){
-          this.$alert("职称号不能为空", '提示', {
+          this.$alert("职业证号不能为空", '提示', {
             confirmButtonText: '确定',
           });
           return;
         }else if(!params.department){
-
+          this.$alert("科室不能为空", '提示', {
+            confirmButtonText: '确定',
+          });
           return;
         }else if(params.department.length > 10){
           this.$alert("科室不能超过10个字", '提示', {

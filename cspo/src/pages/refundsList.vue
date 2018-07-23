@@ -179,9 +179,9 @@ export default {
 
     //导出表格
     exportExcel: function () {
-
       this.searchParams.startTime=this.rangeTime ? this.rangeTime[0] :"";
       this.searchParams.endTime=this.rangeTime ? this.rangeTime[1] :"";
+      let refundStatus=this.searchParams.refundStatus ? this.searchParams.refundStatus : '';
       var paramString =
         'customerMobile=' + this.searchParams.customerMobile +
         '&customerName=' + this.searchParams.customerName +
@@ -190,20 +190,11 @@ export default {
         '&endTime=' + this.searchParams.endTime +
         '&institutionName=' + this.searchParams.institutionName +
         '&serviceId=' + this.searchParams.serviceId +
-        '&refundStatus=' + this.searchParams.refundStatus +
+        '&refundStatus=' + refundStatus +
         '&tradeCode=' + this.searchParams.tradeCode;
-
-      console.log(this.searchParams.customerMobile);
-      console.log(paramString);
-
-
-
       var url = baseUrl + "ins/orderRefund/exportOrderRefund?" + paramString.toString();
       window.open(url);
     },
-
-
-
 
 
     //点击查看
@@ -215,10 +206,9 @@ export default {
 
     //获取列表数据
     getRefuseList(){
-
       this.searchParams.startTime=this.rangeTime ? this.rangeTime[0] :"";
       this.searchParams.endTime=this.rangeTime ? this.rangeTime[1] :"";
-      var params={
+      let params={
         currentPage: this.searchParams.page,
         customerMobile:this.searchParams.customerMobile,
         customerName:this.searchParams.customerName,
@@ -229,7 +219,6 @@ export default {
         serviceId:this.searchParams.serviceId,
         startTime:this.searchParams.startTime,
         endTime:this.searchParams.endTime,
-       //timespan: "44",
         tradeCode: this.searchParams.tradeCode
       };
       getListOrderRefund(params).then(res => {

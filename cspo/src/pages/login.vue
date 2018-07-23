@@ -86,7 +86,9 @@
     width: 100%;
     height: 100%;
     position: relative;
-    background-color: #E4E7ED;
+    background:url("../asset/img/server-login-bg.jpg") no-repeat;
+    background-size: cover;
+    box-sizing:content-box;
   }
 
   .login-box{
@@ -98,6 +100,7 @@
     padding:40px 25px;
     background-color:#fff;
     transform: translate3d(-50%,-50%,0);
+    box-shadow: 0 5px 15px #999;
   }
   .t_c{
     text-align: center

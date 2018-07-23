@@ -83,7 +83,7 @@
                 this.$router.push("doctor_index");
               }else {
                 //未认证 认证页
-                this.$router.push("indetification");
+                this.$router.push("indenBaseInfo");
               }
             }
           });

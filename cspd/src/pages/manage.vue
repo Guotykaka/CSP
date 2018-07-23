@@ -103,7 +103,8 @@
     GetNav,
     ERR_OK,
     getApplyInfo,
-    countUserNewsList
+    countUserNewsList,
+    resetPassword
   } from '@/api/api.js';
   import {mapState} from 'vuex'
 
@@ -141,7 +142,7 @@
           this.isShowDialog=true;
         }else if(command==='logout'){
           //退出
-          this.$router.push("/login",function () {
+          this.$router.push("/",function () {
             localStorage.clear();
           })
         }
@@ -152,7 +153,20 @@
       },
       //点击修改
       okFn() {
-
+        let params ={
+          newPassword: this.newPassword,
+          oldPassword: this.oldPassword,
+          userId: this.userInfo.userId
+        }
+        resetPassword(params).then((res)=>{
+        if(res.code===ERR_OK){
+          this.isShowDialog=false;
+          this.$alert('密码修改成功','提示')
+          this.$router.push('/')
+        }else{
+          this.$alert(res.msg)
+        }
+        })
       },
       //点击取消
       cancel() {
@@ -178,12 +192,6 @@
             userId: this.userInfo.userId
           }
         ;
-        /*        getApplyInfo(params).then((res)=>{
-                    if(res.code===ERR_OK&&res.data){
-                      this.areaImg = res.data.logoUrl;
-
-                    }
-                  })*/
         this.$store.dispatch('getAreaImg', params);
         this.$store.dispatch('msgList', parNes);
         countUserNewsList(parNes).then((res) => {
@@ -200,13 +208,6 @@
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
       },
-      //系统公告
-      /*      getMsgList() {
-              let url = localUrl + 'countUserNewsList',
-                uid = storeManager.getUserId(),
-                params = uid;
-              this.$store.dispatch('msgList', url, params)
-            }*/
     },
     computed: {
       defaultActive: function () {

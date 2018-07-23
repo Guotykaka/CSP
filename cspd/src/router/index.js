@@ -12,7 +12,7 @@ const tel_consult = () => import('@/pages/tel_consult.vue')//电话咨询
 const imgText_consult = () => import('@/pages/imgText_consult.vue')//图为咨询
 const server_setting = () => import('@/pages/server_setting.vue')//服务设置
 const call_doctor = () => import('@/pages/callDoctor.vue')//服务设置
-const baseInfo = () => import('@/pages/baseInfo.vue')//医生基本信息  未认证就进这个页面
+const indenBaseInfo = () => import('@/pages/indentification_baseInfo.vue')//医生基本信息  未认证就进这个页面
 const doApply = () => import('@/pages/do_apply.vue')//医生去认证
 
 Vue.use(Router)
@@ -21,8 +21,9 @@ Vue.use(Router)
 const router =new Router({
   routes: [
     {
-      path: '/',
+      path: '/login',
       name: 'login',
+      alias: '/',
       component: login,
     },
     {
@@ -65,8 +66,8 @@ const router =new Router({
           component: imgText_consult,
           meta: ["服务管理","图文咨询"],//图文咨询
         },{
-          path: '/indetification',
-          component: baseInfo,//认证详情
+          path: '/indenBaseInfo',
+          component: indenBaseInfo,//认证详情
           meta: ["服务管理","认证详情"],
         },{
           path: '/server_setting',
@@ -91,12 +92,10 @@ const router =new Router({
 router.beforeEach((to, from, next) => {
   let authenticationStatus=localStorage.getItem("authenticationStatus");
   if(authenticationStatus !== '2'){
-    if(to.fullPath==='/' || to.fullPath==='/doApply' || to.fullPath==='/indetification'){
+    if(to.fullPath==='/' || to.fullPath==='/doApply' || to.fullPath==='/indenBaseInfo'){
       next()
     }else {
-      this.$alert("请先认证", '提示', {
-        confirmButtonText: '确定',
-      });
+      alert("请先认证");
       next(false)
     }
   }else{
