@@ -32,9 +32,6 @@
 </template>
 
 <script>
-  import {localUrl} from "@/config/env.js"
-  import {api} from '@/api/api';
-
   export default {
     name: "tablemain",
     props: ['orderList', 'Current'],
@@ -45,7 +42,7 @@
         detailText: {},//用户订单详情展示
       }
     },
-    created() {
+    activated() {
       this.selCurrent = this.Current;
     },
     methods: {
@@ -97,14 +94,6 @@
     }
   }
 
-  .msgleft-head .layui-tab-title ul {
-    display: flex;
-  }
-
-  .layui-tab-title li {
-    flex: 1;
-  }
-
   .red-circle {
     width: 6px;
     height: 6px;
@@ -143,147 +132,7 @@
     }
   }
 
-  /*详情框*/
-  .detail-mask {
-    width: 100vw;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.7);
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    z-index: 100;
-    .mask-circle {
-      width: 570px;
-      height: 530px;
-      background-color: #fff;
-      border: 1px solid #e5e5e5;
-      border-radius: 5px;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      margin-left: -285px;
-      margin-top: -265px;
-    }
-  }
-
-  .mask-header {
-    height: 40px;
-    font-size: 16px;
-    line-height: 40px;
-    background-color: #999;
-    padding: 0 20px;
-  }
-
-  .mask-main li {
-    display: flex;
-    height: 50px;
-    line-height: 50px;
-  }
-
-  .fle1 {
-    flex: 1;
-    width: 100px;
-    text-align: right;
-    color: #666;
-  }
-
-  .fle2 {
-    flex: 2.5;
-    text-align: left;
-    margin-left: 20px;
-  }
-
-  .flinput {
-    height: 100px;
-    width: 300px;
-    border-radius: 5px;
-    resize: none;
-    padding: 5px;
-    line-height: 20px;
-  }
-
-  .flbtn {
-    width: 75px;
-    background-color: #4fb136;
-    color: #fff;
-    border-radius: 5px;
-    border: none;
-    height: 38px;
-    line-height: 38px;
-  }
-
-  .addImgBox {
-    width: 100%;
-    height: 80px;
-    box-sizing: border-box;
-  }
-
-  .addImgBox .addImg {
-    width: 80px;
-    height: 100%;
-    background-color: #e5e5e5;
-    color: #666;
-    vertical-align: middle;
-    padding: 2px;
-    position: relative;
-    text-align: center;
-    display: inline-block;
-  }
-
-  .addImg .addIcon {
-    font-size: 60px;
-    line-height: 100px;
-  }
-
-  .addImg .delIcon {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    font-size: 50px;
-    color: #333;
-    border-radius: 50%;
-    background: #e5e5e5;
-    box-sizing: border-box;
-    line-height: 24px;
-    margin-right: -15px;
-    margin-top: -15px;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-
   .selTrueStyle {
     background-color: #c9c9c9;
-  }
-
-  .minCirclefl {
-    border: 8px solid #e5e5e5;
-    border-right-color: #fff;
-    position: absolute;
-    top: 12px;
-    left: -3px;
-  }
-
-  .minCirclefr {
-    border: 8px solid #e5e5e5;
-    border-left-color: #4fb136;
-    position: absolute;
-    top: 12px;
-    right: -3px;
-  }
-
-  .layui-this {
-    color: #3c8dbc !important;
-  }
-
-  .layui-this:after {
-    border-bottom: 2px solid #3c8dbc !important;
-  }
-
-  .reStyle {
-    background-color: #999 !important;
-    color: #fff !important;
   }
 </style>

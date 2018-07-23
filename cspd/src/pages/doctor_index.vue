@@ -48,7 +48,6 @@
     },
     created: function () {
       this.$store.state.navTitle = '首页'
-      this._getList();
       this._getAnnouncement()
       console.log(this.msgList)
       this.userInfo = JSON.parse(getStore('userMesage'));

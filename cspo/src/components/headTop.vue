@@ -64,6 +64,7 @@
         'getUnReadSum'
       ])
     },
+
     methods:{
       ...mapMutations(['setUseName','setUnReadNewsList']),
       //处理command
@@ -90,7 +91,18 @@
 
       //点击修改
       okFn(){
-
+        let params = {
+          newPassword: this.newPassword,
+          password: this.oldPassword,
+          userId: JSON.parse(getStore("userMesage")).userId
+        }
+        postDoctorResetPassword(params).then((res)=>{
+          if(res.code === ERR_OK){
+            this.$alert('修改密码成功','提示')
+            this.$router.push('/login')
+            localStorage.clear();
+          }
+        })
       },
 
       //点击系统公告
