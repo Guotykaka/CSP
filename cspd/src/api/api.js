@@ -8,6 +8,10 @@ export const ERR_OK = 1;
 export function login(params) {
   return post(urls.API_LOGIN, params)
 }
+/*修改密码*/
+export function resetPassword(params) {
+  return post(urls.API_RESET_PASSWORD, params)
+}
 
 //获取左侧导航菜单
 export function GetNav(params) {

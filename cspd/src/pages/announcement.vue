@@ -124,7 +124,7 @@
           if (res.code === ERR_OK) {
             this.noticeLists = res.data;
           } else {
-            alert(res.msg);
+            this.$alert(res.msg,'提示');
           }
         })
       },
@@ -191,58 +191,5 @@
       text-align: center;
       margin-top:20px;
     }
-  }
-
-  .gray-bg {
-    background-color: #e8e8e8;
-    padding: 15px;
-  }
-
-  .sel-card-body {
-    padding: 30px 15px;
-  }
-
-  .control-label {
-    line-height: 34px;
-    font-size: 14px;
-  }
-
-  .blue-text {
-    color: #509cf0
-  }
-
-  .blue-text:hover {
-    color: #2186f6;
-    text-decoration: none;
-    cursor: pointer
-  }
-
-  .info-title {
-    margin-bottom: 15px;
-    font-size: 24px;
-    line-height: 36px;
-    text-align: center;
-    color: #333;
-  }
-
-  .info-content {
-    padding: 10px 0;
-    line-height: 24px;
-    font-size: 14px;
-    color: #444;
-    word-break: break-all
-  }
-
-  .group-content {
-    padding: 0 15px 0 80px;
-    position: relative
-  }
-
-  .group-note {
-    position: absolute;
-    left: 0;
-    top: 0;
-    line-height: 34px;
-    font-size: 16px
   }
 </style>

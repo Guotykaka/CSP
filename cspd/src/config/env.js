@@ -11,8 +11,8 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
-  baseUrl = 'http://172.0.0.41:8117/cspd/';
-  // baseUrl = 'http://10.50.50.128:8117/cspd/';
+  // baseUrl = 'http://172.0.0.41:8117/cspd/';
+  baseUrl = 'http://10.50.50.117:8117/cspd/';
   // baseUrl = 'http://HZ2WZSG82:8117/cspd/';
   baseImgPath = '/img/';
 }else{
@@ -28,6 +28,8 @@ export {
 
 /*登录*/
 export const API_LOGIN = baseUrl+'doctor/sys/login';
+//修改密码
+export const API_RESET_PASSWORD = baseUrl+'doctor/user/resetPassword';
 /*个人中心*/
 /*免费图文咨询服务管理*/
 export const API_FREE_LIST = baseUrl+'doctor/ins/freeimgtextconsultion/list';//免费图文咨询待处理和已处理列表分页查询
