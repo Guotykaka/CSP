@@ -41,7 +41,7 @@
       </el-header>
       <el-main>
         <!-- 修改 -->
-        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40%>
+        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40% v-bind:show-close = "false">
           <el-form :model="editTable">
             <el-form-item label="公告标题:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -71,14 +71,14 @@
               </template>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button type="warning" @click="_doCancel()">取消</el-button>
-            <el-button type="primary" @click="_doHandleEdit()">保存</el-button>
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doHandleEdit()">保存</el-button>
+          <el-button size="small" type="primary" @click="_doCancel()">取消</el-button>
           </div>
         </el-dialog>
 
         <!-- 详情 -->
-        <el-dialog title="详情" :visible.sync="dialogCheckVisible" width=40%>
+        <el-dialog title="详情" :visible.sync="dialogCheckVisible" width=40% v-bind:show-close = "false">
           <el-form :model="selectTable">
             <el-form-item label="公告标题:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -105,12 +105,13 @@
               </template>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button type="warning" @click="dialogCheckVisible = false">返回</el-button>
+          
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="dialogCheckVisible = false">返回</el-button>
           </div>
         </el-dialog>
         <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%>
+        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
           <el-form :model="addTable">
             <el-form-item label="公告标题:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -140,9 +141,9 @@
               </template>
             </el-form-item>
           </el-form>
-          <div slot="footer" class="dialog-footer">
-            <el-button type="warning" @click="_doAddCancel()">取消</el-button>
-            <el-button type="primary" @click="_doAdd()">保存</el-button>
+          <div class="btn-row">
+          <el-button size="small" type="primary" @click="_doAdd()">保存</el-button>
+          <el-button size="small" type="primary" @click="_doAddCancel()">取消</el-button>
           </div>
         </el-dialog>
         <!-- 列表 -->
@@ -153,9 +154,9 @@
             <el-table-column show-overflow-tooltip align="center" label="状态" width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
-                  <el-tag size="medium" type="info" v-if="scope.row.noticeStatus === '1'">待发布</el-tag>
-                  <el-tag size="medium" type="success" v-if="scope.row.noticeStatus === '2'">已发布</el-tag>
-                  <el-tag size="medium" type="warning" v-if="scope.row.noticeStatus === '3'">已撤销</el-tag>
+                  <el-tag size="medium" type="info" v-if="scope.row.noticeStatus === 1">待发布</el-tag>
+                  <el-tag size="medium" type="success" v-if="scope.row.noticeStatus === 2">已发布</el-tag>
+                  <el-tag size="medium" type="warning" v-if="scope.row.noticeStatus === 3">已撤销</el-tag>
                 </div>
               </template>
             </el-table-column>
@@ -180,6 +181,7 @@
           <el-col :span="24" :offset="8">
             <template>
               <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
+              <!-- <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.page" :page-sizes="[10,20]" :page-size="searchParams.limit" layout="total, sizes, prev, pager, next, jumper" :total="totalCount"> -->
               </el-pagination>
             </template>
           </el-col>
@@ -260,6 +262,17 @@ export default {
         valueZT: '',
         valueKS: '',
         valueJS: ''
+      },
+      searchParams: {
+        customerMobile: "",//手机号
+        customerName: "",//姓名
+        doctorName: "",//医生姓名
+        institutionName: "",//机构名称
+        pageSize: 10,
+        page: 1,
+        serviceId: "",//服务名称的id
+        refundStatus:null,//服务状态
+        tradeCode: ""//订单号
       },
       currentPage: 1, //分页初始页码
       pagesize: 10, //分页初始显示条数
@@ -460,25 +473,23 @@ export default {
     },
     //获取用户列表
     getList() {
-      let date = Date.parse(new Date())
       let params = {
         currentPage: 1,
         endTime: '',
-        noticeOs: 0,
+        noticeOs: '',
         noticeStatus: '',
         noticeTitleQuery: '',
         pageSize: 1000,
         selectedNoticeTypeQuery: '',
         startTime: '',
-        timespan: date,
         userName: ''
       }
       getNoticeList(params).then(response => {
         if (response.code == 1) {
           if (!response.data.list.length == 0) {
             this.tableData = []
-            this.tableData = response
-            this.totalCount = response.totalCount
+            this.tableData = response.data.list
+            this.totalCount = response.data.totalCount
           } else {
             console.log(response,"tableData")
           }
@@ -496,6 +507,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+el-header el-mian el-footer{
+  padding:0;
+}
 .dot {
   width: 100%;
 }
@@ -508,4 +522,10 @@ export default {
 .el-input {
   margin-bottom: 15px;
 }
+.btn-row {text-align: center;padding-top: 20px;}
+.el-header,.el-main,.el-footer{
+  padding:0;
+}
 </style>
+
+

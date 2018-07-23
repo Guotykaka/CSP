@@ -44,17 +44,28 @@
             router>
             <el-menu-item index="/announcement">系统公告</el-menu-item>
             <el-menu-item index="/call_doctor">联系医助</el-menu-item>
-            <el-menu-item index="/msg">消息<el-badge v-if="allcount>0" class="mark iconStyle" :value="allcount"/></el-menu-item>
-            <el-submenu index="2" class="nav-child-title">
-              <template slot="title"><img
-                :src="areaImg||defaultImg"
-                style="padding-right:10px;width:20px;height:20px;-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"
-                alt="">{{userInfo.name}}
+            <el-menu-item index="/msg">消息
+              <el-badge v-if="allcount>0" class="mark iconStyle" :value="allcount"/>
+            </el-menu-item>
+            <el-menu-item index="">
+              <template>
+                <!--下拉-->
+                <el-dropdown @command="handleCommand" style="color:#fff;">
+                <span class="el-dropdown-link" >
+                   <img
+                     :src="areaImg||defaultImg"
+                     style="padding-right:10px;width:20px;height:20px;-webkit-border-radius: 50%;-moz-border-radius: 50%;border-radius: 50%;"
+                     alt="">{{userInfo.name}}
+                  <i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                  <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="baseInfo">基础信息</el-dropdown-item>
+                    <el-dropdown-item command="changePass">修改密码</el-dropdown-item>
+                    <el-dropdown-item command="logout">退出系统</el-dropdown-item>
+                  </el-dropdown-menu>
+                </el-dropdown>
               </template>
-              <el-menu-item index="/indetification">基础信息</el-menu-item>
-              <el-menu-item index="2-2">修改密码</el-menu-item>
-              <el-menu-item index="/">退出系统</el-menu-item>
-            </el-submenu>
+            </el-menu-item>
           </el-menu>
         </el-header>
         <el-main>
@@ -66,6 +77,22 @@
         </el-main>
       </el-container>
     </el-container>
+    <!--修改密码dialog-->
+    <el-dialog title="修改密码" :visible.sync="isShowDialog" width="400px">
+      <el-form label-width="80px">
+        <el-form-item label="原密码">
+          <el-input v-model="oldPassword" placeholder="原密码"></el-input>
+        </el-form-item>
+        <el-form-item label="新密码">
+          <el-input v-model="newPassword" placeholder="新密码"></el-input>
+        </el-form-item>
+
+        <el-form-item>
+          <el-button type="primary" @click="okFn">修改</el-button>
+          <el-button @click="cancel">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -84,12 +111,15 @@
     data() {
       return {
         navMenu: [],
-        userInfo:{},//用户信息
-        allCount:null,
-        defaultImg:require('../asset/img/logo.jpg')//用户默认图片
+        userInfo: {},//用户信息
+        allCount: null,
+        defaultImg: require('../asset/img/logo.jpg'),//用户默认图片
+        isShowDialog: false,
+        oldPassword: "",
+        newPassword: "",
       }
     },
-    created(){
+    created() {
       this.userInfo = JSON.parse(getStore('userMesage'));
       this.getNav();
       this.getUserImg();
@@ -100,6 +130,34 @@
       this.getUserImg();
     },
     methods: {
+      //处理command
+      handleCommand(command){
+        if(command==='baseInfo'){
+          //个人中心
+          this.$router.push('/indetification')
+
+        }else if(command==='changePass'){
+          //修改密码
+          this.isShowDialog=true;
+        }else if(command==='logout'){
+          //退出
+          this.$router.push("/login",function () {
+            localStorage.clear();
+          })
+        }
+      },
+      //修改密码
+      delPassWorld() {
+        this.isShowDialog = true;
+      },
+      //点击修改
+      okFn() {
+
+      },
+      //点击取消
+      cancel() {
+        this.isShowDialog = false;
+      },
       //获取左侧菜单
       getNav() {
         let params = {
@@ -112,32 +170,32 @@
         });
       },
       //获取登录图片
-      getUserImg(){
+      getUserImg() {
         let params = {
-          insDoctorId: this.userInfo.insDoctorId
-        },
-          parNes={
+            insDoctorId: this.userInfo.insDoctorId
+          },
+          parNes = {
             userId: this.userInfo.userId
           }
         ;
-/*        getApplyInfo(params).then((res)=>{
-            if(res.code===ERR_OK&&res.data){
-              this.areaImg = res.data.logoUrl;
+        /*        getApplyInfo(params).then((res)=>{
+                    if(res.code===ERR_OK&&res.data){
+                      this.areaImg = res.data.logoUrl;
 
-            }
-          })*/
-        this.$store.dispatch('getAreaImg',params);
-        this.$store.dispatch('msgList',parNes);
-        countUserNewsList(parNes).then((res)=>{
-            if(res.code===ERR_OK){
-              let count = res.data,
-                  counts=0;
-              count.forEach((v)=>{
-                counts+=+v.unReadCount
-              });
-              this.allCount = counts;
-            }
-          })
+                    }
+                  })*/
+        this.$store.dispatch('getAreaImg', params);
+        this.$store.dispatch('msgList', parNes);
+        countUserNewsList(parNes).then((res) => {
+          if (res.code === ERR_OK) {
+            let count = res.data,
+              counts = 0;
+            count.forEach((v) => {
+              counts += +v.unReadCount
+            });
+            this.allCount = counts;
+          }
+        })
       },
       handleSelect(key, keyPath) {
         console.log(key, keyPath);
@@ -154,14 +212,14 @@
       defaultActive: function () {
         return this.$route.path.replace('/', '/');
       },
-            allcount() {
-              let count = 0;
-              console.log(this.msgList)
-                this.msgList.forEach((item) => {
-                  count += parseInt(item.unReadCount)
-                });
-              return count;
-            },
+      allcount() {
+        let count = 0;
+        console.log(this.msgList)
+        this.msgList.forEach((item) => {
+          count += parseInt(item.unReadCount)
+        });
+        return count;
+      },
       ...mapState({
         msgList: state => state.msgList,//消息列表数据
         areaImg: state => state.areaImg//用户头像

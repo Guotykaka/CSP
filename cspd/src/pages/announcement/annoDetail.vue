@@ -27,9 +27,9 @@
           // detailInfo: {}
         }
       },
-      created(){
+      activated(){
           if(!this.detailShow){
-            this.$router.go(-1);
+            this.$router.push('/announcement');
           }
       },
       methods: {

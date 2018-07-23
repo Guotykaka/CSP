@@ -1,18 +1,19 @@
 <template>
   <div class="announcement">
-    <div class="gray-bg">
+    <el-card>
       <div class="bgColor">
         <el-form :inline="true" size="medium" :model="searchParams" class="demo-form-inline">
           <el-form-item label="公告标题">
-            <el-input v-model="searchParams.noticeTitleQuery" placeholder="请输入标题"></el-input>
+            <el-input  @keyup.enter.native="doSearch" v-model="searchParams.noticeTitleQuery" placeholder="请输入标题"></el-input>
           </el-form-item>
           <el-form-item label="公告类型">
-            <el-select v-model="searchParams.selectedNoticeTypeQuery" placeholder="请选择">
-              <el-option v-for="(item,index) in noticeLists" :key="index" :label="item.dictName" :value="item.code"></el-option>
+            <el-select @keyup.enter.native="doSearch" filterable v-model="searchParams.selectedNoticeTypeQuery" placeholder="请选择">
+              <el-option v-for="item in noticeLists" :key="item.id" :label="item.dictName" :value="item.code"></el-option>
             </el-select>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="doSearch" icon="el-icon-search">搜索</el-button>
+            <el-button type="primary" @click="clearParams">清空</el-button>
+            <el-button type="primary" @click="doSearch">搜索</el-button>
           </el-form-item>
         </el-form>
         <div class="title-msg">系统公告</div>
@@ -45,7 +46,7 @@
               <template slot-scope="scope">
                 <el-button
                   @click.native.prevent="_checkDetail(scope.$index, msgLists)"
-                  type="text"
+                  type="primary"
                   size="small">
                   查看详情
                 </el-button>
@@ -53,47 +54,49 @@
             </el-table-column>
           </el-table>
         </div>
-        <div class="pageinit">
+        <div class="pageinit" v-if="msgLists.length>0">
           <el-pagination
+            background
             @size-change="handleSizeChange"
             @current-change="handleCurrentChange"
-            :current-page="searchParams.page"
+            :current-page="searchParams.currentPage"
             :page-sizes="[10, 20, 30, 40]"
-            :page-size="searchParams.limit"
+            :page-size="searchParams.pageSize"
             layout="total, sizes, prev, pager, next, jumper"
             :total="totalcount">
           </el-pagination>
         </div>
       </div>
-    </div>
+    </el-card >
   </div>
 </template>
 
 <script>
   import {storeManager} from '@/api/util.js';
+  import {ERR_OK, noticelist, getDictionaryByKey} from '@/api/api.js';
+  import {getStore} from '@/config/mUtils.js';
 
   export default {
     name: "announcement",
     data() {
       return {
         searchParams: {
-          page: 1,
-          limit: 10,
+          currentPage: 1,
+          pageSize: 10,
           selectedNoticeTypeQuery: '',
-          noticeTitleQuery: "",
-          noticeStatus: 2,
-          noticeOs: "ROLE_TYPE_DOCTOR"
+          noticeTitleQuery: ""
         },
         tableData: [],
         currentPage4: 4,
         totalcount:null,
         detailShow:null,
-
         msgLists: [],
         noticeLists: [],
+        userInfo:{}
       }
     },
     created() {
+      this.userInfo = JSON.parse(getStore('userMesage'));
       this._getList();
       this.getNoticeTypes();
     },
@@ -105,61 +108,55 @@
         rows.splice(index, 1);
       },
       handleSizeChange(val) {
-        this.searchParams.limit=val;
+        this.searchParams.pageSize=val;
         this._getList()
       },
       handleCurrentChange(val) {
-        this.searchParams.page=val;
+        this.searchParams.currentPage=val;
         this._getList()
       },
       getNoticeTypes: function () {
+        let params = {
+          dictType: "NOTICE_TYPE"
+        };
         //加载系统公告类型字典表
-/*        let url = localUrl + "getDictionaryByKey",
-          that = this,
-          params = {
-            dictType: "",
-            code: "",
-            parentId: "8ab2b2f562dc97230162dc9723560000"
-          };
-        api.getDictionaryByKey(url, params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            that.noticeLists = data.data;
+        getDictionaryByKey(params).then((res)=>{
+          if (res.code === ERR_OK) {
+            this.noticeLists = res.data;
           } else {
-            alert(data.msg);
+            alert(res.msg);
           }
-        })*/
+        })
       },
-
+      //清空
+      clearParams(){
+        this.searchParams.selectedNoticeTypeQuery = '';
+        this.searchParams.noticeTitleQuery = '';
+      },
       //搜索
       doSearch: function () {
-        this.searchParams.page = 1;
-        vm._getList();
+        this.searchParams.currentPage = 1;
+        this.searchParams.pageSize = 10;
+        this._getList();
       },
 
       //请求公告列表
       _getList: function () {
-/*        let uid = storeManager.getUserId(),
-          url = localUrl + 'noticeTitleQuery',
-          that = this,
-          params = this.searchParams;*/
-/*        api.noticeTitleQuery(url, params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            if (data.data.list) {
-              that.msgLists = data.data.list;
-              that.totalcount = data.data.totalCount;
-            } else {
-              that.msgLists = [];
-              that.totalcount = 0;
-            }
-          } else {
-            alert(data.msg)
+        let params ={
+          currentPage: this.searchParams.currentPage,
+          noticeTitle: this.searchParams.noticeTitleQuery,
+          noticeType: this.searchParams.selectedNoticeTypeQuery,
+          pageSize: this.searchParams.pageSize,
+          userId: this.userInfo.userId
+        };
+        noticelist(params).then((res)=>{
+          if(res.code===ERR_OK){
+            this.msgLists = res.data.list;
+            this.totalcount = res.data.totalCount;
+          }else{
+            this.$alert(res.msg,'提示')
           }
-        }).catch((res) => {
-          alert(res.msg)
-        })*/
-
+        })
       },
       //点击查看详情
       _checkDetail: function (index, rows) {

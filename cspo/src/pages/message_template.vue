@@ -8,7 +8,7 @@
             <el-header height="30">
               <el-row :gutter="20" class="m_b_15">
                 <el-col :span="6" class="minwidth">
-                  <el-input v-model="searchParams.username" placeholder="用户名" @keyup.enter.native="doSearche()" clearable></el-input>
+                  <el-input v-model="searchParams.username" placeholder="短信模板名称" @keyup.enter.native="doSearche()" clearable></el-input>
                 </el-col>
                 <el-col :span="6" class="minwidth">
                   <el-button type="primary" @click="doSearche()">查询</el-button>
@@ -87,7 +87,7 @@
             <el-header height="30">
               <el-row :gutter="20" class="m_b_15">
                 <el-col :span="6" class="minwidth">
-                  <el-input v-model="searchParams2.username" placeholder="用户名" @keyup.enter.native="doSearche2()" clearable></el-input>
+                  <el-input v-model="searchParams2.username" placeholder="手机推送模板名称" @keyup.enter.native="doSearche2()" clearable></el-input>
                 </el-col>
                 <el-col :span="6" class="minwidth">
                   <el-button type="primary" @click="doSearche2()">查询</el-button>
@@ -494,5 +494,8 @@ export default {
 
 <style lang="less" scoped>
 .btn-row {text-align: center;padding-top: 20px;}
+.el-header,.el-main,.el-footer{
+  padding:0;
+}
 </style>
 

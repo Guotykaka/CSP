@@ -226,9 +226,11 @@ export default {
   data() {
     return {
       title:"提示",//this.$alert的标题
+      upyunUrl1: '', //又拍云url
       upyunUrl: '', //又拍云url
       AudioDuration: null, //音频时长
       fileName: '',
+      fileNameEdit: '',
       searchParams: { voiceProductName: '', voiceProductCode: '' },
       searchParamsList: [], //商品编码列表
       fileList: [],
@@ -390,10 +392,25 @@ export default {
     },
     // 一元厅编辑
     handleEdit_YYT(index, row) {
+      // let inputDOM = this.$refs.inputer
+      // console.log(inputDOM)
+      // if (inputDOM != undefined) {
+      //   console.log(inputDOM.files[0].value)
+      //   inputDOM.files[0].value = ""
+      // } else {
+      //   console.log('666')
+      // }
+      // 通过DOM取文件数据
+      // inputDOM.file =""
+      this.upyunUrl = ''
+      this.fileName = ''
+      this.AudioDuration = null
       this.inde_YYT = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
       this.editTableRoot_YYT = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
       this.editTable_YYT = row //复制单列数据
       this.dialogEditVisible_YYT = true
+      
+      
     },
     OpenfileSelect() {
       //隐藏input框 点击按钮触发input的点击事件
@@ -408,16 +425,24 @@ export default {
         type: 'warning',
         message: '取消编辑'
       })
-      this.upyunUrl = ''
-      this.fileName = ''
     },
 
     // 一元厅确定编辑
     _doHandleEdit_YYT() {
-      this.AudioDuration = this.getTime()
+      
+      console.log(this.AudioDuration,"last")
+      let sstime = this.AudioDuration
+      if (sstime == null) {
+        this.AudioDuration=this.editTable_YYT.voiceTime
+      } else {
+        console.log(sstime,"3")
+      }
+      console.log(this.AudioDuration,"last")
+
       let voiceProductUrl = ''
       if (this.upyunUrl == '') {
         voiceProductUrl = this.editTable_YYT.voiceProductUrl
+        // console.log(this.upyunUrl)
       } else {
         voiceProductUrl = this.upyunUrl
       }
@@ -437,16 +462,30 @@ export default {
         this.getList()
       })
       this.dialogEditVisible_YYT = false
-      this.upyunUrl = ''
-      this.fileName = ''
+      
     },
     // 一元厅新增
     handleAdd_YYT() {
+      this.addTable_YYT = {
+        abnormalKeyWord: '',
+        insDoctorId: '',
+        paperWork: '',
+        relevantContent: '',
+        status: 2,
+        voiceCategory: '',
+        voiceLabel: '',
+        voiceProductName: '',
+        voiceProductUrl: '',
+        voiceTime: 0
+      }
+      this.upyunUrl = ''
+      this.fileName = ''
+      this.AudioDuration = null
       this.dialogAddVisible_YYT = true
+      
     },
     // 一元厅确定新增
     _doAdd_YYT() {
-      this.AudioDuration = this.getTime() //获取音频时长
       let params = {
         abnormalKeyWord: this.addTable_YYT.abnormalKeyWord,
         insDoctorId: this.addTable_YYT.insDoctorId,
@@ -471,20 +510,7 @@ export default {
         }
       })
       this.dialogAddVisible_YYT = false
-      this.addTable_YYT = {
-        abnormalKeyWord: '',
-        insDoctorId: '',
-        paperWork: '',
-        relevantContent: '',
-        status: 2,
-        voiceCategory: '',
-        voiceLabel: '',
-        voiceProductName: '',
-        voiceProductUrl: '',
-        voiceTime: 0
-      }
-      this.upyunUrl = ''
-      this.fileName = ''
+      
     },
     submitForm(formName) {
       //新增模块表单验证
@@ -554,19 +580,6 @@ export default {
         this.totalCount = response.data.totalCount
       })
     },
-    getTime() {
-      //获取音频时长
-      let audio = this.$refs.audior
-      let spam = setTimeout(function() {
-        var duration = audio.duration
-        if (isNaN(duration)) {
-          getTime()
-        } else {
-          return audio.duration
-        }
-      }, 10)
-      return spam
-    },
     update() {
       //上传音频
       let inputDOM = this.$refs.inputer
@@ -587,6 +600,7 @@ export default {
         this.fileType = this.file.type
       }
       console.log(this.fileName)
+      inputDOM.files[0].value = ""
     },
     //上传按钮的事件axios
     fileupdate() {
@@ -618,21 +632,43 @@ export default {
       formData.append('file', file)
       formData.append('policy', policy)
       formData.append('authorization', signature)
+      
       this.$http.post(url, formData).then(response => {
         if ((response.code = 200)) {
           this.upyunUrl =
             'http://zhangshangtijian.b0.upaiyun.com' + response.data.url //返回地址
-          console.log(this.upyunUrl, 'this.upyunUrl1')
+          console.log(this.upyunUrl, 'this.upyunUrl上传')
           this.$alert('上传成功',this.title)
         } else {
           this.$alert(response.msg,this.title)
         }
       })
+      //获取语音时长
+      let myVid = this.$refs.audior
+      let this_ = this
+      if(myVid != null){
+          var duration;
+          myVid.load();
+          myVid.oncanplay = function () {  
+                  this_.AudioDuration =myVid.duration
+                  console.log("this_.AudioDuration",this_.AudioDuration);
+            }
+      }
     }
   },
   activated: function() {
     this.getList()
     this.getDocList()
+  },
+
+
+
+  watch:{
+    dialogAddVisible_YYT(newVal){
+
+console.log(newVal)
+
+    }
   }
 }
 </script>
@@ -670,6 +706,9 @@ export default {
   margin-left: 0;
 }
 .btn-row {text-align: center;padding-top: 20px;}
+.el-header,.el-main,.el-footer{
+  padding:0;
+}
 </style>
 <style lang="less">
 .el-form-item {

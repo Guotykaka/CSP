@@ -30,43 +30,31 @@
 </template>
 
 <script>
-  import headerTop from "@/components/headTop.vue"
-  import {storeManager} from '@/api/util.js';
   import {mapState} from "vuex"
-  import {api} from '@/api/api';
+  import {getStore} from "@/config/mUtils";
+  import {ERR_OK,updateBatch} from '@/api/api';
 
   export default {
     name: 'doctor_index',
     data() {
       return {
         sumCount: 0,
-        announceText: "掌上体检平台公告"
+        announceText: "掌上体检平台公告",
+        params:{
+          newsTypes: "",
+          userId: ""
+        },
       }
     },
     created: function () {
       this.$store.state.navTitle = '首页'
       this._getList();
       this._getAnnouncement()
+      console.log(this.msgList)
+      this.userInfo = JSON.parse(getStore('userMesage'));
+      this.params.userId = this.userInfo.userId;
     },
     methods: {
-      //请求未读消息列表
-      _getList: function () {
-        let uid = storeManager.getUserId(),
-          that = this,
-          params = uid;
- /*       api.countUserNewsList(url, params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            data.data.forEach(function (item) {
-              that.sumCount += parseInt(item.unReadCount)
-            });
-            that.msgLists = data.data;
-          }else{
-            alert(data.msg)
-          }
-        })*/
-      },
-
       //请求公告列表
       _getAnnouncement: function () {
         let uid = storeManager.getUserId(),
@@ -82,54 +70,53 @@
           alert(res.msg)
         })*/
       },
-
       //点击查看把未读变已读
       _checkDetail: function (item) {
-        var uid = storeManager.getUserId();
-        var params = {
-          userId: uid,
-          newsTypes: item.newsType
-        };
-        /*        $.ajax({
-                  type: "POST",
-                  url:  baseURL + "ins/usernewsreal/updateBatch",
-                  contentType: "application/json",
-                  data: JSON.stringify(params),
-                  success: function(res){
-                    if(res.code === 1){
-                      vm.sumCount=vm.sumCount-parseInt(item.unReadCount);
-                      if(item.newsType ==='5'){
-                        parent.vm.navTitle="电话咨询";
-                        parent.location.hash="modules/ins/doctor_tel_service.html";
-                        parent.vm.main="modules/ins/doctor_tel_service.html";
-                      }else if(item.newsType === '6'){
-                        parent.vm.navTitle="图文咨询";
-                        parent.location.hash="modules/ins/doctor_img_consult.html";
-                        parent.vm.main="modules/ins/doctor_img_consult.html";
-
-                      }else if(item.newsType === '7'){
-                        parent.vm.navTitle="个人中心";
-                        parent.location.hash="modules/sys/doctor_center.html";
-                        parent.vm.main="modules/sys/doctor_center.html";
-                      }
-                    }else{
-                      alert(res.msg)
-                    }
-                  }
-                });*/
+        if(item.newsType ==='5'){
+          //电话报告解读
+          this.params.newsTypes=item.newsType;
+          this.updateStatus();
+        }else if(item.newsType === '6'){
+          //图文咨询
+          this.params.newsTypes=item.newsType;
+          this.updateStatus();
+        }else if(item.newsType === '7'){
+          //账单消息
+          this.params.newsTypes=item.newsType;
+          this.updateStatus();
+        }
       },
-
+      //更新消息状态
+      updateStatus(){
+        updateBatch(this.params).then((res)=>{
+          if(res.code===ERR_OK){
+            this.routerTo();
+          }else{
+            this.$alert('更新失败','提示')
+          }
+        })
+      },
+      //路由跳转
+      routerTo(){
+        if(this.params.newsTypes ==='5'){
+          //电话报告解读
+          this.$router.push("/tel_consult")
+        }else if(this.params.newsTypes === '6'){
+          //图文咨询
+          this.$router.push("/imgText_consult")
+        }else if(this.params.newsTypes === '7'){
+          //账单消息
+          this.$router.push("/personal")
+        }
+      },
       //点击更多
       doMore: function () {
         this.$router.push('announcement')
       }
     },
-    components: {
-      headerTop,
-    },
     computed: {
       ...mapState({
-        msgLists: state => state.msgList.data
+        msgLists: state => state.msgList
       })
     },
   }

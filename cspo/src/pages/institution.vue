@@ -76,8 +76,8 @@
                 </el-form>
 
               </el-tab-pane>
-              <!-- 修改==配置管理 -->
-              <el-tab-pane label="配置管理">
+              <!-- 修改==推广设置 -->
+              <el-tab-pane label="推广设置">
                 <el-form :model="editTable" label-width="300px">
                   <el-form-item label="地推链接:" :label-width="formLabelWidth150">
                     <el-col :span="16">
@@ -105,8 +105,8 @@
                   </el-form-item>
                 </el-form>
               </el-tab-pane>
-              <!-- 修改==角色管理 -->
-              <el-tab-pane label="角色管理">
+              <!-- 修改==运营设置 -->
+              <el-tab-pane label="运营设置">
                 <el-form :model="editTable" label-width="300px">
                   <el-form-item label="APP是否展示:" :label-width="formLabelWidth150">
                     <template slot-scope="scope">
@@ -289,8 +289,8 @@
                 </el-form>
 
               </el-tab-pane>
-              <!-- 新增==配置管理 -->
-              <el-tab-pane label="配置管理">
+              <!-- 新增==推广设置 -->
+              <el-tab-pane label="推广设置">
                 <el-form :model="addTable" label-width="300px">
                   <el-form-item label="地推链接:" :label-width="formLabelWidth150">
                     <el-col :span="16">
@@ -318,8 +318,8 @@
                   </el-form-item>
                 </el-form>
               </el-tab-pane>
-              <!-- 新增==角色管理 -->
-              <el-tab-pane label="角色管理">
+              <!-- 新增==运营设置 -->
+              <el-tab-pane label="运营设置">
                 <el-form :model="addTable" label-width="300px">
                   <el-form-item label="APP是否展示:" :label-width="formLabelWidth150">
                     <template slot-scope="scope">
@@ -372,6 +372,7 @@
         <!-- 列表 -->
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
+            <el-table-column show-overflow-tooltip align="center" prop="" label="" type="index"></el-table-column>
             <el-table-column show-overflow-tooltip align="center" prop="institutionCode" label="机构编号"></el-table-column>
             <el-table-column show-overflow-tooltip align="center" prop="institutionName" label="机构名称"></el-table-column>
             <el-table-column show-overflow-tooltip align="center" prop="institutionAddr" label="机构地址"></el-table-column>
@@ -902,4 +903,7 @@ export default {
   margin-right: 10px;
 }
 .btn-row {text-align: center;padding-top: 20px;}
+.el-header,.el-main,.el-footer{
+  padding:0;
+}
 </style>

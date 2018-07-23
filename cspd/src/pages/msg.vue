@@ -87,9 +87,13 @@
       },
       //更新消息状态
       updateStatus(){
+        let parNes={
+          userId: this.userInfo.userId
+        }
         updateBatch(this.params).then((res)=>{
           if(res.code===ERR_OK){
             this.routerTo();
+            this.$store.dispatch('msgList',parNes)
           }else{
             this.$alert('更新失败','提示')
           }
