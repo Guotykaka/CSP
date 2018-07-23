@@ -638,7 +638,7 @@ export default {
       })
     }
   },
-  created: function() {
+  activated: function() {
     
     this.getRoleList()
   }
