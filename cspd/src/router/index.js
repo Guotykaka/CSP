@@ -1,9 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
-
 const login = () => import('@/pages/login.vue')//登录
 const doctor_index = () => import('@/pages/doctor_index.vue')//首页
 const manage = () => import('@/pages/manage.vue')//管理页面
@@ -15,9 +12,9 @@ const tel_consult = () => import('@/pages/tel_consult.vue')//电话咨询
 const imgText_consult = () => import('@/pages/imgText_consult.vue')//图为咨询
 const server_setting = () => import('@/pages/server_setting.vue')//服务设置
 const call_doctor = () => import('@/pages/callDoctor.vue')//服务设置
-const baseInfo = () => import('@/pages/baseInfo.vue')//医生基本信息  未认证就进这个页面
+const indenBaseInfo = () => import('@/pages/indentification_baseInfo.vue')//医生基本信息  未认证就进这个页面
 const doApply = () => import('@/pages/do_apply.vue')//医生去认证
-Vue.use(ElementUI);
+
 Vue.use(Router)
 
 
@@ -69,8 +66,8 @@ const router =new Router({
           component: imgText_consult,
           meta: ["服务管理","图文咨询"],//图文咨询
         },{
-          path: '/indetification',
-          component: baseInfo,//认证详情
+          path: '/indenBaseInfo',
+          component: indenBaseInfo,//认证详情
           meta: ["服务管理","认证详情"],
         },{
           path: '/server_setting',
@@ -95,12 +92,10 @@ const router =new Router({
 router.beforeEach((to, from, next) => {
   let authenticationStatus=localStorage.getItem("authenticationStatus");
   if(authenticationStatus !== '2'){
-    if(to.fullPath==='/' || to.fullPath==='/doApply' || to.fullPath==='/indetification'){
+    if(to.fullPath==='/' || to.fullPath==='/doApply' || to.fullPath==='/indenBaseInfo'){
       next()
     }else {
-      this.$alert("请先认证", '提示', {
-        confirmButtonText: '确定',
-      });
+      alert("请先认证");
       next(false)
     }
   }else{

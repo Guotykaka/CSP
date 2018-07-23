@@ -77,21 +77,14 @@
     methods:{
 
       //判断是否已认证
-      isAuthenticationFn(insDoctorId){
+      isAuthenticationFn(){
+        let insDoctorId =JSON.parse(getStore("userMesage")).insDoctorId;
         let params={
           insDoctorId:insDoctorId
         };
         isAuthentication(params).then(res => {
           if(res.code===ERR_OK){
             setStore("authenticationStatus",res.data.authenticationStatus);
-            //authenticationStatus  2已认证  其他值未认证
-            if(res.data.authenticationStatus===2){
-              //已认证 首页
-              this.$router.push("doctor_index");
-            }else {
-              //未认证 认证页
-              this.$router.push("indetification");
-            }
           }
         });
       },

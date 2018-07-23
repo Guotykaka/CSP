@@ -11,8 +11,8 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
-  // baseUrl = 'http://172.0.0.41:8117/cspd/';
-  baseUrl = 'http://10.50.50.117:8117/cspd/';
+   baseUrl = 'http://172.0.0.41:8117/cspd/';
+  //baseUrl = 'http://10.50.50.117:8117/cspd/';
   // baseUrl = 'http://HZ2WZSG82:8117/cspd/';
   baseImgPath = '/img/';
 }else{
