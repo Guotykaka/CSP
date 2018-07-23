@@ -9,17 +9,13 @@
 let baseUrl = '';
 let routerMode = 'hash';
 let baseImgPath;
-let localUrl = "http://localhost:8081/api/";
 
 if (process.env.NODE_ENV == 'development') {
   baseUrl = 'http://172.0.0.41:8117/cspd/';
-  // baseUrl = 'http://10.50.50.117:8117/cspd/';
+  // baseUrl = 'http://10.50.50.128:8117/cspd/';
   // baseUrl = 'http://HZ2WZSG82:8117/cspd/';
   baseImgPath = '/img/';
 }else{
-  // baseUrl = 'http://172.0.0.41:8117/cspd/';
-  // baseUrl = 'http://172.0.0.41:8117/cspd/';
-  // baseUrl = 'http://HZ2WZSG82:8117/cspd/';
   baseUrl = 'http://172.0.0.41:8117/cspd/';
   baseImgPath = '/img/';
 }
@@ -27,8 +23,7 @@ if (process.env.NODE_ENV == 'development') {
 export {
   baseUrl,
   routerMode,
-  baseImgPath,
-  localUrl
+  baseImgPath
 }
 
 /*登录*/

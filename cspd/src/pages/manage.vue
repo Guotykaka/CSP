@@ -10,6 +10,7 @@
               background-color="#324057"
               text-color="#fff"
               active-text-color="#3c8dbc"
+              unique-opened
               router>
               <el-menu-item index="doctor_index" class="homeTitle"><i class="el-icon-menu"></i>云服务平台医生端</el-menu-item>
               <el-submenu :index="item.name" v-for="(item,index) in navMenu" :key="index">
@@ -43,10 +44,7 @@
             router>
             <el-menu-item index="/announcement">系统公告</el-menu-item>
             <el-menu-item index="/call_doctor">联系医助</el-menu-item>
-            <el-menu-item index="/msg">
-              消息
-              <el-badge class="mark iconStyle" :value="allcount"/>
-            </el-menu-item>
+            <el-menu-item index="/msg">消息<el-badge v-if="allcount>0" class="mark iconStyle" :value="allcount"/></el-menu-item>
             <el-submenu index="2" class="nav-child-title">
               <template slot="title"><img
                 :src="areaImg||defaultImg"
@@ -92,7 +90,12 @@
         defaultImg:require('../asset/img/logo.jpg')//用户默认图片
       }
     },
-    created() {
+    created(){
+      this.userInfo = JSON.parse(getStore('userMesage'));
+      this.getNav();
+      this.getUserImg();
+    },
+    activated() {
       this.userInfo = JSON.parse(getStore('userMesage'));
       this.getNav();
       this.getUserImg();

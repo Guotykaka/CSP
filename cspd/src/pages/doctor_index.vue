@@ -32,7 +32,6 @@
 <script>
   import headerTop from "@/components/headTop.vue"
   import {storeManager} from '@/api/util.js';
-  import {localUrl} from "@/config/env.js"
   import {mapState} from "vuex"
   import {api} from '@/api/api';
 
@@ -52,8 +51,7 @@
     methods: {
       //请求未读消息列表
       _getList: function () {
-        let uid = storeManager.getUserId();
-        let url = localUrl + 'countUserNewsList',
+        let uid = storeManager.getUserId(),
           that = this,
           params = uid;
  /*       api.countUserNewsList(url, params).then((res) => {
@@ -72,7 +70,6 @@
       //请求公告列表
       _getAnnouncement: function () {
         let uid = storeManager.getUserId(),
-          url = localUrl + 'getSysNoticeInfo',
           params = uid;
 /*        api.getSysNoticeInfo(url, params).then((res) => {
           let data = res.data;

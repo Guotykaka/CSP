@@ -6,7 +6,7 @@
       <h2 class="logo-t-text">掌上体检云服务平台</h2>
 
       <!--医生管理-->
-      <el-menu background-color="#324157" text-color="#b8c7ce" :default-active="defaultActive" router>
+      <el-menu background-color="#324157" text-color="#b8c7ce" :default-active="defaultActive" unique-opened router>
 
         <el-menu-item index="/main"><i class="el-icon-menu"></i>控制台</el-menu-item>
  <!--       <el-submenu index="1">

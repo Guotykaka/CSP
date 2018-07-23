@@ -212,10 +212,10 @@
             parernId = val;
           }
           let parms = {
-            "answerContent": value,
-            "answerUserId": that.createUserId,
-            "insLeaveWordId": val,
-            "parentId": parernId
+            answerContent: value,
+            answerUserId: +that.createUserId,
+            insLeaveWordId: val,
+            parentId: parernId
           };
 
           saveInsLeaveWordAnswer(parms).then((res) => {
