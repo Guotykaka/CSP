@@ -44,31 +44,15 @@
           newsTypes: "",
           userId: ""
         },
+        userInfo:{}
       }
     },
     created: function () {
       this.$store.state.navTitle = '首页'
-      this._getAnnouncement()
-      console.log(this.msgList)
       this.userInfo = JSON.parse(getStore('userMesage'));
       this.params.userId = this.userInfo.userId;
     },
     methods: {
-      //请求公告列表
-      _getAnnouncement: function () {
-        let uid = storeManager.getUserId(),
-          params = uid;
-/*        api.getSysNoticeInfo(url, params).then((res) => {
-          let data = res.data;
-          if (data.code === 1) {
-            this.announceText = data.data.noticeContent;
-          } else {
-            alert(data.msg)
-          }
-        }).catch((res) => {
-          alert(res.msg)
-        })*/
-      },
       //点击查看把未读变已读
       _checkDetail: function (item) {
         if(item.newsType ==='5'){
@@ -87,9 +71,13 @@
       },
       //更新消息状态
       updateStatus(){
+        let parNes={
+          userId: this.userInfo.userId
+        }
         updateBatch(this.params).then((res)=>{
           if(res.code===ERR_OK){
             this.routerTo();
+            this.$store.dispatch('msgList',parNes)
           }else{
             this.$alert('更新失败','提示')
           }
