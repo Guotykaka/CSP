@@ -88,8 +88,6 @@ export default {
         }
       },
 
-
-
       searchParams:{
         pageSize:10,
         currentPage:1,
@@ -281,7 +279,7 @@ export default {
   },
 
 
-  created: function(){
+  activated: function(){
     this.getBenefitLists();
   },
 

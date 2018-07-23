@@ -341,6 +341,7 @@ export default {
         insServiceSettingIds: [],
         insServiceSettingNames: [],
         institutionId: "",
+        institutionName: "",
         mobile: "",
         name:"",
         password: "",
@@ -562,8 +563,11 @@ export default {
 
     //点击编辑
     _doEditor:function (item) {
+
+
       this.editorINfo.isShowDialog=true;
       this.editorINfo.institutionId=item.institutionId;//所属机构id
+      this.editorINfo.institutionName=item.instituionName;//所属机构name
       this.editorINfo.roleId=item.roleId;//角色id
       this.editorINfo.name=item.name;//医生姓名
       this.editorINfo.mobile=item.mobile;//手机号
@@ -572,6 +576,8 @@ export default {
       this.editorINfo.userId=item.userId;//排序
       this.editorINfo.doctorServices=item.doctorServices;//医生的服务
       this.editorINfo.insDoctorId=item.insDoctorId;//医生的id
+
+      console.log(this.editorINfo.institutionName)
     },
 
     //保存编辑

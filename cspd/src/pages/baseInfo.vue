@@ -63,7 +63,9 @@
 
 </template>
 <script>
-  import {getStore} from "@/config/mUtils.js";
+  import {getStore,setStore} from "@/config/mUtils.js";
+  import {isAuthentication,ERR_OK} from "@/api/api.js";
+
   export default {
     data() {
       return {
@@ -73,12 +75,34 @@
       }
     },
     methods:{
+
+      //判断是否已认证
+      isAuthenticationFn(insDoctorId){
+        let params={
+          insDoctorId:insDoctorId
+        };
+        isAuthentication(params).then(res => {
+          if(res.code===ERR_OK){
+            setStore("authenticationStatus",res.data.authenticationStatus);
+            //authenticationStatus  2已认证  其他值未认证
+            if(res.data.authenticationStatus===2){
+              //已认证 首页
+              this.$router.push("doctor_index");
+            }else {
+              //未认证 认证页
+              this.$router.push("indetification");
+            }
+          }
+        });
+      },
+
       //去认证
       toApplyPage(){
         this.$router.push("doApply");
       },
     },
     activated(){
+      this.isAuthenticationFn();
       this.authenticationStatus=parseInt(getStore("authenticationStatus"))
     }
   }

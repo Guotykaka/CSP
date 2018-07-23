@@ -111,7 +111,7 @@
     <el-dialog title="发送短信" :visible.sync="msgData.isShowDialog">
       <p>{{msgData.msgText}}</p>
       <div class="dialog-btn-row">
-        <el-button size="mini" type="primary">取消</el-button>
+        <el-button size="mini" type="primary" @click="cancelMsgFn">取消</el-button>
         <el-button size="mini" type="primary" @click="sendMsgFn">发送</el-button>
       </div>
     </el-dialog>
@@ -434,6 +434,15 @@
             confirmButtonText: '确定',
           })
         });
+      },
+
+
+      //关闭短信dialog
+
+      cancelMsgFn(){
+
+        this.msgData.isShowDialog=false;
+
       },
 
       //发送短信

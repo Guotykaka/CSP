@@ -169,6 +169,7 @@
 
 </script>
 <style lang="less">
+
   /*容器样式start*/
   .el-header, .el-footer {
     background-color: #3c8dbc;

@@ -77,7 +77,13 @@
         </ul>
       </el-card>
 
-      <el-card class="box-card">
+
+
+
+      <!--订单信息电话报告解读-->
+
+
+      <el-card class="box-card" v-if="orderInfo.goodsName==='电话报告解读'">
         <div slot="header" class="clearfix">
           <strong class="card-title">订单信息</strong>
         </div>
@@ -95,7 +101,6 @@
             <strong>体检报告：</strong>
             <i class="panel-i">{{orderInfo.userName}}&nbsp</i>
             <i class="panel-i">{{orderInfo.createTime}}</i>
-
             <a class="showReportBtn" @click="showReportFn">
               查看详情
             </a>
@@ -108,6 +113,38 @@
           </li>
         </ul>
       </el-card>
+
+
+      <!--订单信息 图文咨询-->
+      <el-card class="box-card" v-if="orderInfo.goodsName==='图文咨询'">
+        <div slot="header" class="clearfix">
+          <strong class="card-title">订单信息</strong>
+        </div>
+        <ul>
+          <li class="text item">
+            <strong>订单编号：</strong>{{orderInfo.tradeCode}}
+          </li>
+          <li class="text item">
+            <strong>服务名称：</strong>{{orderInfo.goodsName}}
+          </li>
+          <li class="text item">
+            <strong>服务机构：</strong>{{orderInfo.institutionName}}
+          </li>
+          <li class="text item">
+            <strong>服务医生：</strong>{{orderInfo.doctorName}}
+          </li>
+          <li class="text item">
+            <strong>咨询人：</strong>{{orderInfo.userName}}
+          </li>
+          <li class="text item">
+            <strong>描述：</strong>{{orderInfo.refundRemark }}
+          </li>
+          <li class="text item">
+            <strong>订单金额：</strong>{{orderInfo.totalPrice}}
+          </li>
+        </ul>
+      </el-card>
+
 
       <el-card class="box-card">
         <div slot="header" class="clearfix">

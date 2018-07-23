@@ -98,6 +98,8 @@
 </template>
 <script>
 import headerTop from '@/components/headTop.vue';
+import {baseUrl} from '@/config/env.js'
+
 import { mapGetters } from "vuex";
 import {getListOrderRefund ,ERR_OK} from "@/api/api.js";
 import { mapMutations } from 'vuex'
@@ -110,6 +112,8 @@ export default {
       tabIndex:'null',//状态index
       rangeTime:"",//时间range
       searchParams: {
+        startTime:"",
+        endTime:"",
         customerMobile: "",//手机号
         customerName: "",//姓名
         doctorName: "",//医生姓名
@@ -174,9 +178,33 @@ export default {
     },
 
     //导出表格
-    exportExcel(){
+    exportExcel: function () {
 
+      this.searchParams.startTime=this.rangeTime ? this.rangeTime[0] :"";
+      this.searchParams.endTime=this.rangeTime ? this.rangeTime[1] :"";
+      var paramString =
+        'customerMobile=' + this.searchParams.customerMobile +
+        '&customerName=' + this.searchParams.customerName +
+        '&doctorName=' + this.searchParams.doctorName +
+        '&startTime=' + this.searchParams.startTime +
+        '&endTime=' + this.searchParams.endTime +
+        '&institutionName=' + this.searchParams.institutionName +
+        '&serviceId=' + this.searchParams.serviceId +
+        '&refundStatus=' + this.searchParams.refundStatus +
+        '&tradeCode=' + this.searchParams.tradeCode;
+
+      console.log(this.searchParams.customerMobile);
+      console.log(paramString);
+
+
+
+      var url = baseUrl + "ins/orderRefund/exportOrderRefund?" + paramString.toString();
+      window.open(url);
     },
+
+
+
+
 
     //点击查看
     checkDetail: function (item) {
@@ -187,6 +215,9 @@ export default {
 
     //获取列表数据
     getRefuseList(){
+
+      this.searchParams.startTime=this.rangeTime ? this.rangeTime[0] :"";
+      this.searchParams.endTime=this.rangeTime ? this.rangeTime[1] :"";
       var params={
         currentPage: this.searchParams.page,
         customerMobile:this.searchParams.customerMobile,
@@ -196,8 +227,8 @@ export default {
         pageSize: this.searchParams.pageSize,
         refundStatus:this.searchParams.refundStatus,
         serviceId:this.searchParams.serviceId,
-        startTime:this.rangeTime ? this.rangeTime[0] :"",
-        endTime:this.rangeTime ? this.rangeTime[1] :"",
+        startTime:this.searchParams.startTime,
+        endTime:this.searchParams.endTime,
        //timespan: "44",
         tradeCode: this.searchParams.tradeCode
       };

@@ -94,7 +94,9 @@ router.beforeEach((to, from, next) => {
     if(to.fullPath==='/' || to.fullPath==='/doApply' || to.fullPath==='/indetification'){
       next()
     }else {
-      alert("请先认证");
+      this.$alert("请先认证", '提示', {
+        confirmButtonText: '确定',
+      });
       next(false)
     }
   }else{
