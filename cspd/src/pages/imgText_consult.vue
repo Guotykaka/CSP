@@ -188,8 +188,8 @@
                       class="text-area" @click="selmsgType"></textarea>
           </div>
           <div class="btn-main">
-            <div class="btn-text">ctrl+Enter&nbsp;可直接提交发送</div>
-            <el-button type="success" size="mini" @keyup.ctrl.enter="_upTextSend" @click="_upTextSend">发送</el-button>
+            <div class="btn-text" v-if="!showLogo">ctrl+Enter&nbsp;可直接提交发送文字</div>
+            <el-button type="success" size="mini" @click="_upTextSend" @keyup.ctrl.enter="_upTextSend">发送</el-button>
           </div>
         </div>
       </div>
@@ -268,11 +268,11 @@
         chatList: null,
         avatar: require('../asset/img/logo.jpg'),//用户图片
         docubleClik: true,//双击
-        commonStatus: {}//评价服务状态
-
+        commonStatus: {},//评价服务状态
+        commonStatusId:''//评价服务状态id
       }
     },
-    created() {
+    activated() {
       this.upImgurl = API_UPLOAD
       this.userInfo = JSON.parse(getStore('userMesage'));
       this.receiverId = this.userInfo.userId;
@@ -298,10 +298,10 @@
         const isLt2M = file.size / 1024 / 1024 < 2;
 
         if (!isJPG) {
-          this.$message.error('上传头像图片只能是 JPG 格式!');
+          this.$message.error('上传图片只能是 JPG 格式!');
         }
         if (!isLt2M) {
-          this.$message.error('上传头像图片大小不能超过 2MB!');
+          this.$message.error('上传图片大小不能超过 2MB!');
         }
         return isJPG && isLt2M;
       },
@@ -341,6 +341,7 @@
       },
       //医生回复客户信息
       _upTextSend: function () {
+        console.log('klkjkljl')
         var that = this;
         if (this.chatCircle && this.searchParams.orderServiceStatus !== 3 && this.searchParams.orderServiceStatus !== 4) {
           var params = null;
@@ -427,8 +428,13 @@
           })
         }
         //查看客户评价服务状态cspOrderId
+        this.commonStatusId = item.cspOrderId;
+        this.getcommentStatus();
+      },
+      //查看用户评价服务状态
+      getcommentStatus(){
         var par = {
-          "cspOrderId": item.cspOrderId
+          "cspOrderId": this.commonStatusId
         }
         queryOrderComment(par).then((res) => {
           if (res.code === ERR_OK) {
@@ -578,7 +584,9 @@
         this.handleRemove();
       },
       //求评价
-      getcomment: function () {
+      getcomment () {
+        let that = this;
+        that.getcommentStatus();
         if (this.chatCircle) {
           var params = {
             "cspOrderId": this.cspOrderId,//: 订单id
@@ -588,23 +596,25 @@
             "senderId": this.receiverId,//发送用户ID
             "userId": this.receiverId,//发送用户ID
           };
-          if (this.commonStatus.insOrderCommentId) {
-            this.$alert('订单已经完成', '提示', {
-              confirmButtonText: '确定',
-            })
-          } else if (this.msgTypeCount >= 3) {
-            return;
-          } else {
-            sendToCustomer(params).then((res) => {
-              if (res.code === ERR_OK) {
-                this.queryInsConsultChatList();
-              } else {
-                this.$alert(res.msg, '提示', {
-                  confirmButtonText: '确定',
-                })
-              }
-            })
-          }
+          setTimeout(function(){
+            if (that.commonStatus.insOrderCommentId) {
+              that.$alert('订单已经完成', '提示', {
+                confirmButtonText: '确定',
+              })
+            } else if (that.msgTypeCount >= 3) {
+              return;
+            } else {
+              sendToCustomer(params).then((res) => {
+                if (res.code === ERR_OK) {
+                  that.queryInsConsultChatList();
+                } else {
+                  that.$alert(res.msg, '提示', {
+                    confirmButtonText: '确定',
+                  })
+                }
+              })
+            }
+          },300)
         } else {
           this.$alert('请选择聊天对象', '提示', {
             confirmButtonText: '确定',
