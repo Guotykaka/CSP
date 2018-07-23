@@ -342,6 +342,25 @@ export function getIntervalNotice(params) {
   return post(urls.API_POST_GETSYS_NOTICE_INFO, params)
 }
 
+//获取 最新认证列表   乐
+export function getNewApplyList(params) {
+  return post(urls.API_POST_LAST_DOCTOR_APPLY_LIST, params)
+}
+
+//获取 认证总人数  乐
+export function getAuthenticationSum(params) {
+  return post(urls.API_POST_NUMBER_AUTHENTICATION, params)
+}
+
+//获取 最新退款列表  乐
+export function getNewestRefuseList(params) {
+  return post(urls.API_POST_NEW_LISTORDER_REFUSE, params)
+}
+//获取 最新订单数  退款数  乐
+export function getOrderRefuseNumber(params) {
+  return post(urls.API_POST_CSP_ORDER_NUMBER, params)
+}
+
 
 
 

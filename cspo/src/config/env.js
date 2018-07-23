@@ -166,4 +166,11 @@ export const API_LOGIN = baseUrl+'sys/user/login';//登录
 //控制台 乐
 
 export const API_POST_GETSYS_NOTICE_INFO = baseUrl+'sys/notice/getSysNoticeInfo';//系统公告循环内容
+export const API_POST_LAST_DOCTOR_APPLY_LIST = baseUrl+'sys/workbench/doctorApplyList';//获取最新认证医生列表
+export const API_POST_NUMBER_AUTHENTICATION = baseUrl+'sys/workbench/getCountDoctorNumberAuthentication';//获取总的认证人数
+export const API_POST_NEW_LISTORDER_REFUSE = baseUrl+'sys/workbench/listOrderRefund';//获取最新退款列表
+export const API_POST_CSP_ORDER_NUMBER = baseUrl+'sys/workbench/getCountCspOrderNumber';//获取最新订单数 退款数
+
+
+
 
