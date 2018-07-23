@@ -74,22 +74,26 @@
       },
       //路由跳转
       routerTo(){
-        if(this.params.newsType ==='5'){
+        if(this.params.newsTypes ==='5'){
           //电话报告解读
           this.$router.push("/tel_consult")
-        }else if(this.params.newsType === '6'){
+        }else if(this.params.newsTypes === '6'){
           //图文咨询
           this.$router.push("/imgText_consult")
-        }else if(this.params.newsType === '7'){
+        }else if(this.params.newsTypes === '7'){
           //账单消息
           this.$router.push("/personal")
         }
       },
       //更新消息状态
       updateStatus(){
+        let parNes={
+          userId: this.userInfo.userId
+        }
         updateBatch(this.params).then((res)=>{
           if(res.code===ERR_OK){
             this.routerTo();
+            this.$store.dispatch('msgList',parNes)
           }else{
             this.$alert('更新失败','提示')
           }

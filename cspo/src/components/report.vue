@@ -1,6 +1,5 @@
 <template>
   <div class="report-container">
-    <div v-if="reportData">
       <div class="report-nav">
         <div class="nav-box">
           <a class="nav-item" :class="currentHash === 'baseInfo' ? 'active' : ''" @click="_navClick('baseInfo')">基本信息</a>
@@ -9,7 +8,6 @@
           <a class="nav-item" :class="currentHash === index ? 'active' : ''" v-for="(item,index) in reportData.CheckItems" :key="index" @click="_navClick(index)">{{item.CheckItemName}}</a>
         </div>
       </div>
-
       <div class="report-content" id="report-content">
         <!--基本信息-->
         <el-card class="box-card" id="baseInfo">
@@ -86,8 +84,6 @@
           </el-table>
         </el-card>
       </div>
-    </div>
-      <p v-else>暂无数据</p>
   </div>
 </template>
 <script>

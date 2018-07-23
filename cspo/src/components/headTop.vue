@@ -125,7 +125,7 @@
       }
     },
 
-    activated(){
+    created(){
       this.setUseName(JSON.parse(getStore("userMesage")).username);
       this.getUnreadList()
     }

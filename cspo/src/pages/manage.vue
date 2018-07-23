@@ -158,6 +158,7 @@
   .main-container {
     flex: 1;
     height: 100%;
-    min-width: 0
+    min-width: 0;
+    overflow-y: hidden;
   }
 </style>

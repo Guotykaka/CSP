@@ -6,12 +6,12 @@
       <el-card class="box-card">
         <el-form :inline="true" :model="searchParams" class="demo-form-inline">
           <el-form-item label="标题">
-            <el-input placeholder="公告标题"></el-input>
+            <el-input placeholder="公告标题" v-model="searchParams.noticeTitleQuery"></el-input>
           </el-form-item>
 
           <el-form-item label="类型">
             <el-select v-model="searchParams.selectedNoticeTypeQuery" clearable placeholder="公告类型">
-              <el-option v-for="item in noticeTypes" :key="item.id" :label="item.dictName" :value="item.institutionId"></el-option>
+              <el-option v-for="item in noticeTypes" :key="item.id" :label="item.dictName" :value="item.code"></el-option>
             </el-select>
           </el-form-item>
 
@@ -44,7 +44,7 @@
         <!--table 表单结束-->
 
         <div class="self-page-container">
-          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.page" :page-sizes="[10,20]" :page-size="searchParams.limit" layout="total, sizes, prev, pager, next, jumper" :total="totalListCount">
+          <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
           </el-pagination>
         </div>
 
@@ -56,7 +56,7 @@
         <p class="info-title">{{detailInfo.noticeTitle}}</p>
         <p class="info-content">{{detailInfo.noticeContent}}</p>
         <div class="btn-row" style="text-align:center">
-          <el-button size="small" type="danger" @click="closeDialog">关闭</el-button>
+          <el-button size="small" type="primary" @click="closeDialog">关闭</el-button>
         </div>
       </el-dialog>
     </div>
@@ -68,7 +68,7 @@
 <script>
 
 import headerTop from '@/components/headTop.vue';
-import { getDictionaryByKey,ERR_OK } from "@/api/api.js";
+import { getDictionaryByKey,getNoticeList,ERR_OK } from "@/api/api.js";
 
 
 
@@ -80,27 +80,16 @@ export default {
         noticeContent:""//内容
       },
 
-
-
       noticeTypes:[],
-
       isShowDialog:false,
-
-      totalListCount:20,
-
+      totalCount:0,
       searchParams:{
         noticeTitleQuery:"",//标题
         selectedNoticeTypeQuery:"",//类型
-        page:1
+        currentPage:1,
+        pageSize:10
       },
-
-      msgLists:[
-        {"noticeOs":"ROLE_TYPE_OPERATING,ROLE_TYPE_DOCTOR","releaseTime":null,"sysNoticeId":"2c8080aa6443eb9001644415ebee0006","noticeType":"NOTICE_TYPE_VERSION_UPGRADES","userName":"admin","noticeTitle":"医生运营端接收","noticeOsName":"运营端 医生端 ","noticeContent":"医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收医生运营端接收","createTime":"2018-06-28 09:50:44","noticeStatus":2,"createUser":"1","dictName":"版本升级","lastUpdateTime":"2018-07-03 11:33:09"},
-        {"noticeOs":"ROLE_TYPE_OPERATING","releaseTime":null,"sysNoticeId":"2c8080aa6443eb900164441530da0005","noticeType":"NOTICE_TYPE_VERSION_UPGRADES","userName":"admin","noticeTitle":"运营端接收","noticeOsName":"运营端 ","noticeContent":"运营端接收","createTime":"2018-06-28 09:49:56","noticeStatus":2,"createUser":"1","dictName":"版本升级","lastUpdateTime":"2018-06-28 09:49:56"},
-        {"noticeOs":"ROLE_TYPE_OPERATING","releaseTime":null,"sysNoticeId":"2c8080aa6443eb90016443eb906d0000","noticeType":"NOTICE_TYPE_VERSION_UPGRADES","userName":"admin","noticeTitle":"测试公告1","noticeOsName":"运营端 ","noticeContent":"测试公告1","createTime":"2018-06-28 09:04:28","noticeStatus":2,"createUser":"1","dictName":"版本升级","lastUpdateTime":"2018-06-28 09:04:28"}
-      ]
-
-
+      msgLists:[]
   }
   },
 
@@ -112,17 +101,21 @@ export default {
 
 
     doSearch(){
-
+      this.searchParams.currentPage=1;
+      this.getNoticeListFn();
     },
 
 
 
     handleSizeChange(val){
-
-
+      this.searchParams.pageSize=val;
+      this.getNoticeListFn()
     },
 
-    handleCurrentChange(val){},
+    handleCurrentChange(val){
+      this.searchParams.currentPage=val;
+      this.getNoticeListFn()
+    },
 
 
 
@@ -158,6 +151,33 @@ export default {
     },
 
 
+    //获取公告列表
+    getNoticeListFn(){
+      let params = {
+        currentPage:this.searchParams.currentPage,
+        pageSize:this.searchParams.pageSize,
+        selectedNoticeTypeQuery:this.searchParams.selectedNoticeTypeQuery,
+        noticeTitleQuery:this.searchParams.noticeTitleQuery,
+        noticeStatus:2,
+        noticeOs:"ROLE_TYPE_OPERATING"
+      };
+      getNoticeList(params).then(res => {
+        if(res.code===ERR_OK){
+          this.msgLists=res.data.list;
+
+          this.totalCount=res.data.totalCount;
+        }else{
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      })
+    }
+
+
+
+
+
 
 
 
@@ -168,7 +188,9 @@ export default {
   activated(){
 
 
-    this.getNoticeType()
+    this.getNoticeType();
+
+    this.getNoticeListFn()
 
   }
 

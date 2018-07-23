@@ -84,6 +84,9 @@
 import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
 
+import {getIntervalNotice, ERR_OK} from "@/api/api"
+
+
 
 
 export default {
@@ -131,6 +134,29 @@ export default {
     //到退款订单
     toRefuseList(){
       this.$router.push("refundsList");
+    },
+
+    //请求公告列表
+
+
+
+    getNoticeContent(){
+      let params = {};
+      getIntervalNotice(params).then(res => {
+        if(res.code===ERR_OK){
+
+
+          this.announceText=res.data.noticeContent;
+          console.log(res)
+        }else{
+          this.$alert(res.msg, '提示', {
+            confirmButtonText: '确定',
+          })
+        }
+      }).catch(err => {
+      })
+
+
     }
 
 
@@ -142,6 +168,13 @@ export default {
 
 
   },
+
+
+  created(){
+
+    this.getNoticeContent()
+
+  }
 
 
 

@@ -95,9 +95,9 @@ export const API_INS_UPDATE_BATCH = baseUrl+'doctor/ins/usernewsreal/updateBatch
 /*补充菜单*/
 
 export const API_DOCTOR_NAV = baseUrl+'doctor/nav';//获取左侧导航菜单
-export const API_SYS_DICTIONARY_BYKEY = baseUrl+'cspd/doctor/sys/getDictionaryByKey';//根据key获取字典列表数据详情
-export const API_SYS_NOTICE_IFNO = baseUrl+'cspd/doctor/sysnotice/getSysNoticeInfo';//getSysNoticeInfo
-export const API_SYS_SYSNOTICE_LIST = baseUrl+'cspd/doctor/sysnotice/list';//医生端系统公告表列表
+export const API_SYS_DICTIONARY_BYKEY = baseUrl+'doctor/sys/getDictionaryByKey';//根据key获取字典列表数据详情
+export const API_SYS_NOTICE_IFNO = baseUrl+'doctor/sysnotice/getSysNoticeInfo';//getSysNoticeInfo
+export const API_SYS_SYSNOTICE_LIST = baseUrl+'doctor/sysnotice/list';//医生端系统公告表列表
 
 
 

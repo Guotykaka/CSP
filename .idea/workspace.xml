@@ -2,15 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3fa42e4-9b1d-48db-bb3e-22c3cc85b872" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cspd/src/config/env.js" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/config/env.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cspd/src/pages/announcement.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/announcement.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cspd/src/pages/announcement/annoDetail.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/announcement/annoDetail.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cspd/src/pages/doctor_index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/doctor_index.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cspd/src/pages/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/login.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cspd/src/pages/manage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/manage.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cspd/src/pages/msg.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/msg.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspo/src/config/env.js" beforeDir="false" afterPath="$PROJECT_DIR$/cspo/src/config/env.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspo/src/pages/goMyself.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspo/src/pages/goMyself.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspo/src/pages/manage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspo/src/pages/manage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspo/src/pages/orderList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspo/src/pages/orderList.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -23,77 +23,36 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.46767107">
+    <splitter split-orientation="horizontal" split-proportion="0.5605901">
       <split-first>
-        <leaf>
-          <file leaf-file-name="env.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/cspd/src/config/env.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="277">
-                  <caret line="38" column="23" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="23" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="imgText_consult.vue" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="181">
-                  <caret line="50" column="59" lean-forward="true" selection-start-line="50" selection-start-column="59" selection-end-line="50" selection-end-column="59" />
-                  <folding>
-                    <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#img#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#img#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#1;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-                    <element signature="e#9845#9893#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/cspd/src/router/index.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1152">
-                  <caret line="66" column="11" lean-forward="true" selection-start-line="66" selection-start-column="11" selection-end-line="66" selection-end-column="11" />
-                  <folding>
-                    <element signature="e#0#21#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="doctor_index.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/cspd/src/pages/doctor_index.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-417">
-                  <caret line="53" column="43" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
-                  <folding>
-                    <element signature="e#1080#1128#0" expanded="true" />
-                  </folding>
+                <state relative-caret-position="792">
+                  <caret line="33" column="43" lean-forward="true" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="msg.vue" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/cspd/src/pages/msg.vue">
+          <file leaf-file-name="login.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/pages/login.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="676">
-                  <caret line="68" column="40" lean-forward="true" selection-start-line="68" selection-start-column="40" selection-end-line="68" selection-end-column="40" />
+                <state relative-caret-position="192">
+                  <caret line="8" column="27" lean-forward="true" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
                   <folding>
-                    <element signature="n#style#0;n#el-table#0;n#el-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                    <element signature="e#922#965#0" expanded="true" />
+                    <element signature="n#style#0;n#el-input#0;n#li#2;n#ul#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="e#746#805#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="manage.vue" pinned="false" current-in-tab="false">
+          <file leaf-file-name="manage.vue" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/cspd/src/pages/manage.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="2328">
-                  <caret line="105" column="22" lean-forward="true" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
+                <state relative-caret-position="184">
+                  <caret line="142" column="14" lean-forward="true" selection-start-line="142" selection-start-column="14" selection-end-line="142" selection-end-column="14" />
                   <folding>
                     <element signature="n#style#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -101,7 +60,30 @@
                     <element signature="n#style#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#el-breadcrumb-item#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
                     <element signature="n#style#0;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                    <element signature="n#style#0;n#img#0;n#template#0;n#el-submenu#0;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#img#0;n#span#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="e#3099#3142#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="env.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/config/env.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="436">
+                  <caret line="97" column="49" selection-start-line="97" selection-start-column="49" selection-end-line="97" selection-end-column="49" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="api.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/api/api.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="212">
+                  <caret line="17" column="34" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="34" />
+                  <folding>
+                    <element signature="e#0#39#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -111,20 +93,73 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="headTop.vue" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/cspo/src/components/headTop.vue">
+          <file leaf-file-name="doctor_index.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/pages/doctor_index.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="168">
-                  <caret line="7" selection-start-line="7" selection-end-line="7" />
+                <state relative-caret-position="72">
+                  <caret line="33" column="43" lean-forward="true" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="tablemain.vue" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult/tablemain.vue">
+          <file leaf-file-name="announcement.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/pages/announcement.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="144">
-                  <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
+                <state relative-caret-position="24">
+                  <caret line="3" column="25" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="25" />
+                  <folding>
+                    <element signature="e#2489#2532#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/store/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="336">
+                  <caret line="68" column="9" selection-start-line="68" selection-start-column="2" selection-end-line="68" selection-end-column="9" />
+                  <folding>
+                    <element signature="e#0#21#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="annoDetail.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/pages/announcement/annoDetail.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="696">
+                  <caret line="29" column="15" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
+                  <folding>
+                    <element signature="n#style#0;n#el-button#0;n#el-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="msg.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/pages/msg.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="428">
+                  <caret line="88" column="21" lean-forward="true" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="21" />
+                  <folding>
+                    <element signature="n#style#0;n#el-table#0;n#el-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="e#922#965#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="headTop.vue" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/cspo/src/components/headTop.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="236">
+                  <caret line="15" column="35" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="35" />
+                  <folding>
+                    <element signature="e#1641#1688#0" expanded="true" />
+                    <element signature="e#2183#2539#0" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -145,36 +180,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>getAllServiceInfo</find>
-      <find>listServiceDict</find>
-      <find>_showStatusSonBox</find>
-      <find>itemId</find>
-      <find>msgListCount</find>
-      <find>createUserId</find>
-      <find>replyList</find>
-      <find>areaImg</find>
-      <find>defaultImg</find>
-      <find>deatilSon</find>
-      <find>parernId</find>
-      <find>institutionName</find>
-      <find>item.dictCode</find>
-      <find>handleSelect</find>
-      <find>listShowTab</find>
-      <find>_getDatalist</find>
-      <find>pages2</find>
-      <find>listMsg</find>
-      <find>searchParams</find>
-      <find>institutionArr</find>
-      <find>querySearch</find>
-      <find>localUrl</find>
-      <find>tcontent-ul</find>
-      <find>name</find>
+      <find>chatCircle</find>
+      <find>getcomment</find>
+      <find>_upTextSend</find>
+      <find>selmsgType</find>
+      <find>addFocus</find>
+      <find>_checkDetail</find>
       <find>storeManager</find>
-      <find>compileCode</find>
-      <find>for</find>
-      <find>imgText_consult</find>
-      <find>_getChatDetail</find>
-      <find>API_UPLOAD</find>
+      <find>headerTop</find>
+      <find>bgColor</find>
+      <find>searchParams</find>
+      <find>API_SYS_SYSNOTICE_LIST</find>
+      <find>totalcount</find>
+      <find>gray-bg</find>
+      <find>ERR_OKAPI_SYS_DICTIONARY_BYKEY</find>
+      <find>getNoticeTypes</find>
+      <find>noticeLists</find>
+      <find>doSearch</find>
+      <find>noticeOs</find>
+      <find>noticeStatus</find>
+      <find>msgLists</find>
+      <find>icon=&quot;el-icon-searc</find>
+      <find>API_SYS_DICTIONARY_BYKEY</find>
+      <find>msgListCount</find>
+      <find>detailShow</find>
+      <find>changePass</find>
+      <find>isShowDialog</find>
+      <find>okFn</find>
+      <find>command</find>
+      <find>handleCommand</find>
+      <find>el-dropdown-link</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -183,7 +218,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/cspd/src/pages/announcement/annoDetail.vue" />
         <option value="$PROJECT_DIR$/cspd/src/api/getData.js" />
         <option value="$PROJECT_DIR$/cspd/data.json" />
         <option value="$PROJECT_DIR$/cspd/src/pages/personal.vue" />
@@ -199,8 +233,6 @@
         <option value="$PROJECT_DIR$/cspo/src/store/index.js" />
         <option value="$PROJECT_DIR$/cspo/index.html" />
         <option value="$PROJECT_DIR$/cspd/package.json" />
-        <option value="$PROJECT_DIR$/cspd/src/pages/login.vue" />
-        <option value="$PROJECT_DIR$/cspd/src/pages/imgText_consult/tablemain.vue" />
         <option value="$PROJECT_DIR$/cspo/src/pages/menu.vue" />
         <option value="$PROJECT_DIR$/cspo/src/pages/eval.vue" />
         <option value="$PROJECT_DIR$/cspo/src/pages/eval.js" />
@@ -213,27 +245,30 @@
         <option value="$PROJECT_DIR$/cspo/src/api/http.js" />
         <option value="$PROJECT_DIR$/cspo/src/pages/dictionary.vue" />
         <option value="$PROJECT_DIR$/cspd/src/api/http.js" />
-        <option value="$PROJECT_DIR$/cspd/src/pages/announcement.vue" />
         <option value="$PROJECT_DIR$/cspd/src/pages/callDoctor.vue" />
         <option value="$PROJECT_DIR$/cspo/src/pages/login.vue" />
         <option value="$PROJECT_DIR$/cspo/src/components/report.vue" />
         <option value="$PROJECT_DIR$/cspo/src/components/headTop.vue" />
-        <option value="$PROJECT_DIR$/cspd/src/store/index.js" />
         <option value="$PROJECT_DIR$/cspd/src/api/api.js" />
         <option value="$PROJECT_DIR$/cspo/src/api/api.js" />
         <option value="$PROJECT_DIR$/cspo/src/pages/menuList.vue" />
         <option value="$PROJECT_DIR$/cspo/src/components/refundDetail.vue" />
         <option value="$PROJECT_DIR$/cspo/src/pages/orderDetail.vue" />
         <option value="$PROJECT_DIR$/cspo/src/pages/orderSonDetail.vue" />
-        <option value="$PROJECT_DIR$/cspo/src/config/env.js" />
         <option value="$PROJECT_DIR$/cspo/src/pages/goMyself.vue" />
-        <option value="$PROJECT_DIR$/cspo/src/pages/orderList.vue" />
         <option value="$PROJECT_DIR$/cspo/src/pages/manage.vue" />
-        <option value="$PROJECT_DIR$/cspd/src/pages/msg.vue" />
-        <option value="$PROJECT_DIR$/cspd/src/config/env.js" />
-        <option value="$PROJECT_DIR$/cspd/src/pages/doctor_index.vue" />
-        <option value="$PROJECT_DIR$/cspd/src/pages/manage.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/imgText_consult/tablemain.vue" />
+        <option value="$PROJECT_DIR$/cspo/src/config/env.js" />
+        <option value="$PROJECT_DIR$/cspo/src/pages/orderList.vue" />
         <option value="$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/doctor_index.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/announcement/annoDetail.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/config/env.js" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/announcement.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/store/index.js" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/msg.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/login.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/manage.vue" />
       </list>
     </option>
   </component>
@@ -263,6 +298,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -273,60 +309,6 @@
             <path>
               <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
               <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspd" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspd" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspd" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="asset" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspd" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspd" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspd" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="pages" type="462c0819:PsiDirectoryNode" />
-              <item name="imgText_consult" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspd" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="router" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspd" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="store" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
               <item name="cspo" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -334,13 +316,6 @@
               <item name="CSP" type="462c0819:PsiDirectoryNode" />
               <item name="cspo" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
-              <item name="CSP" type="462c0819:PsiDirectoryNode" />
-              <item name="cspo" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
@@ -353,7 +328,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -392,7 +366,16 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/api/api.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/config/env.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/announcement.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/institution.vue</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/listenList.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/message_template.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/notice.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/role.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/service_info.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/user.vue</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -525,7 +508,8 @@
       <workItem from="1531270891956" duration="35762000" />
       <workItem from="1531357260069" duration="58197000" />
       <workItem from="1531702255059" duration="39002000" />
-      <workItem from="1531789197292" duration="148253000" />
+      <workItem from="1531789197292" duration="154204000" />
+      <workItem from="1532307783164" duration="19951000" />
     </task>
     <task id="LOCAL-00001" summary="医生端首次上传">
       <created>1530234570518</created>
@@ -702,25 +686,30 @@
       <option name="project" value="LOCAL" />
       <updated>1532068431825</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="去bug">
+      <created>1532081084753</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1532081084753</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="484700000" />
+    <option name="totallyTimeSpent" value="510602000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="2" weight="0.16069546" />
+      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.16069546" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.4915254" side_tool="true" weight="0.5577342" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.36928105" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.5084746" visible="true" weight="0.24400872" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.5084746" visible="true" weight="0.39215687" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
@@ -728,28 +717,29 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Messages" order="11" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
     </layout>
     <layout-to-restore>
+      <window_info anchor="bottom" id="Version Control" order="9" weight="0.36928105" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="2" weight="0.26238146" />
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.50933677" visible="true" weight="0.21895425" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.49066323" side_tool="true" weight="0.4509804" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.36928105" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32897604" />
       <window_info anchor="bottom" id="Messages" order="11" />
       <window_info id="Favorites" order="1" side_tool="true" />
     </layout-to-restore>
@@ -810,22 +800,15 @@
     <MESSAGE value="系统常量" />
     <MESSAGE value="系统常量完成&amp;完善" />
     <MESSAGE value="系统常量完成&amp;完善2" />
-    <option name="LAST_COMMIT_MESSAGE" value="系统常量完成&amp;完善2" />
+    <MESSAGE value="去bug" />
+    <option name="LAST_COMMIT_MESSAGE" value="去bug" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="25" />
+      <option name="time" value="26" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cspd/build/build.js">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/build/check-versions.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-950" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cspd/build/utils.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2064" />
@@ -860,13 +843,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="48">
           <caret line="17" column="22" selection-start-line="17" selection-start-column="22" selection-end-line="17" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-            <element signature="n#!!block;n#extendFn#0" />
-            <element signature="n#!!block;n#getZSTJsign#0" />
-            <element signature="n#!!block;n#getBasicAuthHandler#0" />
-            <element signature="n#!!block;n#getHttpAuthSignHandler#0" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -877,17 +853,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/data.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-48">
-          <caret line="52" column="16" lean-forward="true" selection-start-line="52" selection-start-column="16" selection-end-line="167" selection-end-column="5" />
-          <folding>
-            <element signature="n#!!block;n#seller#0;n#!!top" />
-            <element signature="e#1509#4401#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/data.json" />
     <entry file="file://$PROJECT_DIR$/cspo/src/pages/dictionary.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -910,9 +876,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
           <caret line="5" column="18" lean-forward="true" selection-start-line="5" selection-start-column="18" selection-end-line="5" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -945,41 +908,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/pages/announcement.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="67" column="10" lean-forward="true" selection-start-line="67" selection-start-column="10" selection-end-line="67" selection-end-column="10" />
-          <folding>
-            <element signature="e#4332#4818#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/dist/static/js/app.d023046ea36decf16d5d.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="9163" selection-start-column="9163" selection-end-column="9163" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/dist/static/js/app.d023046ea36decf16d5d.js" />
     <entry file="file://$PROJECT_DIR$/cspd/src/api/util.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="384">
           <caret line="62" column="11" selection-start-line="62" selection-start-column="2" selection-end-line="62" selection-end-column="11" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspo/src/pages/login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="60" column="27" lean-forward="true" selection-start-line="60" selection-start-column="27" selection-end-line="60" selection-end-column="27" />
-          <folding>
-            <element signature="n#style#0;n#el-input#0;n#li#2;n#ul#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#798#840#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -990,17 +923,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="336">
           <caret line="14" column="21" selection-start-line="14" selection-start-column="13" selection-end-line="14" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/pages/login.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-299">
-          <caret line="39" column="26" selection-start-line="39" selection-start-column="26" selection-end-line="40" selection-end-column="29" />
-          <folding>
-            <element signature="n#style#0;n#el-input#0;n#li#2;n#ul#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#746#805#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1046,29 +968,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/api/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="623">
-          <caret line="190" column="27" selection-start-line="190" selection-start-column="16" selection-end-line="190" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cspo/src/pages/refundsInfo.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1512" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/store/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="37" column="7" selection-start-line="37" selection-start-column="7" selection-end-line="37" selection-end-column="7" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cspo/src/components/refundDetail.vue">
@@ -1130,20 +1032,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspo/src/pages/orderList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="423">
-          <caret line="309" column="42" lean-forward="true" selection-start-line="309" selection-start-column="42" selection-end-line="309" selection-end-column="42" />
-          <folding>
-            <element signature="n#el-form-item#0;n#el-form#0;n#div#0;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#el-form-item#1;n#el-form#0;n#div#0;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#el-form-item#2;n#el-form#0;n#div#0;n#div#0;n#template#0;n#!!top" />
-            <element signature="n#style#0;n#el-table#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-table#0;n#el-tab-pane#1;n#el-tabs#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cspo/src/store/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="279">
@@ -1158,13 +1046,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspo/src/config/env.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cspo/src/pages/manage.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="24">
@@ -1175,17 +1056,133 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspo/src/components/headTop.vue">
+    <entry file="file://$PROJECT_DIR$/cspd/src/router/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        <state relative-caret-position="1560">
+          <caret line="66" column="11" selection-start-line="66" selection-start-column="11" selection-end-line="66" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspo/src/pages/msg.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1224" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult/tablemain.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1512">
+          <caret line="64" column="14" selection-start-line="64" selection-start-column="14" selection-end-line="64" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspo/src/pages/orderList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="15" column="35" lean-forward="true" selection-start-line="15" selection-start-column="35" selection-end-line="15" selection-end-column="35" />
+          <folding>
+            <element signature="n#el-form-item#0;n#el-form#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#el-form-item#1;n#el-form#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#el-form-item#2;n#el-form#0;n#div#0;n#div#0;n#template#0;n#!!top" />
+            <element signature="n#style#0;n#el-table#0;n#el-tab-pane#0;n#el-tabs#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-table#0;n#el-tab-pane#1;n#el-tabs#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspo/src/pages/login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="14" column="67" selection-start-line="14" selection-start-column="57" selection-end-line="14" selection-end-column="67" />
+          <folding>
+            <element signature="n#style#0;n#el-input#0;n#li#2;n#ul#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspo/src/config/env.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="13" selection-start-line="13" selection-end-line="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2640">
+          <caret line="503" column="11" selection-start-line="503" selection-start-column="11" selection-end-line="503" selection-end-column="11" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#div#0;n#div#1;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#1;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#1;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#1;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#9762#9810#0" expanded="true" />
+            <element signature="e#13537#13895#0" />
+            <element signature="e#13924#14246#0" />
+            <element signature="e#14316#14427#0" />
+            <element signature="e#14544#15026#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/api/api.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="17" column="34" selection-start-line="17" selection-start-column="16" selection-end-line="17" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/announcement/annoDetail.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="29" column="15" selection-start-line="29" selection-start-column="15" selection-end-line="29" selection-end-column="15" />
+          <folding>
+            <element signature="n#style#0;n#el-button#0;n#el-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/announcement.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="24">
+          <caret line="3" column="25" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="25" />
+          <folding>
+            <element signature="e#2489#2532#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/config/env.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="436">
+          <caret line="97" column="49" selection-start-line="97" selection-start-column="49" selection-end-line="97" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/store/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="68" column="9" selection-start-line="68" selection-start-column="2" selection-end-line="68" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cspd/src/pages/msg.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="676">
-          <caret line="68" column="40" lean-forward="true" selection-start-line="68" selection-start-column="40" selection-end-line="68" selection-end-column="40" />
+        <state relative-caret-position="428">
+          <caret line="88" column="21" lean-forward="true" selection-start-line="88" selection-start-column="21" selection-end-line="88" selection-end-column="21" />
           <folding>
             <element signature="n#style#0;n#el-table#0;n#el-card#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="e#922#965#0" expanded="true" />
@@ -1193,37 +1190,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/router/index.js">
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/login.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1152">
-          <caret line="66" column="11" lean-forward="true" selection-start-line="66" selection-start-column="11" selection-end-line="66" selection-end-column="11" />
+        <state relative-caret-position="192">
+          <caret line="8" column="27" lean-forward="true" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="n#style#0;n#el-input#0;n#li#2;n#ul#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#746#805#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cspd/src/pages/doctor_index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-417">
-          <caret line="53" column="43" selection-start-line="53" selection-start-column="43" selection-end-line="53" selection-end-column="43" />
-          <folding>
-            <element signature="e#1080#1128#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="792">
+          <caret line="33" column="43" lean-forward="true" selection-start-line="33" selection-start-column="43" selection-end-line="33" selection-end-column="43" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/config/env.js">
+    <entry file="file://$PROJECT_DIR$/cspo/src/components/headTop.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="277">
-          <caret line="38" column="23" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="23" />
+        <state relative-caret-position="236">
+          <caret line="15" column="35" selection-start-line="15" selection-start-column="19" selection-end-line="15" selection-end-column="35" />
+          <folding>
+            <element signature="e#1641#1688#0" expanded="true" />
+            <element signature="e#2183#2539#0" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cspd/src/pages/manage.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2328">
-          <caret line="105" column="22" lean-forward="true" selection-start-line="105" selection-start-column="22" selection-end-line="105" selection-end-column="22" />
+        <state relative-caret-position="184">
+          <caret line="142" column="14" lean-forward="true" selection-start-line="142" selection-start-column="14" selection-end-line="142" selection-end-column="14" />
           <folding>
             <element signature="n#style#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
@@ -1231,30 +1230,10 @@
             <element signature="n#style#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-breadcrumb-item#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#template#0;n#el-submenu#0;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#span#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#3099#3142#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="50" column="59" lean-forward="true" selection-start-line="50" selection-start-column="59" selection-end-line="50" selection-end-column="59" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#li#0;n#ul#0;n#div#0;n#div#1;n#div#1;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#9845#9893#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult/tablemain.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
         </state>
       </provider>
     </entry>
