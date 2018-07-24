@@ -7,7 +7,6 @@
           <el-input placeholder="申请人" v-model="searchParams.username"></el-input>
         </el-form-item>
         <el-form-item label="机构">
-
           <el-autocomplete
             popper-class="my-autocomplete"
             v-model="searchParams.institutionName"
@@ -18,11 +17,6 @@
               <div class="name">{{ item.institutionName }}</div>
             </template>
           </el-autocomplete>
-
-
-          <!--<el-select v-model="searchParams.institutionName" clearable placeholder="请选择所属机构">
-            <el-option v-for="item in getInstitutionArr" :key="item.institutionId" :label="item.institutionName" :value="item.institutionId"></el-option>
-          </el-select>-->
         </el-form-item>
 
         <el-form-item label="时间">
@@ -40,18 +34,15 @@
         <el-form-item>
           <el-button type="primary" @click="doSearch">查询</el-button>
           <el-button type="primary" @click="_resetParams">清空</el-button>
-          <el-button type="primary" >导出Excel</el-button>
+          <el-button type="primary" @click="exportExcelFn">导出Excel</el-button>
         </el-form-item>
       </el-form>
-
       <!--tab-->
       <el-tabs v-model="tabIndex">
         <el-tab-pane label="申请中" name="0"></el-tab-pane>
         <el-tab-pane label="已拒绝" name="1"></el-tab-pane>
         <el-tab-pane label="已完成" name="2"></el-tab-pane>
       </el-tabs>
-
-
       <!--table 表单开始-->
       <el-table
         :data="dataList"
@@ -62,8 +53,6 @@
         <el-table-column prop="createTime" label="申请时间"></el-table-column>
         <el-table-column prop="institutionName" label="申请人所在机构"></el-table-column>
         <el-table-column prop="disburse" label="申请金额"></el-table-column>
-
-
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button v-if="scope.row.status===0" size="mini" type="primary" @click="doStatus(scope.row,2)">同意</el-button>
@@ -75,12 +64,10 @@
         </el-table-column>
       </el-table>
       <!--table 表单结束-->
-
       <div class="self-page-container">
         <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
         </el-pagination>
       </div>
-
       <!--refuse reason dialog-->
       <el-dialog title="拒绝原因" :visible.sync="refuse.isShowDialog" width="400px">
         <el-input type="textarea" placeholder="请填写原因" v-model="refuse.refuseReason"></el-input>
@@ -91,16 +78,12 @@
       </el-dialog>
     </div>
   </div>
-
 </template>
-
-
 <script>
-
 import headerTop from '@/components/headTop.vue';
 import { mapGetters } from "vuex";
-import {getAccountRecord ,updataWithdrawStatus,ERR_OK} from "@/api/api.js";
-
+import {getAccountRecord ,updataWithdrawStatus,exportWithdrawExcel,ERR_OK} from "@/api/api.js";
+import {baseUrl} from '@/config/env.js'
 export default {
   data() {
     return {
@@ -128,7 +111,6 @@ export default {
       doInsDoctorId:"",
   }
   },
-
   components:{
     headerTop,
   },
@@ -156,15 +138,11 @@ export default {
       };
     },
 
-
-
-
     //搜索
     doSearch: function () {
       this.searchParams.page = 1;
       this.getListData();
     },
-
 
     //重置搜索条件
     _resetParams:function () {
@@ -173,8 +151,6 @@ export default {
       this.searchParams.institutionName="";
       this.searchParams.username="";
     },
-
-
 
     //获取列表数据
     getListData:function () {
@@ -185,8 +161,7 @@ export default {
         this.searchParams.startTime="";
         this.searchParams.endTime="";
       }
-
-      var params={
+      let params={
         currentPage:this.searchParams.currentPage,
         endTime:this.searchParams.endTime,
         institutionId: this.searchParams.institutionId,
@@ -212,9 +187,6 @@ export default {
       })
 
     },
-
-
-
 
     //点击同意或者拒绝执行的方法
     doStatus:function (item,state) {
@@ -299,16 +271,12 @@ export default {
       this.refuse.isShowDialog=false;
     },
 
-
-
-
-
     //处理size
     handleSizeChange(val){
-      console.log("size变了")
-      console.log(val)
+      this.searchParams.currentPage=1;
+      this.searchParams.pageSize=val;
+      this.getListData()
     },
-
 
     //处理当前页变化
     handleCurrentChange(val){
@@ -316,37 +284,31 @@ export default {
       this.getListData()
     },
 
-
-
-
-
-
-
+    //导出excel
+    exportExcelFn(){
+      this.searchParams.startTime=this.rangeTime ? this.rangeTime[0] :"";
+      this.searchParams.endTime=this.rangeTime ? this.rangeTime[1] :"";
+      let paramString =
+        'username=' + this.searchParams.username +
+        '&institutionId=' + this.searchParams.institutionId +
+        '&startTime=' + this.searchParams.startTime +
+        '&endTime=' + this.searchParams.endTime +
+        '&status=' + this.searchParams.status ;
+      let url = baseUrl + "ins/withdraw/exportAccountRecord?" + paramString.toString();
+      window.open(url);
+    }
 
   },
-
-
   created(){
     this.getListData()
-
   },
-
-
-
   watch:{
-
-
     tabIndex(val){
+      this.searchParams.status=val;
       this.searchParams.currentPage=1;
       this.getListData();
     }
-
   }
-
-
-
-
-
 }
 </script>
 

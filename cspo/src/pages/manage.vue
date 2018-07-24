@@ -8,7 +8,7 @@
       <!--医生管理-->
       <el-menu background-color="#324157" text-color="#b8c7ce" :default-active="defaultActive" unique-opened router>
 
-        <el-menu-item index="/main"><i class="el-icon-menu"></i>控制台</el-menu-item>
+        <el-menu-item index="/main"><i class="el-icon-menu nav-t-icon"></i>控制台</el-menu-item>
  <!--       <el-submenu index="1">
           <template slot="title"><i class="el-icon-document nav-t-icon"></i>系统管理</template>
           <el-menu-item index="/notice"><i class="el-icon-view nav-t-icon"></i>公告管理</el-menu-item>

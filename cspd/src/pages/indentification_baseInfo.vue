@@ -78,7 +78,7 @@
 
       //判断是否已认证
       isAuthenticationFn(){
-        let insDoctorId =JSON.parse(getStore("userMesage")).insDoctorId;
+         let insDoctorId =JSON.parse(getStore("userMesage")).insDoctorId;
         let params={
           insDoctorId:insDoctorId
         };
@@ -96,7 +96,10 @@
     },
     activated(){
       this.isAuthenticationFn();
-      this.authenticationStatus=parseInt(getStore("authenticationStatus"))
+      setTimeout(()=>{
+        this.authenticationStatus=parseInt(getStore("authenticationStatus"));
+      },100)
+
     }
   }
 </script>

@@ -105,7 +105,7 @@
               </template>
             </el-form-item>
           </el-form>
-          
+
           <div class="btn-row">
           <el-button size="small" type="primary" @click="dialogCheckVisible = false">返回</el-button>
           </div>
@@ -306,13 +306,12 @@ export default {
   methods: {
     handleReset() {
       //重置按钮
-      this.formInline.valueCJR = ''
-      this.formInline.valueBT = ''
-      this.formInline.valueLX = ''
-      this.formInline.valueZT = ''
-      this.formInline.valueKS = ''
-      this.formInline.valueJS = ''
-      return false
+      this.formInline.valueCJR = '';
+      this.formInline.valueBT = '';
+      this.formInline.valueLX = '';
+      this.formInline.valueZT = '';
+      this.formInline.valueKS = '';
+      this.formInline.valueJS = '';
     },
     handleSizeChange: function(size) {
       this.pagesize = size
@@ -496,7 +495,7 @@ export default {
         } else {
           console.log(response.msg)
         }
-        
+
       })
     }
   },

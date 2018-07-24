@@ -236,6 +236,12 @@ export function getAccountRecord(params) {
 export function updataWithdrawStatus(params) {
   return post(urls.API_POST_UPDATE_APPLY_STATUS,params);
 }
+//导出提现记录
+export function exportWithdrawExcel(params) {
+  return post(urls.API_POST_EXPORT_WITHDRAW,params);
+}
+
+
 
 
 //获取未读列表

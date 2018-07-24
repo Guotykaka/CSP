@@ -13,14 +13,11 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
-
   // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
-
-  // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
-
   // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
   baseUrl = 'http://172.0.0.41:8117/cspo/';
-  payUrl = 'http://172.0.0.41:8115/pay/';
+  payUrl = 'http://HZ2WZSG82:8115/pay/';
+
   // baseUrl = 'http://10.50.50.128:8117/cspo/';//明星
   baseImgPath = '/img/';
 }else{
@@ -133,6 +130,9 @@ export const API_POST_CHANGE_DOCTOR_STATUS = baseUrl+'sys/doctorApply/changeDoct
 //财务管理
 export const API_POST_LIST_ACCOUNT_RECORD = baseUrl+'ins/withdraw/listAccountRecord';//提现列表
 export const API_POST_UPDATE_APPLY_STATUS= baseUrl+'ins/withdraw/updateApplyStatus';//更新提现状态 同意或拒绝提现
+export const API_POST_EXPORT_WITHDRAW= baseUrl+'ins/withdraw/exportAccountRecord';//导出提现记录
+
+
 
 
 
@@ -166,13 +166,10 @@ export const API_LOGIN = baseUrl+'sys/user/login';//登录
 
 
 //控制台 乐
-
 export const API_POST_GETSYS_NOTICE_INFO = baseUrl+'sys/notice/getSysNoticeInfo';//系统公告循环内容
 export const API_POST_LAST_DOCTOR_APPLY_LIST = baseUrl+'sys/workbench/doctorApplyList';//获取最新认证医生列表
 export const API_POST_NUMBER_AUTHENTICATION = baseUrl+'sys/workbench/getCountDoctorNumberAuthentication';//获取总的认证人数
 export const API_POST_NEW_LISTORDER_REFUSE = baseUrl+'sys/workbench/listOrderRefund';//获取最新退款列表
 export const API_POST_CSP_ORDER_NUMBER = baseUrl+'sys/workbench/getCountCspOrderNumber';//获取最新订单数 退款数
-
-
 
 
