@@ -75,7 +75,6 @@
       }
     },
     methods:{
-
       //判断是否已认证
       isAuthenticationFn(){
          let insDoctorId =JSON.parse(getStore("userMesage")).insDoctorId;

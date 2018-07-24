@@ -39,18 +39,14 @@ const mutations = {
       if(res.code===ERR_OK){
         state.msgList = res.data;
       }
-    }).catch((res)=>{
-      alert(res.data)
     })
   },
 //  用户头像
   getApplyInfoImg(state,params){
     getApplyInfo(params).then((res)=>{
-      if(res.code===ERR_OK){
+      if(res.code===ERR_OK&&res.data){
         state.areaImg = res.data.logoUrl;
       }
-    }).catch((res)=>{
-      alert(res.msg)
     })
   }
 
