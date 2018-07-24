@@ -170,7 +170,7 @@
         </div>
       </el-dialog>
       <!-- 新增弹窗 -->
-      <el-dialog title="新增" :visible.sync="dialogAddVisible" width=60% v-bind:show-close = "false">
+      <el-dialog title="新增" :visible.sync="dialogAddVisible" width=60%  :before-close="handleCloseAdd">
         <el-form :model="addTable">
           <el-form-item class="is-required2" label="服务名称:" :label-width="formLabelWidth">
             <el-col :span="16">
@@ -184,12 +184,40 @@
           </el-form-item>
           <el-form-item class="is-required2" label="商品类别:" :label-width="formLabelWidth">
             <el-col :span="16">
-              <el-input placeholder="服务" auto-complete="off" :disabled="true" el></el-input>
+              <!-- <el-input placeholder="服务" auto-complete="off" :disabled="true" el></el-input> -->
+              <template>
+                <el-select v-model="addTable.itemType" placeholder="请选择" @change="changeChoese" clearable>
+                  <el-option
+                    v-for="item in itemType"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </template>
             </el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="服务类别:" :label-width="formLabelWidth">
             <el-col :span="16">
-              <el-input placeholder="平台服务" auto-complete="off" :disabled="true" el></el-input>
+              <!-- <el-input placeholder="平台服务" auto-complete="off" :disabled="true" el></el-input> -->
+              <template>
+                <el-select v-model="addTable.serviceType" placeholder="请选择" clearable>
+                  <el-option
+                    v-show="addTable.itemType=='ITEM_SERVICE_TYPE'"
+                    v-for="item in serviceType"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                  <el-option
+                    v-show="addTable.itemType=='ITEM_PRODUCT_TYPE'"
+                    v-for="item in serviceType2"
+                    :key="item.value"
+                    :label="item.label"
+                    :value="item.value">
+                  </el-option>
+                </el-select>
+              </template>
             </el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="参考价格:" :label-width="formLabelWidth">
@@ -503,10 +531,43 @@ export default {
       editTableRoot: {},
       editTable_YYT: {}, //修改一元厅单个数据
       editTableRoot_YYT: {},
+      // options: [{
+      //     value: 'ITEM_SERVICE_TYPE',
+      //     label: '服务'
+      //   }, {
+      //     value: 'ITEM_GIFT_TYPE',
+      //     label: '赠品'
+      //   }],
+      // options2: [{
+      //     value: 'ITEM_PLATFORM_SERVICE',
+      //     label: '平台服务'
+      //   }, {
+      //     value: 'ITEM_CUSTOMER_SERVICE',
+      //     label: '自定义服务'
+      //   }],
+      itemType: [{
+          value: 'ITEM_SERVICE_TYPE',
+          label: '服务'
+        }, {
+          value: 'ITEM_PRODUCT_TYPE',
+          label: '商品'
+        }],
+      serviceType: [{
+          value: "10",
+          label: '咨询'
+        }, {
+          value: "20",
+          label: '电话报告解读'
+        }],
+      serviceType2: [{
+          value: "10000",
+          label: '一元听'
+        }],
       addTable: {
-        serviceType: 'ITEM_PLATFORM_SERVICE',
+        // serviceType: 'ITEM_PLATFORM_SERVICE',
+        serviceType: '',
         serviceDesc: '',
-        itemType: 'ITEM_SERVICE_TYPE',
+        itemType: '',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
         serviceRole: [],
@@ -603,6 +664,9 @@ export default {
       this.currentPage = currentPage
       console.log(`当前页: ${currentPage}`)
     },
+    changeChoese(){
+      this.addTable.serviceType = ""
+    },
 
     // 新增
     handleAdd() {
@@ -643,39 +707,25 @@ export default {
         
       })
       // this.tableData.push(this.addTable)
-      this.dialogAddVisible = false
-      this.addTable = {
-        serviceType: 'ITEM_PLATFORM_SERVICE',
-        serviceDesc: '',
-        itemType: 'ITEM_SERVICE_TYPE',
-        serviceUnitName: '次',
-        serviceMaxPrice: 99.0,
-        serviceRole: [],
-        serviceSuggestedPrice: '1.0-99.0元/次',
-        serviceName: '',
-        serviceIconUrl:
-          '',
-        serviceMinPrice: 1.0,
-        serviceUnit: 'UNIT_SECOND',
-        serviceStatus: 1,
-        serviceIntroduce:
-          '',
-        serviceSort: 2,
-        roleNames: [],
-        createDate: '2018-05-21 18:09:47'
-      }
-      this.$message({
-        type: 'success',
-        message: '新增服务成功!'
-      })
+      this.handleCloseAdd()
+      
     },
     //取消新增
     _doAddCancel() {
+      this.handleCloseAdd()
+      this.$message({
+        type: 'warning',
+        message: '取消新增'
+      })
+    },
+    handleCloseAdd() {
+      //新增弹窗重置数据 beforeclose
+      console.log('beforclose')
       this.addTable = {
         //重置新增数据为空
-        serviceType: 'ITEM_PLATFORM_SERVICE',
+        serviceType: '',
         serviceDesc: '',
-        itemType: 'ITEM_SERVICE_TYPE',
+        itemType: '',
         serviceUnitName: '次',
         serviceMaxPrice: 99.0,
         serviceRole: [],
@@ -694,10 +744,6 @@ export default {
         createDate: '2018-05-21 18:09:47'
       }
       this.dialogAddVisible = false
-      this.$message({
-        type: 'warning',
-        message: '取消新增'
-      })
     },
     GoodsMan() {//一元听商品管理路由跳转
       this.$router.push({ path: "/listenList"})
