@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f3fa42e4-9b1d-48db-bb3e-22c3cc85b872" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspd/src/pages/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspd/src/pages/manage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/manage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspo/src/config/env.js" beforeDir="false" afterPath="$PROJECT_DIR$/cspo/src/config/env.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspo/src/pages/orderList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspo/src/pages/orderList.vue" afterDir="false" />
-    </list>
+    <list default="true" id="f3fa42e4-9b1d-48db-bb3e-22c3cc85b872" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -25,8 +19,8 @@
           <file leaf-file-name="env.js" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/cspo/src/config/env.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="648">
-                  <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
+                <state relative-caret-position="215">
+                  <caret line="28" column="41" lean-forward="true" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
                 </state>
               </provider>
             </entry>
@@ -134,11 +128,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="indentification_baseInfo.vue" pinned="false" current-in-tab="false">
+          <file leaf-file-name="indentification_baseInfo.vue" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="203">
-                  <caret line="22" column="44" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="44" />
+                <state relative-caret-position="120">
+                  <caret line="26" column="78" lean-forward="true" selection-start-line="26" selection-start-column="78" selection-end-line="26" selection-end-column="78" />
                 </state>
               </provider>
             </entry>
@@ -155,10 +149,10 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="orderList.vue" pinned="false" current-in-tab="true">
+          <file leaf-file-name="orderList.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/cspo/src/pages/orderList.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="717">
+                <state relative-caret-position="238">
                   <caret line="261" column="22" lean-forward="true" selection-start-line="261" selection-start-column="22" selection-end-line="261" selection-end-column="22" />
                 </state>
               </provider>
@@ -524,7 +518,7 @@
       <workItem from="1531357260069" duration="58197000" />
       <workItem from="1531702255059" duration="39002000" />
       <workItem from="1531789197292" duration="154204000" />
-      <workItem from="1532307783164" duration="38983000" />
+      <workItem from="1532307783164" duration="39222000" />
     </task>
     <task id="LOCAL-00001" summary="医生端首次上传">
       <created>1530234570518</created>
@@ -740,13 +734,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="529634000" />
+    <option name="totallyTimeSpent" value="529873000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.16069546" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.16069546" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.4915254" side_tool="true" weight="0.5577342" />
@@ -754,7 +747,7 @@
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.36928105" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="0" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.5084746" visible="true" weight="0.06100218" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.5084746" visible="true" weight="0.44771242" />
       <window_info id="Favorites" order="1" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
@@ -1113,13 +1106,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="22" column="44" selection-start-line="22" selection-start-column="42" selection-end-line="22" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cspd/src/pages/login.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1464">
@@ -1157,15 +1143,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/cspo/src/config/env.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="648">
-          <caret line="27" column="41" lean-forward="true" selection-start-line="27" selection-start-column="41" selection-end-line="27" selection-end-column="41" />
+        <state relative-caret-position="215">
+          <caret line="28" column="41" lean-forward="true" selection-start-line="28" selection-start-column="41" selection-end-line="28" selection-end-column="41" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/cspo/src/pages/orderList.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="717">
+        <state relative-caret-position="238">
           <caret line="261" column="22" lean-forward="true" selection-start-line="261" selection-start-column="22" selection-end-line="261" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="26" column="78" lean-forward="true" selection-start-line="26" selection-start-column="78" selection-end-line="26" selection-end-column="78" />
         </state>
       </provider>
     </entry>
