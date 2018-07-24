@@ -251,9 +251,9 @@
     methods: {
       //获取时间
       getselTime() {
-        if (this.formInline.selDate) {
-          this.searchParams.startTime = this.formInline.selDate[0];
-          this.searchParams.endTime = this.formInline.selDate[1];
+        if (this.rangeTime) {
+          this.searchParams.startTime = this.rangeTime[0];
+          this.searchParams.endTime = this.rangeTime[1];
         }
       },
       //服务名称选择
