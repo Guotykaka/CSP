@@ -1,10 +1,8 @@
 <template>
   <div class="manage_page fillcontain" style="display: flex">
-
     <!--左nav-->
     <div class="main-nav">
       <h2 class="logo-t-text">掌上体检云服务平台</h2>
-
       <!--医生管理-->
       <el-menu background-color="#324157" text-color="#b8c7ce" :default-active="defaultActive" unique-opened router>
 
@@ -73,7 +71,8 @@
   import {
     ERR_OK,
     getListAllInstitution,
-    getLeftNav
+    getLeftNav,
+    getListWithNoParam
   } from "@/api/api.js";
   export default {
     data: function () {
@@ -89,12 +88,13 @@
     },
     created() {
       this.userInfo = JSON.parse(getStore('userMesage'));
-      this.getInstitution()
+      this.getInstitution();
       this.getNavLeft();
+      this.getRoleLsit()
     },
     methods: {
       ...mapMutations([
-        'setInstitutionArr',
+        'setInstitutionArr','setDoctorRolesList'
       ]),
       getNavLeft(){
         let params ={
@@ -114,7 +114,13 @@
       getInstitution() {
         getListAllInstitution({}).then(res => {
           this.setInstitutionArr(res.data);
-        }).catch(err => {
+        })
+      },
+
+      //获取角色列表
+      getRoleLsit(){
+        getListWithNoParam({}).then(res => {
+          this.setDoctorRolesList(res.data);
         })
       }
     }
