@@ -214,7 +214,7 @@
           </el-form-item>
           <el-form-item class="is-required2" label="服务ICON:" :label-width="formLabelWidth">
             <el-col :span="3">
-              <el-upload class="upload-demo" action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="onsuccess"  :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
+              <el-upload class="upload-demo" :action="upImgurl" :on-preview="handlePreview" :on-remove="handleRemove" :on-success="onsuccess"  :multiple=false list-type="picture" :limit="1" :on-exceed="handleExceed">
                 <el-button size="small" type="primary">点击上传</el-button>
                 <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
               </el-upload>
@@ -262,6 +262,7 @@
 
 <script>
 import { GetServiceList,PostServiceStatus,PostServiceUpdate,getListWithNoParam,PostServiceSave } from '@/api/api.js'
+import { API_UPDATE_IMG } from '@/config/env.js'
 import { quillEditor } from 'vue-quill-editor'
 import { getStore } from '@/config/mUtils.js'
 import headerTop from '@/components/headTop.vue'
@@ -273,6 +274,7 @@ export default {
     return {
       title:"提示",//this.$alert的标题
       content:null,
+      upImgurl:'',
       editorOption:{},
       AdminUserId: null,//userId
       serviceIconUrl:"",//serviceIconUrl
@@ -882,6 +884,7 @@ export default {
     }
   },
   activated: function() {
+    this.upImgurl = API_UPDATE_IMG
     this.getList()
     this.getRoleList()
   }

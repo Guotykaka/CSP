@@ -35,7 +35,7 @@
       </el-header>
       <el-main>
         <!-- 修改 -->
-        <el-dialog title="修改" :visible.sync="dialogEditVisible" width=40% v-bind:show-close = "false">
+        <el-dialog title="修改" :visible.sync="dialogEditVisible" width="650px" v-bind:show-close = "false">
           <template :model="editTable">
             <el-tabs @tab-click="handleClick">
               <!-- 修改==基本信息 -->
@@ -90,14 +90,14 @@
                     </el-col>
                   </el-form-item>
                   <el-form-item label="医院地推LOGO:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                       <img v-if="editTable.extensionLogoUrl" :src="editTable.extensionLogoUrl" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
                   </el-form-item>
                   <el-form-item label="医院地推宣传图:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader clear:after" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                       <img v-if="editTable.extensionImageUrl " :src="editTable.extensionImageUrl " class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
@@ -127,14 +127,14 @@
                     </template>
                   </el-form-item>
                   <el-form-item label="体检报告LOGO:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                       <img v-if="editTable.medicalExamReportLogo " :src="editTable.medicalExamReportLogo " class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
                   </el-form-item>
                   <el-form-item label="医院Banner:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader clear:after" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
                       <img v-if="editTable.bannerExtensionUrl " :src="editTable.bannerExtensionUrl " class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
@@ -248,7 +248,7 @@
                 </div>
         </el-dialog>
         <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
+        <el-dialog title="新增" :visible.sync="dialogAddVisible" width="650px" :before-close="handleCloseAdd">
           <template :model="addTable">
             <el-tabs @tab-click="handleClick">
               <!-- 新增==基本信息 -->
@@ -303,15 +303,15 @@
                     </el-col>
                   </el-form-item>
                   <el-form-item label="医院地推LOGO:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                      <img v-if="addTable.extensionLogoUrl" :src="addTable.extensionLogoUrl" class="avatar">
+                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessDTLOGO" :before-upload="beforeAvatarUpload">
+                      <img v-if="imageUrlDTLOGO" :src="imageUrlDTLOGO" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
                   </el-form-item>
                   <el-form-item label="医院地推宣传图:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader clear:after" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                      <img v-if="addTable.extensionImageUrl " :src="addTable.extensionImageUrl " class="avatar">
+                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessDT" :before-upload="beforeAvatarUpload">
+                      <img v-if="imageUrlDT" :src="imageUrlDT" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
@@ -340,15 +340,15 @@
                     </template>
                   </el-form-item>
                   <el-form-item label="体检报告LOGO:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                      <img v-if="addTable.medicalExamReportLogo " :src="addTable.medicalExamReportLogo " class="avatar">
+                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessLOGO" :before-upload="beforeAvatarUpload">
+                      <img v-if="imageUrlLOGO" :src="imageUrlLOGO" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
                   </el-form-item>
                   <el-form-item label="医院Banner:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader clear:after" action="https://jsonplaceholder.typicode.com/posts/" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
-                      <img v-if="addTable.bannerExtensionUrl " :src="addTable.bannerExtensionUrl " class="avatar">
+                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessBan" :before-upload="beforeAvatarUpload">
+                      <img v-if="imageUrlBan" :src="imageUrlBan" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
@@ -425,6 +425,7 @@ import {
   PostInstitutionSave,
   PostInstitutionUpdate
 } from '@/api/api.js'
+import { API_UPDATE_IMG } from '@/config/env.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -433,7 +434,11 @@ export default {
   data() {
     return {
       title:"提示",//this.$alert的标题
-      imageUrl: '',
+      imageUrlDTLOGO: '',
+      imageUrlLOGO: '',
+      imageUrlDT: '',
+      imageUrlBan: '',
+      upImgUrl:'',
       searchParams: {
         selectInstitutionName: '',
         selectInstitutionCode: '',
@@ -485,29 +490,6 @@ export default {
       formLabelWidth150: '150px'
     }
   },
-  // watch:{
-  //     searchParams: {
-  //       deep: true,
-  //       handler () {
-  //       let params = {
-  //       selectInstitutionName: this.searchParams.selectInstitutionName,
-  //       selectInstitutionCode: this.searchParams.selectInstitutionCode,
-  //       selectIsAppShow: this.searchParams.selectIsAppShow,
-  //       selectIsOpenMsm: this.searchParams.selectIsOpenMsm,
-  //       institutionGradeId: '',
-  //       institutionLavelId: '',
-  //       parentId: '',
-  //       currentPage: 1,
-  //       pageSize: 1000
-  //     }
-  //     PostInstitutionList(params).then(response => {
-  //       this.tableData = []
-  //       this.tableData = response.data.list
-  //       this.totalCount = response.data.totalCount
-  //     })
-  //       }
-  //     }
-  // },
   methods: {
     //搜索方法
     doSearch() {
@@ -532,16 +514,25 @@ export default {
       return false
     },
     //上传
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw)
+    handleAvatarSuccessDTLOGO(res, file) {
+      this.imageUrlDTLOGO = URL.createObjectURL(file.raw)
+    },
+    handleAvatarSuccessLOGO(res, file) {
+      this.imageUrlLOGO = URL.createObjectURL(file.raw)
+    },
+    handleAvatarSuccessBan(res, file) {
+      this.imageUrlBan = URL.createObjectURL(file.raw)
+    },
+    handleAvatarSuccessDT(res, file) {
+      this.imageUrlDT = URL.createObjectURL(file.raw)
     },
     beforeAvatarUpload(file) {
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2
 
-      if (!isJPG) {
-        this.$message.error('上传头像图片只能是 JPG 格式!')
-      }
+      // if (!isJPG) {
+      //   this.$message.error('上传头像图片只能是 JPG 格式!')
+      // }
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }
@@ -583,29 +574,6 @@ export default {
         whetherDelete: this.addTable.whetherDelete,
         whetherHasPdfReport: this.addTable.whetherHasPdfReport,
         whetherOpenMsm: this.addTable.whetherOpenMsm
-        // "bannerExtensionUrl": "",
-        // "bannerLogo": "1",
-        // "createUser": "1",
-        // "extensionImageUrl": "1",
-        // "extensionLogoUrl": "1",
-        // "institutionAddr": "1",
-        // "institutionCode": "1111111",
-        // "institutionDesc": "1",
-        // "institutionExtensionUrl": "1",
-        // "institutionGradeId": "1",
-        // "institutionId": "1",
-        // "institutionLavelId": "1",
-        // "institutionName": "1",
-        // "medicalExamReportLogo": "1",
-        // "qrCodeUrl": "1",
-        // "registeredReservationAddr": "1",
-        // "status": 0,
-        // "timespan": "1",
-        // "updateUser": "1",
-        // "whetherAppShow": 1,
-        // "whetherDelete": 1,
-        // "whetherHasPdfReport": 1,
-        // "whetherOpenMsm": 1
       }
       console.log(params)
       PostInstitutionSave(params).then(response => {
@@ -616,34 +584,23 @@ export default {
           this.$alert(response.msg,this.title)
         }
       })
-      this.addTable = {
-        bannerExtensionUrl: '',
-        bannerLogo: '1',
-        createUser: '1',
-        extensionImageUrl: '',
-        extensionLogoUrl: '',
-        institutionAddr: '',
-        institutionCode: '',
-        institutionDesc: '1',
-        institutionExtensionUrl: '',
-        institutionGradeId: '1',
-        institutionId: '1',
-        institutionLavelId: '3',
-        institutionName: '',
-        medicalExamReportLogo: '',
-        qrCodeUrl: '1',
-        registeredReservationAddr: '1',
-        status: 0,
-        updateUser: '1',
-        whetherAppShow: 1,
-        whetherDelete: 1,
-        whetherHasPdfReport: 1,
-        whetherOpenMsm: 1
-      }
-      this.dialogAddVisible = false
+      this.handleCloseAdd()
     },
     //取消新增
     _doAddCancel() {
+      this.handleCloseAdd()
+      this.$message({
+        type: 'warning',
+        message: '取消新增'
+      })
+    },
+    handleCloseAdd() {
+      //新增弹窗重置数据
+      console.log('beforclose')
+      this.imageUrlDTLOGO = ""
+      this.imageUrlLOGO = ""
+      this.imageUrlBan = ""
+      this.imageUrlDT = ""
       this.addTable = {
         //重置新增数据为空
         bannerExtensionUrl: '',
@@ -670,10 +627,6 @@ export default {
         whetherOpenMsm: 1
       }
       this.dialogAddVisible = false
-      this.$message({
-        type: 'warning',
-        message: '取消新增'
-      })
     },
     // 查看
     handleCheck(index, row) {
@@ -759,6 +712,7 @@ export default {
     }
   },
   activated: function() {
+    this.upImgUrl = API_UPDATE_IMG
     this.getList()
   }
 }
@@ -897,6 +851,6 @@ export default {
 }
 .btn-row {text-align: center;padding-top: 20px;}
 .el-header,.el-main,.el-footer{
-  padding:0;
+  padding:0;min-width:500px
 }
 </style>

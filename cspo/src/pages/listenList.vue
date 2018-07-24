@@ -133,9 +133,8 @@
           </el-form-item>
           <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2">
             <el-col :span="16">
-              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="editTable_YYT.paperWork"></el-input>
+              <el-input type="textarea"  resize="none" :rows="5" v-model="editTable_YYT.paperWork"></el-input>
             </el-col>
-            <el-col :span="4" class="wordsnum">50字内</el-col>
 
           </el-form-item>
         </el-form>
@@ -198,9 +197,8 @@
           </el-form-item>
           <el-form-item class="is-required2" label="商品文案" :label-width="formLabelWidth2" prop="paperWork">
             <el-col :span="16">
-              <el-input type="textarea" maxlength="50" resize="none" :rows="5" v-model="addTable_YYT.paperWork"></el-input>
+              <el-input type="textarea" resize="none" :rows="5" v-model="addTable_YYT.paperWork"></el-input>
             </el-col>
-            <el-col :span="4" class="wordsnum">50字内</el-col>
 
           </el-form-item>
         </el-form>
@@ -284,10 +282,7 @@ export default {
           { required: true, message: '请选择绑定医生', trigger: 'change' }
         ],
         upyunUrl: [{ required: true, message: '请选择文件' }],
-        abnormalKeyWord: [
-          { required: true, message: '请填写异常指标关键词', trigger: 'blur' },
-          { max: 50, message: '50字内' }
-        ],
+        abnormalKeyWord: [{ required: true, message: '请填写异常指标关键词', trigger: 'blur' }],
         paperWork: [
           { required: true, message: '请输入商品文案', trigger: 'blur' }
         ]

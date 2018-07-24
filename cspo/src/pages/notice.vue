@@ -51,7 +51,7 @@
             </el-form-item>
             <el-form-item label="公告类型:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-select v-model="editTable.dictName" clearable placeholder="请选择公告状态">
+                <el-select v-model="editTable.dictName" clearable placeholder="请选择公告类型">
                   <el-option label="产品推广" value="1"></el-option>
                   <el-option label="版本升级" value="2"></el-option>
                 </el-select>
@@ -98,10 +98,10 @@
             </el-form-item>
             <el-form-item label="接收端:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-checkbox-group v-model="selectTable.noticeOsName">
-                  <el-checkbox label="运营端" onclick="return false"></el-checkbox>
-                  <el-checkbox label="医生端" onclick="return false"></el-checkbox>
-                  <el-checkbox label="企业端" onclick="return false"></el-checkbox>
+                <el-checkbox-group v-model="selectTable.createUser">
+                  <el-checkbox label="1" onclick="return false">运营端</el-checkbox>
+                  <el-checkbox label="2" onclick="return false">医生端</el-checkbox>
+                  <el-checkbox label="3" onclick="return false">企业端</el-checkbox>
                 </el-checkbox-group>
               </template>
             </el-form-item>
@@ -151,7 +151,7 @@
         <template>
           <el-table :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)" border style="width: 100%" id="app">
             <el-table-column show-overflow-tooltip align="center" prop="noticeTitle" label="公告标题"></el-table-column>
-            <el-table-column show-overflow-tooltip align="center" prop="noticeType" label="类型" min-width="100%"></el-table-column>
+            <el-table-column show-overflow-tooltip align="center" prop="dictName" label="类型" min-width="100%"></el-table-column>
             <el-table-column show-overflow-tooltip align="center" label="状态" width="100">
               <template slot-scope="scope">
                 <div slot="reference" class="name-wrapper">
@@ -167,10 +167,10 @@
             <el-table-column show-overflow-tooltip align="center" prop="createTime" label="最后更新时间"></el-table-column>
             <el-table-column align="center" label="操作" width="290">
               <template slot-scope="scope">
-                <el-button size="mini" type="primary" v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-                <el-button size="mini" type="success" v-if="scope.row.noticeStatus === '1'||scope.row.noticeStatus === '3'" @click="ReleaseMessage(scope.$index, scope.row)">发布</el-button>
-                <el-button size="mini" type="danger" v-if="scope.row.noticeStatus === '1'" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
-                <el-button size="mini" type="info" v-if="scope.row.noticeStatus === '2'" @click="RevokeMessage(scope.$index, scope.row)">撤销</el-button>
+                <el-button size="mini" type="primary" v-if="scope.row.noticeStatus === 1||scope.row.noticeStatus === 3" @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                <el-button size="mini" type="success" v-if="scope.row.noticeStatus === 1||scope.row.noticeStatus === 3" @click="ReleaseMessage(scope.$index, scope.row)">发布</el-button>
+                <el-button size="mini" type="danger" v-if="scope.row.noticeStatus === 1" @click="deleteMessage(scope.$index, scope.row)">删除</el-button>
+                <el-button size="mini" type="info" v-if="scope.row.noticeStatus === 2" @click="RevokeMessage(scope.$index, scope.row)">撤销</el-button>
                 <el-button size="mini" type="warning" @click="handleCheck(scope.$index, scope.row)">详情</el-button>
               </template>
             </el-table-column>
