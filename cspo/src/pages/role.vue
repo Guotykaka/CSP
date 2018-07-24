@@ -45,12 +45,12 @@
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth" v-model="sysRoleMenuListVOList">
               <el-col :span="8">
-                <el-tree v-show="flag1" :data="allmenuLista" show-checkbox node-key="menuId" v-bind:check-strictly="true" :default-checked-keys="sysRoleMenuListVOList.menuIdList" ref="tree1" highlight-current @check="handleCheck" :props="defaultProps">
+                <el-tree v-show="flag1" :data="allmenuLista" :default-expanded-keys='sysRoleMenuListVOList.menuIdList' show-checkbox node-key="menuId" v-bind:check-strictly="true" :default-checked-keys="sysRoleMenuListVOList.menuIdList" ref="tree1"  @check="handleCheck" :props="defaultProps">
                 </el-tree>
                  <!-- v-bind:check-strictly="true" -->
               </el-col>
               <el-col :span="8">
-                <el-tree v-show="flag2" :data="allmenuListb" show-checkbox node-key="menuId" v-bind:check-strictly="true" :default-checked-keys="sysRoleMenuListVOList.menuIdList" ref="tree2" highlight-current @check="handleCheck" :props="defaultProps">
+                <el-tree v-show="flag2" :data="allmenuListb" :default-expanded-keys='sysRoleMenuListVOList.menuIdList' show-checkbox node-key="menuId" v-bind:check-strictly="true" :default-checked-keys="sysRoleMenuListVOList.menuIdList" ref="tree2"  @check="handleCheck" :props="defaultProps">
                 </el-tree>
               </el-col>
               <el-col :span="5">
