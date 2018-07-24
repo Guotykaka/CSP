@@ -44,6 +44,7 @@ export const API_CLOSE_INS_LEAVE_WORDANSWER = baseUrl+'ins/insleavewordanswer/cl
 
 //系统管理
 export const API_POST_LIST_NOTICE = baseUrl+'sys/notice/list';//公告列表
+export const API_POST_INFO_NOTICE = baseUrl+'sys/notice/info';//公告详情
 export const API_POST_LIST_USER = baseUrl+'sys/user/list';//用户列表
 export const API_POST_INFO_USER = baseUrl+'sys/user/info';//查看用户
 

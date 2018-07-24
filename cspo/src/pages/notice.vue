@@ -36,6 +36,7 @@
           <el-form-item>
             <el-button type="primary" @click="handleReset()">重置</el-button>
             <el-button type="primary">搜索</el-button>
+            <el-button type="primary" @click="dialogCheckVisible = true">新增</el-button>
           </el-form-item>
         </el-form>
       </el-header>
@@ -194,7 +195,7 @@
 
 
 <script>
-import { getNoticeList } from '@/api/api.js'
+import { getNoticeList,getNoticeInfo } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -368,7 +369,17 @@ export default {
     },
     // 查看
     handleCheck(index, row) {
-      this.selectTable = row
+      let params = {
+        id: row.sysNoticeId,
+      }
+      getNoticeInfo(params).then(response => {
+        if (response.code == 1) {
+          this.selectTable = response.data
+        } else {
+          console.log(response.msg)
+        }
+
+      })
       this.dialogCheckVisible = true
     },
     // 修改

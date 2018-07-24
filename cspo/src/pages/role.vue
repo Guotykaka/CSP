@@ -45,11 +45,12 @@
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth" v-model="sysRoleMenuListVOList">
               <el-col :span="8">
-                <el-tree v-show="flag1" :data="allmenuLista" show-checkbox node-key="menuId" :default-checked-keys="sysRoleMenuListVOList.menuIdList" ref="tree1" highlight-current @check="handleCheck" :props="defaultProps">
+                <el-tree v-show="flag1" :data="allmenuLista" show-checkbox node-key="menuId" v-bind:check-strictly="true" :default-checked-keys="sysRoleMenuListVOList.menuIdList" ref="tree1" highlight-current @check="handleCheck" :props="defaultProps">
                 </el-tree>
+                 <!-- v-bind:check-strictly="true" -->
               </el-col>
               <el-col :span="8">
-                <el-tree v-show="flag2" :data="allmenuListb" show-checkbox node-key="menuId" :default-checked-keys="sysRoleMenuListVOList.menuIdList" ref="tree2" highlight-current @check="handleCheck" :props="defaultProps">
+                <el-tree v-show="flag2" :data="allmenuListb" show-checkbox node-key="menuId" v-bind:check-strictly="true" :default-checked-keys="sysRoleMenuListVOList.menuIdList" ref="tree2" highlight-current @check="handleCheck" :props="defaultProps">
                 </el-tree>
               </el-col>
               <el-col :span="5">
@@ -91,11 +92,11 @@
             </el-form-item>
             <el-form-item label="功能权限:" :label-width="formLabelWidth">
               <el-col :span="8">
-                <el-tree v-show="flag1" :data="allmenuLista"  show-checkbox node-key="menuId"  ref="treenew1" highlight-current @check="handleCheck" :props="defaultProps">
+                <el-tree v-show="flag1" :data="allmenuLista"  show-checkbox node-key="menuId" v-bind:check-strictly="true"  ref="treenew1" highlight-current @check="handleCheck" :props="defaultProps">
                 </el-tree>
               </el-col>
               <el-col :span="8">
-                <el-tree v-show="flag2" :data="allmenuListb"  show-checkbox node-key="menuId"  ref="treenew2" highlight-current @check="handleCheck" :props="defaultProps">
+                <el-tree v-show="flag2" :data="allmenuListb"  show-checkbox node-key="menuId" v-bind:check-strictly="true"  ref="treenew2" highlight-current @check="handleCheck" :props="defaultProps">
                 </el-tree>
               </el-col>
               <el-col :span="5">
@@ -226,11 +227,11 @@ export default {
   },
   methods: {
     handleCheck(val) {
-      console.log(val.list)
+      // console.log(val.list)
       // console.log(this.sysRoleMenuListVOList.menuIdList)
-      console.log(JSON.stringify(this.allmenuListb))
-      console.log(JSON.stringify(this.allmenuList))
-      // console.log(this.sysRoleMenuListVOList.menuIdList)
+      // console.log(JSON.stringify(this.allmenuListb))
+      // console.log(JSON.stringify(this.allmenuList))
+      console.log(this.sysRoleMenuListVOList.menuIdList)
     },
     //获取字典数据
     getdictionaryData() {
@@ -256,7 +257,7 @@ export default {
       //获取所有菜单
       getSysMenuByCategory(params2).then(res => {
         if (res.code === ERR_OK) {
-          this.allmenuListb = res.data
+          this.allmenuListB = res.data
         } else {
           this.$alert(res.msg, '提示', {
             confirmButtonText: '确定'
@@ -503,7 +504,7 @@ export default {
           
           
           this.chenge()
-          console.log(response.data)
+          // console.log(response.data)
           this.dialogEditVisible = true
         } else {
           this.$alert('无法修改', this.title)
@@ -511,7 +512,7 @@ export default {
       })
       this.inde = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
       this.editTableRoot = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
-      console.log(this.sysRoleMenuListVOList.category)
+      // console.log(this.sysRoleMenuListVOList.category)
       // this.editTable = row //复制单列数据
     },
     //确定修改
@@ -543,6 +544,7 @@ export default {
         menuTypeListDTO: [
           {
             menuIdList: menuIdList2,
+            // menuIdList: [0, 105, 107, 116, 56, 123, 131],
             roleType: 0,
             timespan: date
           }
@@ -584,13 +586,14 @@ export default {
         console.log(JSON.stringify(params3),"3")
         ss= params3
       }
-      console.log(JSON.stringify(ss),"ss")
+      // console.log(JSON.stringify(ss),"ss")
+      console.log(JSON.stringify(menuIdList2),"menuIdList2")
       PostUpdateRole(ss).then(response => {
         if (response.code == 1) {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
           this.getRoleList()
         } else {
-          this.$alert(response.msg)
+          this.$alert(response.msg,this.title)
         }
       })
       this.handleCloseEidt()
@@ -608,6 +611,7 @@ export default {
       //编辑弹窗重置数据
       // this.sysRoleMenuListVOList.menuIdList = []
       // this.sysRoleMenuListVOList.category = []
+      // this.getRoleList()
       console.log('beforclose')
       this.dialogEditVisible = false
     },
