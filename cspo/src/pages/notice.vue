@@ -10,7 +10,7 @@
           </el-form-item>
 
           <el-form-item label="请选择公告类型">
-            <el-select v-model="searchParams.noticeOs" clearable placeholder="请选择公告类型">
+            <el-select v-model="searchParams.noticeTypeQuery" clearable placeholder="请选择公告类型">
               <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
