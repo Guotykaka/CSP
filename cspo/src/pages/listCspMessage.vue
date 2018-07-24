@@ -36,7 +36,7 @@
           width="100"
           align="center"
           label="异常信息">
-          <template slot-scope="scopeO" name="message">
+          <template slot-scope="scopeO">
             <el-button @click="seeMessage(scopeO.row.message)" type="warning" size="mini">查看详情</el-button>
           </template>
         </el-table-column>
@@ -44,7 +44,7 @@
           width="100"
           align="center"
           label="附加信息">
-          <template slot-scope="scopeT" name="message">
+          <template slot-scope="scopeT">
             <el-button @click="seeAddMessage(scopeT.row.appendInfo)" type="primary" size="mini">查看详情</el-button>
           </template>
         </el-table-column>
@@ -98,8 +98,8 @@
     <el-dialog title="附加信息详情" :visible.sync="appendInfo" width="80%">
       <el-card class="box-card" v-if="appendInfoDetail">
         {
-        <div v-for="(item,key) in appendInfoDetail" :key="item.codeKey" class="text item">
-          <span>{{key}}</span>&nbsp;:&nbsp;<span style="word-break: break-all;">{{item}}</span>
+        <div v-for="(item,key) in appendInfoDetail" :key="key" class="text item">
+          <span>"{{key}}"</span>&nbsp;:&nbsp;<span style="word-break: break-all;">"{{item}}"</span>,
         </div>
         }
       </el-card>

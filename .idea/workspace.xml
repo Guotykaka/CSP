@@ -2,15 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f3fa42e4-9b1d-48db-bb3e-22c3cc85b872" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/cspd/src/pages/freeImg.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspd/src/asset/iconfont/iconfont.css" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/asset/iconfont/iconfont.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspd/src/asset/iconfont/iconfont.eot" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/asset/iconfont/iconfont.eot" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspd/src/asset/iconfont/iconfont.ttf" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/asset/iconfont/iconfont.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspd/src/asset/iconfont/iconfont.woff" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/asset/iconfont/iconfont.woff" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cspd/src/pages/manage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/pages/manage.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspd/src/store/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/cspd/src/store/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cspo/src/config/env.js" beforeDir="false" afterPath="$PROJECT_DIR$/cspo/src/config/env.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cspo/src/pages/listCspMessage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/cspo/src/pages/listCspMessage.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -24,21 +19,64 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="listCspMessage.vue" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/cspo/src/pages/listCspMessage.vue">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="81" column="23" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
-              <folding>
-                <element signature="n#style#0;n#el-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#div#0;n#el-card#0;n#el-dialog#2;n#div#0;n#template#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file leaf-file-name="imgText_consult.vue" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="96">
+                  <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
+                  <folding>
+                    <element signature="n#style#0;n#li#5;n#ul#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#button#1;n#div#0;n#li#6;n#ul#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="e#10814#10856#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file leaf-file-name="manage.vue" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/cspd/src/pages/manage.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="527">
+                  <caret line="273" column="3" selection-start-line="273" selection-start-column="3" selection-end-line="273" selection-end-column="13" />
+                  <folding>
+                    <element signature="n#style#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#el-col#0;n#el-row#0;n#el-aside#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#el-breadcrumb-item#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#img#0;n#span#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="freeImg.vue" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/cspd/src/pages/freeImg.vue">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="183">
+                  <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+                  <folding>
+                    <element signature="n#style#0;n#el-form#0;n#el-dialog#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+                    <element signature="e#11035#11077#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -52,22 +90,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>control-label</find>
-      <find>sel-card-body</find>
-      <find>gray-bg</find>
-      <find>fade</find>
-      <find>showList</find>
-      <find>replayMain</find>
-      <find>searchParams</find>
-      <find>list</find>
-      <find>btnAdd</find>
-      <find>_getList</find>
-      <find>storeManager</find>
-      <find>addTextarea</find>
-      <find>listCspMessage</find>
-      <find>_checkDetail</find>
-      <find>userId</find>
-      <find>userInfo</find>
       <find>_getAnnouncement</find>
       <find>alert</find>
       <find>formInline</find>
@@ -82,6 +104,22 @@
       <find>handleSelect</find>
       <find>API_QUERY_DOCTOR_APPLY_INFO</find>
       <find>getApplyInfo</find>
+      <find>uptext</find>
+      <find>upImgurl</find>
+      <find>activeName</find>
+      <find>currentPage4</find>
+      <find>currentPage</find>
+      <find>headerTop</find>
+      <find>orderList</find>
+      <find>length</find>
+      <find>formLabelWidth</find>
+      <find>updataeTradeDetail</find>
+      <find>detailText</find>
+      <find>maskShow</find>
+      <find>detailShow</find>
+      <find>codeKey</find>
+      <find>form</find>
+      <find>val</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -90,7 +128,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/cspd/src/App.vue" />
         <option value="$PROJECT_DIR$/cspd/src/pages/tel_consult.vue" />
         <option value="$PROJECT_DIR$/cspo/src/api/getData.js" />
         <option value="$PROJECT_DIR$/cspo/src/main.js" />
@@ -124,7 +161,6 @@
         <option value="$PROJECT_DIR$/cspo/src/components/headTop.vue" />
         <option value="$PROJECT_DIR$/cspd/src/api/api.js" />
         <option value="$PROJECT_DIR$/cspd/src/config/env.js" />
-        <option value="$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue" />
         <option value="$PROJECT_DIR$/cspd/src/pages/announcement/annoDetail.vue" />
         <option value="$PROJECT_DIR$/cspd/src/pages/imgText_consult/tablemain.vue" />
         <option value="$PROJECT_DIR$/cspd/src/pages/announcement.vue" />
@@ -138,9 +174,11 @@
         <option value="$PROJECT_DIR$/cspo/src/pages/orderList.vue" />
         <option value="$PROJECT_DIR$/cspo/src/config/env.js" />
         <option value="$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue" />
-        <option value="$PROJECT_DIR$/cspd/src/pages/manage.vue" />
         <option value="$PROJECT_DIR$/cspd/src/store/index.js" />
         <option value="$PROJECT_DIR$/cspo/src/pages/listCspMessage.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/manage.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue" />
+        <option value="$PROJECT_DIR$/cspd/src/pages/freeImg.vue" />
       </list>
     </option>
   </component>
@@ -177,6 +215,49 @@
             <path>
               <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
               <item name="CSP" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSP" type="462c0819:PsiDirectoryNode" />
+              <item name="cspd" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSP" type="462c0819:PsiDirectoryNode" />
+              <item name="cspd" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSP" type="462c0819:PsiDirectoryNode" />
+              <item name="cspd" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSP" type="462c0819:PsiDirectoryNode" />
+              <item name="cspo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSP" type="462c0819:PsiDirectoryNode" />
+              <item name="cspo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSP" type="462c0819:PsiDirectoryNode" />
+              <item name="cspo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="CSP" type="b2602c69:ProjectViewProjectNode" />
+              <item name="CSP" type="462c0819:PsiDirectoryNode" />
+              <item name="cspo" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="pages" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -220,20 +301,16 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/src/router/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/api/api.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/index.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/src/config/env.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/src/pages/do_apply.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/index.html</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/components/headTop.vue</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/config/env.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/doctorList.vue</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/identificationList.vue</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/login.vue</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/main.vue</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/manage.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/institution.vue</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/listenList.vue</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/notice.vue</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/refundsList.vue</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/role.vue</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/withdrawList.vue</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/router/index.js</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/store/index.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/src/pages/service_info.vue</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -241,6 +318,8 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/logo.jpg</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/logo.jpg</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -248,6 +327,216 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="true" />
           <option name="myId" value="REMOVED_FROM_REPOSITORY" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/layui.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/layui.mobile.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/modules/code.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/modules/laydate/default/laydate.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/modules/layer/default/icon-ext.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/modules/layer/default/icon.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/modules/layer/default/layer.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/modules/layer/default/loading-0.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/modules/layer/default/loading-1.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/css/modules/layer/default/loading-2.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/font/iconfont.eot</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/font/iconfont.svg</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/font/iconfont.ttf</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/font/iconfont.woff</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/0.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/1.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/10.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/11.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/12.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/13.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/14.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/15.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/16.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/17.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/18.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/19.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/2.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/20.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/21.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/22.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/23.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/24.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/25.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/26.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/27.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/28.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/29.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/3.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/30.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/31.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/32.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/33.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/34.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/35.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/36.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/37.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/38.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/39.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/4.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/40.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/41.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/42.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/43.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/44.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/45.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/46.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/47.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/48.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/49.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/5.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/50.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/51.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/52.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/53.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/54.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/55.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/56.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/57.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/58.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/59.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/6.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/60.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/61.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/62.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/63.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/64.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/65.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/66.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/67.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/68.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/69.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/7.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/70.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/71.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/8.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/images/face/9.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/carousel.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/code.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/element.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/flow.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/form.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/jquery.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/laydate.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/layedit.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/layer.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/laypage.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/laytpl.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/mobile.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/rate.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/table.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/tree.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/upload.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/lay/modules/util.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/layui.all.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspd/static/layui/layui.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/layui.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/layui.mobile.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/modules/code.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/modules/laydate/default/laydate.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/modules/layer/default/icon-ext.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/modules/layer/default/icon.png</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/modules/layer/default/layer.css</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/modules/layer/default/loading-0.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/modules/layer/default/loading-1.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/css/modules/layer/default/loading-2.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/font/iconfont.eot</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/font/iconfont.svg</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/font/iconfont.ttf</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/font/iconfont.woff</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/0.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/1.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/10.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/11.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/12.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/13.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/14.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/15.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/16.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/17.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/18.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/19.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/2.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/20.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/21.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/22.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/23.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/24.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/25.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/26.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/27.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/28.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/29.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/3.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/30.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/31.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/32.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/33.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/34.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/35.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/36.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/37.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/38.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/39.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/4.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/40.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/41.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/42.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/43.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/44.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/45.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/46.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/47.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/48.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/49.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/5.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/50.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/51.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/52.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/53.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/54.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/55.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/56.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/57.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/58.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/59.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/6.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/60.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/61.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/62.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/63.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/64.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/65.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/66.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/67.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/68.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/69.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/7.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/70.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/71.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/8.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/images/face/9.gif</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/carousel.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/code.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/element.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/flow.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/form.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/jquery.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/laydate.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/layedit.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/layer.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/laypage.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/laytpl.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/mobile.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/rate.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/table.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/tree.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/upload.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/lay/modules/util.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/layui.all.js</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/cspo/static/layui/layui.js</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Restored" />
@@ -368,7 +657,7 @@
       <workItem from="1531702255059" duration="39002000" />
       <workItem from="1531789197292" duration="154204000" />
       <workItem from="1532307783164" duration="39565000" />
-      <workItem from="1532394542881" duration="12121000" />
+      <workItem from="1532394542881" duration="19679000" />
     </task>
     <task id="LOCAL-00001" summary="医生端首次上传">
       <created>1530234570518</created>
@@ -587,11 +876,18 @@
       <option name="project" value="LOCAL" />
       <updated>1532393860604</updated>
     </task>
-    <option name="localTasksCounter" value="32" />
+    <task id="LOCAL-00032" summary="去bug5&amp;日志管理3">
+      <created>1532411452381</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1532411452381</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="542337000" />
+    <option name="totallyTimeSpent" value="549895000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -671,7 +967,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="接口请求" />
     <MESSAGE value="接口请求2" />
     <MESSAGE value="接口请求3" />
     <MESSAGE value="接口请求4" />
@@ -696,7 +991,8 @@
     <MESSAGE value="去bug4" />
     <MESSAGE value="去bug5&amp;日志管理" />
     <MESSAGE value="去bug5&amp;日志管理2" />
-    <option name="LAST_COMMIT_MESSAGE" value="去bug5&amp;日志管理2" />
+    <MESSAGE value="去bug5&amp;日志管理3" />
+    <option name="LAST_COMMIT_MESSAGE" value="去bug5&amp;日志管理3" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -704,7 +1000,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cspo/src/asset/img/7.jpg" />
     <entry file="file://$PROJECT_DIR$/cspo/src/asset/img/8.jpg" />
     <entry file="file://$PROJECT_DIR$/cspo/src/asset/img/add-icon.png" />
     <entry file="file://$PROJECT_DIR$/cspo/src/asset/img/appCodeIMg.jpg" />
@@ -774,13 +1069,6 @@
           <folding>
             <element signature="n#style#0;n#el-input#0;n#li#2;n#ul#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="304" column="31" lean-forward="true" selection-start-line="304" selection-start-column="31" selection-end-line="304" selection-end-column="31" />
         </state>
       </provider>
     </entry>
@@ -895,13 +1183,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspo/src/config/env.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="19" column="41" lean-forward="true" selection-start-line="19" selection-start-column="41" selection-end-line="19" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cspd/src/pages/indentification_baseInfo.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
@@ -909,14 +1190,6 @@
           <folding>
             <element signature="e#2331#2384#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/config/env.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
-          <caret line="48" column="40" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="40" />
-          <caret line="46" column="32" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -940,24 +1213,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cspd/src/pages/manage.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="269">
-          <caret line="200" column="7" lean-forward="true" selection-start-line="200" selection-start-column="7" selection-end-line="200" selection-end-column="7" />
-          <folding>
-            <element signature="n#style#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-col#0;n#el-row#0;n#el-aside#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-breadcrumb-item#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#span#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
-            <element signature="e#4135#4178#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/cspd/src/pages/login.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="346">
@@ -970,13 +1225,72 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/config/env.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="849">
+          <caret line="48" column="40" selection-start-line="48" selection-start-column="13" selection-end-line="48" selection-end-column="40" />
+          <caret line="46" column="32" selection-start-line="46" selection-start-column="32" selection-end-line="46" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspo/src/config/env.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/cspo/src/pages/listCspMessage.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="81" column="23" selection-start-line="81" selection-start-column="23" selection-end-line="81" selection-end-column="23" />
+        <state relative-caret-position="552">
+          <caret line="101" column="100" selection-start-line="101" selection-start-column="100" selection-end-line="101" selection-end-column="100" />
           <folding>
             <element signature="n#style#0;n#el-table#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#3642#3648#0" expanded="true" />
+            <element signature="e#3649#3655#0" expanded="true" />
             <element signature="n#style#0;n#span#1;n#div#0;n#el-card#0;n#el-dialog#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/manage.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="273" column="3" selection-start-line="273" selection-start-column="3" selection-end-line="273" selection-end-column="13" />
+          <folding>
+            <element signature="n#style#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-aside#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-col#0;n#el-row#0;n#el-aside#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-breadcrumb-item#0;n#el-breadcrumb#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#span#0;n#el-dropdown#0;n#template#0;n#el-menu-item#3;n#el-menu#0;n#el-header#0;n#el-container#0;n#el-container#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/freeImg.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="183">
+          <caret line="27" column="20" selection-start-line="27" selection-start-column="20" selection-end-line="27" selection-end-column="20" />
+          <folding>
+            <element signature="n#style#0;n#el-form#0;n#el-dialog#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#11035#11077#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cspd/src/pages/imgText_consult.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="96">
+          <caret line="67" column="26" lean-forward="true" selection-start-line="67" selection-start-column="26" selection-end-line="67" selection-end-column="26" />
+          <folding>
+            <element signature="n#style#0;n#li#5;n#ul#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#button#1;n#div#0;n#li#6;n#ul#0;n#div#0;n#div#0;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#2;n#div#0;n#template#0;n#!!top" expanded="true" />
+            <element signature="e#10814#10856#0" expanded="true" />
           </folding>
         </state>
       </provider>

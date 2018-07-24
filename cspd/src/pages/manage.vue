@@ -271,6 +271,9 @@
 </style>
 <style scoped lang="less">
   /*我的样式*/
+  .nav-t-icon{
+    color: #b8c7ce;
+  }
   .manage_page {
     height: 100%;
     .homeTitle {

@@ -1,59 +1,31 @@
 <template>
   <div class="imgText_consult imgtext-main" v-cloak>
-<!--    <el-dialog title="详细信息" :visible.sync="maskShow" width="60%" center>
-      <el-form :model="detailText" :label-width="formLabelWidth" style="width:80%;">
-        <el-form-item label="客户手机号：">
-          <span>{{detailText.mobile||"暂无数据"}}</span>
-        </el-form-item>
-        <el-form-item label="订单号：">
-          <span>{{detailText.orderCode||"暂无数据"}}</span>
-        </el-form-item>
-        <el-form-item label="服务名称：">
-          <span>{{detailText.itemName||"暂无数据"}}</span>
-        </el-form-item>
-        <el-form-item label="订单日期：">
-          <span>{{detailText.orderTime||"暂无数据"}}</span>
-        </el-form-item>
-        <el-form-item label="订单金额：">
-          <span>{{detailText.totalPrice||"暂无数据"}}</span>
-        </el-form-item>
-        <el-form-item label="备注：">
-          <el-input type="textarea" v-model="updataeTradeDetail" :autosize="sizeText" placeholder="输入备注信息，可以帮助您快速回顾历史服务内容"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click.stop="detailClose">取 消</el-button>
-        <el-button type="primary" @click.stop="detailSave">保 存</el-button>
-      </div>
-    </el-dialog>-->
-    <div class="detail-mask" @click.stop="detailClose" v-if="maskShow">
-      <div class="mask-circle" @click.stop>
-        <div class="mask-header">
-          <span class="fl">详细</span>
-          <span class="fr closeIcon" @click.stop="detailClose">X</span>
-        </div>
-        <ul class="mask-main">
-          <li><span class="fle1">客户手机号</span><span class="fle2">{{detailText.mobile||"暂无数据"}}</span></li>
-          <li><span class="fle1">订单号</span><span class="fle2">{{detailText.orderCode||"暂无数据"}}</span></li>
-          <li><span class="fle1">服务名称</span><span class="fle2">{{detailText.itemName||"暂无数据"}}</span></li>
-          <li><span class="fle1">订单日期</span><span class="fle2">{{detailText.orderTime||"暂无数据"}}</span></li>
-          <li><span class="fle1">订单金额</span><span class="fle2">￥{{detailText.totalPrice||"暂无数据"}}</span></li>
-          <!--<li><span class="fle1">首次咨询时间</span><span class="fle2">{{detailText.serviceBeginTime||"暂无数据"}}</span></li>-->
-          <li style="height:120px;"><span class="fle1">备注</span>
-            <div class="fle2">
-            <textarea class="flinput" type="text" v-model="updataeTradeDetail"
-                      placeholder="输入备注信息，可以帮助您快速回顾历史服务内容"></textarea>
-            </div>
-          </li>
-          <li><span class="fle1"></span>
-            <div class="fle2">
-              <button class="flbtn" @click.stop="detailSave">保存</button>
-              <button class="flbtn" @click.stop="detailClose" style="background-color:#c7254e">取消</button>
-            </div>
-          </li>
-        </ul>
-      </div>
-    </div>
+        <el-dialog title="详细信息" :visible.sync="maskShow" width="60%" center>
+          <el-form :model="detailText" :label-width="formLabelWidth" style="width:80%;">
+            <el-form-item label="客户手机号：">
+              <span>{{detailText.mobile||"暂无数据"}}</span>
+            </el-form-item>
+            <el-form-item label="订单号：">
+              <span>{{detailText.orderCode||"暂无数据"}}</span>
+            </el-form-item>
+            <el-form-item label="服务名称：">
+              <span>{{detailText.itemName||"暂无数据"}}</span>
+            </el-form-item>
+            <el-form-item label="订单日期：">
+              <span>{{detailText.orderTime||"暂无数据"}}</span>
+            </el-form-item>
+            <el-form-item label="订单金额：">
+              <span>{{detailText.totalPrice||"暂无数据"}}</span>
+            </el-form-item>
+            <el-form-item label="备注：">
+              <el-input type="textarea" v-model="updataeTradeDetail" :autosize="sizeText" placeholder="输入备注信息，可以帮助您快速回顾历史服务内容"></el-input>
+            </el-form-item>
+          </el-form>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click.stop="detailClose">取 消</el-button>
+            <el-button type="primary" @click.stop="detailSave">保 存</el-button>
+          </div>
+        </el-dialog>
     <div class="consult-header">
       <ul>
         <li><span>总订单:{{orderNumber.allCount||0}}单</span></li>
