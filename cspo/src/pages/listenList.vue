@@ -95,7 +95,7 @@
           <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2">
             <template slot-scope="scope">
               <el-col :span="16">
-                <el-select v-model="editTable_YYT.insDoctorId" clearable placeholder="请绑定医生">
+                <el-select v-model="editTable_YYT.insDoctorId" clearable placeholder="请绑定医生" filterable>
                   <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">
                   </el-option>
                 </el-select>
@@ -155,7 +155,7 @@
           <el-form-item class="is-required2" label="绑定医生" :label-width="formLabelWidth2" prop="insDoctorId">
             <template slot-scope="scope">
               <el-col :span="16">
-                <el-select v-model="addTable_YYT.insDoctorId" clearable placeholder="请绑定医生">
+                <el-select v-model="addTable_YYT.insDoctorId" clearable placeholder="请绑定医生" filterable>
                   <el-option v-for="item in Doclist" :key="item.insDoctorId" :label="item.name" :value="item.insDoctorId">
                   </el-option>
                   <!-- <el-select v-model="editTable_YYT.insDoctorId" clearable placeholder="请绑定医生">

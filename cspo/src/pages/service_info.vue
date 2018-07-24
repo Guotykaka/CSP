@@ -11,12 +11,12 @@
           <el-form :model="searchParams" :inline="true" class="demo-form-inline">
             <el-col :span="8">
           <el-form-item label="服务名称：">
-         <el-input v-model="searchParams.name" placeholder="服务名称" @keyup.enter.native="doSearch()" clearable class="inpwidth"></el-input>
+         <el-input v-model="searchParams.name" placeholder="服务名称" @keyup.enter.native="doSearch()" clearable></el-input>
           </el-form-item>
             </el-col>
              <el-col :span="8">
           <el-form-item label="请选择角色：">
-              <el-select v-model="searchParams.role" clearable placeholder="请选择角色"  class="inpwidth">
+              <el-select v-model="searchParams.role" clearable placeholder="请选择角色">
                 <el-option v-for="item in RoleList" :key="item.roleId" :label="item.roleName" :value="item.roleId">
                 </el-option>
               </el-select>
@@ -980,9 +980,9 @@ export default {
 }
 </style>
 <style lang="less">
- .inpwidth .el-input__inner{
-   width: 200%;
- }
+//  .inpwidth .el-input__inner{
+//    width: 200%;
+//  }
 .el-form-item {
   &.is-required2 {
     .el-form-item__label {
