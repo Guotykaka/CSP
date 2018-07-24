@@ -36,7 +36,6 @@
             :default-active="defaultActive"
             class="el-menu-demo"
             mode="horizontal"
-            @select="handleSelect"
             background-color="#3c8dbc"
             text-color="#fff"
             style="float:right"
@@ -199,10 +198,7 @@
             this.allCount = counts;
           }
         })
-      },
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
+      }
     },
     computed: {
       defaultActive: function () {
@@ -250,18 +246,6 @@
   body > .el-container {
     margin-bottom: 40px;
   }
-
-  /*
-    .el-container:nth-child(5) .el-aside,
-    .el-container:nth-child(6) .el-aside {
-      line-height: 260px;
-    }
-
-    .el-container:nth-child(7) .el-aside {
-      line-height: 320px;
-    }
-  */
-
   /*容器样式end*/
   /*面包屑start*/
   .header_container {
@@ -301,7 +285,8 @@
 
     .iconfont {
       font-size: 18px;
-      margin-right: 5px;
+      margin-right: 8px;
+      margin-left: 3px;
     }
     /*小圆标*/
     .iconStyle {

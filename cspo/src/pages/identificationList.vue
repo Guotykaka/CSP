@@ -292,7 +292,7 @@
       },
       createFilter(queryString) {
         return (restaurant) => {
-          return (restaurant.institutionName.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+          return (restaurant.institutionName.toLowerCase().indexOf(queryString.toLowerCase()) >= 0);
         };
       },
 

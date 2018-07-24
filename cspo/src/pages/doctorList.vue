@@ -407,13 +407,13 @@ export default {
 
     //自带搜索组件搜索
     querySearch(queryString, cb) {
-      var institutions = this.getInstitutionArr;
-      var results = queryString ? institutions.filter(this.createFilter(queryString)) : institutions;
+      let institutions = this.getInstitutionArr;
+      let results = queryString ? institutions.filter(this.createFilter(queryString)) : institutions;
       cb(results);
     },
     createFilter(queryString) {
       return (restaurant) => {
-        return (restaurant.institutionName.toLowerCase().indexOf(queryString.toLowerCase()) === 0);
+        return (restaurant.institutionName.toLowerCase().indexOf(queryString.toLowerCase()) >= 0);
       };
     },
 

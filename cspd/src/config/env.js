@@ -12,8 +12,8 @@ let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
    baseUrl = 'http://172.0.0.41:8117/cspd/';
-  //baseUrl = 'http://10.50.50.117:8117/cspd/';
-  // baseUrl = 'http://HZ2WZSG82:8117/cspd/';
+   //baseUrl = 'http://10.50.50.117:8117/cspd/';
+   // baseUrl = 'http://HZ2WZSG82:8117/cspd/';
   baseImgPath = '/img/';
 }else{
   baseUrl = 'http://172.0.0.41:8117/cspd/';
@@ -95,11 +95,11 @@ export const API_INS_USER_UPDATE = baseUrl+'doctor/ins/usernewsreal/update';//�
 export const API_INS_UPDATE_BATCH = baseUrl+'doctor/ins/usernewsreal/updateBatch';//按类型更新用户消息为已读状态
 
 /*补充菜单*/
-
 export const API_DOCTOR_NAV = baseUrl+'doctor/nav';//获取左侧导航菜单
 export const API_SYS_DICTIONARY_BYKEY = baseUrl+'doctor/sys/getDictionaryByKey';//根据key获取字典列表数据详情
 export const API_SYS_NOTICE_IFNO = baseUrl+'doctor/sysnotice/getSysNoticeInfo';//getSysNoticeInfo
 export const API_SYS_SYSNOTICE_LIST = baseUrl+'doctor/sysnotice/list';//医生端系统公告表列表
+
 
 
 
