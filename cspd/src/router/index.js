@@ -107,7 +107,8 @@ router.beforeEach((to, from, next) => {
     if(to.fullPath==='/' || to.fullPath==='/doApply' || to.fullPath==='/indenBaseInfo'){
       next()
     }else {
-      next(false)
+      next(false);
+      alert('请先认证')
     }
   }else {
     next();

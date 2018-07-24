@@ -129,7 +129,7 @@
       handleCommand(command){
         if(command==='baseInfo'){
           //个人中心
-          this.$router.push('/indetification')
+          this.$router.push('/indenBaseInfo')
 
         }else if(command==='changePass'){
           //修改密码

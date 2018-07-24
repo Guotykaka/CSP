@@ -16,6 +16,7 @@ if (process.env.NODE_ENV == 'development') {
    // baseUrl = 'http://HZ2WZSG82:8117/cspd/';
   baseImgPath = '/img/';
 }else{
+  // baseUrl = 'http://webapi.ybzstj.com/cspd/';
   baseUrl = 'http://172.0.0.41:8117/cspd/';
   baseImgPath = '/img/';
 }
