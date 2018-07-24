@@ -9,20 +9,13 @@ const state = {
 
   unReadNewsList:[],//未读消息列表
   //医生角色列表
-  doctorRolesList:[
-    {roleId:4,roleCode:"123",roleName:"医生角色",remark:"医生角色账号设置",deptId:11,deptName:null,menuIdList:null,deptIdList:null,createTime:"2018-06-22 11:41:55",roleType:"0"},
-    {roleId:29,roleCode:"003",roleName:"健管师",remark:"健管部门",deptId:11,deptName:null,menuIdList:null,deptIdList:null,createTime:"2018-06-22 16:00:33",roleType:"1,0"},
-    {roleId:30,roleCode:"004",roleName:"医生主任",remark:"医生主任",deptId:null,deptName:null,menuIdList:null,deptIdList:null,createTime:"2018-06-20 17:01:31",roleType:"0"},
-    {roleId:32,roleCode:"sy-js",roleName:"邵勇-角色",remark:"邵勇-角色",deptId:null,deptName:null,menuIdList:null,deptIdList:null,createTime:"2018-07-02 16:58:57",roleType:"0"},
-    {roleId:37,roleCode:564,roleName:567,remark:"风帆股份给黑",deptId:null,deptName:null,menuIdList:null,deptIdList:null,createTime:"2018-06-29 09:31:33",roleType:"1,0"}
-  ],
-
+  doctorRolesList:[],
   //机构列表信息
   institutionArr:[],
   refundDetail:{},//退款列表订单信息
   customerDetail:{},//订单列表信息
   refuseOrderInfo:{},//退款订单详情
-}
+};
 
 
 const getters={
@@ -66,9 +59,7 @@ const getters={
   getRefuseInfo(state){
     return state.refuseOrderInfo;
   }
-
-
-}
+};
 
 
 const mutations = {
@@ -85,8 +76,8 @@ const mutations = {
 
   //设置医生角色列表
   setDoctorRolesList:function (state,lists) {
-    state.doctorRolesList.length=0;
-    state.doctorRolesList.concat(lists)
+
+    state.doctorRolesList=lists;
   },
 
   //设置机构列表
