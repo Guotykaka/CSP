@@ -40,7 +40,7 @@
         }
       },
     created(){
-        this.refreshImg();
+      this.refreshImg();
       localStorage.clear();
     },
       methods:{
@@ -61,7 +61,7 @@
 
         //刷新验证码
         refreshImg:function () {
-          var params = new Date();
+          let params = new Date();
           this.loginParams.codeKey = params.getTime().toString();
           this.loginParams.timespan = params.getTime().toString();
           this.imgUrl = baseUrl+"sys/user/captcha.jpg/"+this.loginParams.codeKey
