@@ -4,38 +4,50 @@
     <div class="page-container">
       <el-header height="30">
         <!-- 操作行-->
-        <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form :inline="true" :model="searchParams" class="demo-form-inline">
           <el-form-item label="公告标题">
-            <el-input v-model="formInline.valueBT" placeholder="公告标题" clearable></el-input>
+            <el-input v-model="searchParams.noticeTitleQuery" placeholder="公告标题" clearable></el-input>
           </el-form-item>
 
           <el-form-item label="请选择公告类型">
-            <el-select v-model="formInline.valueLX" clearable placeholder="请选择公告类型">
+            <el-select v-model="searchParams.noticeOs" clearable placeholder="请选择公告类型">
               <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="请选择公告状态">
-            <el-select v-model="formInline.valueZT" clearable placeholder="请选择公告状态">
+            <el-select v-model="searchParams.noticeStatus" clearable placeholder="请选择公告状态">
               <el-option v-for="item in formInline.optionsZT" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="创建人">
-            <el-input v-model="formInline.valueCJR" placeholder="创建人" clearable></el-input>
+            <el-input v-model="searchParams.userName" placeholder="创建人" clearable></el-input>
           </el-form-item>
-          <el-form-item label="创建开始时间">
-            <el-date-picker v-model="formInline.valueKS" align="right" type="date" placeholder="创建开始时间" :picker-options="formInline.pickerOptions">
+          <!-- <el-form-item label="创建开始时间">
+            <el-date-picker v-model="this.searchParams.startTime" align="right" type="date" placeholder="创建开始时间" :picker-options="formInline.pickerOptions">
             </el-date-picker>
           </el-form-item>
           <el-form-item label="创建结束时间">
-            <el-date-picker v-model="formInline.valueJS" align="right" type="date" placeholder="创建结束时间" :picker-options="formInline.pickerOptions">
+            <el-date-picker v-model="this.searchParams.endTime" align="right" type="date" placeholder="创建结束时间" :picker-options="formInline.pickerOptions">
             </el-date-picker>
+          </el-form-item> -->
+          <el-form-item label="时间">
+            <el-date-picker
+            v-model="rangeTime"
+            type="daterange"
+            format="yyyy-MM-dd"
+            value-format="yyyy-MM-dd"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
           </el-form-item>
+          
 
           <el-form-item>
             <el-button type="primary" @click="handleReset()">重置</el-button>
-            <el-button type="primary">搜索</el-button>
+            <el-button type="primary" @click="doSearch()">搜索</el-button>
             <el-button type="primary" @click="dialogCheckVisible = true">新增</el-button>
           </el-form-item>
         </el-form>
@@ -181,8 +193,8 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
-              <!-- <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.page" :page-sizes="[10,20]" :page-size="searchParams.limit" layout="total, sizes, prev, pager, next, jumper" :total="totalCount"> -->
+              <!-- <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount"> -->
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
               </el-pagination>
             </template>
           </el-col>
@@ -203,28 +215,29 @@ export default {
   },
   data() {
     return {
+      rangeTime:"",//时间range
       formInline: {
         optionsLX: [
           {
-            value: '选项1',
+            value: 'NOTICE_TYPE_VERSION_UPGRADES',
             label: '版本升级'
           },
           {
-            value: '选项2',
+            value: 'NOTICE_TYPE_PRODUCT_PROMOTION',
             label: '产品推广'
           }
         ],
         optionsZT: [
           {
-            value: '选项1',
+            value: '1',
             label: '待发布'
           },
           {
-            value: '选项2',
+            value: '2',
             label: '已发布'
           },
           {
-            value: '选项3',
+            value: '3',
             label: '已撤销'
           }
         ],
@@ -265,15 +278,15 @@ export default {
         valueJS: ''
       },
       searchParams: {
-        customerMobile: "",//手机号
-        customerName: "",//姓名
-        doctorName: "",//医生姓名
-        institutionName: "",//机构名称
+        currentPage: 1,
+        endTime: "",
+        noticeOs: "",
+        noticeStatus: "",
+        noticeTitleQuery: "",
         pageSize: 10,
-        page: 1,
-        serviceId: "",//服务名称的id
-        refundStatus:null,//服务状态
-        tradeCode: ""//订单号
+        selectedNoticeTypeQuery: "",
+        startTime: "",
+        userName: "",
       },
       currentPage: 1, //分页初始页码
       pagesize: 10, //分页初始显示条数
@@ -307,20 +320,31 @@ export default {
   methods: {
     handleReset() {
       //重置按钮
-      this.formInline.valueCJR = '';
-      this.formInline.valueBT = '';
-      this.formInline.valueLX = '';
-      this.formInline.valueZT = '';
-      this.formInline.valueKS = '';
-      this.formInline.valueJS = '';
+      this.rangeTime="";
+      this.searchParams = {
+        currentPage: 1,
+        endTime: "",
+        noticeOs: "",
+        noticeStatus: "",
+        noticeTitleQuery: "",
+        pageSize: 10,
+        selectedNoticeTypeQuery: "",
+        startTime: "",
+        userName: "",
+      }
+      
+    },
+    doSearch() {
+      this.searchParams.currentPage = 1
+      this.getList()
     },
     handleSizeChange: function(size) {
-      this.pagesize = size
-      console.log(`每页 ${size} 条`)
+      this.searchParams.pageSize = size
+      this.getList()
     },
     handleCurrentChange: function(currentPage) {
-      this.currentPage = currentPage
-      console.log(`当前页: ${currentPage}`)
+      this.searchParams.currentPage = currentPage
+      this.getList()
     },
 
     // 新增
@@ -481,28 +505,30 @@ export default {
           })
         })
     },
-    //获取用户列表
+    //获取公告列表
     getList() {
+      this.searchParams.startTime=this.rangeTime ? this.rangeTime[0] :"";
+      this.searchParams.endTime=this.rangeTime ? this.rangeTime[1] :"";
       let params = {
-        currentPage: 1,
-        endTime: '',
-        noticeOs: '',
-        noticeStatus: '',
-        noticeTitleQuery: '',
-        pageSize: 1000,
-        selectedNoticeTypeQuery: '',
-        startTime: '',
-        userName: ''
+        currentPage: this.searchParams.currentPage,
+        endTime: this.searchParams.endTime,
+        noticeOs: this.searchParams.noticeOs,
+        noticeStatus: this.searchParams.noticeStatus,
+        noticeTitleQuery: this.searchParams.noticeTitleQuery,
+        pageSize: this.searchParams.pageSize,
+        selectedNoticeTypeQuery: this.searchParams.selectedNoticeTypeQuery,
+        startTime: this.searchParams.startTime,
+        userName: this.searchParams.userName,
       }
       getNoticeList(params).then(response => {
         if (response.code == 1) {
-          if (!response.data.list.length == 0) {
+          // if (!response.data.list.length == 0) {
             this.tableData = []
             this.tableData = response.data.list
             this.totalCount = response.data.totalCount
-          } else {
-            console.log(response,"tableData")
-          }
+          // } else {
+          //   console.log(response,"tableData")
+          // }
         } else {
           console.log(response.msg)
         }
