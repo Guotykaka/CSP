@@ -125,11 +125,6 @@
       this.getNav();
       this.getUserImg();
     },
-    activated() {
-      this.userInfo = JSON.parse(getStore('userMesage'));
-      this.getNav();
-      this.getUserImg();
-    },
     methods: {
       //处理command
       handleCommand(command){

@@ -75,7 +75,8 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="6">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length">
+              <!-- <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10, 20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData_YYT.length"> -->
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
               </el-pagination>
             </template>
           </el-col>
@@ -83,7 +84,7 @@
       </el-footer>
 
       <!-- 一元听编辑弹窗 -->
-      <el-dialog title="编辑" :visible.sync="dialogEditVisible_YYT" width=40% v-bind:show-close = "false">
+      <el-dialog title="编辑" :visible.sync="dialogEditVisible_YYT" width=40% :before-close="handleCloseEidt">
 
         <el-form :model="editTable_YYT">
           <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2">
@@ -113,7 +114,11 @@
               </el-form-item>
             </el-col>
             <el-col :span="16">
-              <div>{{fileName}}</div>
+              <div>
+              <span v-show="upyunUrl==''" class="el-icon-warning" style="color:#E6A23C">已上传</span>
+              <span v-show="upyunUrl!=''" class="el-icon-success" style="color:#67C23A">已上传</span>
+                {{fileName}}
+              </div>
             </el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2">
@@ -141,7 +146,7 @@
       </el-dialog>
 
       <!-- 一元听新增弹窗 -->
-      <el-dialog title="新增" :visible.sync="dialogAddVisible_YYT" width=40% v-bind:show-close = "false">
+      <el-dialog title="新增" :visible.sync="dialogAddVisible_YYT" width=40% :before-close="handleCloseAdd">
         <el-form :model="addTable_YYT" :rules="rulesNew" ref="formNew">
           <el-form-item class="is-required2" label="商品名称" :label-width="formLabelWidth2" prop="voiceProductName">
             <el-col :span="16">
@@ -173,7 +178,12 @@
               </el-form-item>
             </el-col>
             <el-col :span="16">
-              <div>{{fileName}}</div>
+              <div>
+              <span v-show="upyunUrl==''" class="el-icon-warning" style="color:#F56C6C">未上传</span>
+              <span v-show="upyunUrl!=''" class="el-icon-success" style="color:#67C23A">已上传</span>
+              {{fileName}}
+              </div>
+              
             </el-col>
           </el-form-item>
           <el-form-item class="is-required2" label="异常指标关键词" :label-width="formLabelWidth2" prop="abnormalKeyWord">
@@ -225,13 +235,19 @@ export default {
   },
   data() {
     return {
-      title:"提示",//this.$alert的标题
+      title: '提示', //this.$alert的标题
       upyunUrl1: '', //又拍云url
       upyunUrl: '', //又拍云url
       AudioDuration: null, //音频时长
+      totalCount: 0,
       fileName: '',
       fileNameEdit: '',
-      searchParams: { voiceProductName: '', voiceProductCode: '' },
+      searchParams: {
+        currentPage: 1,
+        pageSize: 10,
+        voiceProductCode: '',
+        voiceProductName: ''
+      },
       searchParamsList: [], //商品编码列表
       fileList: [],
       dialogVisible: true,
@@ -260,45 +276,43 @@ export default {
       formLabelWidth: '120px',
       formLabelWidth2: '170px',
       rulesNew: {
-        voiceProductName: [{ required: true, message: '请输入商品名称',trigger: 'blur' },{ max: 10, message: '10字内' }],
-        insDoctorId: [{ required: true, message: '请选择绑定医生',trigger: 'change' }],
+        voiceProductName: [
+          { required: true, message: '请输入商品名称', trigger: 'blur' },
+          { max: 10, message: '10字内' }
+        ],
+        insDoctorId: [
+          { required: true, message: '请选择绑定医生', trigger: 'change' }
+        ],
         upyunUrl: [{ required: true, message: '请选择文件' }],
         abnormalKeyWord: [
-          { required: true, message: '请填写异常指标关键词',trigger: 'blur' },
+          { required: true, message: '请填写异常指标关键词', trigger: 'blur' },
           { max: 50, message: '50字内' }
         ],
-        paperWork: [{ required: true, message: '请输入商品文案',trigger: 'blur' }]
+        paperWork: [
+          { required: true, message: '请输入商品文案', trigger: 'blur' }
+        ]
       }
     }
   },
   methods: {
     //搜索方法
     doSearch() {
-      let params = {
-        currentPage: 1,
-        pageSize: 1000,
-        voiceProductCode: this.searchParams.voiceProductCode,
-        voiceProductName: this.searchParams.voiceProductName
-      }
-      GetListenList(params).then(response => {
-        this.tableData_YYT = []
-        this.tableData_YYT = response.data.list
-        this.totalCount = response.data.totalCount
-      })
+      this.searchParams.currentPage = 1
+      this.getList()
     },
     handleSizeChange: function(size) {
-      this.pagesize = size
-      console.log(`每页 ${size} 条`)
+      this.searchParams.pageSize = size
+      this.getList()
     },
     handleCurrentChange: function(currentPage) {
-      this.currentPage = currentPage
-      console.log(`当前页: ${currentPage}`)
+      this.searchParams.currentPage = currentPage
+      this.getList()
     },
 
     // 删除提示
     deleteMessage(index, row) {
       if (row.status === 1) {
-        this.$alert('请先将商品下架！',this.title)
+        this.$alert('请先将商品下架！', this.title)
       } else {
         this.$confirm('此操作将删除该文件, 是否继续?', '提示', {
           confirmButtonText: '确定',
@@ -312,8 +326,8 @@ export default {
               voiceProductId: row.voiceProductId
             }
             PostListenStatus(params).then(response => {
-              if ((response.code == 1)) {
-                this.$alert('删除成功!',this.title)
+              if (response.code == 1) {
+                this.$alert('删除成功!', this.title)
                 this.getList()
               } else {
                 $alert(response.msg)
@@ -344,8 +358,8 @@ export default {
             voiceProductId: row.voiceProductId
           }
           PostListenStatus(params).then(response => {
-            if ((response.code == 1)) {
-              this.$alert('已下架!',this.title)
+            if (response.code == 1) {
+              this.$alert('已下架!', this.title)
               this.getList()
             } else {
               $alert(response.msg)
@@ -374,8 +388,8 @@ export default {
             voiceProductId: row.voiceProductId
           }
           PostListenStatus(params).then(response => {
-            if ((response.code == 1)) {
-              this.$alert('已上架!',this.title)
+            if (response.code == 1) {
+              this.$alert('已上架!', this.title)
               this.getList()
             } else {
               $alert(response.msg)
@@ -392,25 +406,10 @@ export default {
     },
     // 一元厅编辑
     handleEdit_YYT(index, row) {
-      // let inputDOM = this.$refs.inputer
-      // console.log(inputDOM)
-      // if (inputDOM != undefined) {
-      //   console.log(inputDOM.files[0].value)
-      //   inputDOM.files[0].value = ""
-      // } else {
-      //   console.log('666')
-      // }
-      // 通过DOM取文件数据
-      // inputDOM.file =""
-      this.upyunUrl = ''
-      this.fileName = ''
-      this.AudioDuration = null
       this.inde_YYT = index + (this.currentPage - 1) * this.pagesize //计算分页后列表下标
       this.editTableRoot_YYT = JSON.parse(JSON.stringify(row)) //深拷贝出原始数据
       this.editTable_YYT = row //复制单列数据
       this.dialogEditVisible_YYT = true
-      
-      
     },
     OpenfileSelect() {
       //隐藏input框 点击按钮触发input的点击事件
@@ -419,7 +418,7 @@ export default {
     },
     // 一元厅取消编辑
     _doCancel_YYT() {
-      this.dialogEditVisible_YYT = false
+      this.handleCloseEidt()
       this.getList()
       this.$message({
         type: 'warning',
@@ -429,15 +428,13 @@ export default {
 
     // 一元厅确定编辑
     _doHandleEdit_YYT() {
-      
-      console.log(this.AudioDuration,"last")
       let sstime = this.AudioDuration
       if (sstime == null) {
-        this.AudioDuration=this.editTable_YYT.voiceTime
+        this.AudioDuration = this.editTable_YYT.voiceTime
       } else {
-        console.log(sstime,"3")
+        console.log(sstime, '3')
       }
-      console.log(this.AudioDuration,"last")
+      console.log(this.AudioDuration, 'last')
 
       let voiceProductUrl = ''
       if (this.upyunUrl == '') {
@@ -458,14 +455,24 @@ export default {
         voiceTime: this.AudioDuration
       }
       PostListenUpdate(params).then(response => {
-        this.$alert(response.msg,this.title)
+        this.$alert(response.msg, this.title)
         this.getList()
       })
-      this.dialogEditVisible_YYT = false
-      
+
+      this.handleCloseEidt()
     },
-    // 一元厅新增
-    handleAdd_YYT() {
+    handleCloseEidt() {
+      //编辑弹窗重置数据
+      console.log('beforclose')
+      this.upyunUrl = ''
+      this.fileName = ''
+      this.AudioDuration = null
+      this.dialogEditVisible_YYT = false
+    },
+    handleCloseAdd() {
+      //新增弹窗重置数据
+      console.log('beforclose')
+      this.resetForm('formNew')
       this.addTable_YYT = {
         abnormalKeyWord: '',
         insDoctorId: '',
@@ -481,8 +488,11 @@ export default {
       this.upyunUrl = ''
       this.fileName = ''
       this.AudioDuration = null
+      this.dialogAddVisible_YYT = false
+    },
+    // 一元厅新增
+    handleAdd_YYT() {
       this.dialogAddVisible_YYT = true
-      
     },
     // 一元厅确定新增
     _doAdd_YYT() {
@@ -502,15 +512,14 @@ export default {
       PostListenSave(params).then(response => {
         if (response.code == 1) {
           console.log(this.addTable_YYT.name)
-          this.$alert(response.msg,this.title)
+          this.$alert(response.msg, this.title)
           this.getList()
         } else {
-          this.$alert(response.msg,this.title)
+          this.$alert(response.msg, this.title)
           this.getList()
         }
       })
-      this.dialogAddVisible_YYT = false
-      
+      this.handleCloseAdd()
     },
     submitForm(formName) {
       //新增模块表单验证
@@ -519,42 +528,25 @@ export default {
           if (this.upyunUrl) {
             this._doAdd_YYT()
           } else {
-            this.$alert('请上传商品文件!',this.title)
+            this.$alert('请上传商品文件!', this.title)
           }
         } else {
           console.log('error submit!!')
           return false
         }
       })
-      
     },
     resetForm(formName) {
-        this.$refs[formName].resetFields();
-      },
+      this.$refs[formName].resetFields()
+    },
     // 一元厅取消新增
     _doAddCancel_YYT() {
-      this.dialogAddVisible_YYT = false
-      this.resetForm("formNew")
-      this.addTable_YYT = {
-        //重置新增数据为空
-        abnormalKeyWord: '',
-        insDoctorId: '',
-        paperWork: '',
-        relevantContent: '',
-        status: 2,
-        voiceCategory: '',
-        voiceLabel: '',
-        voiceProductName: '',
-        voiceProductUrl: '',
-        voiceTime: 0
-      }
+      this.handleCloseAdd()
       this.getList()
       this.$message({
         type: 'warning',
         message: '取消新增'
       })
-      this.upyunUrl = ''
-      this.fileName = ''
     },
     //获取绑定医生列表
     getDocList() {
@@ -568,16 +560,25 @@ export default {
     //获取一元听列表
     getList() {
       let params = {
-        currentPage: 1,
-        pageSize: 1000,
-        voiceProductCode: '',
-        voiceProductName: ''
+        currentPage: this.searchParams.currentPage,
+        pageSize: this.searchParams.pageSize,
+        voiceProductCode: this.searchParams.voiceProductCode,
+        voiceProductName: this.searchParams.voiceProductName
       }
       GetListenList(params).then(response => {
         this.tableData_YYT = []
         this.tableData_YYT = response.data.list
-        this.searchParamsList = response.data.list
         this.totalCount = response.data.totalCount
+      })
+      //获取商品编号列表
+      let paramsList = {
+        currentPage: 1,
+        pageSize: 100000,
+        voiceProductCode: '',
+        voiceProductName: ''
+      }
+      GetListenList(paramsList).then(response => {
+        this.searchParamsList = response.data.list
       })
     },
     update() {
@@ -600,7 +601,7 @@ export default {
         this.fileType = this.file.type
       }
       console.log(this.fileName)
-      inputDOM.files[0].value = ""
+      inputDOM.files[0].value = ''
     },
     //上传按钮的事件axios
     fileupdate() {
@@ -632,43 +633,33 @@ export default {
       formData.append('file', file)
       formData.append('policy', policy)
       formData.append('authorization', signature)
-      
+
       this.$http.post(url, formData).then(response => {
         if ((response.code = 200)) {
           this.upyunUrl =
             'http://zhangshangtijian.b0.upaiyun.com' + response.data.url //返回地址
           console.log(this.upyunUrl, 'this.upyunUrl上传')
-          this.$alert('上传成功',this.title)
+          this.$alert('上传成功', this.title)
         } else {
-          this.$alert(response.msg,this.title)
+          this.$alert(response.msg, this.title)
         }
       })
       //获取语音时长
       let myVid = this.$refs.audior
       let this_ = this
-      if(myVid != null){
-          var duration;
-          myVid.load();
-          myVid.oncanplay = function () {  
-                  this_.AudioDuration =myVid.duration
-                  console.log("this_.AudioDuration",this_.AudioDuration);
-            }
+      if (myVid != null) {
+        var duration
+        myVid.load()
+        myVid.oncanplay = function() {
+          this_.AudioDuration = myVid.duration
+          console.log('this_.AudioDuration', this_.AudioDuration)
+        }
       }
     }
   },
   activated: function() {
     this.getList()
     this.getDocList()
-  },
-
-
-
-  watch:{
-    dialogAddVisible_YYT(newVal){
-
-console.log(newVal)
-
-    }
   }
 }
 </script>
@@ -705,9 +696,14 @@ console.log(newVal)
 .m_l_0 {
   margin-left: 0;
 }
-.btn-row {text-align: center;padding-top: 20px;}
-.el-header,.el-main,.el-footer{
-  padding:0;
+.btn-row {
+  text-align: center;
+  padding-top: 20px;
+}
+.el-header,
+.el-main,
+.el-footer {
+  padding: 0;
 }
 </style>
 <style lang="less">

@@ -13,13 +13,11 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
-
-  //baseUrl = 'http://HZ2WZSG82:8117/cspo/';
-
   // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
+  // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
+  baseUrl = 'http://HZ2WZSG82:8117/cspo/';
+  payUrl = 'http://172.0.0.41:8115/pay/';
 
-  baseUrl = 'http://172.0.0.41:8117/cspo/';
-  payUrl = 'http://HZ2WZSG82:8115/pay/';
   // baseUrl = 'http://10.50.50.128:8117/cspo/';//明星
   baseImgPath = '/img/';
 }else{
@@ -64,6 +62,7 @@ export const API_POST_LIST_TEMPLATE = baseUrl+'bd/template/list';//消息模板�
 export const API_POST_UPDATE_TEMPLATE = baseUrl+'bd/template/update';//修改
 export const API_POST_SAVE_TEMPLATE = baseUrl+'bd/template/save';//新增
 export const API_POST_DELETE_TEMPLATE = baseUrl+'bd/template/delete';//删除
+export const API_POST_LIST_CSP_MESSAGE = baseUrl+'csp/exception/listCspMessage';//异常日志管理
 
 
 
