@@ -84,8 +84,8 @@
               
               
               </el-col>
-              <el-col :span="5">
-               <el-tree
+              <el-col :span="8">
+               <!-- <el-tree
                 v-show="flag2"
                 :data="data3"
                 show-checkbox
@@ -94,6 +94,19 @@
                 ref="tree2"
                 highlight-current
                 :props="tree">
+              </el-tree> -->
+              <el-tree
+                v-show="flag2"
+                :data="allmenuListb"
+                default-expand-all
+                show-checkbox
+                node-key="menuId"
+                :default-checked-keys="sysRoleMenuListVOList.menuIdList"
+                ref="tree2"
+                highlight-current
+                @check="handleCheck"
+                :props="defaultProps"
+                >
               </el-tree>
               </el-col>
               <el-col :span="5">
@@ -107,7 +120,7 @@
           </div>
         </el-dialog>
         <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
+        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%  :before-close="handleCloseAdd">
           <el-form :model="addTable">
             <el-form-item label="角色名称:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -161,8 +174,8 @@
                 >
               </el-tree>
               </el-col>
-              <el-col :span="5">
-               <el-tree
+              <el-col :span="8">
+               <!-- <el-tree
                @check="checkchange()"
                 v-show="flag2"
                 :data="data3"
@@ -171,6 +184,19 @@
                 ref="treenew2"
                 highlight-current
                 :props="tree">
+              </el-tree> -->
+              <el-tree
+                v-show="flag2"
+                :data="allmenuListb"
+                default-expand-all
+                show-checkbox
+                node-key="menuId"
+                :default-checked-keys="sysRoleMenuListVOList.menuIdList"
+                ref="treenew2"
+                highlight-current
+                @check="handleCheck"
+                :props="defaultProps"
+                >
               </el-tree>
               </el-col>
               <el-col :span="5">
@@ -204,7 +230,8 @@
         <el-row style="margin-top: 2%;">
           <el-col :span="24" :offset="8">
             <template>
-              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length">
+              <!-- <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="[10,20]" :page-size="pagesize" layout="total, sizes, prev, pager, next, jumper" :total="tableData.length"> -->
+              <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="searchParams.currentPage" :page-sizes="[10,20]" :page-size="searchParams.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="totalCount">
               </el-pagination>
             </template>
           </el-col>
@@ -227,11 +254,19 @@ export default {
     return {
       title:"提示",//this.$alert的标题
       menuList: [],//对应模块菜单
-        allmenuList:[],//所有菜单
+        allmenuList:[],//医生端所有菜单
         allmenuLista:[],
+        allmenuListB:[],//运营端所有菜单
+        allmenuListb:[],//运营端所有菜单
       flag1:true,
       flag2:true,
       flag3:true,
+      totalCount:0,
+      searchParams: {
+        currentPage: 1,
+        pageSize: 10,
+        roleName: ''
+      },
       tree:{
           children: 'children',
           label: 'label'
@@ -297,7 +332,6 @@ export default {
             label: '提现列表'
           }]
         }],
-      searchParams: { roleName: '', },
       dateNw: Date.parse(new Date()),
       params: { timespan : this.dateNw, },
       sysRoleMenuListVOList : {"category":0,"menuIdList":[1,147,36]},//详情中的树状列表
@@ -314,27 +348,27 @@ export default {
         "deptIdList": [
           0
         ],
-        "deptName": "string",
+        "deptName": "",
         "menuTypeListDTO": [
-          {
-            "menuIdList": [
-              0
-            ],
-            "roleType": 0,
-            "timespan": "1"
-          },
           {
             "menuIdList": [
               0
             ],
             "roleType": 1,
             "timespan": "1"
+          },
+          {
+            "menuIdList": [
+              0
+            ],
+            "roleType": 0,
+            "timespan": "1"
           }
         ],
-        "remark": "string",
-        "roleCode": "string",
+        "remark": "",
+        "roleCode": "",
         "roleId": 0,
-        "roleName": "string",
+        "roleName": "",
         "timespan": "1"
       }, //新增单个数据
       dialogCheckVisible: false, //查看
@@ -348,7 +382,8 @@ export default {
     handleCheck(val){
       console.log(val.list)
       console.log(this.sysRoleMenuListVOList.menuIdList)
-      console.log(JSON.stringify(this.allmenuLista))
+      // console.log(JSON.stringify(this.allmenuLista))
+      console.log(JSON.stringify(this.allmenuListb))
         // this.form.parentName = val.name;
         // this.form.parentId = val.menuId;
         // this.$refs.tree.setCheckedNodes([]);
@@ -382,6 +417,19 @@ export default {
             })
           }
         })
+        let params2 = {
+          category: '0'
+        };
+        //获取所有菜单
+        getSysMenuByCategory(params2).then((res) => {
+          if (res.code === ERR_OK) {
+            this.allmenuListb = res.data;
+          } else {
+            this.$alert(res.msg, '提示', {
+              confirmButtonText: '确定',
+            })
+          }
+        })
       },
     checkchange(){
     
@@ -390,18 +438,30 @@ export default {
         menuIdList1 = menuIdList1.concat(menuIdList2)
         console.log(menuIdList1)
     },
+    // doSearch() {
+    //   let date = Date.parse(new Date())
+    //   let params = {
+    //     currentPage: 1,
+    //     pageSize: 1000,
+    //     roleName: this.searchParams.roleName,
+    //     timespan: date
+    //   }
+    //   getListRole(params).then(response => {
+    //     this.tableData = []
+    //     this.tableData = response.data.list
+    //   })
+    // },
     doSearch() {
-      let date = Date.parse(new Date())
-      let params = {
-        currentPage: 1,
-        pageSize: 1000,
-        roleName: this.searchParams.roleName,
-        timespan: date
-      }
-      getListRole(params).then(response => {
-        this.tableData = []
-        this.tableData = response.data.list
-      })
+      this.searchParams.currentPage = 1
+      this.getList()
+    },
+    handleSizeChange: function(size) {
+      this.searchParams.pageSize = size
+      this.getList()
+    },
+    handleCurrentChange: function(currentPage) {
+      this.searchParams.currentPage = currentPage
+      this.getList()
     },
     colType1() {
          var myVar = '0';
@@ -451,15 +511,6 @@ export default {
         this.flag3 =flag
         console.log(this.sysRoleMenuListVOList.category)
     },
-    handleSizeChange: function(size) {
-      this.pagesize = size
-      console.log(`每页 ${size} 条`)
-    },
-    handleCurrentChange: function(currentPage) {
-      this.currentPage = currentPage
-      console.log(`当前页: ${currentPage}`)
-    },
-
     // 新增
     handleAdd() {
       // this.sysRoleMenuListVOList = {"category":0,"menuIdList":[105,107,116,56,123,131,57,58]},
@@ -507,18 +558,32 @@ export default {
               console.log(JSON.stringify(params))
             }
                   })
-        this.addTable = {
+        this.handleCloseAdd()
+      
+    },
+    //取消新增
+    _doAddCancel() {
+      this.handleCloseAdd()
+      this.$message({
+        type: 'warning',
+        message: '取消新增'
+      })
+    },
+    handleCloseAdd(){//:before-close
+      console.log('beforclose')
+      this.addTable = {
+        //重置新增数据为空
         "deptId": 0,
         "deptIdList": [
           0
         ],
-        "deptName": "string",
+        "deptName": "",
         "menuTypeListDTO": [
           {
             "menuIdList": [
               0
             ],
-            "roleType": 0,
+            "roleType": 1,
             "timespan": "1"
           },
           {
@@ -529,44 +594,13 @@ export default {
             "timespan": "1"
           }
         ],
-        "remark": "string",
-        "roleCode": "string",
+        "remark": "",
+        "roleCode": "",
         "roleId": 0,
-        "roleName": "string",
+        "roleName": "",
         "timespan": "1"
       }
       this.dialogAddVisible = false
-      
-    },
-    //取消新增
-    _doAddCancel() {
-      this.addTable = {
-        //重置新增数据为空
-        "deptId": 0,
-        "deptIdList": [
-          0
-        ],
-        "deptName": "string",
-        "menuTypeListDTO": [
-          {
-            "menuIdList": [
-              0
-            ],
-            "roleType": 0,
-            "timespan": "1"
-          }
-        ],
-        "remark": "string",
-        "roleCode": "string",
-        "roleId": 0,
-        "roleName": "string",
-        "timespan": "1"
-      }
-      this.dialogAddVisible = false
-      this.$message({
-        type: 'warning',
-        message: '取消新增'
-      })
     },
     chenge(){//checkbox绑定
         this.sysRoleMenuListVOList.category = String(this.sysRoleMenuListVOList.category)
@@ -664,14 +698,14 @@ export default {
           console.log(+this.sysRoleMenuListVOList.category[1])
           console.log(typeof(+this.sysRoleMenuListVOList.category[1]))
           console.log(params)
-        // PostUpdateRole(params).then(response => {
-        //       if (response.code == 1) {
-        //         this.$alert(response.msg)
-        //         this.getRoleList()
-        //       } else {
-        //         this.$alert(response.msg)
-        //       }
-        //           })
+        PostUpdateRole(params).then(response => {
+              if (response.code == 1) {
+                this.$alert(response.msg)
+                this.getRoleList()
+              } else {
+                this.$alert(response.msg)
+              }
+                  })
         this.dialogEditVisible = false
       
     },
@@ -712,13 +746,24 @@ export default {
     },
     //获取用户列表
     getRoleList() {
-      let date = Date.parse( new Date())
+      // let date = Date.parse( new Date())
+      // let params = {
+      //       timespan : date
+      //   }
+      // getListWithNoParam(params).then(response => {
+      //   this.tableData = []
+      //   this.tableData = response.data
+      // })
       let params = {
-            timespan : date
-        }
-      getListWithNoParam(params).then(response => {
+        currentPage: this.searchParams.currentPage,
+        pageSize: this.searchParams.pageSize,
+        voiceProductCode: this.searchParams.voiceProductCode,
+        voiceProductName: this.searchParams.voiceProductName
+      }
+      getListRole(params).then(response => {
         this.tableData = []
         this.tableData = response.data
+        this.totalCount = response.data.totalCount
       })
     }
   },
@@ -745,6 +790,16 @@ export default {
         })
         this.allmenuLista =arr
         console.log(this.allmenuLista,"this.allmenuLista")
+      },
+      getData2(val) {
+        let arr = [];
+        val.forEach((value, index) => {
+          if (value.parentId === -1) {
+            arr.push(value)
+          }
+        })
+        this.allmenuListb =arr
+        console.log(this.allmenuListb,"this.allmenuListb")
       }
     },
     computed: {
@@ -771,6 +826,18 @@ export default {
           });
         });
         return this.allmenuList
+      },
+      getData2() {
+        let that = this;
+        this.allmenuListB.forEach((val, index) => {
+          val.list = []
+          that.allmenuListB.forEach((v, i) => {
+            if (v.parentId === val.menuId) {
+              val.list.push(v)
+            }
+          });
+        });
+        return this.allmenuListB
       }
     }
 }

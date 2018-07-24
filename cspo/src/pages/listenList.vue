@@ -115,7 +115,7 @@
             </el-col>
             <el-col :span="16">
               <div>
-              <span v-show="upyunUrl==''" class="el-icon-warning" style="color:#E6A23C">未上传</span>
+              <span v-show="upyunUrl==''" class="el-icon-warning" style="color:#E6A23C">已上传</span>
               <span v-show="upyunUrl!=''" class="el-icon-success" style="color:#67C23A">已上传</span>
                 {{fileName}}
               </div>
@@ -470,7 +470,7 @@ export default {
       this.dialogEditVisible_YYT = false
     },
     handleCloseAdd() {
-      //编辑弹窗重置数据
+      //新增弹窗重置数据
       console.log('beforclose')
       this.resetForm('formNew')
       this.addTable_YYT = {
