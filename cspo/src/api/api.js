@@ -53,6 +53,9 @@ export function PostUpdateRole(params){//修改角色
 export function PostDeleteRole(params){//删除角色
   return post(urls.API_POST_DELETE_ROLE,params)
 }
+export function listCspMessage(params){//异常日志管理
+  return post(urls.API_POST_LIST_CSP_MESSAGE,params)
+}
 
 //消息模板
 export function PostTemplateList(params){//获取列表
