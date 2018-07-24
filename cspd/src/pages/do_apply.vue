@@ -14,7 +14,7 @@
           <el-col :span="4">
             <el-upload
               class="avatar-uploader"
-              action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload"
+              :action="uploadImgUrl"
               :show-file-list="false"
               :on-success="handleLogoSuccess"
               :before-upload="beforeLogoUpload">
@@ -94,7 +94,7 @@
           <el-col :span="4">
             <el-upload
               class="avatar-uploader"
-              action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload"
+              :action=uploadImgUrl
               :show-file-list="false"
               :on-success="handleAvatarSuccess1"
               :before-upload="beforeAvatarUpload1">
@@ -108,7 +108,7 @@
           <el-col :span="4">
             <el-upload
               class="avatar-uploader"
-              action="http://172.0.0.41:8117/cspo/csp/serviceInfo/upload"
+              :action=uploadImgUrl
               :show-file-list="false"
               :on-success="handleAvatarSuccess2"
               :before-upload="beforeAvatarUpload2">
@@ -270,10 +270,13 @@
 <script>
   import {ERR_OK,submitDoctorInfo,getApplyInfo,cancelApply} from '@/api/api';
   import {getStore,setStore} from "@/config/mUtils.js";
+  import {API_UPLOAD} from '@/config/env.js';
 
   export default {
     data() {
       return {
+        uploadImgUrl:API_UPLOAD,
+        Loading:"",
         authenticationStatus:getStore("authenticationStatus"),
         apply:{
           department: "",//科室
@@ -430,10 +433,8 @@
         };
         getApplyInfo(params).then(res => {
           if(res.code===ERR_OK){
-
             if(res.data){
-              setStore("authenticationStatus",res.data.authenticationStatus)
-
+              setStore("authenticationStatus",res.data.authenticationStatus);
               this.write.department=res.data.department;
               this.write.doctorJobCertificateUrl=res.data.doctorJobCertificateUrl;
               this.write.hospital=res.data.hospital;
@@ -461,16 +462,12 @@
                 this.apply.winningDesc=res.data.winningDesc;
               }
             }
-
           }else{
             this.$alert(res.msg, '提示', {
               confirmButtonText: '确定',
             })
           }
         }).catch(err => {
-
-          console.log(err)
-
           this.$alert(err.msg, '提示', {
             confirmButtonText: '确定',
           })
@@ -482,9 +479,16 @@
         window.history.go(-1)
       },
       handleLogoSuccess(res) {
+        this.Loading.close();
         this.apply.logoUrl=res.data.src
       },
       beforeLogoUpload(file) {
+         this.Loading = this.$loading({
+          lock: true,
+          text: '上传中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.3)'
+        });
         const isJPG = file.type === 'image/jpeg' || 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
         if (!isJPG) {
@@ -498,12 +502,18 @@
 
 
       handleAvatarSuccess1(res) {
+        this.Loading.close();
         this.apply.doctorJobCertificateUrl =res.data.src;
       },
       beforeAvatarUpload1(file) {
+        this.Loading = this.$loading({
+          lock: true,
+          text: '上传中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.3)'
+        });
         const isJPG = file.type === 'image/jpeg' || 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
-
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG PNG 格式!');
         }
@@ -514,9 +524,16 @@
       },
 
       handleAvatarSuccess2(res) {
+        this.Loading.close();
         this.apply.titleCertificateUrl =res.data.src;
       },
       beforeAvatarUpload2(file) {
+        this.Loading = this.$loading({
+          lock: true,
+          text: '上传中',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.3)'
+        });
         const isJPG = file.type === 'image/jpeg' || 'image/png';
         const isLt2M = file.size / 1024 / 1024 < 2;
         if (!isJPG) {

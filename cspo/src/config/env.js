@@ -13,12 +13,10 @@ let routerMode = 'hash';
 let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
-  // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
-  // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
-  baseUrl = 'http://172.0.0.41:8117/cspo/';
-  payUrl = 'http://HZ2WZSG82:8115/pay/';
 
-  // baseUrl = 'http://10.50.50.128:8117/cspo/';//明星
+  baseUrl = 'http://172.0.0.41:8117/cspo/';
+  //payUrl = 'http://HZ2WZSG82:8115/pay/';
+  payUrl = 'http://172.0.0.41:8115/pay/';
   baseImgPath = '/img/';
 }else{
   // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
@@ -34,7 +32,6 @@ export {
 }
 
 
-//POSTPOST /cspo/ins/insleavewordanswer/closeInsLeaveWordAnswer
 /*个人中心*/
 export const API_QUERY_INS_LEAVE_WORDLIST = baseUrl+'ins/insleavewordanswer/queryInsLeaveWordList';//分页查询所有留言
 export const API_SAVE_INS_LEAVE_WORDANSWER = baseUrl+'ins/insleavewordanswer/saveInsLeaveWordAnswer';//回复所有留言
@@ -173,6 +170,3 @@ export const API_POST_NUMBER_AUTHENTICATION = baseUrl+'sys/workbench/getCountDoc
 export const API_POST_NEW_LISTORDER_REFUSE = baseUrl+'sys/workbench/listOrderRefund';//获取最新退款列表
 export const API_POST_CSP_ORDER_NUMBER = baseUrl+'sys/workbench/getCountCspOrderNumber';//获取最新订单数 退款数
 
-
-
-//cspo/ins/withdraw/exportAccountRecord
