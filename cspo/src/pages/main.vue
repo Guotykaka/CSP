@@ -48,7 +48,7 @@
         <div slot="header" class="clearfix">
           <strong class="blue-text" style="display: block;margin-bottom: 10px">交易</strong>
           <p class="card-addtion">
-            <span class="secondary-color">截止2018.07.10 14:52</span>
+            <span class="secondary-color">截止{{currentTime}}</span>
             <strong class="main-color">当月订单总数：{{allOrderCount}}单 </strong>
             <strong class="main-color">退款单总数：{{refundOrderCount}}单 </strong>
             <el-button style="float: right; padding: 3px 0" type="text" @click="toRefuseList">更多</el-button>

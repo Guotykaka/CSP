@@ -15,8 +15,8 @@ let baseImgPath;
 if (process.env.NODE_ENV == 'development') {
   // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
   // baseUrl = 'http://HZ2WZSG82:8117/cspo/';
-  baseUrl = 'http://HZ2WZSG82:8117/cspo/';
-  payUrl = 'http://172.0.0.41:8115/pay/';
+  baseUrl = 'http://172.0.0.41:8117/cspo/';
+  payUrl = 'http://HZ2WZSG82:8115/pay/';
 
   // baseUrl = 'http://10.50.50.128:8117/cspo/';//明星
   baseImgPath = '/img/';
@@ -173,5 +173,3 @@ export const API_POST_NEW_LISTORDER_REFUSE = baseUrl+'sys/workbench/listOrderRef
 export const API_POST_CSP_ORDER_NUMBER = baseUrl+'sys/workbench/getCountCspOrderNumber';//获取最新订单数 退款数
 
 
-
-//cspo/ins/withdraw/exportAccountRecord
