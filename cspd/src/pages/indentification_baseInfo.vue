@@ -96,7 +96,10 @@
     },
     activated(){
       this.isAuthenticationFn();
-      this.authenticationStatus=parseInt(getStore("authenticationStatus"))
+      setTimeout(()=>{
+        this.authenticationStatus=parseInt(getStore("authenticationStatus"));
+      },100)
+
     }
   }
 </script>
