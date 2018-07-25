@@ -9,12 +9,12 @@
             <el-input v-model="searchParams.noticeTitleQuery" placeholder="公告标题" clearable></el-input>
           </el-form-item>
 
-          <el-form-item label="请选择公告类型">
+          <!-- <el-form-item label="请选择公告类型">
             <el-select v-model="searchParams.noticeTypeQuery" clearable placeholder="请选择公告类型">
               <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
               </el-option>
             </el-select>
-          </el-form-item>
+          </el-form-item> -->
           <el-form-item label="请选择公告状态">
             <el-select v-model="searchParams.noticeStatus" clearable placeholder="请选择公告状态">
               <el-option v-for="item in formInline.optionsZT" :key="item.value" :label="item.label" :value="item.value">
@@ -24,14 +24,6 @@
           <el-form-item label="创建人">
             <el-input v-model="searchParams.userName" placeholder="创建人" clearable></el-input>
           </el-form-item>
-          <!-- <el-form-item label="创建开始时间">
-            <el-date-picker v-model="this.searchParams.startTime" align="right" type="date" placeholder="创建开始时间" :picker-options="formInline.pickerOptions">
-            </el-date-picker>
-          </el-form-item>
-          <el-form-item label="创建结束时间">
-            <el-date-picker v-model="this.searchParams.endTime" align="right" type="date" placeholder="创建结束时间" :picker-options="formInline.pickerOptions">
-            </el-date-picker>
-          </el-form-item> -->
           <el-form-item label="时间">
             <el-date-picker
             v-model="rangeTime"
@@ -48,7 +40,7 @@
           <el-form-item>
             <el-button type="primary" @click="handleReset()">重置</el-button>
             <el-button type="primary" @click="doSearch()">搜索</el-button>
-            <el-button type="primary" @click="dialogCheckVisible = true">新增</el-button>
+            <el-button type="primary" @click="dialogAddVisible = true">新增</el-button>
           </el-form-item>
         </el-form>
       </el-header>
@@ -76,10 +68,10 @@
             </el-form-item>
             <el-form-item label="接收端:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-checkbox-group v-model="editTable.noticeOsName">
-                  <el-checkbox label="运营端"></el-checkbox>
-                  <el-checkbox label="医生端"></el-checkbox>
-                  <el-checkbox label="企业端"></el-checkbox>
+                <el-checkbox-group v-model="editTable.noticeOs">
+                  <el-checkbox label="ROLE_TYPE_OPERATING">运营端</el-checkbox>
+                  <el-checkbox label="ROLE_TYPE_DOCTOR">医生端</el-checkbox>
+                  <el-checkbox label="ROLE_TYPE_COMPANY">企业端</el-checkbox>
                 </el-checkbox-group>
               </template>
             </el-form-item>
@@ -100,7 +92,11 @@
             </el-form-item>
             <el-form-item label="公告类型:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-input v-model="selectTable.dictName" auto-complete="off" el readonly></el-input>
+                <!-- <el-input v-model="selectTable.noticeType" auto-complete="off" el readonly></el-input> -->
+                <el-select v-model="selectTable.noticeType" clearable placeholder="请选择公告类型" :disabled="true">
+                  <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
+                </el-select>
               </el-col>
             </el-form-item>
             <el-form-item label="公告内容:" :label-width="formLabelWidth">
@@ -110,10 +106,10 @@
             </el-form-item>
             <el-form-item label="接收端:" :label-width="formLabelWidth">
               <template slot-scope="scope">
-                <el-checkbox-group v-model="selectTable.createUser">
-                  <el-checkbox label="1" onclick="return false">运营端</el-checkbox>
-                  <el-checkbox label="2" onclick="return false">医生端</el-checkbox>
-                  <el-checkbox label="3" onclick="return false">企业端</el-checkbox>
+                <el-checkbox-group v-model="selectTable.noticeOs">
+                  <el-checkbox label="ROLE_TYPE_OPERATING" onclick="return false">运营端</el-checkbox>
+                  <el-checkbox label="ROLE_TYPE_DOCTOR" onclick="return false">医生端</el-checkbox>
+                  <el-checkbox label="ROLE_TYPE_COMPANY" onclick="return false">企业端</el-checkbox>
                 </el-checkbox-group>
               </template>
             </el-form-item>
@@ -124,7 +120,7 @@
           </div>
         </el-dialog>
         <!-- 新增 -->
-        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40% v-bind:show-close = "false">
+        <el-dialog title="新增" :visible.sync="dialogAddVisible" width=40%  :before-close="handleCloseAdd">
           <el-form :model="addTable">
             <el-form-item label="公告标题:" :label-width="formLabelWidth">
               <el-col :span="16">
@@ -133,9 +129,13 @@
             </el-form-item>
             <el-form-item label="公告类型:" :label-width="formLabelWidth">
               <el-col :span="16">
-                <el-select v-model="addTable.dictName" clearable placeholder="请选择公告状态">
+                <!-- <el-select v-model="addTable.dictName" clearable placeholder="请选择公告状态">
                   <el-option label="产品推广" value="1"></el-option>
                   <el-option label="版本升级" value="2"></el-option>
+                </el-select> -->
+                <el-select v-model="addTable.noticeType" clearable placeholder="请选择公告类型">
+                  <el-option v-for="item in formInline.optionsLX" :key="item.value" :label="item.label" :value="item.value">
+                  </el-option>
                 </el-select>
               </el-col>
             </el-form-item>
@@ -207,7 +207,7 @@
 
 
 <script>
-import { getNoticeList,getNoticeInfo } from '@/api/api.js'
+import { getNoticeList,getNoticeInfo,postNoticeStatus } from '@/api/api.js'
 import headerTop from '@/components/headTop.vue'
 export default {
   components: {
@@ -216,6 +216,7 @@ export default {
   data() {
     return {
       rangeTime:"",//时间range
+      AdminUserId: null, //userId
       formInline: {
         optionsLX: [
           {
@@ -299,7 +300,7 @@ export default {
         noticeOs: '',
         releaseTime: null,
         sysNoticeId: '',
-        noticeType: '新增',
+        noticeType: '',
         userName: '新增',
         noticeTitle: '',
         noticeOsName: [],
@@ -354,25 +355,15 @@ export default {
     // 确定新增
     _doAdd() {
       this.tableData.push(this.addTable)
-      this.dialogAddVisible = false
-      this.addTable = {
-        noticeOs: '',
-        releaseTime: null,
-        sysNoticeId: '',
-        noticeType: '新增',
-        userName: '新增',
-        noticeTitle: '',
-        noticeOsName: [],
-        noticeContent: '',
-        createTime: '新增',
-        noticeStatus: '1',
-        createUser: '',
-        dictName: '',
-        lastUpdateTime: ''
-      }
+      this.handleCloseAdd()
     },
     //取消新增
     _doAddCancel() {
+      this.handleCloseAdd()
+    },
+    handleCloseAdd() {
+      //新增弹窗重置数据
+      console.log('beforclose')
       this.addTable = {
         //重置新增数据为空
         noticeOs: '',
@@ -399,6 +390,9 @@ export default {
       getNoticeInfo(params).then(response => {
         if (response.code == 1) {
           this.selectTable = response.data
+          let arr = this.selectTable.noticeOs.split(",")
+          this.selectTable.noticeOs = []
+          this.selectTable.noticeOs =arr
         } else {
           console.log(response.msg)
         }
@@ -468,10 +462,18 @@ export default {
             type: 'success',
             message: '发布公告成功!'
           })
-          this.tableData[
-            index + (this.currentPage - 1) * this.pagesize
-          ].noticeStatus =
-            '2' //更改发布状态
+          parames = {  
+              "noticeStatus": 2,
+              "sysNoticeId": row.sysNoticeId,
+              "userId": 1}
+      postNoticeStatus(params).then(response => {
+        if (response.code == 1) {
+          this.$alert(response.msg)
+        } else {
+          console.log(response.msg)
+        }
+
+      })
         })
         .catch(() => {
           this.$message({

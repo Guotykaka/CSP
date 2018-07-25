@@ -18,6 +18,9 @@ export function getNoticeList(params){//获取公告列表
 export function getNoticeInfo(params){//获取公告详情
   return post(urls.API_POST_INFO_NOTICE,params)
 }
+export function postNoticeStatus(params){//更改公告状态
+  return post(urls.API_POST_STATUS_NOTICE,params)
+}
 //用户列表API_POST_LIST_USER
 export function getUserList(params){//获取列表
   return post(urls.API_POST_LIST_USER,params)
