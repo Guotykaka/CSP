@@ -436,7 +436,7 @@ export default {
         voiceProductUrl = this.editTable_YYT.voiceProductUrl
         // console.log(this.upyunUrl)
       } else {
-        voiceProductUrl = this.upyunUrl
+        voiceProductUrl = encodeURIComponent(this.upyunUrl)
       }
       let params = {
         abnormalKeyWord: this.editTable_YYT.abnormalKeyWord,
@@ -499,7 +499,7 @@ export default {
         voiceCategory: this.addTable_YYT.voiceCategory,
         voiceLabel: this.addTable_YYT.voiceLabel,
         voiceProductId: this.addTable_YYT.voiceProductId,
-        voiceProductUrl: this.upyunUrl,
+        voiceProductUrl: encodeURIComponent(this.upyunUrl),
         voiceTime: this.AudioDuration,
         status: 2,
         voiceProductName: this.addTable_YYT.voiceProductName

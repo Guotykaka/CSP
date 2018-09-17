@@ -9,7 +9,11 @@
         <div class="table-style">
           <el-tabs type="border-card" @tab-click="handleClick" v-model="activeName">
             <el-tab-pane name="zero" label="运营端">
-              <el-table
+              <menu-list-son :dataList="formatDataa"></menu-list-son>
+
+
+
+<!--              <el-table
                 ref="singleTable"
                 :data="formatDataa"
                 header-align="left"
@@ -157,7 +161,7 @@
                     <el-button @click="del(scope.row)" type="danger" size="mini">删除</el-button>
                   </template>
                 </el-table-column>
-              </el-table>
+              </el-table>-->
             </el-tab-pane>
             <el-tab-pane name="first" label="医生端">
               <el-table
@@ -500,7 +504,7 @@
             </el-form-item>
 
             <el-form-item label="排序号">
-              <el-input v-model="form.orederNum"></el-input>
+              <el-input v-model="form.orderNum"></el-input>
             </el-form-item>
 
             <el-form-item label="图标">
@@ -536,6 +540,7 @@
 </template>
 <script>
   import headerTop from '@/components/headTop.vue';
+  import MenuListSon from '@/pages/menuListSon';
   import {
     ERR_OK,
     getMenuListByCategory,
@@ -551,14 +556,19 @@
   export default {
     name: 'menuList',
     components: {
-      headerTop
+      headerTop,
+      MenuListSon
     },
     data() {
       return {
+        childrenConfig: {
+          children: 'list',
+          label: 'menuId'
+        },
         currentRow: null,
         menuList: [],//对应模块菜单
-        allmenuList:[],//所有菜单
-        allmenuLista:[],
+        allmenuList: [],//所有菜单
+        allmenuLista: [],
         formatDataa: [],
         show: true,
         activeName: 'zero',
@@ -574,14 +584,14 @@
           perms: '',//授权码
           type: 1,
           url: '',//菜单地址
-          category:'1'
+          category: '1'
         },
         cardStyle: {
           width: '80%',
           margin: '0 auto'
         },
-        categoryList:[],//菜单类别
-        titleName:'',//新增&修改
+        categoryList: [],//菜单类别
+        titleName: '',//新增&修改
         count: 1,
         dialogTableVisible: false,
         dialogFormVisible: false,
@@ -612,7 +622,7 @@
         }
       },
       //初始fome值
-      formInit(){
+      formInit() {
         this.form = {
           name: '',//菜单名称
           icon: '',//菜单图标
@@ -622,7 +632,7 @@
           perms: '',//授权码
           type: 1,
           url: '',//菜单地址
-          category:'1'
+          category: '1'
         }
       },
       //选中一行修改
@@ -631,23 +641,23 @@
         this.show = false;
         this.form = {
           name: row.name,//菜单名称
-          icon:  row.icon,//菜单图标
-          orederNum:  row.orederNum,//排序
-          parentId:  row.parentId,//上级菜单id
-          parentName:  row.parentName,//上级菜单名称
-          perms:  row.perms,//授权码
-          type:  row.type,
-          url:  row.url,//菜单地址
+          icon: row.icon,//菜单图标
+          orederNum: row.orederNum,//排序
+          parentId: row.parentId,//上级菜单id
+          parentName: row.parentName,//上级菜单名称
+          perms: row.perms,//授权码
+          type: row.type,
+          url: row.url,//菜单地址
           category: row.category.toString(),
-          menuId:row.menuId
+          menuId: row.menuId
         };
         this.getdictionaryData();
       },
       //选中一行删除
       del(row) {
         console.log(row);
-        let that=this,
-          params ={
+        let that = this,
+          params = {
             "id": row.menuId
           }
         this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
@@ -691,9 +701,9 @@
         })
       },
       //获取字典数据
-      getdictionaryData(){
-       let typeParams = {
-          type:'MENU_TYPE'
+      getdictionaryData() {
+        let typeParams = {
+          type: 'MENU_TYPE'
         };
         //获取菜单类别
         getDictListByType(typeParams).then((res) => {
@@ -706,7 +716,7 @@
           }
         })
         let params = {
-          category:this.form.category
+          category: this.form.category
         };
         //获取所有菜单
         getSysMenuByCategory(params).then((res) => {
@@ -727,43 +737,43 @@
       //保存
       onSubmit() {
         let that = this;
-        if(this.form.name===''){
+        if (this.form.name === '') {
           this.$alert('菜单名称不能为空')
           return;
-        }else if(this.form.parentName===''){
+        } else if (this.form.parentName === '') {
           this.$alert('请选择上级菜单名称');
           return;
-        }else if(this.form.url===''){
+        } else if (this.form.url === '') {
           this.$alert('请输入菜单URL');
           return;
         }
-        if(this.titleName === '新增'){
-          Menusave(that.form).then((res)=>{
-            if(res.code===ERR_OK){
+        if (this.titleName === '新增') {
+          Menusave(that.form).then((res) => {
+            if (res.code === ERR_OK) {
               that.$alert(res.msg);
-              that.show=true;
+              that.show = true;
               that.getMenuList();
               that.formInit();
-            }else{
+            } else {
               that.$alert(res.msg)
             }
           })
-        }else if(this.titleName==='修改'){
-          MenuUpdate(that.form).then((res)=>{
-            if(res.code===ERR_OK){
+        } else if (this.titleName === '修改') {
+          MenuUpdate(that.form).then((res) => {
+            if (res.code === ERR_OK) {
               that.$alert(res.msg);
-              that.show=true;
+              that.show = true;
               that.getMenuList();
               that.formInit();
-            }else{
+            } else {
               that.$alert(res.msg)
             }
           })
         }
       },
       //取消创建
-      delSubmit(){
-        this.show=true;
+      delSubmit() {
+        this.show = true;
         this.formInit();
       },
       //tree
@@ -772,10 +782,10 @@
         this.dialogFormVisible = !this.dialogFormVisible
       },
       //确定选择
-      sureSelect(){
+      sureSelect() {
         this.showTree()
       },
-      handleCheck(val){
+      handleCheck(val) {
         this.form.parentName = val.name;
         this.form.parentId = val.menuId;
         this.$refs.tree.setCheckedNodes([]);
@@ -806,7 +816,7 @@
             arr.push(value)
           }
         })
-        this.allmenuLista =arr
+        this.allmenuLista = arr
       }
     }
     ,
@@ -844,18 +854,19 @@
     padding-bottom: 0 !important;
     padding-right: 0 !important;
   }
-  .setDialog{
-    position:relative;
-    display:block;
+
+  .setDialog {
+    position: relative;
+    display: block;
     overflow: auto;
-    height:700px;
-    .el-dialog__body{
+    height: 700px;
+    .el-dialog__body {
       padding-bottom: 100px;
-      .buttons{
-        position:fixed;
-        bottom:120px;
-        left:0;
-        right:0;
+      .buttons {
+        position: fixed;
+        bottom: 120px;
+        left: 0;
+        right: 0;
         text-align: center;
       }
     }
@@ -872,4 +883,19 @@
     }
 
   }
+  .custom-tree-node{
+    width:100%;
+    height:60px;
+    border:1px solid #ccc;
+    .tree-ul{
+      width:100%;
+      display: flex;
+      justify-content: space-between;
+      li{
+        float:left;
+        padding:10px;
+      }
+    }
+  }
+
 </style>

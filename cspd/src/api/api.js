@@ -81,6 +81,9 @@ export function queryTradeDetail(params) {
 //添加图文咨询订单信息备注
 export function updateTradeDetail(params) {
   return post(urls.API_UPDATE_TRADE_DETAIL, params)
+}//添加图文咨询订单信息备注
+export function uploadImg(params) {
+  return post(urls.API_INS_UPLOAD, params)
 }
 
 /*联系医助/留言板*/

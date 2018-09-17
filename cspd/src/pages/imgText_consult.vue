@@ -224,7 +224,7 @@
 </template>
 
 <script>
-  import {API_UPLOAD} from '@/config/env.js'
+  import {API_INS_UPLOAD} from '@/config/env.js'
   import tableMain from "@/pages/imgText_consult/tablemain.vue"
   import {getStore} from "@/config/mUtils.js"
   import {mapState} from "vuex"
@@ -238,7 +238,8 @@
     countUnReadMsgByOrderStatus,
     imgTextList,
     queryTradeDetail,
-    updateTradeDetail
+    updateTradeDetail,
+    uploadImg
   } from '@/api/api';
   import {storeManager} from '@/api/util.js';
 
@@ -249,6 +250,9 @@
     },
     data() {
       return {
+        imgParams:{
+          timespan:Math.round(new Date().getTime() / 1000)
+        },
         sizeText:{ minRows: 5, maxRows: 5 },
         upImgurl:'',
         activeName: 'first',
@@ -299,7 +303,7 @@
       }
     },
     activated() {
-      this.upImgurl = API_UPLOAD
+      this.upImgurl = API_INS_UPLOAD
       this.userInfo = JSON.parse(getStore('userMesage'));
       this.receiverId = this.userInfo.userId;
       this.searchParams.providerServiceUserId = this.userInfo.insDoctorId;
@@ -308,6 +312,19 @@
       this._getOrderList();
     },
     methods: {
+      submitUpload(content){
+        let formData = new FormData;
+        formData.append('file', content.file)
+
+        let params ={
+          file:formData
+        }
+        uploadImg(params).then((res)=>{
+          if(res.code===ERR_OK){
+          }
+        })
+
+      },
       //上传图片
       handleRemove() {
         this.$refs.clearfile.clearFiles();
@@ -320,11 +337,11 @@
         this.chatImg=file.data.src;
       },
       beforeAvatarUpload(file) {
-        const isJPG = file.type === 'image/jpeg';
+        const isJPG = (file.type === 'image/jpeg') ||( file.type ==='image/png');
         const isLt2M = file.size / 1024 / 1024 < 2;
-
+        console.log(isJPG)
         if (!isJPG) {
-          this.$message.error('上传图片只能是 JPG 格式!');
+          this.$message.error('仅支持上传图文!');
         }else if (!isLt2M) {
           this.$message.error('上传图片大小不能超过 2MB!');
         }

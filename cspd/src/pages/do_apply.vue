@@ -489,7 +489,8 @@
           spinner: 'el-icon-loading',
           background: 'rgba(0, 0, 0, 0.3)'
         });
-        const isJPG = file.type === 'image/jpeg' || 'image/png';
+        const isJPG = (file.type === 'image/jpeg') ||( file.type ==='image/png');
+
         const isLt2M = file.size / 1024 / 1024 < 2;
         if (!isJPG) {
           this.$message.error('上传头像图片只能是 JPG PNG 格式!');

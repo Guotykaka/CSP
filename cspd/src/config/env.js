@@ -7,24 +7,25 @@
  *
  */
 let baseUrl = '';
+let baseUrlT = '';
 let routerMode = 'hash';
-let baseImgPath;
 
 if (process.env.NODE_ENV == 'development') {
    baseUrl = 'http://172.0.0.41:8117/cspd/';
-   //baseUrl = 'http://10.50.50.117:8117/cspd/';
-   // baseUrl = 'http://HZ2WZSG82:8117/cspd/';
-  baseImgPath = '/img/';
+  baseUrlT = 'http://172.0.0.41:8117/cspo/';
 }else{
-  // baseUrl = 'http://webapi.ybzstj.com/cspd/';
-  baseUrl = 'http://172.0.0.41:8117/cspd/';
-  baseImgPath = '/img/';
+  /*测试环境*/
+  // baseUrl = 'http://172.0.0.41:8117/cspd/';
+  // baseUrlT = 'http://172.0.0.41:8117/cspo/';
+  /*生产环境*/
+  baseUrlT = 'http://webapi.ybzstj.com/cspo/';
+  baseUrl = 'http://webapi.ybzstj.com/cspd/';
 }
 
 export {
   baseUrl,
+  baseUrlT,
   routerMode,
-  baseImgPath
 }
 
 /*登录*/
@@ -65,8 +66,7 @@ export const API_QUERY_INS_CONSULT_CHATLIST = baseUrl+'doctororder/ins/insConsul
 export const API_QUERY_ORDER_COMMENT = baseUrl+'doctororder/ins/insConsultChat/queryOrderComment';//查看客户评价当前服务信息
 export const API_INS_SEND_TO_CUSTOMER = baseUrl+'doctororder/ins/insConsultChat/sendToCustomer';//医生回复客户信息
 export const API_INS_UPDATE_CONSULT_CHAT = baseUrl+'doctororder/ins/insConsultChat/updateInsConsultChat';//更新信息
-export const API_INS_UPLOAD = baseUrl+'doctororder/ins/insConsultChat/upload';//上传图片
-
+export const API_INS_UPLOAD = baseUrlT+'csp/serviceInfo/upload'//上传图片
 export const API_INS_ORDER_CALL_RECORD_BY_PAGE = baseUrl+'doctororder/ins/phoneconsultation/getInsOrderCallRecordByPage';//电话报告解读 ->分页获取语音列表
 export const API_INS_REPORT_DETAIL = baseUrl+'doctororder/ins/phoneconsultation/getMedicalReportDetail';//电话报告解读 ->标准方式查看体检报告
 export const API_INS_GET_SMS_TEMPLATE = baseUrl+'doctororder/ins/phoneconsultation/getSMSTemplate';//电话报告解读 -> 获取短信模板
