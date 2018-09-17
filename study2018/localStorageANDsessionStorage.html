@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body onbeforeunload = 'onbeforeunload()'>
+    <h1>sessionStorage</h1><input type="text" id="field">
+    <h1>localStorage</h1><input type="text" id="field2">
+</body>
+<script>
+    // 获取文本输入框
+var field = document.getElementById("field");
+var field2 = document.getElementById("field2");
+ 
+ // 检测是否存在 autosave 键值
+ // (这个会在页面偶然被刷新的情况下存在)
+ if (sessionStorage.getItem("autosave")) {
+   // 恢复文本输入框的内容
+   field.value = sessionStorage.getItem("autosave");
+ }
+  
+ // 监听文本输入框的 change 事件
+ field.addEventListener("change", function() {
+   // 保存结果到 sessionStorage 对象中
+   sessionStorage.setItem("autosave", field.value);
+ });
+ if (localStorage.getItem("autosave")) {
+   // 恢复文本输入框的内容
+   field2.value = localStorage.getItem("autosave");
+ }
+  
+ // 监听文本输入框的 change 事件
+ field2.addEventListener("change", function() {
+   // 保存结果到 localStorage 对象中
+   localStorage.setItem("autosave", field2.value);
+ });
+ //关闭页面清除localstorage
+//  function onbeforeunload() { 
+//     localStorage.removeItem('autosave');
+//   }
+</script>
+</html>

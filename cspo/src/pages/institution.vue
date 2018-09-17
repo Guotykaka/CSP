@@ -90,14 +90,14 @@
                     </el-col>
                   </el-form-item>
                   <el-form-item label="医院地推LOGO:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess">
                       <img v-if="editTable.extensionLogoUrl" :src="editTable.extensionLogoUrl" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
                   </el-form-item>
                   <el-form-item label="医院地推宣传图:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess">
                       <img v-if="editTable.extensionImageUrl " :src="editTable.extensionImageUrl " class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
@@ -127,14 +127,14 @@
                     </template>
                   </el-form-item>
                   <el-form-item label="体检报告LOGO:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess">
                       <img v-if="editTable.medicalExamReportLogo " :src="editTable.medicalExamReportLogo " class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
                   </el-form-item>
                   <el-form-item label="医院Banner:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccess">
                       <img v-if="editTable.bannerExtensionUrl " :src="editTable.bannerExtensionUrl " class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
@@ -303,14 +303,14 @@
                     </el-col>
                   </el-form-item>
                   <el-form-item label="医院地推LOGO:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessDTLOGO" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessDTLOGO">
                       <img v-if="imageUrlDTLOGO" :src="imageUrlDTLOGO" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
                   </el-form-item>
                   <el-form-item label="医院地推宣传图:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessDT" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessDT">
                       <img v-if="imageUrlDT" :src="imageUrlDT" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
@@ -340,14 +340,14 @@
                     </template>
                   </el-form-item>
                   <el-form-item label="体检报告LOGO:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessLOGO" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessLOGO">
                       <img v-if="imageUrlLOGO" :src="imageUrlLOGO" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
                     </el-upload>
                   </el-form-item>
                   <el-form-item label="医院Banner:" :label-width="formLabelWidth150">
-                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessBan" :before-upload="beforeAvatarUpload">
+                    <el-upload class="avatar-uploader clear:after" :action="upImgUrl" :show-file-list="false" :on-success="handleAvatarSuccessBan">
                       <img v-if="imageUrlBan" :src="imageUrlBan" class="avatar">
                       <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                       <div slot="tip" class="el-upload__tip">(上传图片的最佳尺寸：570*150px,PNG格式的图片大小不超过1M.)</div>
@@ -514,6 +514,9 @@ export default {
       return false
     },
     //上传
+    handleAvatarSuccess(res, file) {
+      this.imageUrl = URL.createObjectURL(file.raw)
+    },
     handleAvatarSuccessDTLOGO(res, file) {
       this.imageUrlDTLOGO = URL.createObjectURL(file.raw)
     },
@@ -530,9 +533,9 @@ export default {
       const isJPG = file.type === 'image/jpeg'
       const isLt2M = file.size / 1024 / 1024 < 2
 
-      // if (!isJPG) {
-      //   this.$message.error('上传头像图片只能是 JPG 格式!')
-      // }
+      if (!isJPG) {
+        this.$message.error('上传头像图片只能是 JPG 格式!')
+      }
       if (!isLt2M) {
         this.$message.error('上传头像图片大小不能超过 2MB!')
       }

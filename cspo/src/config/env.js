@@ -13,8 +13,14 @@ let routerMode = 'hash';
 
 if (process.env.NODE_ENV == 'development') {
 
+<<<<<<< HEAD
   // baseUrl = 'http://172.0.0.41:8117/cspo/';
   baseUrl = 'http://10.50.50.117:8117/cspo/';
+=======
+  baseUrl = 'http://HZ2WZSG82:8117/cspo/';
+  // baseUrl = 'http://172.0.0.41:8117/cspo/';
+  //payUrl = 'http://HZ2WZSG82:8115/pay/';
+>>>>>>> 3c255fa504274fb8f0a1d36d299f337c8580cf49
   payUrl = 'http://172.0.0.41:8115/pay/';
 }else{
   /*测试环境*/
@@ -42,6 +48,7 @@ export const API_CLOSE_INS_LEAVE_WORDANSWER = baseUrl+'ins/insleavewordanswer/cl
 //系统管理
 export const API_POST_LIST_NOTICE = baseUrl+'sys/notice/list';//公告列表
 export const API_POST_INFO_NOTICE = baseUrl+'sys/notice/info';//公告详情
+export const API_POST_STATUS_NOTICE = baseUrl+'sys/notice/updateStatus';//公告状态
 export const API_POST_LIST_USER = baseUrl+'sys/user/list';//用户列表
 export const API_POST_INFO_USER = baseUrl+'sys/user/info';//查看用户
 
